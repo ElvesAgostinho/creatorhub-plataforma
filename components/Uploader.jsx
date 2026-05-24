@@ -90,6 +90,9 @@ export default function Uploader({
             upload.resumeFromPreviousUpload(previousUploads[0])
           }
           upload.start()
+        }).catch(() => {
+          // Em caso de erro a procurar (ou a retomar devido a 404 no servidor), tentar de raiz
+          upload.start()
         })
       } else {
         // Upload direto normal (imagens, PDFs)
