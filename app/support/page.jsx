@@ -27,7 +27,7 @@ export default function SupportPage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="mailto:suporte@above.com" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-8 py-4 rounded-xl text-lg transition text-center shadow-lg shadow-[#FF4500]/20 flex items-center justify-center gap-2">
+              <a href="mailto:suporte@abovedinheironanet.com" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-8 py-4 rounded-xl text-lg transition text-center shadow-lg shadow-[#FF4500]/20 flex items-center justify-center gap-2">
                 Falar com o Suporte
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
               </a>
