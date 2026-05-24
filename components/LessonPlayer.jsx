@@ -225,24 +225,36 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
         {/* Vídeo */}
         <div className="px-8 py-4">
            <div className="aspect-video bg-black rounded-3xl relative shadow-[0_0_50px_rgba(255,69,0,0.1)] border border-neutral-800/50 overflow-hidden ring-1 ring-white/5">
-             <ReactPlayer
-               ref={videoRef}
-               url={current.video_url}
-               controls
-               width="100%"
-               height="100%"
-               playsinline
-               onProgress={onTimeUpdate}
-               onEnded={onEnded}
-               style={{ backgroundColor: 'black' }}
-               config={{
-                 file: {
-                   attributes: {
-                     preload: "metadata"
-                   }
-                 }
-               }}
-             />
+             {(() => {
+               let finalUrl = current.video_url || "";
+               if (finalUrl.startsWith("storage:lessons/")) {
+                 finalUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/lessons/${finalUrl.replace("storage:lessons/", "")}`;
+               }
+               
+               return (
+                 <ReactPlayer
+                   ref={videoRef}
+                   url={finalUrl}
+                   controls
+                   width="100%"
+                   height="100%"
+                   playsinline
+                   onProgress={onTimeUpdate}
+                   onEnded={onEnded}
+                   style={{ backgroundColor: 'black' }}
+                   config={{
+                     file: {
+                       forceHLS: finalUrl.includes('.m3u8'),
+                       forceVideo: !finalUrl.includes('.m3u8'),
+                       attributes: {
+                         preload: "metadata",
+                         controlsList: "nodownload"
+                       }
+                     }
+                   }}
+                 />
+               );
+             })()}
              
              {/* Glow effect at the bottom simulating the reference image */}
              <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-[#FF4500]/20 blur-3xl pointer-events-none rounded-full"></div>

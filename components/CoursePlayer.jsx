@@ -162,6 +162,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
           config={{
             file: {
               forceHLS: finalUrl.includes('.m3u8'),
+              forceVideo: !finalUrl.includes('.m3u8'),
               attributes: {
                 controlsList: 'nodownload'
               }
