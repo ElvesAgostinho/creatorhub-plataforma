@@ -29,7 +29,7 @@ export async function approvePurchase(formData) {
 
   const { data: purchase, error: pe } = await svc
     .from("purchases")
-    .select("*, products(affiliate_commission_pct)")
+    .select("*, products(title, affiliate_commission_pct, creator_id), profiles(email, full_name)")
     .eq("id", id)
     .maybeSingle()
 
@@ -50,6 +50,43 @@ export async function approvePurchase(formData) {
       amount_cents: commissionAmount,
       status: "pending"
     })
+  }
+
+  // Webhooks Dispatch
+  if (purchase.products?.creator_id) {
+    const { data: integrations } = await svc
+      .from("creator_integrations")
+      .select("*")
+      .eq("creator_id", purchase.products.creator_id)
+      .eq("is_active", true)
+
+    if (integrations && integrations.length > 0) {
+      const payload = {
+        event: "purchase.approved",
+        purchase_id: purchase.id,
+        amount_cents: purchase.amount_cents,
+        product: {
+          id: purchase.product_id,
+          title: purchase.products.title
+        },
+        buyer: {
+          id: purchase.user_id,
+          email: purchase.profiles?.email,
+          name: purchase.profiles?.full_name
+        },
+        approved_at: new Date().toISOString()
+      }
+
+      integrations.forEach((integration) => {
+        if (integration.webhook_url) {
+          fetch(integration.webhook_url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          }).catch((err) => console.error("Webhook failed:", integration.provider, err))
+        }
+      })
+    }
   }
 
   revalidatePath("/admin")

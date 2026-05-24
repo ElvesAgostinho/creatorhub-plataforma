@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import AdminNav from "@/components/AdminNav"
+import IntegrationsClient from "./IntegrationsClient"
 
 export const dynamic = "force-dynamic"
 
@@ -19,11 +20,10 @@ export default async function IntegrationsPage() {
     redirect("/dashboard")
   }
 
-  const integrations = [
-    { name: "HubSpot", desc: "Sincroniza os teus novos alunos com o teu CRM automaticamente.", status: "Desconectado", icon: "🔗" },
-    { name: "Mailchimp", desc: "Adiciona compradores à tua newsletter e sequências de email.", status: "Desconectado", icon: "📧" },
-    { name: "Zapier", desc: "Conecta a plataforma a mais de 5000 apps via Webhooks.", status: "Conectado", icon: "⚡" },
-  ]
+  const { data: existingIntegrations } = await supabase
+    .from("creator_integrations")
+    .select("*")
+    .eq("creator_id", user.id)
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8F7F5]">
@@ -35,27 +35,10 @@ export default async function IntegrationsPage() {
         </div>
 
         <p className="text-neutral-500 mb-8 max-w-2xl">
-          Automatiza o teu fluxo de trabalho ligando a ABOVE às ferramentas que já utilizas. Aumenta a eficiência do teu marketing e suporte.
+          Automatiza o teu fluxo de trabalho ligando a ABOVE às ferramentas que já utilizas. Aumenta a eficiência configurando webhooks que disparam sempre que uma nova venda for aprovada.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {integrations.map(int => (
-            <div key={int.name} className="bg-white rounded-3xl p-6 border border-neutral-200 shadow-sm flex flex-col">
-              <div className="text-4xl mb-4">{int.icon}</div>
-              <h3 className="font-extrabold text-xl mb-2">{int.name}</h3>
-              <p className="text-sm text-neutral-600 mb-6 flex-1">{int.desc}</p>
-              
-              <div className="flex items-center justify-between mt-auto">
-                <span className={`text-xs font-bold px-2 py-1 rounded ${int.status === 'Conectado' ? 'bg-green-100 text-green-700' : 'bg-neutral-100 text-neutral-500'}`}>
-                  {int.status}
-                </span>
-                <button className="text-sm font-bold text-[#FF4500] hover:underline">
-                  {int.status === 'Conectado' ? 'Gerir' : 'Conectar'}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <IntegrationsClient existingIntegrations={existingIntegrations || []} />
 
       </main>
     </div>
