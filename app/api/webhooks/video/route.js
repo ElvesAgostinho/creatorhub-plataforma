@@ -63,12 +63,23 @@ async function processVideo(lessonId, videoUrl) {
       }
     }
     
-    await Promise.all(uploadPromises);
+    const uploadResults = await Promise.all(uploadPromises);
+    
+    // Verificar se houve erros de upload (ex: Falta de permissões / RLS)
+    for (const res of uploadResults) {
+      if (res.error) {
+        throw new Error(`Erro ao fazer upload para o Storage: ${res.error.message}`);
+      }
+    }
     
     // 6. Atualizar a base de dados com o novo link
     console.log(`[HLS-Worker] A atualizar a Base de Dados...`);
     const newVideoUrl = `storage:lessons/hls/${lessonId}/master.m3u8`;
-    await supabase.from('lessons').update({ video_url: newVideoUrl }).eq('id', lessonId);
+    const { error: dbError } = await supabase.from('lessons').update({ video_url: newVideoUrl }).eq('id', lessonId);
+    
+    if (dbError) {
+      throw new Error(`Erro ao atualizar Base de Dados: ${dbError.message}`);
+    }
     
     console.log(`[HLS-Worker] ✅ Aula ${lessonId} convertida e atualizada com sucesso!`);
   } catch (err) {
