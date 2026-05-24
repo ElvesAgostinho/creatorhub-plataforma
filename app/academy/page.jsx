@@ -153,13 +153,13 @@ export default async function AcademyPage() {
               Vejo a Academia ABOVE como um grande diferencial. Primeiro, devido ao custo-benefício.<br/><br/>
               Se comparares com outras plataformas, <span className="font-bold">vais acabar com um custo muito mais elevado noutro lado.</span> Na minha opinião, o custo-benefício da ABOVE é o melhor hoje em dia.
             </p>
-            <div className="flex items-center gap-3 pt-4">
-              <img src="/marcela.jpg" alt="Marcela Lopez" className="w-10 h-10 rounded-full object-cover" />
-              <div>
-                <p className="font-bold text-neutral-900 text-sm">Marcela Lopez</p>
-                <p className="text-neutral-500 text-xs">Especialista em Marketing Digital</p>
-              </div>
-            </div>
+                <div className="flex items-center gap-4 mt-auto pt-4">
+                  <div className="w-12 h-12 rounded-full bg-[#111] border border-neutral-300 flex-shrink-0"></div>
+                  <div>
+                    <h4 className="font-bold text-[#111111]">Marcela Lopez</h4>
+                    <p className="text-sm text-neutral-500">Especialista em Marketing Digital</p>
+                  </div>
+                </div>
           </div>
 
           {/* Top Seller 3 */}

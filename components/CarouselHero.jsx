@@ -5,26 +5,26 @@ import { useState, useEffect } from "react"
 export default function CarouselHero() {
   const slides = [
     {
-      // Cena de cinema - Mulher negra a liderar uma reunião de forma imponente
-      image: "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=2000&auto=format&fit=crop", 
+      // Abstract dark waves - Premium tech vibe
+      image: "https://images.unsplash.com/photo-1614850715649-1d0106293cb1?q=80&w=2000&auto=format&fit=crop", 
       title: "O Teu Império de Conhecimento",
       description: "Junta-te aos líderes que estão a moldar o futuro. Acede a conteúdos exclusivos, aulas de excelência e uma comunidade vibrante."
     },
     {
-      // Estúdio de som/vídeo premium - criatividade e profissionalismo
-      image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2000&auto=format&fit=crop",
+      // Dark cinematic creative space
+      image: "https://images.unsplash.com/photo-1600861194942-f883de0dfe96?q=80&w=2000&auto=format&fit=crop",
       title: "Acelera a tua Carreira",
       description: "Aprende com os melhores profissionais. Conteúdo prático, masterclasses ao vivo e networking com quem já chegou onde queres estar."
     },
     {
-      // Homem negro em ambiente de luxo/sucesso focado
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2000&auto=format&fit=crop", 
+      // Premium liquid dark aesthetic
+      image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop", 
       title: "Domina a Tua Arte",
       description: "Do zero à mestria. O teu passe VIP para dezenas de cursos completos num único lugar, com acesso ilimitado."
     },
     {
-      // Ambiente arquitetónico brutalista/tecnológico
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop",
+      // Minimalist sleek dark architecture
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop",
       title: "Faz Parte da Elite",
       description: "Não caminhes sozinho. Debate ideias, partilha resultados e cresce de forma exponencial com mentes brilhantes."
     }
