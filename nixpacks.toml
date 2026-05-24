@@ -1,14 +1,2 @@
-[providers]
-  exclude = ["node"]
-
 [phases.setup]
-  nixPkgs = ["nodejs_20", "ffmpeg", "curl"]
-
-[phases.install]
-  cmds = ["npm install"]
-
-[phases.build]
-  cmds = ["npm run build"]
-
-[start]
-  cmd = "npm start"
+  nixPkgs = ["...", "ffmpeg"]
