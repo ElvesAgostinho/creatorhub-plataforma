@@ -135,10 +135,10 @@ export default async function AcademyPage() {
             <p className="text-neutral-700 leading-relaxed text-sm flex-1">
               Existe um ditado no mercado que diz que é muito mais fácil vender a quem já é teu cliente, e a Academia é essa ferramenta porque a pessoa já está a viver a experiência de ser aluno. Não preciso de provar muito sobre o meu produto; eles estão à espera da próxima oferta. A <span className="font-bold">Academia dá-me essa facilidade e rapidez para adquirir o próximo produto num só clique.</span>
             </p>
-            <div className="flex items-center gap-3 pt-4">
-              <img src="/marco.jpg" alt="Marco Guimarães" className="w-10 h-10 rounded-full object-cover" />
+            <div className="flex items-center gap-4 mt-auto pt-4">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" alt="Amílcar Diogo" className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
               <div>
-                <p className="font-bold text-neutral-900 text-sm">Marco Guimarães</p>
+                <p className="font-bold text-neutral-900 text-sm">Amílcar Diogo</p>
                 <p className="text-neutral-500 text-xs">CEO da Top Consultores</p>
               </div>
             </div>
@@ -153,13 +153,13 @@ export default async function AcademyPage() {
               Vejo a Academia ABOVE como um grande diferencial. Primeiro, devido ao custo-benefício.<br/><br/>
               Se comparares com outras plataformas, <span className="font-bold">vais acabar com um custo muito mais elevado noutro lado.</span> Na minha opinião, o custo-benefício da ABOVE é o melhor hoje em dia.
             </p>
-                <div className="flex items-center gap-4 mt-auto pt-4">
-                  <div className="w-12 h-12 rounded-full bg-[#111] border border-neutral-300 flex-shrink-0"></div>
-                  <div>
-                    <h4 className="font-bold text-[#111111]">Marcela Lopez</h4>
-                    <p className="text-sm text-neutral-500">Especialista em Marketing Digital</p>
-                  </div>
-                </div>
+            <div className="flex items-center gap-4 mt-auto pt-4">
+              <img src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?q=80&w=300&auto=format&fit=crop" alt="Nádia Kassange" className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
+              <div>
+                <h4 className="font-bold text-[#111111]">Nádia Kassange</h4>
+                <p className="text-sm text-neutral-500">Especialista em Marketing Digital</p>
+              </div>
+            </div>
           </div>
 
           {/* Top Seller 3 */}
@@ -172,10 +172,10 @@ export default async function AcademyPage() {
               Exceto que a ABOVE apenas cobra por transação, o que sai <span className="font-bold">muito mais barato</span> do que pagar mensalidades fixas.<br/><br/>
               Se pudesse dar um conselho a quem não usa a Academia, seria para experimentar antes de qualquer outra.
             </p>
-            <div className="flex items-center gap-3 pt-4">
-              <img src="/elves.jpg" alt="Elves Sacapuri" className="w-10 h-10 rounded-full object-cover" />
+            <div className="flex items-center gap-4 mt-auto pt-4">
+              <img src="https://images.unsplash.com/photo-1531384441138-2736e62e0919?q=80&w=300&auto=format&fit=crop" alt="Nelson Tati" className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
               <div>
-                <p className="font-bold text-neutral-900 text-sm">Elves Sacapuri</p>
+                <p className="font-bold text-neutral-900 text-sm">Nelson Tati</p>
                 <p className="text-neutral-500 text-xs">Especialista em IA</p>
               </div>
             </div>
