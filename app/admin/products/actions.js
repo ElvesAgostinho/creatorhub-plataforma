@@ -35,7 +35,7 @@ function slugify(s = "") {
 }
 
 export async function createProduct(formData) {
-  const { profile } = await assertAdmin()
+  const { user, profile } = await assertAdmin()
   const svc = createServiceClient()
 
   const type = formData.get("type")
