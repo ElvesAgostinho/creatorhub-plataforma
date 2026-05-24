@@ -1,4 +1,5 @@
 import AcademyFAQ from "@/components/AcademyFAQ"
+import AcademyHeroCarousel from "@/components/AcademyHeroCarousel"
 import { createServiceClient } from "@/lib/supabase/server"
 
 export const dynamic = "force-dynamic"
@@ -15,52 +16,34 @@ export default async function AcademyPage() {
   
   return (
     <div className="bg-white">
-      {/* 1. Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 lg:py-32 grid lg:grid-cols-2 gap-12 items-center">
-        <div className="space-y-6">
-          <p className="text-[#FF4500] font-bold tracking-wide uppercase text-sm">
-            ACADEMIA ABOVE
-          </p>
-          <h1 className="text-5xl lg:text-6xl font-medium tracking-tight text-neutral-900 leading-[1.1]">
-            O teu negócio <br/>
-            <span className="text-neutral-900">num só lugar</span>
+      {/* Hero Section */}
+      <section className="relative w-full h-auto min-h-[600px] lg:h-[700px] flex flex-col lg:flex-row">
+        
+        {/* Left Content - Solid Color (Orange) */}
+        <div className="w-full lg:w-1/2 bg-[#FF4500] text-white flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-16 lg:py-0 h-full min-h-[400px]">
+          <div className="mb-6 flex items-center gap-3">
+            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
+            <span className="font-bold text-xl tracking-wider">ABOVE Academy</span>
+          </div>
+          
+          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight mb-6">
+            Aprende a Construir, Monetizar, Gerir e Crescer o teu Negócio
           </h1>
-          <p className="text-lg text-neutral-600 max-w-lg leading-relaxed">
-            Transforma a experiência dos teus clientes com conteúdo disponível em qualquer dispositivo, totalmente personalizado com a tua marca e com suporte inteligente 24/7. Tudo isto na Academia ABOVE, a tua área de membros definitiva.
+          <p className="text-lg lg:text-xl text-white/90 mb-8 max-w-xl font-medium">
+            Faz parte da elite do conhecimento. Acesso a masterclasses exclusivas, rede de networking premium e estratégias comprovadas.
           </p>
-          <div className="pt-4">
-            <a href="/admin/products" className="inline-block bg-[#FF4500] hover:bg-[#e03d00] text-white font-bold px-8 py-4 rounded-full text-lg transition shadow-lg shadow-[#FF4500]/20">
+          <div className="pt-2">
+            <a href="/admin/products" className="inline-block bg-white text-[#FF4500] font-bold px-8 py-4 rounded-full text-lg transition-transform hover:-translate-y-1 shadow-lg shadow-black/10">
               Começar agora
             </a>
           </div>
         </div>
-        <div className="relative flex justify-center lg:justify-end">
-          {/* Hero Composition */}
-          <div className="relative w-full max-w-lg aspect-square bg-neutral-100 rounded-2xl overflow-hidden shadow-2xl border border-neutral-200">
-            <img src="/premium_academy_hero.png" alt="Laptop showing courses" className="w-full h-full object-cover opacity-90" />
-            
-            {/* Fake course cards overlay to simulate the Hotmart image */}
-            <div className="absolute bottom-4 left-4 right-4 flex gap-3 overflow-hidden">
-              <div className="w-1/3 aspect-[3/4] rounded-lg shadow-xl border border-neutral-700 flex flex-col justify-end p-3 bg-cover bg-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/30"></div>
-                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=300&auto=format&fit=crop" alt="Fit Kitchen" className="absolute inset-0 w-full h-full object-cover -z-10" />
-                <span className="text-white font-bold text-xs relative z-10 drop-shadow-md">Fit Kitchen</span>
-              </div>
-              <div className="w-1/3 aspect-[3/4] rounded-lg shadow-xl border border-neutral-700 flex flex-col justify-end p-3 bg-cover bg-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-black/20"></div>
-                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=300&auto=format&fit=crop" alt="360 Routine" className="absolute inset-0 w-full h-full object-cover -z-10" />
-                <span className="text-white font-bold text-xs relative z-10 drop-shadow-md">360 Routine</span>
-              </div>
-              <div className="w-1/3 aspect-[3/4] rounded-lg shadow-xl border border-blue-700 flex flex-col justify-end p-3 relative overflow-hidden">
-                <div className="absolute inset-0 bg-blue-900/40 mix-blend-multiply"></div>
-                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=300&auto=format&fit=crop" alt="Coach Fit" className="absolute inset-0 w-full h-full object-cover -z-10" />
-                <div className="relative z-10">
-                  <span className="text-blue-200 font-bold text-[10px] mb-1 block drop-shadow-md">AI AGENTS</span>
-                  <span className="text-white font-bold text-xs leading-tight drop-shadow-md">COACH FIT</span>
-                </div>
-              </div>
-            </div>
-          </div>
+
+        {/* Right Content - Carousel of Images */}
+        <div className="w-full lg:w-1/2 h-[400px] lg:h-auto lg:absolute lg:right-0 lg:top-0 lg:bottom-0 relative overflow-hidden">
+          <AcademyHeroCarousel />
         </div>
       </section>
 
