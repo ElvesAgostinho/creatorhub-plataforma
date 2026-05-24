@@ -148,17 +148,25 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
       )
     }
 
-    // Direct Upload or generic file (using native HTML5 video)
+    // Direct Upload or generic file (using ReactPlayer for HLS and MP4)
     return (
       <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-neutral-800 relative group">
-        <video 
-          src={finalUrl} 
-          controls 
-          controlsList="nodownload"
-          className="w-full h-full object-contain"
-          onTimeUpdate={onTimeUpdate}
+        <ReactPlayer
+          url={finalUrl}
+          controls={true}
+          width="100%"
+          height="100%"
+          onProgress={onTimeUpdate}
           onEnded={onEnded}
-          onError={(e) => console.error("Native Video Error:", e.target.error)}
+          onError={(e) => console.error("ReactPlayer Error:", e)}
+          config={{
+            file: {
+              forceHLS: finalUrl.includes('.m3u8'),
+              attributes: {
+                controlsList: 'nodownload'
+              }
+            }
+          }}
         />
       </div>
     )
