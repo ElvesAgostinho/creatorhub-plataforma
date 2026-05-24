@@ -77,7 +77,7 @@ export default function Footer() {
               {/* FACEBOOK */}
               <a href="https://www.facebook.com/abovedinheironanet" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:text-[#FF4500] hover:border-[#FF4500] transition group">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 transition-transform group-hover:scale-110">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.34 2.88 2.88 0 0 1 2.9-3.93h.28V9.63h-.26a6.33 6.33 0 0 0-6.1 6.15 6.33 6.33 0 0 0 6.3 6.3 6.33 6.33 0 0 0 6.27-6.22v-6.3a8.27 8.27 0 0 0 5.4 1.95v-3.41a5.06 5.06 0 0 1-2.37-.8z" />
+                  <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7.5v4H10v9.5h4v-9.5z" />
                 </svg>
               </a>
               {/* TIKTOK */}
@@ -85,6 +85,13 @@ export default function Footer() {
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 transition-transform group-hover:scale-110">
                   <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.12-3.44-3.17-3.64-5.46-.17-2.39.81-4.75 2.59-6.25 1.5-1.28 3.48-1.93 5.44-1.81.18.01.35.03.53.05v4.2c-.17-.03-.34-.05-.51-.06-.82-.06-1.66.08-2.39.46-.98.51-1.74 1.4-1.95 2.49-.24 1.25.13 2.56.98 3.43.76.78 1.86 1.15 2.94 1.05 1.34-.13 2.47-1.07 2.85-2.35.15-.51.21-1.05.21-1.58V.02z" />
                 </svg>
+              </a>
+            </div>
+            
+            <div className="mt-6">
+              <p className="text-xs text-neutral-400 font-medium uppercase tracking-wider mb-2">Suporte e Contacto</p>
+              <a href="mailto:abovesuporte25@gmail.com" className="text-sm font-semibold hover:text-[#FF4500] transition">
+                abovesuporte25@gmail.com
               </a>
             </div>
           </div>
