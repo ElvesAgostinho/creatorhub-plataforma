@@ -231,27 +231,41 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                  finalUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/lessons/${finalUrl.replace("storage:lessons/", "")}`;
                }
                
-               return (
-                 <ReactPlayer
-                   ref={videoRef}
-                   url={finalUrl}
-                   controls
-                   width="100%"
-                   height="100%"
-                   playsinline
-                   onProgress={onTimeUpdate}
-                   onEnded={onEnded}
-                   style={{ backgroundColor: 'black' }}
-                   config={{
-                     file: {
-                       forceHLS: finalUrl.includes('.m3u8'),
-                       forceVideo: !finalUrl.includes('.m3u8'),
-                       attributes: {
-                         preload: "metadata",
-                         controlsList: "nodownload"
+               if (finalUrl.includes('.m3u8')) {
+                 return (
+                   <ReactPlayer
+                     ref={videoRef}
+                     url={finalUrl}
+                     controls
+                     width="100%"
+                     height="100%"
+                     playsinline
+                     onProgress={onTimeUpdate}
+                     onEnded={onEnded}
+                     style={{ backgroundColor: 'black' }}
+                     config={{
+                       file: {
+                         forceHLS: true,
+                         attributes: {
+                           preload: "metadata",
+                           controlsList: "nodownload"
+                         }
                        }
-                     }
-                   }}
+                     }}
+                   />
+                 );
+               }
+               
+               return (
+                 <video 
+                   ref={videoRef}
+                   src={finalUrl} 
+                   controls 
+                   playsInline
+                   className="w-full h-full object-contain bg-black"
+                   controlsList="nodownload"
+                   onTimeUpdate={onTimeUpdate}
+                   onEnded={onEnded}
                  />
                );
              })()}

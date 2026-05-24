@@ -148,26 +148,39 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
       )
     }
 
-    // Direct Upload or generic file (using ReactPlayer for HLS and MP4)
-    return (
-      <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-neutral-800 relative group">
-        <ReactPlayer
-          url={finalUrl}
-          controls={true}
-          width="100%"
-          height="100%"
-          onProgress={onTimeUpdate}
-          onEnded={onEnded}
-          onError={(e) => console.error("ReactPlayer Error:", e)}
-          config={{
-            file: {
-              forceHLS: finalUrl.includes('.m3u8'),
-              forceVideo: !finalUrl.includes('.m3u8'),
-              attributes: {
-                controlsList: 'nodownload'
+    // HLS Stream
+    if (finalUrl.includes('.m3u8')) {
+      return (
+        <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-neutral-800 relative group">
+          <ReactPlayer
+            url={finalUrl}
+            controls={true}
+            width="100%"
+            height="100%"
+            onProgress={onTimeUpdate}
+            onEnded={onEnded}
+            onError={(e) => console.error("ReactPlayer Error:", e)}
+            config={{
+              file: {
+                forceHLS: true,
+                attributes: { controlsList: 'nodownload' }
               }
-            }
-          }}
+            }}
+          />
+        </div>
+      )
+    }
+
+    // Native MP4
+    return (
+      <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-neutral-800 relative group flex items-center justify-center">
+        <video 
+          src={finalUrl} 
+          controls 
+          className="w-full h-full object-contain"
+          controlsList="nodownload"
+          onTimeUpdate={onTimeUpdate}
+          onEnded={onEnded}
         />
       </div>
     )
