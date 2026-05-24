@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { saveProgress } from "@/app/learn/[slug]/actions"
 import dynamic from "next/dynamic"
 import AIAssistant from "./AIAssistant"
+import HlsPlayer from "@/components/HlsPlayer"
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false })
 
@@ -233,25 +234,11 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                
                if (finalUrl.includes('.m3u8')) {
                  return (
-                   <ReactPlayer
-                     ref={videoRef}
-                     url={finalUrl}
-                     controls
-                     width="100%"
-                     height="100%"
-                     playsinline
-                     onProgress={onTimeUpdate}
+                   <HlsPlayer
+                     src={finalUrl}
+                     onTimeUpdate={onTimeUpdate}
                      onEnded={onEnded}
-                     style={{ backgroundColor: 'black' }}
-                     config={{
-                       file: {
-                         forceHLS: true,
-                         attributes: {
-                           preload: "metadata",
-                           controlsList: "nodownload"
-                         }
-                       }
-                     }}
+                     className="w-full h-full object-contain bg-black"
                    />
                  );
                }

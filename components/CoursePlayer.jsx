@@ -9,6 +9,8 @@ import dynamic from "next/dynamic"
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false })
 import { saveProgress, addXP } from "@/app/learn/[slug]/actions"
 
+import HlsPlayer from "@/components/HlsPlayer"
+
 export default function CoursePlayer({ product, modules, lessons, academy, initialProgress = {} }) {
   const [currentLessonId, setCurrentLessonId] = useState(lessons[0]?.id || null)
   const [progressMap, setProgressMap] = useState(initialProgress)
@@ -152,20 +154,11 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
     if (finalUrl.includes('.m3u8')) {
       return (
         <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-neutral-800 relative group">
-          <ReactPlayer
-            url={finalUrl}
-            controls={true}
-            width="100%"
-            height="100%"
-            onProgress={onTimeUpdate}
+          <HlsPlayer
+            src={finalUrl}
+            onTimeUpdate={onTimeUpdate}
             onEnded={onEnded}
-            onError={(e) => console.error("ReactPlayer Error:", e)}
-            config={{
-              file: {
-                forceHLS: true,
-                attributes: { controlsList: 'nodownload' }
-              }
-            }}
+            className="w-full h-full object-contain"
           />
         </div>
       )
