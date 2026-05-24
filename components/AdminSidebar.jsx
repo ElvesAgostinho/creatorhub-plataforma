@@ -38,7 +38,7 @@ export default function AdminSidebar() {
     <aside className="w-64 bg-white border-r border-neutral-200 hidden md:flex flex-col min-h-screen sticky top-0 h-screen">
       <div className="p-6">
         <a href="/admin" className="flex items-center gap-2">
-          <img src="/logo.png" alt="Plataforma Logo" className="h-6 w-auto object-contain" />
+          <span className="text-2xl font-black italic tracking-tighter text-[#FF4500]">ABOVE</span>
         </a>
       </div>
       

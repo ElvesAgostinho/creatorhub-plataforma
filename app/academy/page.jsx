@@ -126,8 +126,8 @@ export default async function AcademyPage() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Testimonial 1 */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Top Seller 1 */}
           <div className="flex flex-col border-l border-neutral-200 pl-6 space-y-6">
             <svg className="w-8 h-8 text-[#FF4500]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
@@ -136,15 +136,15 @@ export default async function AcademyPage() {
               Existe um ditado no mercado que diz que é muito mais fácil vender a quem já é teu cliente, e a Academia é essa ferramenta porque a pessoa já está a viver a experiência de ser aluno. Não preciso de provar muito sobre o meu produto; eles estão à espera da próxima oferta. A <span className="font-bold">Academia dá-me essa facilidade e rapidez para adquirir o próximo produto num só clique.</span>
             </p>
             <div className="flex items-center gap-3 pt-4">
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=150&auto=format&fit=crop" alt="Tiago" className="w-10 h-10 rounded-full object-cover" />
+              <img src="/marco.jpg" alt="Marco Guimarães" className="w-10 h-10 rounded-full object-cover" />
               <div>
-                <p className="font-bold text-neutral-900 text-sm">Tiago Ribeiro</p>
-                <p className="text-neutral-500 text-xs">TR Jurídico</p>
+                <p className="font-bold text-neutral-900 text-sm">Marco Guimarães</p>
+                <p className="text-neutral-500 text-xs">CEO da Top Consultores</p>
               </div>
             </div>
           </div>
 
-          {/* Testimonial 2 */}
+          {/* Top Seller 2 */}
           <div className="flex flex-col border-l border-neutral-200 pl-6 space-y-6">
              <svg className="w-8 h-8 text-[#FF4500]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
@@ -154,34 +154,15 @@ export default async function AcademyPage() {
               Se comparares com outras plataformas, <span className="font-bold">vais acabar com um custo muito mais elevado noutro lado.</span> Na minha opinião, o custo-benefício da ABOVE é o melhor hoje em dia.
             </p>
             <div className="flex items-center gap-3 pt-4">
-              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop" alt="Vitor" className="w-10 h-10 rounded-full object-cover" />
+              <img src="/marcela.jpg" alt="Marcela Lopez" className="w-10 h-10 rounded-full object-cover" />
               <div>
-                <p className="font-bold text-neutral-900 text-sm">Vítor Santos</p>
-                <p className="text-neutral-500 text-xs">Metaforando</p>
+                <p className="font-bold text-neutral-900 text-sm">Marcela Lopez</p>
+                <p className="text-neutral-500 text-xs">Especialista em Marketing Digital</p>
               </div>
             </div>
           </div>
 
-          {/* Testimonial 3 */}
-          <div className="flex flex-col border-l border-neutral-200 pl-6 space-y-6">
-             <svg className="w-8 h-8 text-[#FF4500]" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-            </svg>
-            <p className="text-neutral-700 leading-relaxed text-sm flex-1">
-              A qualidade de entrega que a plataforma oferece é sem precedentes. <br/><br/>
-              Consigo reter pelo menos <span className="font-bold">80 a 90% dos meus alunos ativos</span> através das funcionalidades de engajamento nativas.<br/><br/>
-              É um nível completamente diferente.
-            </p>
-            <div className="flex items-center gap-3 pt-4">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="Diogo" className="w-10 h-10 rounded-full object-cover" />
-              <div>
-                <p className="font-bold text-neutral-900 text-sm">Diogo Mendes</p>
-                <p className="text-neutral-500 text-xs">Docis</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Testimonial 4 */}
+          {/* Top Seller 3 */}
           <div className="flex flex-col border-l border-neutral-200 pl-6 space-y-6">
              <svg className="w-8 h-8 text-[#FF4500]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
@@ -192,10 +173,10 @@ export default async function AcademyPage() {
               Se pudesse dar um conselho a quem não usa a Academia, seria para experimentar antes de qualquer outra.
             </p>
             <div className="flex items-center gap-3 pt-4">
-              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" alt="Martin" className="w-10 h-10 rounded-full object-cover" />
+              <img src="/elves.jpg" alt="Elves Sacapuri" className="w-10 h-10 rounded-full object-cover" />
               <div>
-                <p className="font-bold text-neutral-900 text-sm">Martin Silva</p>
-                <p className="text-neutral-500 text-xs">Ben Zruel</p>
+                <p className="font-bold text-neutral-900 text-sm">Elves Sacapuri</p>
+                <p className="text-neutral-500 text-xs">Especialista em IA</p>
               </div>
             </div>
           </div>

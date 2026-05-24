@@ -57,11 +57,11 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col lg:flex-row justify-between items-end gap-8 border-t border-neutral-100 pt-8">
           <div className="md:col-span-1">
-            <a href="/" className="inline-block mb-4">
-              <img src="/logo.png" alt="Plataforma Logo" className="h-6 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all" />
+            <a href="/" className="inline-block">
+              <span className="text-2xl font-black italic tracking-tighter text-neutral-900 opacity-80 hover:opacity-100 transition-all">ABOVE</span>
             </a>
             {/* Social Icons */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 mt-4">
               {/* YOUTUBE */}
               <a href="https://www.youtube.com/@AbovedinheironaNET" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-600 hover:text-[#FF4500] hover:border-[#FF4500] transition group">
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 transition-transform group-hover:scale-110">

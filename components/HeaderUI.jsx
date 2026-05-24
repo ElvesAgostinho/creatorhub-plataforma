@@ -23,8 +23,8 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
           
           <div className="flex items-center gap-6">
             <a href="/marketplace" className="flex items-center gap-1">
-              <img src="/logo.png" alt="Plataforma Logo" className="h-6 w-auto object-contain" />
-              <span className="text-neutral-500 font-medium ml-1">Marketplace</span>
+              <span className="text-2xl font-black italic tracking-tighter text-[#FF4500]">ABOVE</span>
+              <span className="text-neutral-500 font-medium ml-2 border-l border-neutral-300 pl-2">Marketplace</span>
             </a>
 
             <div className="hidden md:block relative group">
@@ -177,7 +177,7 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
         
         <div className="flex items-center gap-8 xl:gap-10">
           <a href="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="Plataforma Logo" className="h-8 w-auto object-contain" />
+            <span className="text-3xl font-black italic tracking-tighter text-[#FF4500]">ABOVE</span>
           </a>
 
           <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-neutral-700">
