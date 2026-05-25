@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import { getProducts, getMyPurchases } from "@/lib/data/products"
+import { getMyPurchases } from "@/lib/data/products"
 import ProductCard from "@/components/ProductCard"
 
 export const dynamic = "force-dynamic"
@@ -29,8 +29,21 @@ export default async function Dashboard() {
   const myPurchases = await getMyPurchases()
   const myProductIds = new Set(myPurchases.map(p => p.product?.id))
   
-  const allProducts = await getProducts()
-  const recommended = allProducts.filter(p => !myProductIds.has(p.id)).slice(0, 4)
+  // Busca apenas 8 produtos e filtra em memória — muito mais rápido que buscar TUDO
+  const { data: recentProducts } = await (createClient())
+    .from("products")
+    .select("id, slug, title, image_url, type, price_cents, discount_pct, best_seller, instructor_name")
+    .eq("published", true)
+    .not("id", "in", `(${myProductIds.size > 0 ? [...myProductIds].join(",") : "00000000-0000-0000-0000-000000000000"})`)
+    .order("best_seller", { ascending: false })
+    .order("students_count", { ascending: false })
+    .limit(4)
+
+  const recommended = (recentProducts || []).map(r => ({
+    id: r.id, slug: r.slug, title: r.title, image: r.image_url,
+    type: r.type, price: Math.round((r.price_cents || 0) / 100),
+    discount: r.discount_pct || 0, bestSeller: !!r.best_seller, instructor: r.instructor_name
+  }))
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">

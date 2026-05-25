@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import LandingPage from "@/components/LandingPage"
 
-export const dynamic = "force-dynamic"
+// Página pública — cache de 30 segundos. Muito mais rápido que force-dynamic
+export const revalidate = 30
 
 export default async function Home() {
   const supabase = createClient()

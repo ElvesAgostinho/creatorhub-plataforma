@@ -122,7 +122,9 @@ export default function LandingPage({ user }) {
           <div className="order-2 md:order-1 relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#FF4500]/20 to-transparent blur-3xl -z-10"></div>
             <div className="bg-black border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl relative">
-              <img src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=800&auto=format&fit=crop" alt="Clubes de Assinatura" className="w-full h-auto opacity-50 mix-blend-overlay" />
+              <div className="relative w-full h-48">
+                <Image src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=800&auto=format&fit=crop" alt="Clubes de Assinatura" fill className="object-cover opacity-50 mix-blend-overlay" sizes="(max-width: 768px) 100vw, 50vw" />
+              </div>
               <div className="absolute inset-0 flex flex-col p-8">
                 <div className="flex-1"></div>
                 <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl flex items-center justify-between">
