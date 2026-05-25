@@ -1,19 +1,24 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 
 export default function FloatingWhatsApp({ user }) {
   const [show, setShow] = useState(false)
+  const pathname = usePathname()
+  
+  const isLearn = pathname?.startsWith("/learn") || pathname?.startsWith("/checkout")
+  const isAuth = pathname?.startsWith("/login") || pathname?.startsWith("/signup")
 
   useEffect(() => {
     // Only show for non-logged in users after a slight delay to avoid jarring pop-in
-    if (!user) {
+    if (!user && !isLearn && !isAuth) {
       const timer = setTimeout(() => setShow(true), 2000)
       return () => clearTimeout(timer)
     }
-  }, [user])
+  }, [user, isLearn, isAuth])
 
-  if (!show) return null
+  if (!show || isLearn || isAuth) return null
 
   const handleOpenWhatsApp = () => {
     const phone = "244900000000" // Replace with real platform number

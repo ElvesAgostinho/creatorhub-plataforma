@@ -7,6 +7,7 @@ import { X } from "lucide-react"
 export default function Footer({ user }) {
   const pathname = usePathname()
   const isLearn = pathname.startsWith("/learn") || pathname.startsWith("/checkout")
+  const isAuth = pathname.startsWith("/login") || pathname.startsWith("/signup")
   
   const [showBanner, setShowBanner] = useState(false)
 
@@ -23,7 +24,7 @@ export default function Footer({ user }) {
     localStorage.setItem("hidePromoBanner", "true")
   }
 
-  if (isLearn) return null; // Não mostrar rodapé no player de aulas nem no checkout
+  if (isLearn || isAuth) return null; // Não mostrar rodapé no player, checkout, login ou signup
 
   return (
     <footer className="bg-white text-neutral-600 border-t border-neutral-200 mt-20 pt-10 pb-32 relative text-sm">
