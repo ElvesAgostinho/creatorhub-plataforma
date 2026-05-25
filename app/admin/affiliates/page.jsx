@@ -23,7 +23,7 @@ export default async function AdminAffiliates() {
   // Get all applications with user emails
   const { data: applications } = await supabase
     .from("affiliate_applications")
-    .select("*, auth_users:user_id(email), profiles:user_id(full_name)")
+    .select("*, profiles:user_id(full_name)")
     .order("created_at", { ascending: false })
 
   return (

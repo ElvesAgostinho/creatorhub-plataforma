@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
-import CreateProductForm from "@/components/CreateProductForm"
+
 import BarChartPremium from "@/components/charts/BarChartPremium"
 
 export const dynamic = "force-dynamic"
@@ -82,14 +82,9 @@ export default async function AdminProducts() {
                 <p className="text-white/80 text-sm relative z-10 font-medium">Expande o teu império digital. Cria cursos, eventos ou mentorias.</p>
               </div>
               <div className="relative z-10 mt-8">
-                <details className="group">
-                  <summary className="bg-white text-[#FF4500] hover:bg-neutral-100 font-bold py-4 px-6 rounded-xl cursor-pointer transition-colors text-center shadow-lg block">
-                    + Iniciar Criação
-                  </summary>
-                  <div className="mt-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4">
-                    <CreateProductForm />
-                  </div>
-                </details>
+                <a href="/admin/products/new" className="bg-white text-[#FF4500] hover:bg-neutral-100 font-bold py-4 px-6 rounded-xl transition-colors text-center shadow-lg block w-full">
+                  + Iniciar Criação
+                </a>
               </div>
             </div>
           </div>
