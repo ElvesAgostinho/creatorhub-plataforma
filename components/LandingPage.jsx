@@ -258,6 +258,18 @@ export default function LandingPage() {
 
       </section>
 
+      {/* Footer */}
+      <footer className="w-full max-w-7xl mx-auto py-12 px-6 flex flex-col items-center border-t border-neutral-900 mt-20">
+        <div className="flex items-center gap-2 text-neutral-500 font-medium text-sm hover:text-neutral-300 transition-colors cursor-default">
+          <span>Protected by</span>
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg" 
+            alt="Cloudflare" 
+            className="h-5 opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all" 
+          />
+        </div>
+      </footer>
+
     </div>
   )
 }
