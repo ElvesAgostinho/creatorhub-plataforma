@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import { approveAffiliate, rejectAffiliate } from "./actions"
 import { PremiumButton } from "@/components/PremiumForms"
 import AffiliateFilter from "@/components/AffiliateFilter"
+import { Suspense } from "react"
 
 export const dynamic = "force-dynamic"
 
@@ -68,7 +69,9 @@ export default async function AdminAffiliates({ searchParams }) {
         <p className="text-neutral-500 font-medium">Aprova ou rejeita candidatos ao programa de afiliados.</p>
       </div>
 
-      <AffiliateFilter />
+      <Suspense fallback={<div className="h-12 bg-neutral-100 rounded-xl w-full mb-6 animate-pulse" />}>
+        <AffiliateFilter />
+      </Suspense>
 
       <div className="bg-white border border-neutral-200 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">

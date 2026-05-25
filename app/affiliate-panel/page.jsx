@@ -3,6 +3,7 @@ import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { CopyIcon } from "lucide-react"
 import AreaChartPremium from "@/components/charts/AreaChartPremium"
 import PanelSearch from "@/components/PanelSearch"
+import { Suspense } from "react"
 
 export const dynamic = "force-dynamic"
 
@@ -134,7 +135,9 @@ export default async function AffiliatePanel({ searchParams }) {
               <h2 className="text-3xl font-black text-neutral-900 tracking-tight">O que queres vender hoje?</h2>
               <span className="text-sm font-black bg-[#FF4500]/10 text-[#FF4500] px-3 py-1.5 rounded-xl">{products?.length || 0} Produtos</span>
             </div>
-            <PanelSearch placeholder="Pesquisar produtos pelo nome..." />
+            <Suspense fallback={<div className="h-10 bg-neutral-100 rounded-xl w-full max-w-md animate-pulse" />}>
+              <PanelSearch placeholder="Pesquisar produtos pelo nome..." />
+            </Suspense>
           </div>
           
           {(!products || products.length === 0) ? (
