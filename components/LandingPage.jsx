@@ -1,5 +1,6 @@
 "use client"
 import TypewriterText from "@/components/TypewriterText"
+import Image from "next/image"
 
 export default function LandingPage({ user }) {
   return (
@@ -48,10 +49,13 @@ export default function LandingPage({ user }) {
               }
             `}} />
             <div className="relative w-full max-w-[600px] lg:max-w-none lg:w-[110%] h-[350px] lg:h-[110%] lg:translate-x-12 rounded-l-3xl lg:rounded-none shadow-2xl lg:shadow-none overflow-hidden">
-              <img 
+              <Image 
                 src="/hero_sales_mobile.png" 
                 alt="Plataforma Integrada" 
-                className="absolute inset-0 w-full h-full object-cover object-center animate-cinematic"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-center animate-cinematic"
               />
             </div>
           </div>
@@ -87,7 +91,7 @@ export default function LandingPage({ user }) {
             </p>
              {/* Floating mockups */}
              <div className="absolute -bottom-10 -right-20 lg:-right-10 flex gap-4 pointer-events-none">
-               <img src="/modern_checkout.png" alt="Checkout otimizado" className="w-[300px] h-auto object-cover rounded-tl-3xl shadow-2xl rotate-3 translate-x-4 border border-neutral-800" />
+               <Image src="/modern_checkout.png" alt="Checkout otimizado" width={300} height={400} className="w-[300px] h-auto object-cover rounded-tl-3xl shadow-2xl rotate-3 translate-x-4 border border-neutral-800" />
              </div>
           </div>
 
@@ -195,8 +199,8 @@ export default function LandingPage({ user }) {
                 </div>
              </div>
              
-             <div className="mt-8 rounded-2xl border border-neutral-200 overflow-hidden shadow-sm">
-               <img src="/modern_members_area.png" alt="Área de Membros Premium" className="w-full h-auto object-cover" />
+             <div className="mt-8 rounded-2xl border border-neutral-200 overflow-hidden shadow-sm relative h-[300px] sm:h-[400px]">
+               <Image src="/modern_members_area.png" alt="Área de Membros Premium" fill className="object-cover object-left-top" />
              </div>
           </div>
         </div>
@@ -216,7 +220,7 @@ export default function LandingPage({ user }) {
 
           <div className="bg-white rounded-3xl p-8 flex flex-col shadow-sm border border-neutral-200">
             <div className="mb-6 rounded-2xl border border-neutral-200 relative overflow-hidden h-40 flex flex-col justify-center">
-               <img src="/modern_dashboard.png" alt="Analytics Dashboard" className="w-full h-full object-cover" />
+               <Image src="/modern_dashboard.png" alt="Analytics Dashboard" fill className="object-cover object-left-top" />
             </div>
             <h3 className="text-xl font-bold mb-2">Análises detalhadas</h3>
             <p className="text-neutral-600 text-sm">
@@ -270,11 +274,12 @@ export default function LandingPage({ user }) {
             </ul>
           </div>
 
-          <div className="w-full lg:w-1/2 relative z-10">
-            <img 
+          <div className="w-full lg:w-1/2 relative z-10 h-[300px] sm:h-[450px]">
+            <Image 
               src="/certificate_filled_example.png" 
               alt="Certificado ABOVE Preenchido" 
-              className="w-full h-auto rounded-xl shadow-[0_0_50px_rgba(255,69,0,0.15)] border border-neutral-800 transition-transform duration-700 hover:scale-105" 
+              fill
+              className="object-contain rounded-xl shadow-[0_0_50px_rgba(255,69,0,0.15)] border border-neutral-800 transition-transform duration-700 hover:scale-105" 
             />
           </div>
         </div>
