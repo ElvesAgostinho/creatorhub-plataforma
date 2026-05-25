@@ -2,10 +2,14 @@ import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { CopyIcon } from "lucide-react"
 import AreaChartPremium from "@/components/charts/AreaChartPremium"
+import PanelSearch from "@/components/PanelSearch"
 
 export const dynamic = "force-dynamic"
 
-export default async function AffiliatePanel() {
+export default async function AffiliatePanel({ searchParams }) {
+  const params = await searchParams;
+  const searchFilter = (params?.q || "").toLowerCase()
+
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect("/login?next=/affiliate-panel")
@@ -45,10 +49,16 @@ export default async function AffiliatePanel() {
   }
 
   // Get products the affiliate can promote
-  const { data: products } = await svc
+  let productsQuery = svc
     .from("products")
     .select("id, slug, title, price_cents")
     .eq("published", true)
+  
+  if (searchFilter) {
+    productsQuery = productsQuery.ilike("title", `%${searchFilter}%`)
+  }
+
+  const { data: products } = await productsQuery
 
   return (
     <div className="bg-[#F9FAFB] min-h-screen text-neutral-900 pt-10 pb-20 font-sans">
@@ -105,9 +115,12 @@ export default async function AffiliatePanel() {
 
         {/* PRODUCTS LIST */}
         <div className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
-          <div className="px-8 py-5 border-b border-neutral-100 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-neutral-900">Produtos Disponíveis</h2>
-            <span className="text-xs font-bold bg-[#FFF0EB] text-[#FF4500] px-3 py-1.5 rounded-full">{products?.length || 0} Produtos</span>
+          <div className="px-8 py-5 border-b border-neutral-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <h2 className="text-lg font-bold text-neutral-900">Produtos Disponíveis</h2>
+              <span className="text-xs font-bold bg-[#FFF0EB] text-[#FF4500] px-3 py-1.5 rounded-full">{products?.length || 0}</span>
+            </div>
+            <PanelSearch placeholder="Pesquisar produtos pelo nome..." />
           </div>
           
           <div className="overflow-x-auto">
