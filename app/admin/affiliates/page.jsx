@@ -20,11 +20,28 @@ export default async function AdminAffiliates() {
     redirect("/")
   }
 
-  // Get all applications with user emails
-  const { data: applications } = await supabase
+  // Fetch applications
+  const { data: appsData, error: appsError } = await supabase
     .from("affiliate_applications")
-    .select("*, profiles:user_id(full_name)")
+    .select("*")
     .order("created_at", { ascending: false })
+
+  let applications = appsData || []
+
+  if (applications.length > 0) {
+    const userIds = [...new Set(applications.map(app => app.user_id))]
+    const { data: profs } = await supabase
+      .from("profiles")
+      .select("id, full_name")
+      .in("id", userIds)
+
+    const nameById = Object.fromEntries((profs || []).map(p => [p.id, p.full_name]))
+    
+    applications = applications.map(app => ({
+      ...app,
+      profiles: { full_name: nameById[app.user_id] || "Sem Nome" }
+    }))
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
