@@ -1,5 +1,5 @@
 import AcademyFAQ from "@/components/AcademyFAQ"
-import AcademyHeroCarousel from "@/components/AcademyHeroCarousel"
+import MembersHeroCarousel from "@/components/MembersHeroCarousel"
 import { createServiceClient } from "@/lib/supabase/server"
 
 import TypewriterText from "@/components/TypewriterText"
@@ -42,7 +42,7 @@ export default async function AcademyPage() {
 
         {/* Right Content - Carousel of Images */}
         <div className="w-full lg:w-1/2 h-[400px] lg:h-auto lg:absolute lg:right-0 lg:top-0 lg:bottom-0 relative overflow-hidden">
-          <AcademyHeroCarousel />
+          <MembersHeroCarousel />
         </div>
       </section>
 
