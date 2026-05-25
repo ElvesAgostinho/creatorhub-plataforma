@@ -125,10 +125,10 @@ export default async function AcademyPage() {
               Existe um ditado no mercado que diz que é muito mais fácil vender a quem já é teu cliente, e a Academia é essa ferramenta porque a pessoa já está a viver a experiência de ser aluno. Não preciso de provar muito sobre o meu produto; eles estão à espera da próxima oferta. A <span className="font-bold">Academia dá-me essa facilidade e rapidez para adquirir o próximo produto num só clique.</span>
             </p>
             <div className="flex items-center gap-4 mt-auto pt-4">
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop" alt="Amílcar Diogo" className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop" alt="Amílcar Diogo" className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
               <div>
                 <p className="font-bold text-neutral-900 text-sm">Amílcar Diogo</p>
-                <p className="text-neutral-500 text-xs">CEO da Top Consultores</p>
+                <p className="text-neutral-500 text-xs">CEO da Orga Bot</p>
               </div>
             </div>
           </div>
