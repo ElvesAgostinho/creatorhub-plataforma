@@ -64,8 +64,8 @@ export default async function AcademiesMarketplacePage() {
             {academies.map(academy => {
               const priceAOA = (academy.price_monthly_cents / 100).toLocaleString('pt-PT', { style: 'currency', currency: 'AOA' })
               const creatorName = academy.creator?.full_name || "Criador"
-              const creatorAvatar = academy.creator?.avatar_url || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop"
-              const heroBg = academy.hero_image_url || "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=800&auto=format&fit=crop"
+              const creatorAvatar = academy.creator?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(creatorName)}&background=111&color=FF4500`
+              const heroBg = academy.hero_image_url || "/academy_carousel_2.png"
 
               return (
                 <Link key={academy.id} href={`/academy/${academy.id}`} className="group block bg-[#141414] border border-neutral-800 rounded-3xl overflow-hidden hover:border-[#FF4500]/50 transition-all hover:-translate-y-1 shadow-2xl">

@@ -114,7 +114,7 @@ export default async function ClubPage({ params }) {
       <div className="relative h-[85vh] w-full bg-black">
          <div className="absolute inset-0">
            <img 
-             src={academy.hero_image_url || "https://images.unsplash.com/photo-1535016120720-40c746fd4c80?q=80&w=2000&auto=format&fit=crop"} 
+             src={academy.hero_image_url || "/academy_carousel_3.png"} 
              alt="Hero" 
              className="w-full h-full object-cover opacity-60"
            />

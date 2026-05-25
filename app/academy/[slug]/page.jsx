@@ -101,7 +101,7 @@ export default async function AcademySalesPage({ params }) {
           {/* Hero Image */}
           <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-[4/3] lg:aspect-auto lg:h-[600px]">
              <img 
-               src={academy.hero_image_url || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop"} 
+               src={academy.hero_image_url || "/academy_carousel_3.png"} 
                alt={academy.name} 
                className="w-full h-full object-cover"
              />
