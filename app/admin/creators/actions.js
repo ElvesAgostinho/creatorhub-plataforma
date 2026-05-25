@@ -25,9 +25,21 @@ export async function approveCreator(formData) {
   // 2. Change user role to creator
   // Important: We only update to 'creator' if they are 'student'. 
   // If they are 'admin', we shouldn't downgrade them.
-  const { data: profile } = await svc.from("profiles").select("role").eq("id", user_id).maybeSingle()
+  const { data: profile } = await svc.from("profiles").select("role, email").eq("id", user_id).maybeSingle()
   if (profile && profile.role === "student") {
     await svc.from("profiles").update({ role: "creator" }).eq("id", user_id)
+  }
+
+  // Fetch email if not in profile
+  let userEmail = profile?.email;
+  if (!userEmail) {
+    const { data: authUser } = await svc.auth.admin.getUserById(user_id)
+    userEmail = authUser?.user?.email
+  }
+
+  if (userEmail) {
+    const { sendRoleApprovalNotification } = require("@/lib/email")
+    await sendRoleApprovalNotification(userEmail, "Criador ABOVE")
   }
 
   revalidatePath("/admin/creators")

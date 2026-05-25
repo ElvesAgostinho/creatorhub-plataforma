@@ -42,11 +42,31 @@ export async function approvePurchase(formData) {
     .eq("id", id)
   if (error) return { ok: false, error: error.message }
 
-  // Send Email Confirmation via Resend
+  // Send Email Confirmation via Resend to Buyer
   if (purchase.profiles?.email) {
     await sendPaymentConfirmation(purchase.profiles.email, {
       title: purchase.products?.title || "Produto ABOVE"
     })
+  }
+
+  // Send Notification to Creator
+  if (purchase.products?.creator_id) {
+    const { data: creatorProfile } = await svc
+      .from("profiles")
+      .select("email")
+      .eq("id", purchase.products.creator_id)
+      .maybeSingle()
+      
+    if (creatorProfile?.email) {
+      const { sendCreatorSaleNotification } = require("@/lib/email")
+      const amountFormatted = new Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(purchase.amount_cents)
+      await sendCreatorSaleNotification(
+        creatorProfile.email,
+        purchase.products?.title || "Produto",
+        purchase.profiles?.full_name || "Cliente",
+        amountFormatted
+      )
+    }
   }
 
   // Se tiver um afiliado e o produto tiver comissão, gerar o record no affiliate_earnings
