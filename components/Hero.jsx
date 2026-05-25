@@ -50,7 +50,6 @@ export default function Hero({ slides = [] }) {
   const current = slides[i]
 
   return (
-  return (
     <section
       className="relative w-full overflow-hidden bg-[#FAFAFA] pt-6 px-4 sm:px-6"
       onMouseEnter={() => setPaused(true)}
