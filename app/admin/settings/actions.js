@@ -22,11 +22,15 @@ export async function updateSettings(formData) {
   const creator_fee_cents = Number(formData.get("creator_fee_cents") || 0)
   const creator_commission_pct = Number(formData.get("creator_commission_pct") || 70)
   const bank_details = formData.get("bank_details")?.toString() || ""
+  const platform_iban = formData.get("platform_iban")?.toString() || ""
+  const platform_beneficiary = formData.get("platform_beneficiary")?.toString() || ""
 
   const { error } = await svc.from("site_settings").update({
     creator_fee_cents,
     creator_commission_pct,
-    bank_details
+    bank_details,
+    platform_iban,
+    platform_beneficiary
   }).eq("id", "default")
 
   if (error) throw new Error(error.message)

@@ -59,12 +59,40 @@ export default async function AdminSettings() {
               </div>
 
               <div>
-                <label className="text-sm font-bold text-neutral-800">Dados de Pagamento (IBAN)</label>
-                <p className="text-xs text-neutral-500 mb-1">Para onde o candidato deve transferir a taxa?</p>
+                <label className="text-sm font-bold text-neutral-800">Dados de Pagamento (IBAN da Admissão)</label>
+                <p className="text-xs text-neutral-500 mb-1">Para onde o candidato deve transferir a taxa de admissão?</p>
                 <textarea 
                   name="bank_details" 
-                  rows={3} 
+                  rows={2} 
                   defaultValue={settings?.bank_details || ""} 
+                  className={cls} 
+                />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="font-bold text-lg border-b border-neutral-100 pb-2 mb-4">Receção de Pagamentos (Produtos)</h2>
+            <p className="text-xs text-neutral-500 mb-4">Estas informações serão mostradas aos alunos na hora de comprar qualquer curso/produto na plataforma.</p>
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-bold text-neutral-800">Nome do Beneficiário</label>
+                <p className="text-xs text-neutral-500 mb-1">Nome do dono da conta ou da empresa (Dono da Plataforma).</p>
+                <input 
+                  type="text" 
+                  name="platform_beneficiary" 
+                  defaultValue={settings?.platform_beneficiary || ""} 
+                  className={cls} 
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-neutral-800">IBAN da Plataforma</label>
+                <p className="text-xs text-neutral-500 mb-1">IBAN para onde os alunos farão as transferências das compras.</p>
+                <input 
+                  type="text" 
+                  name="platform_iban" 
+                  defaultValue={settings?.platform_iban || ""} 
                   className={cls} 
                 />
               </div>
