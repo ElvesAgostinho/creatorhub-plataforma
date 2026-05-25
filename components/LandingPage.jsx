@@ -100,7 +100,7 @@ export default function LandingPage() {
                 <div className="flex-1"></div>
                 <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?q=80&w=150&auto=format&fit=crop" className="w-10 h-10 rounded-full border border-neutral-700" alt="Creator" />
+                    <img src="/creator_avatar_black.png" className="w-10 h-10 rounded-full border border-neutral-700" alt="Creator" />
                     <div>
                       <p className="font-bold text-white text-sm">Corretor de Imóveis</p>
                       <p className="text-xs text-neutral-400">Conteúdo Premium</p>
