@@ -2,10 +2,15 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { approveAffiliate, rejectAffiliate } from "./actions"
 import { PremiumButton } from "@/components/PremiumForms"
+import AffiliateFilter from "@/components/AffiliateFilter"
 
 export const dynamic = "force-dynamic"
 
-export default async function AdminAffiliates() {
+export default async function AdminAffiliates({ searchParams }) {
+  const params = await searchParams;
+  const statusFilter = params?.status || "all"
+  const searchFilter = (params?.q || "").toLowerCase()
+
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect("/login?next=/admin/affiliates")
@@ -21,10 +26,16 @@ export default async function AdminAffiliates() {
   }
 
   // Fetch applications
-  const { data: appsData, error: appsError } = await supabase
+  let query = supabase
     .from("affiliate_applications")
     .select("*")
     .order("created_at", { ascending: false })
+
+  if (statusFilter !== "all") {
+    query = query.eq("status", statusFilter)
+  }
+
+  const { data: appsData, error: appsError } = await query
 
   let applications = appsData || []
 
@@ -43,9 +54,21 @@ export default async function AdminAffiliates() {
     }))
   }
 
+  // Apply name search filter in memory
+  if (searchFilter) {
+    applications = applications.filter(app => 
+      app.profiles?.full_name?.toLowerCase().includes(searchFilter)
+    )
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-      <h1 className="text-3xl font-extrabold text-neutral-900 mb-8">Gestão de Afiliados</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-extrabold text-neutral-900 mb-2">Gestão de Afiliados</h1>
+        <p className="text-neutral-500 font-medium">Aprova ou rejeita candidatos ao programa de afiliados.</p>
+      </div>
+
+      <AffiliateFilter />
 
       <div className="bg-white border border-neutral-200 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
