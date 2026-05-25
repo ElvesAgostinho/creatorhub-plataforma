@@ -157,6 +157,15 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
             
             <form onSubmit={handleSendEmail} className="space-y-4">
               <div>
+                <label className="block text-sm font-bold text-neutral-700 mb-2">Público-Alvo</label>
+                <select name="audience" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition">
+                  <option value="todos">Todos os utilizadores (Inscritos)</option>
+                  <option value="compradores">Apenas alunos (Já compraram algo)</option>
+                  <option value="sem_compras">Apenas contas (Ainda não compraram)</option>
+                  <option value="criadores">Apenas Criadores (Afiliados/Autores)</option>
+                </select>
+              </div>
+              <div>
                 <label className="block text-sm font-bold text-neutral-700 mb-2">Título Interno (apenas para ti)</label>
                 <input type="text" name="title" required placeholder="Ex: Lançamento Curso Python" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition" />
               </div>
@@ -191,7 +200,7 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
                       </span>
                     </div>
                     <p className="text-sm text-neutral-500 mb-2 line-clamp-1">{c.subject}</p>
-                    <p className="text-xs font-bold text-[#FF4500]">Enviado para {c.sent_count} aluno(s) em {new Date(c.created_at).toLocaleString('pt-PT')}</p>
+                    <p className="text-xs font-bold text-[#FF4500]">Enviado para {c.sent_count} pessoa(s) em {new Date(c.created_at).toLocaleString('pt-PT')}</p>
                   </div>
                 ))}
               </div>

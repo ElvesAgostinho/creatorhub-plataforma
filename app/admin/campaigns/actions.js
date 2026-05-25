@@ -62,6 +62,7 @@ export async function sendEmailCampaign(formData) {
   const title = formData.get("title")
   const subject = formData.get("subject")
   const htmlBody = formData.get("html_body")
+  const audience = formData.get("audience") || "todos"
 
   if (!title || !subject || !htmlBody) return { error: "Preenche todos os campos." }
 
@@ -71,7 +72,7 @@ export async function sendEmailCampaign(formData) {
   const { data: campaign, error: insertErr } = await svc
     .from("marketing_campaigns")
     .insert({
-      title, subject, html_body, status: 'sending'
+      title: `${title} [Alvo: ${audience}]`, subject, html_body: htmlBody, status: 'sending'
     })
     .select()
     .single()
@@ -79,9 +80,6 @@ export async function sendEmailCampaign(formData) {
   if (insertErr) return { error: insertErr.message }
 
   // 2. Fetch all user emails
-  // Since "profiles" doesn't necessarily have the email, we fetch from auth.users using an RPC or we assume profiles has email.
-  // Actually, standard Supabase: auth.users has email. 
-  // Let's fetch using the Supabase admin API for users.
   const { data: usersData, error: usersErr } = await svc.auth.admin.listUsers()
   
   if (usersErr) {
@@ -89,14 +87,33 @@ export async function sendEmailCampaign(formData) {
     return { error: "Falha ao obter lista de utilizadores." }
   }
 
-  const emails = usersData.users.map(u => u.email).filter(Boolean)
+  let usersToEmail = usersData.users || []
+
+  // 3. Filter Audience
+  if (audience !== "todos") {
+    // Para filtrar, precisamos de cruzar com dados de purchases e profiles
+    const { data: purchases } = await svc.from("purchases").select("user_id")
+    const { data: profiles } = await svc.from("profiles").select("id, role")
+
+    const buyerIds = new Set((purchases || []).map(p => p.user_id))
+    const creatorIds = new Set((profiles || []).filter(p => p.role === "creator").map(p => p.id))
+
+    usersToEmail = usersToEmail.filter(u => {
+      if (audience === "compradores") return buyerIds.has(u.id)
+      if (audience === "sem_compras") return !buyerIds.has(u.id)
+      if (audience === "criadores") return creatorIds.has(u.id)
+      return true
+    })
+  }
+
+  const emails = usersToEmail.map(u => u.email).filter(Boolean)
 
   if (emails.length === 0) {
     await svc.from("marketing_campaigns").update({ status: 'failed' }).eq("id", campaign.id)
-    return { error: "Não há utilizadores com e-mail registado." }
+    return { error: `Não foram encontrados utilizadores para a audiência '${audience}'.` }
   }
 
-  // 3. Send via Resend
+  // 4. Send via Resend
   const result = await sendMarketingBroadcast(emails, subject, htmlBody)
   
   if (!result.success) {
@@ -104,7 +121,7 @@ export async function sendEmailCampaign(formData) {
     return { error: "Falha ao enviar via Resend: " + result.error.message }
   }
 
-  // 4. Update campaign status
+  // 5. Update campaign status
   await svc.from("marketing_campaigns").update({ 
     status: 'sent', 
     sent_count: emails.length 
