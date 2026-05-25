@@ -154,11 +154,11 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                 </a>
                 <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="bg-white border border-neutral-200 rounded-xl shadow-xl w-56 flex flex-col overflow-hidden text-left py-2">
-                    <a href="/login?next=/library" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50">
-                      Aceder às minhas compras
+                    <a href="/login?next=/library" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2">
+                      <Book className="w-4 h-4 text-neutral-400" /> Aceder às minhas compras
                     </a>
-                    <a href="/login?next=/admin/products" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 border-t border-neutral-100">
-                      Gerir o meu negócio
+                    <a href="/login?next=/become-creator" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 border-t border-neutral-100 flex items-center gap-2">
+                      <Mic className="w-4 h-4 text-neutral-400" /> Tornar-se Criador / Vendedor
                     </a>
                   </div>
                 </div>
@@ -238,9 +238,18 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                         <a href="/library" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
                           <Book className="w-4 h-4 text-neutral-400" /> Biblioteca (Cursos)
                         </a>
-                        <a href="/admin/products" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
-                          <Settings className="w-4 h-4 text-neutral-400" /> Painel de Criador
+                        <a href="/affiliates" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
+                          <DollarSign className="w-4 h-4 text-neutral-400" /> Painel de Afiliado
                         </a>
+                        {(profile?.role === "admin" || profile?.role === "creator") ? (
+                          <a href="/admin/products" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
+                            <Settings className="w-4 h-4 text-neutral-400" /> Painel de Criador
+                          </a>
+                        ) : (
+                          <a href="/become-creator" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
+                            <Mic className="w-4 h-4 text-neutral-400" /> Tornar-se Criador
+                          </a>
+                        )}
                         {profile?.role === "admin" && (
                           <a href="/admin" className="px-3 py-2.5 text-sm font-medium text-[#FF4500] hover:bg-[#FF4500]/10 rounded-xl transition flex items-center gap-3">
                             <Crown className="w-4 h-4" /> Admin Global
@@ -264,11 +273,11 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                 </a>
                 <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <div className="bg-white border border-neutral-200 rounded-xl shadow-xl w-56 flex flex-col overflow-hidden text-left py-2">
-                    <a href="/login?next=/library" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50">
-                      Aceder às minhas compras
+                    <a href="/login?next=/library" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2">
+                      <Book className="w-4 h-4 text-neutral-400" /> Aceder às minhas compras
                     </a>
-                    <a href="/login?next=/admin/products" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 border-t border-neutral-100">
-                      Gerir o meu negócio
+                    <a href="/login?next=/become-creator" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 border-t border-neutral-100 flex items-center gap-2">
+                      <Mic className="w-4 h-4 text-neutral-400" /> Tornar-se Criador / Vendedor
                     </a>
                   </div>
                 </div>
