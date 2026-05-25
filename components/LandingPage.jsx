@@ -62,9 +62,10 @@ export default function LandingPage() {
             <p className="text-neutral-400 relative z-10 max-w-sm">
               Permite aos teus clientes comprar em segundos com o nosso checkout otimizado. Vendes mais sem esforço extra. Fácil para eles, rentável para ti.
             </p>
-            <div className="mt-8 -mb-10 -mr-10 relative flex justify-end z-0">
-               <img src="/landing_checkout_1779497605273.png" alt="Checkout otimizado" className="w-[300px] h-auto object-cover rounded-tl-3xl shadow-2xl rotate-3 translate-x-4 border border-neutral-800" />
-            </div>
+             {/* Floating mockups */}
+             <div className="absolute -bottom-10 -right-20 lg:-right-10 flex gap-4 pointer-events-none">
+               <img src="/modern_checkout.png" alt="Checkout otimizado" className="w-[300px] h-auto object-cover rounded-tl-3xl shadow-2xl rotate-3 translate-x-4 border border-neutral-800" />
+             </div>
           </div>
 
         </div>
@@ -171,8 +172,8 @@ export default function LandingPage() {
                 </div>
              </div>
              
-             <div className="w-full relative overflow-hidden rounded-3xl shadow-2xl border-4 border-white">
-               <img src="/landing_members_area_1779497632634.png" alt="Área de Membros Premium" className="w-full h-auto object-cover" />
+             <div className="mt-8 rounded-2xl border border-neutral-200 overflow-hidden shadow-sm">
+               <img src="/modern_members_area.png" alt="Área de Membros Premium" className="w-full h-auto object-cover" />
              </div>
           </div>
         </div>
@@ -192,7 +193,7 @@ export default function LandingPage() {
 
           <div className="bg-white rounded-3xl p-8 flex flex-col shadow-sm border border-neutral-200">
             <div className="mb-6 rounded-2xl border border-neutral-200 relative overflow-hidden h-40 flex flex-col justify-center">
-               <img src="/landing_dashboard_1779497619373.png" alt="Analytics Dashboard" className="w-full h-full object-cover" />
+               <img src="/modern_dashboard.png" alt="Analytics Dashboard" className="w-full h-full object-cover" />
             </div>
             <h3 className="text-xl font-bold mb-2">Análises detalhadas</h3>
             <p className="text-neutral-600 text-sm">
