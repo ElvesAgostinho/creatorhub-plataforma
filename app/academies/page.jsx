@@ -11,17 +11,18 @@ export const metadata = {
 }
 
 export default async function AcademiesMarketplacePage() {
-  const svc = createServiceClient()
+  try {
+    const svc = createServiceClient()
 
-  // Fetch published academies along with creator info
-  const { data: academies } = await svc
-    .from("creator_academies")
-    .select(`
-      id, name, slug, description, price_monthly_cents, logo_url, hero_image_url,
-      creator:profiles(full_name, avatar_url)
-    `)
-    .eq("published", true)
-    .order("created_at", { ascending: false })
+    // Fetch published academies along with creator info
+    const { data: academies } = await svc
+      .from("creator_academies")
+      .select(`
+        id, name, slug, description, price_monthly_cents, logo_url, hero_image_url,
+        creator:profiles(full_name, avatar_url)
+      `)
+      .eq("published", true)
+      .order("created_at", { ascending: false })
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] text-neutral-900 font-sans selection:bg-[#FF4500] selection:text-white pb-24">
@@ -72,7 +73,8 @@ export default async function AcademiesMarketplacePage() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {academies.map(academy => {
-              const priceAOA = (academy.price_monthly_cents / 100).toLocaleString('pt-PT', { style: 'currency', currency: 'AOA' })
+              const priceVal = (academy.price_monthly_cents || 0) / 100
+              const priceAOA = `Kz ${priceVal.toLocaleString('pt-PT')}`
               const creatorName = academy.creator?.full_name || "Criador"
               const creatorAvatar = academy.creator?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(creatorName)}&background=fff0eb&color=FF4500`
               const heroBg = academy.hero_image_url || "/academy_carousel_2.png"
@@ -109,4 +111,19 @@ export default async function AcademiesMarketplacePage() {
       </main>
     </div>
   )
+  } catch (err) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] p-8 text-neutral-900">
+        <div className="bg-white p-8 rounded-3xl shadow-sm border border-red-100 max-w-3xl w-full">
+          <h1 className="text-2xl font-bold text-red-600 mb-4">Erro ao processar página</h1>
+          <p className="mb-4">Ocorreu um erro no servidor ao processar as academias.</p>
+          <pre className="bg-neutral-50 p-4 rounded-xl text-sm overflow-auto text-neutral-600 border border-neutral-200">
+            {err.message}
+            {'\n'}
+            {err.stack}
+          </pre>
+        </div>
+      </div>
+    )
+  }
 }
