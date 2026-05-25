@@ -37,13 +37,13 @@ export default function FeaturesPage() {
             </div>
           </div>
 
-          <div className="w-full lg:w-1/2 relative flex justify-end">
+          <div className="w-full lg:w-1/2 lg:absolute lg:top-0 lg:right-0 lg:h-full lg:w-[45vw] mt-8 lg:mt-0 z-0">
             {/* Glow effect */}
-            <div className="absolute inset-0 bg-[#FF4500]/20 blur-[100px] rounded-full -z-10"></div>
+            <div className="absolute inset-0 bg-[#FF4500]/20 blur-[100px] rounded-full -z-10 hidden lg:block"></div>
             <img 
               src="/features_hero_black.png" 
               alt="Profissional ABOVE" 
-              className="w-full max-w-[600px] rounded-3xl border-2 border-white/10 shadow-2xl shadow-[#FF4500]/10 object-cover"
+              className="w-full h-full object-cover lg:rounded-none lg:rounded-bl-[4rem] rounded-3xl border-l-2 border-b-2 border-white/10 shadow-2xl shadow-[#FF4500]/10"
             />
           </div>
 

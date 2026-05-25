@@ -10,7 +10,7 @@ export default function SupportPage() {
     <div className="bg-white text-neutral-900 min-h-screen font-sans">
       
       {/* HERO SECTION - Support */}
-      <section className="pt-24 lg:pt-32 pb-16 px-6 max-w-7xl mx-auto overflow-hidden">
+      <section className="relative pt-24 lg:pt-32 pb-16 px-6 max-w-7xl mx-auto overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
           <div className="w-full lg:w-1/2 z-10 text-left">
@@ -38,14 +38,13 @@ export default function SupportPage() {
             </div>
           </div>
 
-          <div className="w-full lg:w-1/2">
+          <div className="w-full lg:w-1/2 lg:absolute lg:top-0 lg:right-0 lg:h-full lg:w-[45vw] mt-8 lg:mt-0 z-0">
             <img 
               src="/hero_support_black.png" 
               alt="Especialista de Suporte ABOVE" 
-              className="w-full rounded-[2rem] shadow-2xl object-cover object-top border-4 border-neutral-50"
+              className="w-full h-full object-cover lg:rounded-none lg:rounded-bl-[4rem] rounded-3xl shadow-2xl"
             />
           </div>
-
         </div>
       </section>
 

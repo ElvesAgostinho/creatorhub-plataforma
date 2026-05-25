@@ -2,6 +2,8 @@ import AcademyFAQ from "@/components/AcademyFAQ"
 import AcademyHeroCarousel from "@/components/AcademyHeroCarousel"
 import { createServiceClient } from "@/lib/supabase/server"
 
+import TypewriterText from "@/components/TypewriterText"
+
 export const dynamic = "force-dynamic"
 
 export const metadata = {
@@ -17,25 +19,25 @@ export default async function AcademyPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative w-full h-auto min-h-[450px] lg:h-[550px] flex flex-col lg:flex-row">
+      <section className="relative w-full h-auto min-h-[450px] lg:h-[550px] flex flex-col lg:flex-row bg-[#0A0A0A]">
         
-        {/* Left Content - Solid Color (Orange) */}
-        <div className="w-full lg:w-1/2 bg-[#FF4500] text-white flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-16 lg:py-0 h-full min-h-[450px]">
+        {/* Left Content - Sleek Dark */}
+        <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-16 lg:py-0 h-full min-h-[450px] relative z-10">
           <div className="mb-6 flex items-center gap-3">
-            <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 text-[#FF4500]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
-            <span className="font-bold text-xl tracking-wider">ABOVE Academy</span>
+            <span className="font-bold text-xl tracking-wider text-white">ABOVE Academy</span>
           </div>
           
-          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight mb-6">
-            Aprende a Construir, Monetizar, Gerir e Crescer o teu Negócio
+          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight mb-6 text-white min-h-[140px] lg:min-h-[200px]">
+            <TypewriterText text="Aprende a Construir, Monetizar, Gerir e Crescer o teu Negócio" speed={40} delay={300} />
           </h1>
-          <p className="text-lg lg:text-xl text-white/90 mb-8 max-w-xl font-medium">
+          <p className="text-lg lg:text-xl text-neutral-400 mb-8 max-w-xl font-medium">
             Faz parte da elite do conhecimento. Acesso a masterclasses exclusivas, rede de networking premium e estratégias comprovadas.
           </p>
           <div className="pt-2">
-            <a href="/admin/products" className="inline-block bg-white text-[#FF4500] font-bold px-8 py-4 rounded-full text-lg transition-transform hover:-translate-y-1 shadow-lg shadow-black/10">
+            <a href="/admin/products" className="inline-block bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-8 py-4 rounded-full text-lg transition-transform hover:-translate-y-1 shadow-lg shadow-[#FF4500]/20">
               Começar agora
             </a>
           </div>
