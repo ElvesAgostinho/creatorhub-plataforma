@@ -26,34 +26,34 @@ export default async function AdminProducts() {
   }) || [];
 
   return (
-    <div className="bg-[#0a0a0a] min-h-screen text-white pt-10 pb-20 font-sans">
+    <div className="bg-[#F9FAFB] min-h-screen text-neutral-900 pt-10 pb-20 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* HEADER */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <div>
-            <h1 className="text-3xl font-extrabold text-white">Painel de Criador</h1>
-            <p className="text-neutral-400 mt-2 text-sm">Gere os teus cursos, mentorias e e-books com precisão analítica.</p>
+            <h1 className="text-3xl font-extrabold text-neutral-900">Painel de Criador</h1>
+            <p className="text-neutral-500 mt-2 text-sm font-medium">Gere os teus cursos, mentorias e e-books com precisão analítica.</p>
           </div>
-          <a href="/dashboard" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1a1a1a] border border-[#333] hover:border-[#FF4500] hover:text-[#FF4500] text-sm font-semibold transition-all">
+          <a href="/dashboard" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-sm font-semibold transition-all shadow-sm">
             Voltar à Biblioteca principal
           </a>
         </div>
 
         {/* KPI CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-[#111] border border-[#222] rounded-3xl p-6 relative overflow-hidden group">
+          <div className="bg-white border border-neutral-200 rounded-3xl p-6 relative overflow-hidden group shadow-sm">
             <p className="text-neutral-500 font-medium text-sm">Produtos Criados</p>
-            <h3 className="text-4xl font-black mt-2 text-white">{totalProducts}</h3>
+            <h3 className="text-4xl font-black mt-2 text-neutral-900">{totalProducts}</h3>
             <p className="text-xs text-[#0E7C86] mt-3 font-semibold">{activeProducts} publicados e ativos</p>
           </div>
-          <div className="bg-[#111] border border-[#222] rounded-3xl p-6 relative overflow-hidden group">
+          <div className="bg-white border border-neutral-200 rounded-3xl p-6 relative overflow-hidden group shadow-sm">
             <p className="text-neutral-500 font-medium text-sm">Alunos Totais</p>
-            <h3 className="text-4xl font-black mt-2 text-white">{rows?.reduce((acc, curr) => acc + (curr.students_count || 0), 0)}</h3>
+            <h3 className="text-4xl font-black mt-2 text-neutral-900">{rows?.reduce((acc, curr) => acc + (curr.students_count || 0), 0)}</h3>
             <p className="text-xs text-[#10B981] mt-3 font-semibold">Crescimento constante</p>
           </div>
-          <div className="bg-[#111] border border-[#222] rounded-3xl p-6 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+          <div className="bg-white border border-neutral-200 rounded-3xl p-6 relative overflow-hidden group shadow-sm">
+            <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity">
               <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF4500" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             </div>
             <p className="text-neutral-500 font-medium text-sm">Receita Estimada</p>
@@ -65,9 +65,9 @@ export default async function AdminProducts() {
         {/* CHART SECTION & CREATE ACTION */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           
-          <div className="lg:col-span-2 bg-[#111] border border-[#222] rounded-3xl p-6 sm:p-8 shadow-2xl">
+          <div className="lg:col-span-2 bg-white border border-neutral-200 rounded-3xl p-6 sm:p-8 shadow-sm">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-xl font-bold text-white">Receita por Produto (Top 5)</h2>
+              <h2 className="text-xl font-bold text-neutral-900">Receita por Produto (Top 5)</h2>
             </div>
             <BarChartPremium data={chartData.length > 0 ? chartData : undefined} />
           </div>
@@ -91,9 +91,9 @@ export default async function AdminProducts() {
         </div>
 
         {/* PRODUCTS TABLE */}
-        <div className="bg-[#111] border border-[#222] rounded-3xl overflow-hidden shadow-2xl">
-          <div className="px-8 py-6 border-b border-[#222]">
-            <h2 className="text-xl font-bold text-white">Os teus Produtos</h2>
+        <div className="bg-white border border-neutral-200 rounded-3xl overflow-hidden shadow-sm">
+          <div className="px-8 py-6 border-b border-neutral-100">
+            <h2 className="text-xl font-bold text-neutral-900">Os teus Produtos</h2>
           </div>
           
           <div className="p-1 sm:p-4 space-y-8">
@@ -109,13 +109,13 @@ export default async function AdminProducts() {
               }
 
               return (
-                <div key={typeKey} className="bg-[#161616] rounded-2xl overflow-hidden border border-[#222]">
-                  <div className="bg-[#1a1a1a] px-6 py-4 border-b border-[#222]">
-                    <h3 className="font-bold text-white text-base">{typeLabels[typeKey]} <span className="text-neutral-500 font-normal ml-2 text-sm">({typeRows.length})</span></h3>
+                <div key={typeKey} className="bg-white rounded-2xl overflow-hidden border border-neutral-200 shadow-sm">
+                  <div className="bg-neutral-50 px-6 py-4 border-b border-neutral-200">
+                    <h3 className="font-bold text-neutral-900 text-base">{typeLabels[typeKey]} <span className="text-neutral-500 font-normal ml-2 text-sm">({typeRows.length})</span></h3>
                   </div>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                      <thead className="text-neutral-500 text-xs uppercase border-b border-[#222]">
+                      <thead className="text-neutral-500 text-xs uppercase border-b border-neutral-100">
                         <tr>
                           <th className="text-left p-6 font-semibold">Título</th>
                           <th className="text-left p-6 font-semibold">Preço</th>
@@ -124,22 +124,22 @@ export default async function AdminProducts() {
                           <th className="p-6"></th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#222]">
+                      <tbody className="divide-y divide-neutral-100">
                         {typeRows.map(r => (
-                          <tr key={r.id} className="hover:bg-[#1f1f1f] transition-colors">
-                            <td className="p-6 font-bold text-white flex items-center gap-3">
+                          <tr key={r.id} className="hover:bg-neutral-50 transition-colors">
+                            <td className="p-6 font-bold text-neutral-900 flex items-center gap-3">
                               {r.title}
-                              {r.best_seller && <span className="text-[10px] bg-yellow-500/20 text-yellow-500 px-2 py-1 rounded-full font-bold border border-yellow-500/30">BEST SELLER</span>}
+                              {r.best_seller && <span className="text-[10px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full font-bold border border-yellow-200">BEST SELLER</span>}
                             </td>
-                            <td className="p-6 text-neutral-300">Kz {fmt(Math.round(r.price_cents/100))}</td>
-                            <td className="p-6 text-neutral-400 font-semibold">{r.students_count || 0}</td>
+                            <td className="p-6 text-neutral-600">Kz {fmt(Math.round(r.price_cents/100))}</td>
+                            <td className="p-6 text-neutral-600 font-semibold">{r.students_count || 0}</td>
                             <td className="p-6">
-                              <span className={`px-3 py-1 rounded-full text-xs font-bold ${r.published ? 'bg-green-500/20 text-[#10B981] border border-green-500/30' : 'bg-neutral-800 text-neutral-400 border border-neutral-700'}`}>
+                              <span className={`px-3 py-1 rounded-full text-xs font-bold ${r.published ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-neutral-100 text-neutral-600 border border-neutral-200'}`}>
                                 {r.published ? "Publicado" : "Rascunho"}
                               </span>
                             </td>
                             <td className="p-6 text-right">
-                              <a href={`/admin/products/${r.id}`} className="inline-flex items-center justify-center bg-[#222] hover:bg-[#333] text-white p-2 rounded-lg transition-colors" title="Editar Produto">
+                              <a href={`/admin/products/${r.id}`} className="inline-flex items-center justify-center bg-white border border-neutral-200 shadow-sm hover:bg-neutral-50 text-neutral-600 hover:text-[#FF4500] p-2 rounded-lg transition-colors" title="Editar Produto">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                               </a>
                             </td>

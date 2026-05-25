@@ -16,10 +16,7 @@ export default async function AdminBroadcasts() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-3xl font-extrabold">Admin — Avisos Globais</h1>
-        <nav className="flex gap-2 text-sm">
-          <a href="/admin" className="px-3 py-1.5 rounded-md border bg-white border-neutral-300 hover:bg-neutral-50">← Compras</a>
-        </nav>
+        <h1 className="text-3xl font-extrabold text-[#111]">Admin — Avisos Globais</h1>
       </div>
 
       <div className="mt-8 max-w-2xl border border-neutral-200 rounded-2xl p-6 bg-white shadow-sm">
@@ -48,28 +45,28 @@ export default async function AdminBroadcasts() {
           </div>
 
           <div>
-            <label className="text-sm font-medium">Assunto</label>
+            <label className="text-sm font-bold text-neutral-800">Assunto</label>
             <input 
               type="text" 
               name="subject" 
               required
               placeholder="Ex: Novo Curso Grátis Disponível!" 
-              className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]" 
+              className="mt-2 w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#FF4500]/10 focus:border-[#FF4500] transition-all shadow-sm" 
             />
           </div>
 
           <div>
-            <label className="text-sm font-medium">Mensagem Completa</label>
+            <label className="text-sm font-bold text-neutral-800">Mensagem Completa</label>
             <textarea 
               name="content" 
               required
               rows={5} 
-              className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]" 
+              className="mt-2 w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#FF4500]/10 focus:border-[#FF4500] transition-all shadow-sm" 
               placeholder="Olá! Temos o prazer de anunciar..."
             />
           </div>
 
-          <button type="submit" className="w-full bg-black hover:bg-neutral-800 text-white font-bold py-3 rounded-md text-sm uppercase tracking-wider">
+          <button type="submit" className="w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-3.5 rounded-xl text-sm uppercase tracking-wider transition-colors shadow-sm shadow-[#FF4500]/20 mt-4">
             📢 Enviar para todos
           </button>
         </form>

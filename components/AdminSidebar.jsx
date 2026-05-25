@@ -15,7 +15,8 @@ import {
   ArrowLeftRight,
   Settings,
   Award,
-  ShieldCheck
+  ShieldCheck,
+  Plus
 } from "lucide-react"
 
 export default function AdminSidebar() {
@@ -44,7 +45,17 @@ export default function AdminSidebar() {
         </a>
       </div>
       
-      <div className="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+      <div className="px-4 pb-4">
+        <Link 
+          href="/admin/products/new" 
+          className="flex items-center justify-center gap-2 w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-2.5 rounded-xl transition shadow-sm shadow-[#FF4500]/20"
+        >
+          <Plus size={18} />
+          <span>Criar Produto</span>
+        </Link>
+      </div>
+
+      <div className="flex-1 overflow-y-auto py-2 px-3 flex flex-col gap-1">
         {links.map((link) => {
           const isActive = link.href === "/admin" 
             ? pathname === "/admin" 

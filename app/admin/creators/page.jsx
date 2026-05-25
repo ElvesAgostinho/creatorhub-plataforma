@@ -41,13 +41,7 @@ export default async function AdminCreators() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-3xl font-extrabold">Admin — Candidaturas de Criadores</h1>
-        <nav className="flex gap-2 text-sm">
-          <a href="/admin" className="px-3 py-1.5 rounded-md border bg-white border-neutral-300 hover:bg-neutral-50">Compras</a>
-          <a href="/admin/products" className="px-3 py-1.5 rounded-md border bg-white border-neutral-300 hover:bg-neutral-50">Produtos</a>
-          <a href="/admin/broadcasts" className="px-3 py-1.5 rounded-md border bg-white border-neutral-300 hover:bg-neutral-50">Avisos Globais</a>
-          <a href="/admin/settings" className="px-3 py-1.5 rounded-md border bg-white border-neutral-300 hover:bg-neutral-50">Definições</a>
-        </nav>
+        <h1 className="text-3xl font-extrabold text-[#111]">Admin — Candidaturas de Criadores</h1>
       </div>
 
       <div className="mt-8 overflow-x-auto border border-neutral-200 rounded-2xl bg-white">
