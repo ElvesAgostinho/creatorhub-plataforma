@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero"
 import ProductGrid from "@/components/ProductGrid"
-import { getProducts } from "@/lib/data/products"
+import { getProducts, getFeaturedProducts } from "@/lib/data/products"
 import { Search, CreditCard, Smartphone, MessageSquare } from "lucide-react"
 
 import { categoryTree } from "@/lib/data/categories"
@@ -15,6 +15,7 @@ export default async function Home({ searchParams }) {
   
   const all = await getProducts({ type: typeFilter, category: categoryFilter, search: searchQuery })
   const by = t => all.filter(p => p.type === t)
+  const featured = (!typeFilter && !categoryFilter && !searchQuery) ? await getFeaturedProducts() : all;
 
   const typeLabels = {
     course: { title: "Cursos em Vídeo", subtitle: "Aprende ao teu próprio ritmo com especialistas" },
@@ -32,7 +33,7 @@ export default async function Home({ searchParams }) {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[400px] bg-[#FF4500] opacity-[0.08] blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
 
       <div className="relative z-10">
-        {!isFiltered && <Hero slides={all} />}
+        {!isFiltered && <Hero slides={featured} />}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 space-y-24">
           {!isFiltered && (

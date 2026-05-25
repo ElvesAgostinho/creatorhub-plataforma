@@ -50,7 +50,7 @@ export default async function AffiliatePanel({ searchParams }) {
   }
 
   // Get products the affiliate can promote
-  let productsQuery = svc
+  let productsQuery = supabase
     .from("products")
     .select("id, slug, title, price_cents, image_url, type")
     .eq("published", true)

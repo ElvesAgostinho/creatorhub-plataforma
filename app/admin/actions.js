@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
+import { sendPaymentConfirmation } from "@/lib/email"
 
 async function requireAdmin() {
   const supabase = createClient()
@@ -40,6 +41,13 @@ export async function approvePurchase(formData) {
     .update({ status: "active", granted_at: new Date().toISOString() })
     .eq("id", id)
   if (error) return { ok: false, error: error.message }
+
+  // Send Email Confirmation via Resend
+  if (purchase.profiles?.email) {
+    await sendPaymentConfirmation(purchase.profiles.email, {
+      title: purchase.products?.title || "Produto ABOVE"
+    })
+  }
 
   // Se tiver um afiliado e o produto tiver comissão, gerar o record no affiliate_earnings
   if (purchase.affiliate_id && purchase.products?.affiliate_commission_pct > 0) {

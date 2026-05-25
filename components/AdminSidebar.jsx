@@ -25,10 +25,10 @@ export default function AdminSidebar() {
   const links = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
     { href: "/admin/products", label: "Produtos", icon: Package },
+    { href: "/admin/campaigns", label: "Marketing 📈", icon: Megaphone },
     { href: "/admin/analytics", label: "Análises", icon: LineChart },
     { href: "/admin/integrations", label: "Integrações", icon: Plug },
     { href: "/admin/creators", label: "Candidaturas", icon: Users },
-    { href: "/admin/broadcasts", label: "Avisos", icon: Megaphone },
     { href: "/admin/academy", label: "Academia", icon: GraduationCap },
     { href: "/admin/certificates", label: "Certificados", icon: Award },
     { href: "/admin/resources", label: "Blog & Recursos", icon: BookOpen },
