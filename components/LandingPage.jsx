@@ -7,10 +7,10 @@ export default function LandingPage({ user }) {
       
       {/* 1. HERO SECTION (LIGHT - HOTMART STYLE) */}
       <section className="bg-white border-b border-neutral-200 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto px-6 pt-24 lg:pt-28 pb-16 lg:pb-0 flex flex-col lg:flex-row items-center justify-between min-h-[450px] lg:min-h-[550px]">
+        <div className="max-w-7xl mx-auto px-6 pt-12 lg:pt-16 pb-16 lg:pb-24 flex flex-col lg:flex-row items-center justify-between min-h-[450px] lg:min-h-[550px]">
           
           {/* TEXT (LEFT) */}
-          <div className="w-full lg:w-1/2 z-10 lg:pr-12 text-center lg:text-left pb-16 lg:pb-0">
+          <div className="w-full lg:w-1/2 z-10 lg:pr-12 text-center lg:text-left pb-8 lg:pb-0">
             <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight text-[#111] min-h-[140px] sm:min-h-[180px]">
               <TypewriterText text="Os teus produtos," speed={40} delay={100} hideCursorOnFinish={true} /><br className="hidden sm:block"/>
               <span className="text-[#FF4500]">

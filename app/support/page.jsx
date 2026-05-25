@@ -10,7 +10,7 @@ export default function SupportPage() {
     <div className="bg-white text-neutral-900 min-h-screen font-sans">
       
       {/* HERO SECTION - Support */}
-      <section className="relative pt-24 lg:pt-32 pb-16 px-6 max-w-7xl mx-auto overflow-hidden">
+      <section className="relative pt-12 lg:pt-16 pb-16 px-6 max-w-7xl mx-auto overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
           <div className="w-full lg:w-1/2 z-10 text-left">
