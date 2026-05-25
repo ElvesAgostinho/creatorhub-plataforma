@@ -11,7 +11,7 @@ export default function LandingPage({ user }) {
           
           {/* TEXT (LEFT) */}
           <div className="w-full lg:w-1/2 z-10 lg:pr-12 text-center lg:text-left pb-8 lg:pb-0">
-            <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight text-[#111] min-h-[140px] sm:min-h-[180px]">
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-[#111] min-h-[110px] sm:min-h-[150px]">
               <TypewriterText text="Os teus produtos," speed={40} delay={100} hideCursorOnFinish={true} /><br className="hidden sm:block"/>
               <span className="text-[#FF4500]">
                 <TypewriterText text="num único lugar." speed={50} delay={1100} hideCursorOnFinish={true} />
@@ -49,7 +49,7 @@ export default function LandingPage({ user }) {
             `}} />
             <div className="relative w-full max-w-[600px] lg:max-w-none lg:w-[110%] h-[350px] lg:h-[110%] lg:translate-x-12 rounded-l-3xl lg:rounded-none shadow-2xl lg:shadow-none overflow-hidden">
               <img 
-                src="/hero_futuristic.png" 
+                src="/hero_sales_mobile.png" 
                 alt="Plataforma Integrada" 
                 className="absolute inset-0 w-full h-full object-cover object-center animate-cinematic"
               />
