@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
+import { deleteResource } from "./actions"
+
 export const dynamic = "force-dynamic"
 
 export default async function AdminResources() {
