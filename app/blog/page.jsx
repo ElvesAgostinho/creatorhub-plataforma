@@ -23,15 +23,15 @@ export default async function BlogPage() {
     .limit(3)
 
   return (
-    <main className="w-full bg-white text-neutral-900 font-sans mt-20">
+    <main className="w-full bg-white text-neutral-900 font-sans">
       
       {/* 1. HERO SECTION */}
-      <section className="relative w-full bg-[#0A0A0A] overflow-hidden min-h-[500px] flex items-center">
+      <section className="relative w-full bg-[#0A0A0A] overflow-hidden min-h-[500px] flex items-center pt-28 pb-20">
         {/* Abstract background blobs */}
         <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[120%] bg-gradient-to-r from-[#FF4500]/20 to-transparent blur-[120px] rounded-full pointer-events-none"></div>
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[100%] bg-gradient-to-l from-[#FF4500]/10 to-transparent blur-[100px] rounded-full pointer-events-none"></div>
 
-        <div className="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12 relative z-10 w-full">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12 relative z-10 w-full">
           <div className="w-full md:w-1/2">
             <p className="text-sm font-bold text-[#FF4500] uppercase tracking-widest mb-4 flex items-center gap-2">
               <span className="w-8 h-[2px] bg-[#FF4500]"></span> Para Criadores

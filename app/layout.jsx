@@ -19,6 +19,9 @@ export default async function Layout({ children }) {
 
   return (
     <html lang="pt">
+      <head>
+        <link rel="icon" href="/logo_a.svg?v=1" type="image/svg+xml" />
+      </head>
       <body className="bg-white text-neutral-900 antialiased">
         <ToastProvider />
         <CartProvider>
