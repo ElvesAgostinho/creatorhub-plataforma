@@ -1,6 +1,7 @@
 import { createServiceClient } from "@/lib/supabase/server"
 import Link from "next/link"
-import CarouselHero from "@/components/CarouselHero"
+import AcademyHeroCarousel from "@/components/AcademyHeroCarousel"
+import TypewriterText from "@/components/TypewriterText"
 
 export const dynamic = "force-dynamic"
 
@@ -25,9 +26,26 @@ export default async function AcademiesMarketplacePage() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-[#FF4500] selection:text-white">
       
-      {/* Hero */}
-      <section className="relative bg-[#111] border-b border-neutral-900 py-16 px-4 text-center overflow-hidden min-h-[450px] flex items-center justify-center">
-        <CarouselHero />
+      {/* Hero Section Split Layout */}
+      <section className="relative w-full h-auto min-h-[450px] lg:h-[550px] flex flex-col lg:flex-row bg-[#0A0A0A]">
+        {/* Left Content */}
+        <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-16 lg:py-0 h-full min-h-[450px] relative z-10">
+          <div className="mb-6 inline-block px-4 py-1.5 self-start rounded-full bg-white/5 border border-white/10 text-white/80 text-xs font-bold uppercase tracking-widest shadow-lg">
+            ACESSO EXCLUSIVO
+          </div>
+          
+          <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] tracking-tight mb-6 text-white min-h-[140px] lg:min-h-[200px]">
+            <TypewriterText text="Domina a Tua Arte." speed={50} delay={300} />
+          </h1>
+          <p className="text-lg lg:text-xl text-neutral-400 mb-8 max-w-xl font-medium">
+            Do zero à mestria. O teu passe VIP para dezenas de cursos completos num único lugar, com acesso ilimitado.
+          </p>
+        </div>
+
+        {/* Right Content - Carousel of Images */}
+        <div className="w-full lg:w-1/2 h-[400px] lg:h-auto lg:absolute lg:right-0 lg:top-0 lg:bottom-0 relative overflow-hidden">
+          <AcademyHeroCarousel />
+        </div>
       </section>
 
       {/* Grid */}
