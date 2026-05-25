@@ -52,7 +52,7 @@ export default async function AffiliatePanel({ searchParams }) {
   // Get products the affiliate can promote
   let productsQuery = svc
     .from("products")
-    .select("id, slug, title, price_cents, image, type")
+    .select("id, slug, title, price_cents, image_url, type")
     .eq("published", true)
   
   if (searchFilter) {
@@ -153,9 +153,9 @@ export default async function AffiliatePanel({ searchParams }) {
                 return (
                   <div key={p.id} className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-[#FF4500]/30 transition-all duration-500 flex flex-col text-neutral-900">
                     <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
-                      {p.image ? (
+                      {p.image_url ? (
                         <img
-                          src={p.image}
+                          src={p.image_url}
                           alt={p.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                         />
