@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { Book, Settings, Crown, LogOut, ShoppingCart } from "lucide-react"
+import { Book, Settings, Crown, LogOut, ShoppingCart, DollarSign, Mic } from "lucide-react"
 import { categoryTree } from "@/lib/data/categories"
 import { useCart } from "./CartContext"
 
@@ -117,29 +117,29 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                       <div className="px-4 py-3 bg-neutral-50 border-b border-neutral-100">
                         <p className="text-sm font-bold text-neutral-900 truncate">{user.email}</p>
                       </div>
-                      <a href="/library" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2">
-                        <span>📚</span> Biblioteca (Meus Cursos)
+                      <a href="/library" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3">
+                        <Book className="w-4 h-4 text-neutral-500" /> Biblioteca (Meus Cursos)
                       </a>
-                      <a href="/affiliate-panel" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100">
-                        <span>💰</span> Painel de Afiliado
+                      <a href="/affiliates" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100">
+                        <DollarSign className="w-4 h-4 text-neutral-500" /> Afiliados
                       </a>
                       {(profile?.role === "admin" || profile?.role === "creator") ? (
-                        <a href="/admin/products" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100">
-                          <span>⚙️</span> Painel de Criador
+                        <a href="/admin/products" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100">
+                          <Settings className="w-4 h-4 text-neutral-500" /> Painel de Criador
                         </a>
                       ) : (
-                        <a href="/become-creator" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100">
-                          <span>🎙️</span> Tornar-se Criador
+                        <a href="/become-creator" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100">
+                          <Mic className="w-4 h-4 text-neutral-500" /> Tornar-se Criador
                         </a>
                       )}
                       {profile?.role === "admin" && (
-                        <a href="/admin" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100 text-[#FF4500]">
-                          <span>👑</span> Admin (Plataforma)
+                        <a href="/admin" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100 text-[#FF4500]">
+                          <Crown className="w-4 h-4 text-[#FF4500]" /> Admin (Plataforma)
                         </a>
                       )}
                       <form action="/auth/logout" method="post" className="border-t border-neutral-100">
-                        <button type="submit" className="w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 flex items-center gap-2">
-                          <span>🚪</span> Terminar Sessão
+                        <button type="submit" className="w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 flex items-center gap-3">
+                          <LogOut className="w-4 h-4 text-red-500" /> Terminar Sessão
                         </button>
                       </form>
                     </div>

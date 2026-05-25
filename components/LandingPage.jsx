@@ -57,9 +57,11 @@ export default function LandingPage({ user }) {
               Tu focas-te no conteúdo.<br/>Nós aumentamos as tuas conversões.
             </h2>
             <div className="mt-6">
-              <a href="/signup" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-6 py-3 rounded-xl inline-block transition">
-                Começar a vender mais
-              </a>
+              {user ? (
+                <a href="/become-creator" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-6 py-3 rounded-xl inline-block transition">Tornar-se Criador</a>
+              ) : (
+                <a href="/signup" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-6 py-3 rounded-xl inline-block transition">Começar a vender mais</a>
+              )}
             </div>
           </div>
 
