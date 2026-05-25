@@ -120,9 +120,18 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                       <a href="/library" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2">
                         <span>📚</span> Biblioteca (Meus Cursos)
                       </a>
-                      <a href="/admin/products" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100">
-                        <span>⚙️</span> Painel de Criador
+                      <a href="/affiliate-panel" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100">
+                        <span>💰</span> Painel de Afiliado
                       </a>
+                      {(profile?.role === "admin" || profile?.role === "creator") ? (
+                        <a href="/admin/products" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100">
+                          <span>⚙️</span> Painel de Criador
+                        </a>
+                      ) : (
+                        <a href="/become-creator" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100">
+                          <span>🎙️</span> Tornar-se Criador
+                        </a>
+                      )}
                       {profile?.role === "admin" && (
                         <a href="/admin" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2 border-t border-neutral-100 text-[#FF4500]">
                           <span>👑</span> Admin (Plataforma)

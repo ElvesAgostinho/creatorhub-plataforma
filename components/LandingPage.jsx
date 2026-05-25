@@ -1,7 +1,7 @@
 "use client"
 import TypewriterText from "@/components/TypewriterText"
 
-export default function LandingPage() {
+export default function LandingPage({ user }) {
   return (
     <div className="bg-[#111111] text-white min-h-screen font-sans">
       
@@ -23,9 +23,15 @@ export default function LandingPage() {
             </p>
             
             <div className="mt-10 flex gap-4 justify-center lg:justify-start">
-              <a href="/signup" className="bg-[#FF4500] hover:bg-[#E03E00] text-white text-lg font-bold px-10 py-4 rounded-xl transition shadow-lg shadow-[#FF4500]/20">
-                Começar agora
-              </a>
+              {user ? (
+                <a href="/dashboard" className="bg-[#FF4500] hover:bg-[#E03E00] text-white text-lg font-bold px-10 py-4 rounded-xl transition shadow-lg shadow-[#FF4500]/20">
+                  Aceder ao Painel
+                </a>
+              ) : (
+                <a href="/signup" className="bg-[#FF4500] hover:bg-[#E03E00] text-white text-lg font-bold px-10 py-4 rounded-xl transition shadow-lg shadow-[#FF4500]/20">
+                  Começar agora
+                </a>
+              )}
             </div>
           </div>
           

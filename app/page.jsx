@@ -11,6 +11,6 @@ export default async function Home() {
   // Se o utilizador tiver login feito, o Header mostra os botões para a Dashboard.
   // Permite ver a Landing Page pública mesmo estando logado.
 
-  // Se for visitante anónimo, mostra a nova Landing Page super vendedora
-  return <LandingPage />
+  // Pass user to LandingPage to conditionally render buttons
+  return <LandingPage user={user} />
 }
