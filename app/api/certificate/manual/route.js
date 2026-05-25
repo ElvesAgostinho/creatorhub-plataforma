@@ -167,6 +167,41 @@ export async function POST(req) {
       color: rgb(0.3, 0.3, 0.3),
     })
 
+    // Adicionar "ABOVE Exchange" no canto superior esquerdo
+    page.drawText("ABOVE Exchange", {
+      x: 50,
+      y: height - 60,
+      size: 18,
+      font: boldFont,
+      color: rgb(0.1, 0.1, 0.1),
+    })
+
+    // Adicionar QR Code
+    try {
+      const QRCode = require('qrcode')
+      const verifyUrl = `https://above.exchange/verify?id=${Date.now()}`
+      const qrDataUrl = await QRCode.toDataURL(verifyUrl, { width: 200, margin: 1, color: { dark: '#111111', light: '#FFFFFF' } })
+      const qrImageBytes = Buffer.from(qrDataUrl.split(',')[1], 'base64')
+      const qrImage = await pdfDoc.embedPng(qrImageBytes)
+      
+      page.drawImage(qrImage, {
+        x: width - 110,
+        y: height - 110,
+        width: 70,
+        height: 70,
+      })
+      
+      page.drawText("VERIFICAÇÃO DE AUTENTICIDADE", {
+        x: width - 130,
+        y: height - 125,
+        size: 6,
+        font: boldFont,
+        color: rgb(0.5, 0.5, 0.5),
+      })
+    } catch(err) {
+      console.warn("Falha ao gerar QR Code", err)
+    }
+
     // Serializar o PDF
     const pdfBytes = await pdfDoc.save()
 

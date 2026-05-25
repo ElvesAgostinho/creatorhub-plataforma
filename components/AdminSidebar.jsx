@@ -14,7 +14,8 @@ import {
   PlaySquare, 
   ArrowLeftRight,
   Settings,
-  Award
+  Award,
+  ShieldCheck
 } from "lucide-react"
 
 export default function AdminSidebar() {
@@ -22,6 +23,7 @@ export default function AdminSidebar() {
 
   const links = [
     { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/admin/requests", label: "Aprovações", icon: ShieldCheck },
     { href: "/admin/products", label: "Produtos", icon: Package },
     { href: "/admin/analytics", label: "Análises", icon: LineChart },
     { href: "/admin/integrations", label: "Integrações", icon: Plug },

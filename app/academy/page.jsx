@@ -50,48 +50,55 @@ export default async function AcademyPage() {
       </section>
 
       {/* 2. Video Player Section */}
-      <section className="bg-[#F9F9F9] py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-16 items-center">
+      <section className="bg-neutral-950 py-24 border-y border-white/5 relative overflow-hidden">
+        {/* Glow effect */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[500px] bg-[#FF4500]/5 blur-[120px] rounded-full pointer-events-none"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
           <div className="space-y-6 order-2 lg:order-1">
-            <p className="text-[#FF4500] font-bold tracking-wide uppercase text-sm">
-              PLAYER ABOVE
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-medium tracking-tight text-neutral-900 leading-tight">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse"></span>
+              <p className="text-white/80 font-bold tracking-wide uppercase text-xs">
+                PLAYER EXCLUSIVO
+              </p>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-medium tracking-tight text-white leading-tight">
               A única área de membros com o seu próprio player de vídeo integrado
             </h2>
-            <p className="text-lg text-neutral-600 max-w-lg leading-relaxed">
+            <p className="text-lg text-neutral-400 max-w-lg leading-relaxed">
               O teu conteúdo em qualquer dispositivo, do telemóvel à TV, protegido 24/7. Com uma equipa totalmente dedicada à Academia, garantimos a estabilidade e segurança do teu conteúdo: sistema anti-fraude, encriptação e marca de água.
             </p>
-            <div className="pt-4">
-              <a href="/admin/products" className="font-bold text-lg hover:underline underline-offset-4 decoration-2" style={{ color: primaryColor }}>
-                Adicionar conteúdo ao Player →
+            <div className="pt-6">
+              <a href="/admin/products" className="inline-flex items-center gap-2 font-bold text-lg hover:gap-4 transition-all" style={{ color: primaryColor }}>
+                Adicionar conteúdo ao Player 
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
               </a>
             </div>
           </div>
           <div className="relative order-1 lg:order-2 flex justify-center lg:justify-start">
              <div className="relative w-full max-w-md">
-                <div className="bg-black rounded-[2rem] p-4 shadow-2xl">
-                   <div className="aspect-[9/16] bg-neutral-900 rounded-xl overflow-hidden relative">
-                      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600&auto=format&fit=crop" alt="Fitness video playing" className="w-full h-full object-cover opacity-80" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div className="bg-neutral-900 rounded-[2rem] p-4 shadow-2xl border border-white/10 relative z-10 transform hover:scale-[1.02] transition-transform duration-500">
+                   <div className="aspect-[9/16] bg-black rounded-xl overflow-hidden relative border border-white/5">
+                      <img src="/academy_carousel_2.png" alt="Video playing" className="w-full h-full object-cover opacity-80" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
                       
                       {/* Fake Player UI */}
                       <div className="absolute bottom-6 left-6 right-6">
-                         <h3 className="text-white font-bold text-xl mb-1">Life Fitness Method</h3>
-                         <p className="text-white/70 text-sm mb-4">Treino Diário</p>
-                         <div className="h-1 bg-white/30 rounded-full overflow-hidden">
-                           <div className="h-full w-1/3" style={{ backgroundColor: primaryColor }}></div>
+                         <h3 className="text-white font-bold text-xl mb-1">Aulas de Elite</h3>
+                         <p className="text-white/70 text-sm mb-4">Masterclass Exclusiva</p>
+                         <div className="h-1.5 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
+                           <div className="h-full w-2/3" style={{ backgroundColor: primaryColor }}></div>
                          </div>
-                         <div className="flex justify-between items-center mt-2 text-white/70 text-xs font-medium">
-                           <span>00:40</span>
+                         <div className="flex justify-between items-center mt-3 text-white/70 text-xs font-medium">
+                           <span>08:40</span>
                            <span>12:00</span>
                          </div>
                       </div>
                    </div>
                 </div>
                 {/* Floating Play Button */}
-                <div className="absolute top-1/2 -left-12 -translate-y-1/2 bg-white w-24 h-24 rounded-2xl shadow-xl flex items-center justify-center border border-neutral-100 hidden sm:flex">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-[#FF4500] ml-1">
+                <div className="absolute top-1/2 -left-12 -translate-y-1/2 bg-white/10 backdrop-blur-xl w-24 h-24 rounded-2xl shadow-[0_0_40px_rgba(255,69,0,0.2)] flex items-center justify-center border border-white/20 hidden sm:flex z-20 hover:scale-110 transition-transform cursor-pointer">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" className="text-[#FF4500] ml-1">
                     <path d="M5 3l14 9-14 9V3z" />
                   </svg>
                 </div>
