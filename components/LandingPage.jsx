@@ -35,58 +35,20 @@ export default function LandingPage({ user }) {
             </div>
           </div>
           
-          {/* VIDEO / DASHBOARD WIDGET (RIGHT) */}
-          <div className="w-full lg:w-1/2 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:right-0 flex items-center justify-center lg:justify-end mt-12 lg:mt-0 relative z-0 perspective-1000">
-            {/* Efeito Glow por trás do vídeo */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-r from-[#FF4500] to-purple-600 blur-[80px] opacity-30 rounded-full animate-pulse pointer-events-none"></div>
-            
-            <div className="relative w-full max-w-[600px] lg:max-w-none lg:w-[90%] aspect-[4/3] rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(255,69,0,0.15)] border border-neutral-200/50 bg-black group transform lg:translate-x-8 hover:scale-[1.02] transition-transform duration-700">
-              
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700"
-              >
-                {/* Fonte de vídeo futurista e elegante (Mixkit - Royalty Free) */}
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-network-connections-loop-28822-large.mp4" type="video/mp4" />
-                <source src="https://cdn.pixabay.com/video/2021/08/04/83863-585324021_large.mp4" type="video/mp4" />
-              </video>
-              
-              {/* Overlay Gradient para destacar os cards */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-transparent to-transparent"></div>
-
-              {/* Card flutuante - Analytics */}
-              <div className="absolute bottom-6 left-6 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl shadow-2xl animate-[bounce_4s_ease-in-out_infinite]">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#FF4500] flex items-center justify-center text-white font-bold text-xs">
-                    📈
-                  </div>
-                  <div>
-                    <p className="text-white text-xs font-bold uppercase tracking-wider">Vendas Hoje</p>
-                    <p className="text-white font-black text-xl">428.500 Kz</p>
-                  </div>
-                </div>
-                <div className="h-1.5 w-full bg-white/20 rounded-full overflow-hidden">
-                  <div className="h-full bg-[#FF4500] w-[75%] rounded-full"></div>
-                </div>
-              </div>
-
-              {/* Card flutuante - Notificação de Venda */}
-              <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md border border-white/50 p-3 rounded-xl shadow-2xl animate-[bounce_5s_ease-in-out_infinite_reverse]">
-                <div className="flex items-center gap-3">
-                  <div className="bg-green-100 p-2 rounded-lg">
-                    <span className="text-green-600 font-bold text-lg">💰</span>
-                  </div>
-                  <div>
-                    <p className="text-neutral-900 text-xs font-bold">Nova venda!</p>
-                    <p className="text-neutral-500 text-[10px]">Há 2 segundos</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
+          {/* VIDEO (RIGHT - STUCK TO TOP) */}
+          <div className="w-full lg:w-1/2 lg:absolute lg:top-0 lg:right-0 lg:h-full flex items-start justify-end mt-8 lg:mt-0">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="w-full max-w-[600px] lg:max-w-none lg:w-[110%] h-auto lg:h-[110%] object-cover object-top lg:translate-x-12 rounded-l-3xl lg:rounded-none shadow-2xl lg:shadow-none"
+            >
+              {/* Fonte de vídeo futurista */}
+              <source src="https://cdn.pixabay.com/video/2020/07/22/45348-442867808_large.mp4" type="video/mp4" />
+              <source src="https://cdn.pixabay.com/video/2021/08/04/83863-585324021_large.mp4" type="video/mp4" />
+              Seu navegador não suporta vídeos.
+            </video>
           </div>
 
         </div>
