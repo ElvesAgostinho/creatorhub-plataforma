@@ -1,6 +1,5 @@
 "use client"
 
-import { MessageCircle } from "lucide-react"
 import { useState, useEffect } from "react"
 
 export default function FloatingWhatsApp({ user }) {
@@ -30,9 +29,15 @@ export default function FloatingWhatsApp({ user }) {
       </div>
       <button 
         onClick={handleOpenWhatsApp}
-        className="w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] hover:shadow-[0_8px_30px_rgba(37,211,102,0.6)] transition-all hover:scale-110 group pointer-events-auto"
+        className="relative w-16 h-16 rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-all hover:scale-105 group pointer-events-auto overflow-hidden ring-4 ring-white"
       >
-        <MessageCircle className="w-7 h-7 group-hover:animate-pulse" />
+        <img 
+          src="/bot_avatar.png" 
+          alt="Suporte Automático" 
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Green dot indicating online status */}
+        <span className="absolute bottom-0 right-0 w-4 h-4 bg-[#25D366] border-2 border-white rounded-full"></span>
       </button>
     </div>
   )
