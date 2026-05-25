@@ -14,8 +14,17 @@ export function CartProvider({ children }) {
     setIsMounted(true)
     try {
       const saved = localStorage.getItem("above_cart")
-      if (saved) setCart(JSON.parse(saved))
-    } catch (e) {}
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        if (Array.isArray(parsed)) {
+          setCart(parsed)
+        } else {
+          setCart([])
+        }
+      }
+    } catch (e) {
+      setCart([])
+    }
   }, [])
 
   // Save to local storage on change

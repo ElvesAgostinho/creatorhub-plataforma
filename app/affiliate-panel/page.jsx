@@ -199,8 +199,7 @@ export default async function AffiliatePanel({ searchParams }) {
                         />
                         <button 
                           className="shrink-0 bg-white p-2.5 rounded-lg border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-neutral-600 shadow-sm transition-all"
-                          title="Copiar Link"
-                          onClick={() => { /* Add copy functionality here if needed, or rely on browser copy */ }}
+                          title="Copiar Link (Selecione o texto acima)"
                         >
                           <CopyIcon size={16} />
                         </button>
