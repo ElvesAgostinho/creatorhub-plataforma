@@ -265,7 +265,7 @@ export default function LandingPage() {
           <img 
             src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg" 
             alt="Cloudflare" 
-            className="h-5 opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all" 
+            className="h-5 opacity-100" 
           />
         </div>
       </footer>
