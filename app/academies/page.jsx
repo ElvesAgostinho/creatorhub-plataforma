@@ -26,7 +26,7 @@ export default async function AcademiesMarketplacePage() {
     <div className="min-h-screen bg-[#0A0A0A] text-white font-sans selection:bg-[#FF4500] selection:text-white">
       
       {/* Hero */}
-      <section className="relative bg-[#111] border-b border-neutral-900 py-24 px-4 text-center overflow-hidden min-h-[600px] flex items-center justify-center">
+      <section className="relative bg-[#111] border-b border-neutral-900 py-16 px-4 text-center overflow-hidden min-h-[450px] flex items-center justify-center">
         <CarouselHero />
       </section>
 

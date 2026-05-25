@@ -6,7 +6,7 @@ export default function LandingPage() {
       
       {/* 1. HERO SECTION (LIGHT - HOTMART STYLE) */}
       <section className="bg-white border-b border-neutral-200 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto px-6 pt-32 lg:pt-36 flex flex-col lg:flex-row items-center justify-between min-h-[600px]">
+        <div className="max-w-7xl mx-auto px-6 pt-24 lg:pt-28 flex flex-col lg:flex-row items-center justify-between min-h-[450px] lg:min-h-[550px]">
           
           {/* TEXT (LEFT) */}
           <div className="w-full lg:w-1/2 z-10 lg:pr-12 text-center lg:text-left pb-12 lg:pb-0">

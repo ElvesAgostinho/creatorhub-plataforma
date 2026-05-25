@@ -17,10 +17,10 @@ export default async function AcademyPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative w-full h-auto min-h-[600px] lg:h-[700px] flex flex-col lg:flex-row">
+      <section className="relative w-full h-auto min-h-[450px] lg:h-[550px] flex flex-col lg:flex-row">
         
         {/* Left Content - Solid Color (Orange) */}
-        <div className="w-full lg:w-1/2 bg-[#FF4500] text-white flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-16 lg:py-0 h-full min-h-[400px]">
+        <div className="w-full lg:w-1/2 bg-[#FF4500] text-white flex flex-col justify-center px-8 lg:px-16 xl:px-24 py-16 lg:py-0 h-full min-h-[450px]">
           <div className="mb-6 flex items-center gap-3">
             <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
