@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 
-export default function TypewriterText({ text, className, delay = 0, speed = 50 }) {
+export default function TypewriterText({ text, className, delay = 0, speed = 50, hideCursorOnFinish = false }) {
   const [displayedText, setDisplayedText] = useState("")
   const [isTyping, setIsTyping] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
@@ -31,10 +31,12 @@ export default function TypewriterText({ text, className, delay = 0, speed = 50 
     }
   }, [text, delay, speed])
 
+  const showCursor = (!isFinished && !isTyping) ? false : (isFinished && hideCursorOnFinish) ? false : true;
+
   return (
     <span className={className}>
       {displayedText}
-      <span className={`inline-block w-[3px] ml-1 bg-current ${!isTyping && !isFinished ? 'opacity-0' : 'animate-pulse'}`}>&nbsp;</span>
+      {showCursor && <span className={`inline-block w-[3px] ml-1 bg-current ${!isTyping && !isFinished ? 'opacity-0' : 'animate-pulse'}`}>&nbsp;</span>}
     </span>
   )
 }

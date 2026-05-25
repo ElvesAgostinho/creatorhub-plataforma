@@ -26,23 +26,55 @@ export default async function BlogPage() {
     <main className="w-full bg-white text-neutral-900 font-sans mt-20">
       
       {/* 1. HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-10">
-        <div className="w-full md:w-1/2">
-          <p className="text-sm font-semibold text-[#FF4500] uppercase tracking-wide mb-3">Creators</p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-neutral-900 leading-tight mb-6">
-            Tudo o que precisas de saber para vender online!
-          </h1>
-          <p className="text-lg text-neutral-600 mb-8">
-            A ABOVE é a plataforma líder que oferece aos criadores de conteúdo todas as ferramentas necessárias para ter sucesso na economia digital.
-          </p>
-        </div>
-        <div className="w-full md:w-1/2 relative h-[400px]">
-          <img 
-            src="/premium_creator_blog.png" 
-            alt="Creators working" 
-            className="w-full h-full object-cover rounded-none"
-          />
-          <div className="absolute top-0 left-0 w-2 h-16 bg-[#FF4500]"></div>
+      <section className="relative w-full bg-[#0A0A0A] overflow-hidden min-h-[500px] flex items-center">
+        {/* Abstract background blobs */}
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[120%] bg-gradient-to-r from-[#FF4500]/20 to-transparent blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[100%] bg-gradient-to-l from-[#FF4500]/10 to-transparent blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-12 relative z-10 w-full">
+          <div className="w-full md:w-1/2">
+            <p className="text-sm font-bold text-[#FF4500] uppercase tracking-widest mb-4 flex items-center gap-2">
+              <span className="w-8 h-[2px] bg-[#FF4500]"></span> Para Criadores
+            </p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight">
+              Tudo o que <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF4500] to-orange-400">precisas de saber</span> para vender online!
+            </h1>
+            <p className="text-xl text-neutral-400 mb-8 leading-relaxed font-medium">
+              A ABOVE é a plataforma líder que oferece aos criadores de conteúdo todas as ferramentas necessárias para ter sucesso na economia digital.
+            </p>
+            <div className="flex items-center gap-4">
+              <a href="#artigos" className="bg-[#FF4500] hover:bg-[#E03E00] text-white px-8 py-4 rounded-full font-bold transition shadow-lg shadow-[#FF4500]/20">
+                Ler Artigos
+              </a>
+              <button className="text-white hover:text-[#FF4500] px-6 py-4 font-bold transition flex items-center gap-2">
+                Recursos Gratuitos
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </button>
+            </div>
+          </div>
+          <div className="w-full md:w-1/2 relative">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#FF4500]/10 border border-white/10 group">
+              <img 
+                src="/premium_creator_blog.png" 
+                alt="Creators working" 
+                className="w-full h-auto object-cover scale-100 group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            </div>
+            
+            {/* Floating badge */}
+            <div className="absolute -bottom-6 -left-6 bg-white/10 backdrop-blur-xl border border-white/20 p-4 rounded-2xl shadow-xl animate-bounce" style={{ animationDuration: '3s' }}>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-[#FF4500] rounded-full flex items-center justify-center text-white">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div>
+                  <p className="text-white font-bold text-sm">Dicas Premium</p>
+                  <p className="text-neutral-400 text-xs">+100 Artigos</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

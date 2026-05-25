@@ -1,4 +1,5 @@
 "use client"
+import TypewriterText from "@/components/TypewriterText"
 
 export default function LandingPage() {
   return (
@@ -10,13 +11,15 @@ export default function LandingPage() {
           
           {/* TEXT (LEFT) */}
           <div className="w-full lg:w-1/2 z-10 lg:pr-12 text-center lg:text-left pb-12 lg:pb-0">
-            <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight text-[#111]">
-              Os teus produtos,<br className="hidden sm:block"/>
-              <span className="text-[#FF4500]">num único lugar.</span>
+            <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight text-[#111] min-h-[140px] sm:min-h-[180px]">
+              <TypewriterText text="Os teus produtos," speed={40} delay={100} hideCursorOnFinish={true} /><br className="hidden sm:block"/>
+              <span className="text-[#FF4500]">
+                <TypewriterText text="num único lugar." speed={50} delay={1100} hideCursorOnFinish={true} />
+              </span>
             </h1>
             
-            <p className="mt-6 text-lg text-neutral-600 max-w-xl mx-auto lg:mx-0 font-medium">
-              De cursos online a e-books. Constrói o teu produto em minutos e oferece uma experiência premium que os teus clientes vão adorar.
+            <p className="mt-6 text-lg text-neutral-600 max-w-xl mx-auto lg:mx-0 font-medium min-h-[80px]">
+              <TypewriterText text="De cursos online a e-books. Constrói o teu produto em minutos e oferece uma experiência premium que os teus clientes vão adorar." speed={20} delay={2200} />
             </p>
             
             <div className="mt-10 flex gap-4 justify-center lg:justify-start">
