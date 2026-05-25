@@ -26,7 +26,7 @@ export default async function BlogPage() {
     <main className="w-full bg-white text-neutral-900 font-sans">
       
       {/* 1. HERO SECTION */}
-      <section className="relative w-full bg-[#0A0A0A] overflow-hidden min-h-[500px] flex items-center pt-28 pb-20">
+      <section className="relative w-full bg-[#0A0A0A] overflow-hidden min-h-[500px] flex items-center pt-8 pb-16">
         {/* Abstract background blobs */}
         <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[120%] bg-gradient-to-r from-[#FF4500]/20 to-transparent blur-[120px] rounded-full pointer-events-none"></div>
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[100%] bg-gradient-to-l from-[#FF4500]/10 to-transparent blur-[100px] rounded-full pointer-events-none"></div>
