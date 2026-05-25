@@ -4,18 +4,19 @@ import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { X } from "lucide-react"
 
-export default function Footer() {
+export default function Footer({ user }) {
   const pathname = usePathname()
   const isLearn = pathname.startsWith("/learn") || pathname.startsWith("/checkout")
   
   const [showBanner, setShowBanner] = useState(false)
 
   useEffect(() => {
+    // Only show banner to users who are NOT logged in
     const hideBanner = localStorage.getItem("hidePromoBanner")
-    if (!hideBanner) {
+    if (!hideBanner && !user) {
       setShowBanner(true)
     }
-  }, [])
+  }, [user])
 
   const closeBanner = () => {
     setShowBanner(false)
@@ -38,19 +39,19 @@ export default function Footer() {
         {/* Links Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-20 font-medium">
           <ul className="space-y-4">
-            <li><a href="/signup" className="hover:text-neutral-900 transition">Cadastre-se gratuitamente</a></li>
+            <li><a href={user ? "/library" : "/signup"} className="hover:text-neutral-900 transition">{user ? "A minha Biblioteca" : "Cadastre-se gratuitamente"}</a></li>
             <li><a href="/blog" className="hover:text-neutral-900 transition">Materiais Educativos</a></li>
             <li><a href="/features" className="hover:text-neutral-900 transition">Como funciona?</a></li>
             <li><a href="/support" className="hover:text-neutral-900 transition">Suporte e Ajuda</a></li>
           </ul>
           <ul className="space-y-4">
-            <li><a href="#affiliates" className="hover:text-neutral-900 transition">Afiliado</a></li>
+            <li><a href={user ? "/affiliates" : "/login?next=/affiliates"} className="hover:text-neutral-900 transition">Afiliado</a></li>
             <li><a href="/features" className="hover:text-neutral-900 transition">Soluções da ABOVE</a></li>
             <li><a href="/blog" className="hover:text-neutral-900 transition">Marketing Digital</a></li>
-            <li><a href="/academy" className="hover:text-neutral-900 transition">Capacitação para creators</a></li>
+            <li><a href={user ? "/become-creator" : "/login?next=/become-creator"} className="hover:text-neutral-900 transition">Capacitação para creators</a></li>
           </ul>
           <ul className="space-y-4">
-            <li><a href="/features" className="hover:text-neutral-900 transition">Venda mais</a></li>
+            <li><a href="/marketplace" className="hover:text-neutral-900 transition">Venda mais (Marketplace)</a></li>
           </ul>
         </div>
 

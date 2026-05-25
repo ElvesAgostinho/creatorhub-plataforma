@@ -28,7 +28,7 @@ export default async function Layout({ children }) {
           <Header />
           <CartDrawer />
           <main className="min-h-[60vh]">{children}</main>
-          <Footer />
+          <Footer user={user} />
         </CartProvider>
         <FloatingWhatsApp user={user} />
       </body>
