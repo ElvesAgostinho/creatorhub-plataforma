@@ -18,7 +18,7 @@ export default function AffiliateFilter() {
     } else {
       params.delete(key)
     }
-    router.push(`${pathname}?${params.toString()}`)
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
   return (
