@@ -16,38 +16,38 @@ export default async function Library() {
   const progressMap = await getCourseProgressPercentages(courseIds)
 
   return (
-    <div className="bg-[#050505] text-white min-h-screen relative overflow-hidden">
+    <div className="bg-[#F9FAFB] text-neutral-900 min-h-screen relative overflow-hidden">
       {/* Premium Background Grid & Glow */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[400px] bg-[#FF4500] opacity-20 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[400px] bg-[#FF4500] opacity-5 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 relative z-10">
         {/* INTRUDUCTION / HERO */}
-        <div className="bg-[#111111] border border-neutral-800 rounded-3xl p-8 sm:p-12 mb-12 flex flex-col md:flex-row items-center justify-between shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF4500] rounded-full blur-[150px] opacity-20 pointer-events-none"></div>
+        <div className="bg-white border border-neutral-200 rounded-3xl p-8 sm:p-12 mb-12 flex flex-col md:flex-row items-center justify-between shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF4500] rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
           
           <div className="max-w-2xl relative z-10">
-            <h1 className="text-4xl sm:text-5xl font-black mb-4 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-400">
+            <h1 className="text-4xl sm:text-5xl font-black mb-4 tracking-tight text-neutral-900">
               Bem-vindo à tua Academia.
             </h1>
-            <p className="text-neutral-400 text-lg leading-relaxed font-medium">
+            <p className="text-neutral-500 text-lg leading-relaxed font-medium">
               Aqui tens acesso imediato a todo o conhecimento que adquiriste. Retoma os teus cursos, lê os teus ebooks e acede aos teus eventos com a melhor experiência de aprendizagem.
             </p>
           </div>
           <div className="hidden md:flex flex-col gap-3 mt-6 md:mt-0 items-end relative z-10">
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 backdrop-blur-md px-5 py-2.5 rounded-xl text-sm font-bold text-white shadow-lg">
-              <BookOpen className="w-5 h-5 text-indigo-400" /> {items.length} Produtos
+            <div className="flex items-center gap-3 bg-neutral-50 border border-neutral-200 px-5 py-2.5 rounded-xl text-sm font-bold text-neutral-700 shadow-sm">
+              <BookOpen className="w-5 h-5 text-indigo-500" /> {items.length} Produtos
             </div>
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 backdrop-blur-md px-5 py-2.5 rounded-xl text-sm font-bold text-white shadow-lg">
+            <div className="flex items-center gap-3 bg-neutral-50 border border-neutral-200 px-5 py-2.5 rounded-xl text-sm font-bold text-neutral-700 shadow-sm">
               <Rocket className="w-5 h-5 text-[#FF4500]" /> Acesso Vitalício
             </div>
           </div>
         </div>
 
         {items.length === 0 ? (
-          <div className="mt-12 border border-neutral-800 rounded-3xl p-16 text-center bg-[#111111]">
-            <p className="text-neutral-400 text-lg mb-6">Ainda não tens compras na tua conta.</p>
-            <a href="/marketplace" className="inline-block bg-[#FF4500] hover:bg-[#e03d00] text-white font-bold px-8 py-3.5 rounded-full transition shadow-lg shadow-[#FF4500]/20">
+          <div className="mt-12 border border-neutral-200 rounded-3xl p-16 text-center bg-white shadow-sm">
+            <p className="text-neutral-500 text-lg mb-6 font-medium">Ainda não tens compras na tua conta.</p>
+            <a href="/marketplace" className="inline-block bg-[#FF4500] hover:bg-[#e03d00] text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg shadow-[#FF4500]/20">
               Explorar Marketplace
             </a>
           </div>
@@ -68,10 +68,10 @@ export default async function Library() {
 
               return (
                 <div key={typeKey} className="space-y-6">
-                  <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                    <SectionIcon className={`w-7 h-7 ${sectionTitles[typeKey].color}`} />
+                  <h2 className="text-xl font-bold text-neutral-900 flex items-center gap-3">
+                    <SectionIcon className={`w-6 h-6 ${sectionTitles[typeKey].color}`} />
                     {sectionTitles[typeKey].title}
-                    <span className="text-xs font-bold bg-white/10 text-white px-3 py-1 rounded-full border border-white/10">{typeItems.length}</span>
+                    <span className="text-xs font-bold bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full border border-neutral-200">{typeItems.length}</span>
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {typeItems.map(it => {
@@ -95,7 +95,7 @@ export default async function Library() {
                           key={it.purchaseId}
                           href={href}
                           target={target}
-                          className="group relative bg-[#0A0A0A]/60 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:shadow-[0_0_40px_rgba(255,69,0,0.15)] hover:border-white/20 transition-all duration-500 flex flex-col"
+                          className="group relative bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:shadow-md hover:border-[#FF4500]/30 transition-all duration-300 flex flex-col shadow-sm"
                         >
                           <div className="relative aspect-video overflow-hidden">
                             <img 
@@ -103,22 +103,22 @@ export default async function Library() {
                               alt={it.product.title} 
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#111111] to-transparent opacity-80"></div>
-                            <span className="absolute top-3 left-3 bg-[#FF4500] text-white text-[10px] font-bold uppercase px-3 py-1 rounded-md shadow-lg">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-80"></div>
+                            <span className="absolute top-3 left-3 bg-[#FF4500] text-white text-[10px] font-bold uppercase px-3 py-1 rounded-md shadow-sm">
                               {typeLabels[it.product.type]}
                             </span>
                           </div>
                           <div className="p-5 flex flex-col flex-1 min-w-0 relative z-10">
-                            <span className="font-bold text-lg leading-tight line-clamp-2 text-white mb-2 group-hover:text-[#FF4500] transition-colors">{it.product.title}</span>
-                            <span className="text-xs font-medium text-neutral-400 mt-auto mb-4">por {it.product.instructor}</span>
+                            <span className="font-bold text-lg leading-tight line-clamp-2 text-neutral-900 mb-2 group-hover:text-[#FF4500] transition-colors">{it.product.title}</span>
+                            <span className="text-xs font-medium text-neutral-500 mt-auto mb-4">por {it.product.instructor}</span>
                             
                             {it.product.type === "course" && progressMap[it.product.id] !== undefined && (
                               <div className="mb-4">
                                 <div className="flex justify-between items-center mb-1.5">
-                                  <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Progresso</span>
-                                  <span className="text-[10px] font-bold text-emerald-400">{progressMap[it.product.id]}%</span>
+                                  <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-wider">Progresso</span>
+                                  <span className="text-[10px] font-bold text-emerald-500">{progressMap[it.product.id]}%</span>
                                 </div>
-                                <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
+                                <div className="w-full bg-neutral-100 rounded-full h-1.5 overflow-hidden">
                                   <div 
                                     className="bg-emerald-500 h-1.5 rounded-full transition-all duration-1000 ease-out" 
                                     style={{ width: `${progressMap[it.product.id]}%` }}
@@ -127,7 +127,7 @@ export default async function Library() {
                               </div>
                             )}
 
-                            <div className="w-full bg-white/10 group-hover:bg-[#FF4500] text-white py-2.5 rounded-xl text-center text-sm font-bold transition-all duration-300">
+                            <div className="w-full bg-neutral-50 border border-neutral-200 group-hover:bg-[#FF4500] group-hover:border-[#FF4500] group-hover:text-white text-neutral-700 py-2.5 rounded-xl text-center text-sm font-bold transition-all duration-300">
                               {cta}
                             </div>
                           </div>
