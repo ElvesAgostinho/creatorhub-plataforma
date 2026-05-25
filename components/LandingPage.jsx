@@ -35,20 +35,25 @@ export default function LandingPage({ user }) {
             </div>
           </div>
           
-          {/* VIDEO (RIGHT - STUCK TO TOP) */}
-          <div className="w-full lg:w-1/2 lg:absolute lg:top-0 lg:right-0 lg:h-full flex items-start justify-end mt-8 lg:mt-0">
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-              className="w-full max-w-[600px] lg:max-w-none lg:w-[110%] h-auto lg:h-[110%] object-cover object-top lg:translate-x-12 rounded-l-3xl lg:rounded-none shadow-2xl lg:shadow-none"
-            >
-              {/* Fonte de vídeo futurista */}
-              <source src="https://cdn.pixabay.com/video/2020/07/22/45348-442867808_large.mp4" type="video/mp4" />
-              <source src="https://cdn.pixabay.com/video/2021/08/04/83863-585324021_large.mp4" type="video/mp4" />
-              Seu navegador não suporta vídeos.
-            </video>
+          {/* CINEMATIC ANIMATED HERO (RIGHT - STUCK TO TOP) */}
+          <div className="w-full lg:w-1/2 lg:absolute lg:top-0 lg:right-0 lg:h-full flex items-start justify-end mt-8 lg:mt-0 overflow-hidden">
+            <style dangerouslySetInnerHTML={{__html: `
+              @keyframes cinematic-pan {
+                0% { transform: scale(1.05) translate(0, 0); }
+                50% { transform: scale(1.1) translate(-2%, 2%); }
+                100% { transform: scale(1.05) translate(0, 0); }
+              }
+              .animate-cinematic {
+                animation: cinematic-pan 20s ease-in-out infinite;
+              }
+            `}} />
+            <div className="relative w-full max-w-[600px] lg:max-w-none lg:w-[110%] h-[350px] lg:h-[110%] lg:translate-x-12 rounded-l-3xl lg:rounded-none shadow-2xl lg:shadow-none overflow-hidden">
+              <img 
+                src="/hero_futuristic.png" 
+                alt="Plataforma Integrada" 
+                className="absolute inset-0 w-full h-full object-cover object-center animate-cinematic"
+              />
+            </div>
           </div>
 
         </div>
