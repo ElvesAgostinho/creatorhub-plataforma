@@ -124,7 +124,8 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
     let youtubeId = null
 
     if (url.startsWith("storage:lessons/")) {
-      finalUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/lessons/${url.replace("storage:lessons/", "")}`
+      // Usa o proxy local para que o Cloudflare (bizlink) guarde o vídeo em cache!
+      finalUrl = `/storage/lessons/${url.replace("storage:lessons/", "")}`
     } else if (url.includes("youtube.com") || url.includes("youtu.be")) {
       isYoutube = true
       const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&]{11})/)

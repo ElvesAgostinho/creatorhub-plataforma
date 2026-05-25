@@ -57,6 +57,7 @@ async function processVideo(lessonId, videoUrl) {
         uploadPromises.push(
           supabase.storage.from('lessons').upload(storagePath, fileContent, {
             contentType,
+            cacheControl: '31536000', // Cache máximo (1 ano) na origem
             upsert: true
           })
         );
