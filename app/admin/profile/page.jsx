@@ -2,7 +2,7 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { updateProfile } from "./actions"
 import ClientForm from "@/components/ClientForm"
-import Uploader from "@/components/Uploader"
+import AvatarField from "@/components/AvatarField"
 
 export const dynamic = "force-dynamic"
 
@@ -29,31 +29,11 @@ export default async function ProfilePage() {
       <div className="bg-white border border-neutral-200 rounded-3xl p-8 shadow-sm">
         <ClientForm action={updateProfile} className="space-y-6">
           
-          <div className="flex flex-col sm:flex-row gap-8 items-start mb-8">
-            <div className="shrink-0 w-32 h-32 rounded-full overflow-hidden bg-neutral-100 border-4 border-white shadow-lg">
-              {profile?.avatar_url ? (
-                <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-neutral-300">
-                  {profile?.full_name?.charAt(0) || "U"}
-                </div>
-              )}
-            </div>
-            <div className="flex-1 w-full">
-              <label className="text-sm font-bold text-neutral-800">Foto de Perfil</label>
-              <p className="text-xs text-neutral-500 mb-3">Faz o upload de uma foto tua. O tamanho ideal é 500x500px.</p>
-              <Uploader 
-                bucket="avatars" 
-                folder={user.id} 
-                onUploadSuccess={(url) => {
-                  // The form should have a hidden input to hold the avatar URL
-                  const input = document.getElementById('avatar_url_input')
-                  if(input) input.value = url
-                }}
-              />
-              <input type="hidden" name="avatar_url" id="avatar_url_input" defaultValue={profile?.avatar_url || ""} />
-            </div>
-          </div>
+          <AvatarField 
+            userId={user.id} 
+            defaultUrl={profile?.avatar_url} 
+            defaultInitial={profile?.full_name?.charAt(0) || "U"} 
+          />
 
           <div className="grid sm:grid-cols-2 gap-6">
             <div>
