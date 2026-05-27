@@ -17,6 +17,15 @@ export default async function ProductPage({ params, searchParams }) {
   const previewUrl = item.promoVideoUrl || item.youtube_preview_url || null
   const advantagesList = item.advantages ? item.advantages.split('\n').filter(Boolean) : []
 
+  // YouTube embed parser
+  let embedUrl = null;
+  if (previewUrl) {
+    const ytMatch = previewUrl.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/);
+    if (ytMatch && ytMatch[2].length === 11) {
+      embedUrl = `https://www.youtube.com/embed/${ytMatch[2]}`;
+    }
+  }
+
   // Fetch modules/lessons
   const lessons = await getLessonsForProduct(item.id)
   
@@ -102,18 +111,30 @@ export default async function ProductPage({ params, searchParams }) {
           {/* Video Section */}
           {previewUrl && (
             <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden relative border border-neutral-200 shadow-lg group mb-10">
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <a href={previewUrl} target="_blank" className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer shadow-2xl">
-                  <PlayCircle className="w-10 h-10 text-black ml-1" />
-                </a>
-              </div>
-              {item.image && <img src={item.image} alt="Video cover" className="w-full h-full object-cover opacity-60" />}
+              {embedUrl ? (
+                <iframe 
+                  src={embedUrl} 
+                  className="absolute inset-0 w-full h-full" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                ></iframe>
+              ) : (
+                <>
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <a href={previewUrl.startsWith('http') ? previewUrl : `https://${previewUrl}`} target="_blank" className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer shadow-2xl">
+                      <PlayCircle className="w-10 h-10 text-black ml-1" />
+                    </a>
+                  </div>
+                  {item.image && <img src={item.image} alt="Video cover" className="w-full h-full object-cover opacity-60" />}
+                </>
+              )}
             </div>
           )}
 
           {/* Main Content Area: Image and Tabs */}
           <div className="flex flex-col md:flex-row gap-8">
-            <div className="w-full md:w-1/3 max-w-[280px] shrink-0">
+            <div className="w-full md:w-1/4 max-w-[200px] shrink-0">
               <div className="aspect-square bg-neutral-100 rounded-2xl overflow-hidden relative border border-neutral-200 shadow-sm">
                 {item.image ? (
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
