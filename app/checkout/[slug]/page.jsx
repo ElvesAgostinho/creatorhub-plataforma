@@ -2,7 +2,6 @@ import { notFound, redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { getProductBySlug, typeLabels } from "@/lib/data/products"
 import { createPendingPurchase } from "./actions"
-import { CheckCircle2, Globe, ExternalLink } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -21,278 +20,149 @@ export default async function CheckoutPage({ params, searchParams }) {
     .eq("id", "default")
     .single()
 
-  // Fetch Modules
-  const { data: modules } = await supabase
-    .from("modules")
-    .select("id, title")
-    .eq("product_id", item.id)
-    .order("position", { ascending: true })
-
-  let lessons = []
-  if (modules && modules.length > 0) {
-    const { data: lData } = await supabase
-      .from("lessons")
-      .select("id, module_id, title")
-      .in("module_id", modules.map(m => m.id))
-      .order("position", { ascending: true })
-    if (lData) lessons = lData
-  }
-
-  // Fetch Creator Profile (for avatar)
-  // Assume creator is linked to the product. We can search by instructor name or if the product had created_by we could use it.
-  // We'll just display what we have in `item`.
-
   const fmt = n => (n ?? 0).toLocaleString("pt-PT")
 
-  const advantagesList = item.advantages ? item.advantages.split('\n').filter(Boolean) : []
-  const socialLinks = item.creatorSocialLinks || {}
-
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 grid lg:grid-cols-[1.5fr_1fr] gap-12">
-      {/* Esquerda: Informações do Produto e Criador (Estilo Hotmart) */}
-      <div className="space-y-8">
+    <div className="min-h-screen bg-[#F4F5F6] py-10 px-4 flex justify-center">
+      <div className="w-full max-w-3xl relative">
         
-        {/* Media Promocional (Vídeo ou Imagem) */}
-        {item.promoVideoUrl ? (
-          <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-lg border border-neutral-200">
-            {(item.promoMediaSource === 'youtube' || item.promoVideoUrl.includes('youtube.com') || item.promoVideoUrl.includes('youtu.be')) ? (
-              <iframe
-                width="100%"
-                height="100%"
-                src={`https://www.youtube.com/embed/${item.promoVideoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&]{11})/)?.[1] || ''}?rel=0`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            ) : (item.promoMediaSource === 'vimeo' || item.promoVideoUrl.includes('vimeo.com')) ? (
-              <iframe 
-                src={`https://player.vimeo.com/video/${item.promoVideoUrl.split('/').pop()}?title=0&byline=0&portrait=0`} 
-                width="100%" height="100%" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture"
-              ></iframe>
-            ) : (item.promoMediaSource === 'google_drive' || item.promoVideoUrl.includes('drive.google.com')) ? (
-              <iframe src={item.promoVideoUrl.replace('/view', '/preview')} width="100%" height="100%" allow="autoplay"></iframe>
-            ) : (
-               <video src={item.promoVideoUrl.startsWith("storage:") ? `/storage/products/${item.promoVideoUrl.replace("storage:products/", "")}` : item.promoVideoUrl} controls className="w-full h-full object-cover" controlsList="nodownload" />
-            )}
-          </div>
-        ) : (
-          <div className="w-full aspect-video bg-neutral-100 rounded-2xl overflow-hidden shadow-sm border border-neutral-200">
-            <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-          </div>
-        )}
-
-        <div>
-          <h1 className="text-3xl font-extrabold text-[#111]">{item.title}</h1>
-          <p className="text-neutral-600 mt-2 text-lg">{item.description}</p>
-        </div>
-
-        {/* Informação do Criador */}
-        <div className="flex items-center gap-4 p-4 bg-neutral-50 rounded-2xl border border-neutral-100">
-          <div className="w-14 h-14 bg-gradient-to-tr from-[#FF4500] to-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
-            {item.avatar ? (
-              <img src={item.avatar} alt={item.instructor} className="w-full h-full object-cover" />
-            ) : (
-              item.instructor.charAt(0)
-            )}
-          </div>
-          <div>
-            <div className="text-sm text-neutral-500 font-medium">Criado por</div>
-            <div className="font-bold text-lg">{item.instructor}</div>
-            <div className="text-sm text-neutral-600">{item.role}</div>
-          </div>
+        {/* Main Card */}
+        <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
           
-          {/* Social Links do Criador */}
-          <div className="ml-auto flex gap-3 text-neutral-400">
-            {socialLinks.instagram && <a href={socialLinks.instagram} target="_blank" className="hover:text-[#E1306C]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>}
-            {socialLinks.youtube && <a href={socialLinks.youtube} target="_blank" className="hover:text-[#FF0000]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>}
-            {socialLinks.twitter && <a href={socialLinks.twitter} target="_blank" className="hover:text-[#1DA1F2]"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>}
-            {socialLinks.website && <a href={socialLinks.website} target="_blank" className="hover:text-blue-500"><Globe size={20} /></a>}
+          {/* Header */}
+          <div className="px-8 py-6 border-b border-neutral-100 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-[#FF4500] rounded-full flex items-center justify-center text-white font-black text-xl">
+                C
+              </div>
+              <span className="font-extrabold text-xl tracking-tight">CreatorHub</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="bg-[#FF4500] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">New Look</span>
+            </div>
           </div>
+
+          <form action={createPendingPurchase} className="flex flex-col">
+            <input type="hidden" name="slug" value={item.slug} />
+            {searchParams?.ref && <input type="hidden" name="ref" value={searchParams.ref} />}
+
+            <div className="p-8 space-y-10">
+              
+              {/* Product Info */}
+              <div className="flex gap-6">
+                <div className="w-24 h-24 bg-neutral-100 rounded-xl overflow-hidden shrink-0 border border-neutral-200">
+                  {item.image ? (
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-neutral-400 font-bold text-xs">Sem capa</div>
+                  )}
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold text-neutral-900 leading-tight">{item.title}</h1>
+                  <p className="text-neutral-500 mt-1">Author: {item.instructor}</p>
+                  <div className="text-3xl font-black text-neutral-900 mt-2">{fmt(item.price)} Kz</div>
+                </div>
+              </div>
+
+              <hr className="border-neutral-100" />
+
+              {/* Personal Info */}
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold text-neutral-900">Personal info</h2>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold text-neutral-700 mb-2">Your email address</label>
+                    <input 
+                      type="email" 
+                      defaultValue={user.email}
+                      required
+                      placeholder="Enter the email to receive your purchase"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-neutral-700 mb-2">Confirm your email</label>
+                    <input 
+                      type="email" 
+                      defaultValue={user.email}
+                      required
+                      placeholder="Enter your email again"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-neutral-700 mb-2">Your full name</label>
+                    <input 
+                      type="text" 
+                      name="full_name"
+                      required
+                      placeholder="Enter your full name"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <hr className="border-neutral-100" />
+
+              {/* Payment Method */}
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold text-neutral-900">Payment method</h2>
+                
+                <div>
+                  <select
+                    name="payment_method"
+                    defaultValue="transfer"
+                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors font-medium"
+                  >
+                    <option value="transfer">Transferência Bancária / Multicaixa Express</option>
+                    <option value="unitel_money">Unitel Money</option>
+                    <option value="africell_money">Africell Money</option>
+                  </select>
+                </div>
+
+                <div className="bg-[#FFF0EB] border border-[#FF4500]/20 rounded-lg p-5 text-sm text-neutral-800">
+                  <p className="font-bold mb-2">Dados para pagamento:</p>
+                  Faz a transferência para o IBAN:
+                  <div className="mt-2 font-mono bg-white px-4 py-3 rounded border border-[#FF4500]/10 font-bold text-lg text-center tracking-wider shadow-sm">
+                    {settings?.platform_iban || "Não configurado"}
+                  </div>
+                  <div className="text-center mt-2 text-neutral-600 font-medium">{settings?.platform_beneficiary}</div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-neutral-700 mb-2">Comprovativo / Referência</label>
+                  <input
+                    type="text"
+                    name="payment_ref"
+                    required
+                    placeholder="Ex: TRX-2026 ou últimos 6 dígitos"
+                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
+                  />
+                </div>
+              </div>
+
+            </div>
+
+            {/* Bottom Sticky Action Bar */}
+            <div className="bg-neutral-50 px-8 py-6 border-t border-neutral-200 flex items-center justify-between sticky bottom-0 rounded-b-2xl">
+              <div className="text-2xl font-black text-neutral-900">{fmt(item.price)} Kz</div>
+              <button
+                type="submit"
+                className="bg-[#00A859] hover:bg-[#009650] text-white font-bold text-lg px-12 py-4 rounded-lg transition-colors shadow-sm"
+              >
+                Buy now
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <div className="text-center mt-6 text-sm text-neutral-400 font-medium">
+          Powered by CreatorHub
         </div>
 
-        {/* Para quem é o curso */}
-        {item.targetAudience && (
-          <div>
-            <h2 className="text-xl font-bold mb-3">Para quem é este curso?</h2>
-            <p className="text-neutral-700 leading-relaxed bg-[#FF4500]/5 p-5 rounded-2xl border border-[#FF4500]/10">
-              {item.targetAudience}
-            </p>
-          </div>
-        )}
-
-        {/* Vantagens */}
-        {advantagesList.length > 0 && (
-          <div>
-            <h2 className="text-xl font-bold mb-4">Vantagens do Produto</h2>
-            <ul className="space-y-3">
-              {advantagesList.map((adv, i) => (
-                <li key={i} className="flex gap-3 text-neutral-700">
-                  <CheckCircle2 className="text-green-500 shrink-0 mt-0.5" size={20} />
-                  <span>{adv}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Módulos do Curso */}
-        {item.type === "course" && modules && modules.length > 0 && (
-          <div>
-            <h2 className="text-xl font-bold mb-4">Conteúdo do Curso</h2>
-            <div className="border border-neutral-200 rounded-2xl overflow-hidden bg-white">
-              {modules.map((mod, i) => {
-                const modLessons = lessons.filter(l => l.module_id === mod.id)
-                return (
-                  <div key={mod.id} className={`p-4 ${i !== modules.length - 1 ? 'border-b border-neutral-100' : ''}`}>
-                    <div className="font-bold text-sm text-neutral-800 flex justify-between">
-                      <span>Módulo {i + 1}</span>
-                      <span className="text-xs bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-full">{modLessons.length} aulas</span>
-                    </div>
-                    <div className="text-neutral-700 mt-1 font-medium">{mod.title}</div>
-                    {modLessons.length > 0 && (
-                      <ul className="mt-3 space-y-1.5 border-t border-neutral-50 pt-3">
-                        {modLessons.map(l => (
-                          <li key={l.id} className="text-sm text-neutral-500 flex items-start gap-2">
-                            <span className="text-neutral-300 mt-0.5">▶</span>
-                            <span>{l.title}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Informações Específicas de Outros Tipos */}
-        {item.type === "book" && (
-          <div className="p-6 border border-neutral-200 bg-white rounded-2xl flex items-start gap-4">
-            <div className="w-12 h-12 shrink-0 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg">E-book Digital (PDF)</h3>
-              <p className="text-sm text-neutral-600 mt-1">
-                Ao finalizar a compra, receberás acesso imediato ao ficheiro PDF deste livro, que poderás ler em qualquer dispositivo (telemóvel, tablet ou computador). O PDF é carimbado com o teu email para evitar pirataria.
-              </p>
-            </div>
-          </div>
-        )}
-
-        {item.type === "mentorship" && (
-          <div className="p-6 border border-neutral-200 bg-white rounded-2xl flex items-start gap-4">
-            <div className="w-12 h-12 shrink-0 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg">Sessão de Mentoria / Consultoria</h3>
-              <p className="text-sm text-neutral-600 mt-1">
-                Esta compra garante-te acesso a uma sessão exclusiva. Após o pagamento, poderás agendar diretamente na área de membros, escolhendo o horário que melhor se adapta à tua disponibilidade entre as vagas abertas pelo criador.
-              </p>
-            </div>
-          </div>
-        )}
-
-
-
-        {/* Link Externo Opcional */}
-        {item.externalSalesUrl && (
-          <div className="mt-8 flex items-center justify-between p-5 border border-blue-100 bg-blue-50 rounded-2xl">
-            <div>
-              <div className="font-bold text-blue-900">Saber mais detalhes?</div>
-              <div className="text-sm text-blue-700 mt-1">Visite a página oficial do criador para mais informações.</div>
-            </div>
-            <a href={item.externalSalesUrl} target="_blank" className="flex items-center gap-2 px-4 py-2 bg-white text-blue-700 font-bold rounded-xl text-sm border border-blue-200 hover:bg-blue-100 transition-colors">
-              Página Oficial <ExternalLink size={16} />
-            </a>
-          </div>
-        )}
       </div>
-
-      {/* Direita: Checkout Form */}
-      <aside>
-        <form
-          action={createPendingPurchase}
-          className="border border-neutral-200 rounded-2xl p-6 bg-white shadow-xl shadow-black/5 space-y-6 sticky top-24"
-        >
-          <div>
-            <h2 className="text-xl font-extrabold text-[#111]">Finalizar compra</h2>
-            <p className="text-neutral-500 mt-1 text-xs">Transação 100% segura e encriptada.</p>
-          </div>
-
-          <input type="hidden" name="slug" value={item.slug} />
-          {searchParams?.ref && <input type="hidden" name="ref" value={searchParams.ref} />}
-
-          <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-100 flex gap-4">
-            <img src={item.image} alt={item.title} className="w-20 h-14 object-cover rounded-md" />
-            <div>
-               <div className="font-bold leading-tight">{item.title}</div>
-               <div className="text-xs text-[#FF4500] font-bold mt-1 uppercase">{typeLabels[item.type]}</div>
-            </div>
-          </div>
-
-          <div>
-            <div className="flex justify-between items-baseline mb-2">
-              <span className="text-neutral-600 font-medium">Total a pagar:</span>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold text-[#111]">{fmt(item.price)} Kz</span>
-              </div>
-            </div>
-            {item.discount > 0 && (
-              <div className="flex justify-end gap-2 items-center">
-                <span className="text-xs text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded">- {item.discount}% desc.</span>
-                <span className="text-sm line-through text-neutral-400">{fmt(item.originalPrice)} Kz</span>
-              </div>
-            )}
-          </div>
-
-          <div className="border-t border-neutral-100 pt-6">
-            <label className="text-sm font-bold text-neutral-800">Método de Pagamento</label>
-            <select
-              name="payment_method"
-              defaultValue="transfer"
-              className="mt-2 w-full bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all shadow-sm"
-            >
-              <option value="transfer">Transferência Bancária / Multicaixa Express</option>
-              <option value="unitel_money">Unitel Money</option>
-              <option value="africell_money">Africell Money</option>
-            </select>
-          </div>
-
-          {/* Dados de Pagamento (Instruções) */}
-          <div className="bg-[#FFF0EB] border border-[#FF4500]/20 rounded-xl p-4 text-sm text-neutral-800">
-            Faz a transferência para:
-            <div className="mt-2 font-mono bg-white px-3 py-2 rounded-lg border border-[#FF4500]/10 font-bold text-center">
-              {settings?.platform_iban || "Não configurado"}
-            </div>
-            <div className="text-center mt-1 text-xs text-neutral-600">{settings?.platform_beneficiary}</div>
-          </div>
-
-          <div>
-            <label className="text-sm font-bold text-neutral-800">Comprovativo / Referência</label>
-            <input
-              type="text"
-              name="payment_ref"
-              required
-              placeholder="Ex: TRX-2026 ou últimos 6 dígitos"
-              className="mt-2 w-full bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all shadow-sm"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-[#FF4500]/20 mt-4 uppercase tracking-wider text-sm flex justify-center items-center gap-2"
-          >
-            Confirmar Pedido Agora
-          </button>
-
-          <p className="text-xs text-center text-neutral-400 mt-4 px-4">
-            Ao comprar, concordas com os Termos de Serviço e Política de Privacidade da CreatorHub.
-          </p>
-        </form>
-      </aside>
     </div>
   )
 }

@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation"
 import { getProductBySlug, hasActivePurchase, typeLabels } from "@/lib/data/products"
+import { getLessonsForProduct } from "@/lib/data/lessons"
 import { createServiceClient } from "@/lib/supabase/server"
-import { Star, ShieldCheck, PlayCircle, Users } from "lucide-react"
+import { Star, ShieldCheck, PlayCircle, Globe, Instagram, Facebook, Twitter, Youtube, Linkedin, BookOpen } from "lucide-react"
 
 export const revalidate = 60
 
@@ -15,26 +16,49 @@ export default async function ProductPage({ params, searchParams }) {
   const previewUrl = item.promoVideoUrl || item.youtube_preview_url || null
   const advantagesList = item.advantages ? item.advantages.split('\n').filter(Boolean) : []
 
-  // Get other products from the same creator
+  // Fetch modules/lessons
+  const lessons = await getLessonsForProduct(item.id)
+  
+  // Get creator info and other products
   const svc = createServiceClient()
   const { data: productRow } = await svc.from("products").select("created_by").eq("id", item.id).single()
   const creatorId = productRow?.created_by
 
   let otherProducts = []
+  let creatorProfile = null
+
   if (creatorId) {
-    const { data } = await svc
+    const { data: pData } = await svc
       .from("products")
       .select("id, slug, title, image_url, price_cents, type")
       .eq("created_by", creatorId)
       .eq("published", true)
       .neq("id", item.id)
       .limit(4)
-    if (data) otherProducts = data
+    if (pData) otherProducts = pData
+
+    const { data: profData } = await svc.from("profiles").select("*").eq("id", creatorId).single()
+    if (profData) creatorProfile = profData
+  }
+
+  const SocialIcon = ({ type, url }) => {
+    if (!url) return null
+    let Icon = Globe
+    if (type === 'instagram') Icon = Instagram
+    if (type === 'facebook') Icon = Facebook
+    if (type === 'twitter') Icon = Twitter
+    if (type === 'youtube') Icon = Youtube
+    if (type === 'linkedin') Icon = Linkedin
+    return (
+      <a href={url.startsWith('http') ? url : `https://${url}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600 hover:bg-[#FF4500] hover:text-white transition-colors">
+        <Icon className="w-5 h-5" />
+      </a>
+    )
   }
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Top Banner (Breadcrumbs & Title) */}
+      {/* Top Banner */}
       <div className="border-b border-neutral-200 py-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4 font-medium uppercase tracking-wider">
@@ -47,7 +71,7 @@ export default async function ProductPage({ params, searchParams }) {
             {item.title}
           </h1>
 
-          <div className="flex items-center gap-6 text-sm text-neutral-600">
+          <div className="flex items-center gap-6 text-sm text-neutral-600 flex-wrap">
             <div className="flex items-center gap-2 font-medium">
               <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
               <span className="font-bold text-neutral-900">{item.reviewsPositive ? (item.reviewsPositive / 20).toFixed(1) : "5.0"}</span> 
@@ -61,19 +85,23 @@ export default async function ProductPage({ params, searchParams }) {
             <div className="flex items-center gap-1">
               <span>🌎</span> English / Português
             </div>
+            <div className="ml-auto flex items-center gap-2 font-bold text-neutral-900 cursor-pointer hover:text-[#FF4500] transition-colors">
+              <span>Share</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 grid lg:grid-cols-[1fr_360px] gap-12">
         
-        {/* LEFT COLUMN: Hotmart Sequence */}
+        {/* LEFT COLUMN: Content */}
         <div className="space-y-12">
           
-          {/* Main Content Area (Image + Description or Video) */}
+          {/* Main Content Area: Reduced Image Size */}
           <div className="flex flex-col md:flex-row gap-8">
-            <div className="w-full md:w-1/2 shrink-0">
-              <div className="aspect-square bg-neutral-100 rounded-2xl overflow-hidden relative border border-neutral-200">
+            <div className="w-full md:w-1/3 max-w-[280px] shrink-0">
+              <div className="aspect-square bg-neutral-100 rounded-2xl overflow-hidden relative border border-neutral-200 shadow-sm">
                 {item.image ? (
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 ) : (
@@ -81,36 +109,48 @@ export default async function ProductPage({ params, searchParams }) {
                 )}
               </div>
             </div>
-            <div className="w-full md:w-1/2">
+            <div className="w-full md:flex-1">
               <h3 className="text-xl font-bold text-neutral-900 mb-4">Details</h3>
-              <p className="text-neutral-600 leading-relaxed text-[15px]">
+              <p className="text-neutral-600 leading-relaxed text-[15px] whitespace-pre-wrap">
                 {item.description}
-              </p>
-              <p className="text-neutral-600 leading-relaxed text-[15px] mt-4">
-                This is exactly the type of product that will help you achieve your goals with a proven step-by-step methodology, guided by an expert.
               </p>
             </div>
           </div>
 
-          {/* Video Section (If exists) */}
+          {/* Video Section */}
           {previewUrl && (
             <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden relative border border-neutral-200 shadow-lg group">
               <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer shadow-2xl">
+                <a href={previewUrl} target="_blank" className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer shadow-2xl">
                   <PlayCircle className="w-10 h-10 text-black ml-1" />
-                </div>
+                </a>
               </div>
               {item.image && <img src={item.image} alt="Video cover" className="w-full h-full object-cover opacity-60" />}
+            </div>
+          )}
+
+          {/* Modules / Curriculum */}
+          {lessons && lessons.length > 0 && (
+            <div>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">Course Modules</h2>
+              <div className="border border-neutral-200 rounded-2xl overflow-hidden divide-y divide-neutral-200">
+                {lessons.map((lesson, idx) => (
+                  <div key={lesson.id} className="p-4 flex items-start gap-4 hover:bg-neutral-50 transition-colors">
+                    <div className="mt-1 text-neutral-400"><BookOpen className="w-5 h-5" /></div>
+                    <div>
+                      <h4 className="font-bold text-neutral-900 text-[15px]">Module {idx + 1}: {lesson.title}</h4>
+                      {lesson.description && <p className="text-sm text-neutral-500 mt-1">{lesson.description}</p>}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
           {/* Benefits Section */}
           {advantagesList.length > 0 && (
             <div>
-              <div className="border-b border-neutral-200 flex gap-8 mb-6">
-                <button className="pb-4 border-b-2 border-black font-bold text-neutral-900 text-lg">Benefits</button>
-                <button className="pb-4 border-b-2 border-transparent font-medium text-neutral-500 text-lg hover:text-neutral-900 transition-colors">Details</button>
-              </div>
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">Benefits</h2>
               <ul className="space-y-4">
                 {advantagesList.map((adv, i) => (
                   <li key={i} className="flex gap-3 text-neutral-700 text-[15px]">
@@ -127,17 +167,35 @@ export default async function ProductPage({ params, searchParams }) {
           {/* Learn more about the content creator */}
           <div>
             <h2 className="text-2xl font-bold text-neutral-900 mb-6">Learn more about the content creator</h2>
-            <div className="flex gap-4 items-center">
-              <div className="w-16 h-16 bg-neutral-200 rounded-full overflow-hidden shrink-0 flex items-center justify-center text-xl font-bold text-neutral-500">
-                {item.avatar ? (
-                  <img src={item.avatar} alt={item.instructor} className="w-full h-full object-cover" />
+            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+              <div className="w-24 h-24 bg-neutral-200 rounded-full overflow-hidden shrink-0 flex items-center justify-center text-3xl font-bold text-neutral-500 border-4 border-white shadow-md">
+                {item.avatar || creatorProfile?.avatar_url ? (
+                  <img src={item.avatar || creatorProfile?.avatar_url} alt={item.instructor} className="w-full h-full object-cover" />
                 ) : (
                   item.instructor?.charAt(0) || "U"
                 )}
               </div>
-              <div>
-                <h3 className="font-bold text-neutral-900 text-lg">{item.instructor}</h3>
-                <p className="text-sm text-neutral-500 font-medium">3 Hotmarter Years · {item.role}</p>
+              <div className="flex-1">
+                <h3 className="font-bold text-neutral-900 text-xl">{item.instructor || creatorProfile?.full_name}</h3>
+                <p className="text-sm text-neutral-500 font-medium mt-1">{creatorProfile?.bio || item.role || "Content Creator"}</p>
+                
+                {/* Social Links */}
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <SocialIcon type="website" url={creatorProfile?.website} />
+                  <SocialIcon type="instagram" url={creatorProfile?.instagram} />
+                  <SocialIcon type="facebook" url={creatorProfile?.facebook} />
+                  <SocialIcon type="twitter" url={creatorProfile?.twitter} />
+                  <SocialIcon type="youtube" url={creatorProfile?.youtube} />
+                  <SocialIcon type="linkedin" url={creatorProfile?.linkedin} />
+                  {/* Fallback demo links if none exist in DB */}
+                  {!creatorProfile?.website && !creatorProfile?.instagram && (
+                    <>
+                      <SocialIcon type="instagram" url="https://instagram.com" />
+                      <SocialIcon type="youtube" url="https://youtube.com" />
+                      <SocialIcon type="website" url="https://example.com" />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -212,7 +270,7 @@ export default async function ProductPage({ params, searchParams }) {
                       ) : null}
                     </div>
                     <h4 className="font-bold text-sm text-neutral-900 leading-snug line-clamp-2">{p.title}</h4>
-                    <p className="text-xs text-neutral-500 mt-1">{item.instructor}</p>
+                    <p className="text-xs text-neutral-500 mt-1">{item.instructor || creatorProfile?.full_name}</p>
                   </a>
                 ))}
               </div>
@@ -221,7 +279,7 @@ export default async function ProductPage({ params, searchParams }) {
 
         </div>
 
-        {/* RIGHT COLUMN: Sticky Sidebar with Pricing & Checkout Button */}
+        {/* RIGHT COLUMN: Sticky Sidebar */}
         <aside>
           <div className="sticky top-24">
             
