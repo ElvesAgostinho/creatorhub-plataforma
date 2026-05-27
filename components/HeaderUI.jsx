@@ -64,7 +64,6 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                     <div className="absolute left-full bottom-0 opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200">
                       <div className="bg-white border border-neutral-200 rounded-xl shadow-xl py-2 min-w-[220px] ml-1 flex flex-col">
                         <a href="/marketplace?type=course" className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium">Cursos</a>
-                        <a href="/marketplace?type=event" className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium">Eventos</a>
                         <a href="/marketplace?type=mentorship" className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium">Mentorias</a>
                         <a href="/marketplace?type=book" className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium">E-books / PDF</a>
                       </div>

@@ -31,7 +31,7 @@ export default async function Library() {
               Bem-vindo à tua Academia.
             </h1>
             <p className="text-neutral-500 text-lg leading-relaxed font-medium">
-              Aqui tens acesso imediato a todo o conhecimento que adquiriste. Retoma os teus cursos, lê os teus ebooks e acede aos teus eventos com a melhor experiência de aprendizagem.
+              Aqui tens acesso imediato a todo o conhecimento que adquiriste. Retoma os teus cursos e lê os teus ebooks com a melhor experiência de aprendizagem.
             </p>
           </div>
           <div className="hidden md:flex flex-col gap-3 mt-6 md:mt-0 items-end relative z-10">

@@ -17,7 +17,7 @@ export default async function Dashboard() {
     .maybeSingle()
 
   const cards = [
-    { title: "Biblioteca", desc: "Cursos, livros, mentorias e eventos que compraste.", href: "/library" },
+    { title: "Biblioteca", desc: "Cursos, livros e mentorias que compraste.", href: "/library" },
   ]
   if (profile?.role === "admin" || profile?.role === "creator") {
     cards.unshift({ title: "Gestão de Conteúdo (Criador)", desc: "Criar e editar cursos, aulas e módulos.", href: "/admin/products" })

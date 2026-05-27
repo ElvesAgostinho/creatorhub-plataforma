@@ -10,7 +10,7 @@ import "@/app/globals.css"
 
 export const metadata = {
   title: "ABOVE — Cursos, Livros e Mentorias",
-  description: "Aprende com criadores reais. Cursos, livros, mentorias e eventos num único lugar."
+  description: "Aprende com criadores reais. Cursos, livros e mentorias num único lugar."
 }
 
 export default async function Layout({ children }) {

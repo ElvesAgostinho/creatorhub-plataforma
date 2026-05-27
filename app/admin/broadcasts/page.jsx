@@ -41,7 +41,7 @@ export default async function AdminBroadcasts() {
         >
           <div>
             <h2 className="font-bold text-lg mb-2">Enviar Aviso Geral</h2>
-            <p className="text-xs text-neutral-500 mb-4">Esta mensagem vai aparecer na Caixa de Entrada (Inbox) de todos os utilizadores da plataforma (alunos e criadores). Usa para anunciar novos cursos, ofertas, eventos grátis, etc.</p>
+            <p className="text-xs text-neutral-500 mb-4">Esta mensagem vai aparecer na Caixa de Entrada (Inbox) de todos os utilizadores da plataforma (alunos e criadores). Usa para anunciar novos cursos, ofertas, e-books grátis, etc.</p>
           </div>
 
           <div>
