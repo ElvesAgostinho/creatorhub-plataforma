@@ -10,7 +10,7 @@ export default function FeaturesPage() {
     <div className="bg-[#0A0A0A] min-h-screen text-white font-sans selection:bg-[#FF4500] selection:text-white pb-32">
       
       {/* HERO SECTION - TEXT LEFT, IMAGE RIGHT */}
-      <section className="relative pt-32 pb-24 px-6 max-w-7xl mx-auto overflow-hidden">
+      <section className="relative pt-16 lg:pt-24 pb-20 px-6 max-w-7xl mx-auto overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           
           <div className="w-full lg:w-1/2 z-10 text-left">
