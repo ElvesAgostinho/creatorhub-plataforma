@@ -36,7 +36,7 @@ export default async function FinancesPage() {
     .select(`
       id, amount_cents, status, created_at, affiliate_id,
       products ( title, affiliate_commission_pct, created_by ),
-      profiles!purchases_user_id_fkey ( full_name )
+      profiles!purchases_user_id_profiles_fk ( full_name )
     `)
     .in("status", ["active", "completed"])
     .order("created_at", { ascending: false })
