@@ -22,6 +22,14 @@ export default async function NewProductPage() {
     redirect("/")
   }
 
+  const { data: billing } = await supabase
+    .from("creator_storage_billing")
+    .select("status")
+    .eq("user_id", user.id)
+    .maybeSingle()
+
+  const isStorageActive = profile?.role === "admin" || billing?.status === "active"
+
   return (
     <div className="bg-[#F8F7F5] min-h-screen pt-10 pb-20 font-sans">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -38,7 +46,7 @@ export default async function NewProductPage() {
 
         {/* FORM CONTAINER */}
         <div className="bg-white border border-neutral-200 rounded-3xl p-8 sm:p-10 shadow-sm">
-          <CreateProductForm />
+          <CreateProductForm isStorageActive={isStorageActive} />
         </div>
 
       </div>

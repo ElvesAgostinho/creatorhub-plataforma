@@ -56,6 +56,19 @@ export async function createProduct(formData) {
     : 0
   const level = formData.get("level")?.toString() || null
 
+  const promo_media_source = formData.get("promo_media_source")?.toString() || "youtube"
+  const promo_video_url = formData.get("promo_video_url")?.toString() || null
+
+  // Verificar subscrição de storage se o vídeo promocional for "internal"
+  if (promo_media_source === "internal" && promo_video_url?.startsWith("storage:")) {
+    if (profile.role !== "admin") {
+      const { data: billing } = await svc.from("creator_storage_billing").select("status").eq("user_id", user.id).maybeSingle()
+      if (!billing || billing.status !== "active") {
+        throw new Error("Não tem permissão para usar o Storage Interno. Por favor, adira ao plano pago no menu Alojamento.")
+      }
+    }
+  }
+
   const { data, error } = await svc.from("products").insert({
     slug,
     type,
@@ -71,6 +84,16 @@ export async function createProduct(formData) {
     discount_pct: discount,
     level,
     affiliate_commission_pct: Number(formData.get("affiliate_commission_pct") || 0),
+    target_audience: formData.get("target_audience")?.toString() || null,
+    advantages: formData.get("advantages")?.toString() || null,
+    promo_video_url,
+    promo_media_source,
+    external_sales_url: formData.get("external_sales_url")?.toString() || null,
+    creator_social_links: {
+      instagram: formData.get("social_instagram")?.toString() || null,
+      youtube: formData.get("social_youtube")?.toString() || null,
+      website: formData.get("social_website")?.toString() || null
+    },
     published: profile.role === "admin",
     created_by: user.id
   }).select("id").single()

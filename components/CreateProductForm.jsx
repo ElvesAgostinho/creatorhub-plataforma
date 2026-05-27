@@ -7,7 +7,7 @@ import { PremiumInput, PremiumSelect, PremiumTextarea, PremiumButton } from "@/c
 import { categoryTree } from "@/lib/data/categories"
 import ClientForm from "@/components/ClientForm"
 
-export default function CreateProductForm() {
+export default function CreateProductForm({ isStorageActive }) {
   const [type, setType] = useState("course")
   const [category, setCategory] = useState(Object.keys(categoryTree)[0])
   const [subcategory, setSubcategory] = useState(categoryTree[Object.keys(categoryTree)[0]][0])
@@ -111,6 +111,65 @@ export default function CreateProductForm() {
       <PremiumInput label="Nome do Criador" name="instructor_name" placeholder="O teu nome" />
       <PremiumInput label="Especialidade" name="instructor_role" placeholder="Ex: Investidor e Mentor" />
       
+      {/* CHECKOUT & AFILIADOS */}
+      <div className="sm:col-span-2 border-t border-neutral-100 pt-6 mt-2 grid sm:grid-cols-2 gap-6">
+        <h3 className="sm:col-span-2 font-bold text-lg text-neutral-800">Checkout & Detalhes</h3>
+
+        <div className="sm:col-span-2">
+          <PremiumTextarea 
+            label="Para quem é este curso? (Público-alvo)" 
+            name="target_audience" 
+            rows={3} 
+            placeholder="Ex: Criadores de conteúdo, designers, iniciantes..." 
+          />
+        </div>
+        
+        <div className="sm:col-span-2">
+          <PremiumTextarea 
+            label="Vantagens do Produto" 
+            name="advantages" 
+            rows={3} 
+            placeholder="Ex: Certificado incluído&#10;Acesso vitalício&#10;Suporte direto..." 
+            helper="Uma vantagem por linha."
+          />
+        </div>
+
+        <PremiumInput 
+          label="Vídeo Promocional (URL)" 
+          name="promo_video_url" 
+          placeholder="Link do YouTube, Vimeo, Drive..." 
+        />
+        
+        <PremiumSelect 
+          label="Fonte do Vídeo Promocional" 
+          name="promo_media_source" 
+          defaultValue="youtube"
+          options={[
+            { value: "youtube", label: "YouTube" },
+            { value: "vimeo", label: "Vimeo" },
+            { value: "google_drive", label: "Google Drive" },
+            { value: "internal", label: isStorageActive ? "Storage Interno (Pago)" : "Storage Interno (Requer Subscrição)", disabled: !isStorageActive },
+            { value: "external_link", label: "Link Direto (MP4)" }
+          ]}
+        />
+
+        <div className="sm:col-span-2">
+          <PremiumInput 
+            label="Página de Vendas Externa" 
+            name="external_sales_url" 
+            placeholder="Ex: https://meusite.com/curso" 
+            helper="Se tiveres uma página de vendas fora da plataforma."
+          />
+        </div>
+      </div>
+
+      <div className="sm:col-span-2 border-t border-neutral-100 pt-6 mt-2 grid sm:grid-cols-3 gap-6">
+        <h3 className="sm:col-span-3 font-bold text-lg text-neutral-800">Redes Sociais do Criador</h3>
+        <PremiumInput label="Instagram" name="social_instagram" placeholder="https://instagram.com/..." />
+        <PremiumInput label="YouTube" name="social_youtube" placeholder="https://youtube.com/..." />
+        <PremiumInput label="Website" name="social_website" placeholder="https://meusite.com" />
+      </div>
+
       {/* CAPA */}
       <div className="sm:col-span-2 mt-4 p-6 border-2 border-dashed border-neutral-300 bg-neutral-50 rounded-2xl">
         <Uploader 
