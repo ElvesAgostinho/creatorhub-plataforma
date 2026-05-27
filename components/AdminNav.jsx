@@ -11,7 +11,7 @@ export default function AdminNav() {
     { href: "/admin/integrations", label: "Integrações" },
     { href: "/admin/creators", label: "Candidaturas" },
     { href: "/admin/broadcasts", label: "Avisos" },
-    { href: "/admin/academy", label: "Academia" },
+
     { href: "/admin/resources", label: "Blog & Recursos" },
     { href: "/admin/settings", label: "Definições" }
   ]
