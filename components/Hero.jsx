@@ -49,19 +49,7 @@ export default function Hero() {
           </form>
         </div>
 
-        <div className="flex items-center gap-6 pt-6 border-t border-neutral-200">
-          <div className="flex -space-x-3">
-            {[1,2,3,4].map(i => (
-              <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-neutral-300 overflow-hidden">
-                <Image src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="User" width={40} height={40} />
-              </div>
-            ))}
-          </div>
-          <div className="text-sm font-medium text-neutral-600">
-            Junta-te a mais de <span className="text-neutral-900 font-bold">10.000 alunos</span><br />
-            que já estão a aprender.
-          </div>
-        </div>
+        {/* Removed social proof section per user request */}
       </div>
 
     </section>

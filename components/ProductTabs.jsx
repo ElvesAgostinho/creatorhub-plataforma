@@ -21,7 +21,7 @@ export default function ProductTabs({ advantagesList, lessons, description }) {
             onClick={() => setActiveTab("advantages")}
             className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "advantages" ? "border-[#00A859] text-[#00A859]" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
           >
-            Vantagens
+            Benefícios
           </button>
         )}
         {description && (
