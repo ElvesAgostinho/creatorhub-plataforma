@@ -10,7 +10,7 @@ export default function Hero() {
       {/* Beautiful Static Background Image (Full Width/Extremities) */}
       <div className="absolute inset-0">
         <Image
-          src="/hero_papercut.png"
+          src="/hero_mobile.png"
           alt="Pessoas a aprender num ambiente moderno e corporativo"
           fill
           className="object-cover object-[center_right]"
