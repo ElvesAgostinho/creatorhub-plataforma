@@ -218,12 +218,7 @@ export default async function EditProduct({ params }) {
       {p.type === "course" && <LessonsSection productId={p.id} isStorageActive={isStorageActive} />}
       {p.type === "book" && <BookSection product={p} />}
       {p.type === "mentorship" && <SlotsSection productId={p.id} />}
-      {p.type === "event" && (
-        <section className="border border-neutral-200 rounded-2xl p-6 bg-white">
-          <h2 className="font-bold text-lg">Evento</h2>
-          <p className="text-sm text-neutral-600 mt-1">Define data e link da sala em cima. Compradores recebem o link na biblioteca.</p>
-        </section>
-      )}
+
     </div>
   )
 }

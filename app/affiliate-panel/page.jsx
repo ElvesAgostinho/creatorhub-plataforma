@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { CopyIcon } from "lucide-react"
-import AreaChartPremium from "@/components/charts/AreaChartPremium"
 import PanelSearch from "@/components/PanelSearch"
 import { Suspense } from "react"
 
@@ -64,15 +63,13 @@ export default async function AffiliatePanel({ searchParams }) {
   const typeLabels = {
     course: "Curso",
     book: "E-book",
-    mentorship: "Mentoria",
-    event: "Evento"
+    mentorship: "Mentoria"
   }
 
   const typeBadge = {
     course: "bg-[#FFF8E7] text-yellow-700 border border-yellow-200",
     book: "bg-emerald-50 text-emerald-700 border border-emerald-200",
-    mentorship: "bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-200",
-    event: "bg-sky-50 text-sky-700 border border-sky-200"
+    mentorship: "bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-200"
   }
 
   return (
@@ -115,18 +112,7 @@ export default async function AffiliatePanel({ searchParams }) {
           </div>
         </div>
 
-        {/* CHART SECTION */}
-        <div className="bg-white border border-neutral-100 rounded-3xl p-6 sm:p-8 mb-16 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-black text-neutral-900 tracking-tight">Evolução de Ganhos</h2>
-            <select className="bg-neutral-50 border border-neutral-200 font-bold text-sm text-neutral-700 rounded-xl px-4 py-2 outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] shadow-sm">
-              <option>Últimos 7 dias</option>
-              <option>Últimos 30 dias</option>
-              <option>Este Ano</option>
-            </select>
-          </div>
-          <AreaChartPremium color="#FF4500" name="Comissões" />
-        </div>
+        {/* CHART SECTION REMOVED FOR MVP */}
 
         {/* PRODUCTS GRID */}
         <div>

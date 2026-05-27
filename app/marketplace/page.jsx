@@ -21,7 +21,7 @@ export default async function Home({ searchParams }) {
     course: { title: "Cursos em Vídeo", subtitle: "Aprende ao teu próprio ritmo com especialistas" },
     book: { title: "E-books / PDF", subtitle: "Material de leitura profunda" },
     mentorship: { title: "Mentorias 1:1", subtitle: "Sessões personalizadas" },
-    event: { title: "Eventos & Workshops", subtitle: "Sessões ao vivo" }
+
   }
 
   const isFiltered = typeFilter || categoryFilter || searchQuery;
@@ -117,10 +117,9 @@ export default async function Home({ searchParams }) {
             
             const otherProducts = all.filter(p => !renderedIds.has(p.id));
             const courses = otherProducts.filter(p => p.type === 'course');
-            const events = otherProducts.filter(p => p.type === 'event');
             const mentorships = otherProducts.filter(p => p.type === 'mentorship');
             const books = otherProducts.filter(p => p.type === 'book');
-            const rest = otherProducts.filter(p => !['course', 'event', 'mentorship', 'book'].includes(p.type));
+            const rest = otherProducts.filter(p => !['course', 'mentorship', 'book'].includes(p.type));
 
             return (
               <>
@@ -128,11 +127,6 @@ export default async function Home({ searchParams }) {
                 {courses.length > 0 && (
                   <Section title="Cursos" subtitle="Aprende ao teu próprio ritmo">
                     <ProductGrid items={courses} />
-                  </Section>
-                )}
-                {events.length > 0 && (
-                  <Section title="Eventos" subtitle="Participa em sessões ao vivo">
-                    <ProductGrid items={events} />
                   </Section>
                 )}
                 {mentorships.length > 0 && (

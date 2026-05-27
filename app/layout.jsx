@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server"
 import "@/app/globals.css"
 
 export const metadata = {
-  title: "ABOVE — Cursos, Livros, Mentorias e Eventos",
+  title: "ABOVE — Cursos, Livros e Mentorias",
   description: "Aprende com criadores reais. Cursos, livros, mentorias e eventos num único lugar."
 }
 

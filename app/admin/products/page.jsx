@@ -104,8 +104,7 @@ export default async function AdminProducts() {
               const typeLabels = {
                 course: "🎓 Cursos",
                 book: "📚 E-books / PDFs",
-                mentorship: "🤝 Mentorias",
-                event: "🎟️ Eventos"
+                mentorship: "🤝 Mentorias"
               }
 
               return (

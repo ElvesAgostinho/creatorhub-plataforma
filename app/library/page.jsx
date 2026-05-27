@@ -54,14 +54,14 @@ export default async function Library() {
         ) : (
           <div className="mt-12 space-y-16">
             {["course", "book", "mentorship", "event"].map(typeKey => {
+            {["course", "book", "mentorship"].map(typeKey => {
               const typeItems = items.filter(it => it.product.type === typeKey)
               if (typeItems.length === 0) return null
               
               const sectionTitles = {
                 course: { title: "Os Meus Cursos", icon: GraduationCap, color: "text-blue-400" },
                 book: { title: "A Minha Biblioteca (E-books / PDFs)", icon: BookOpen, color: "text-emerald-400" },
-                mentorship: { title: "As Minhas Mentorias", icon: Users, color: "text-fuchsia-400" },
-                event: { title: "Os Meus Eventos", icon: Ticket, color: "text-sky-400" }
+                mentorship: { title: "As Minhas Mentorias", icon: Users, color: "text-fuchsia-400" }
               }
 
               const SectionIcon = sectionTitles[typeKey].icon
