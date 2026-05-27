@@ -68,7 +68,6 @@ export default async function Dashboard() {
           </button>
         </form>
       </div>
-      </div>
 
       {/* ACTIVE COURSES / PROGRESS */}
       {myPurchases.length > 0 && (
