@@ -35,6 +35,9 @@ export default async function EditProduct({ params }) {
 
   const cls = "mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
 
+  const { data: billing } = await svc.from("creator_storage_billing").select("status").eq("user_id", user.id).maybeSingle()
+  const isStorageActive = profile.role === "admin" || billing?.status === "active"
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-8">
       <div className="flex items-center justify-between flex-wrap gap-3">
@@ -170,7 +173,7 @@ export default async function EditProduct({ params }) {
                 { value: "youtube", label: "YouTube" },
                 { value: "vimeo", label: "Vimeo" },
                 { value: "google_drive", label: "Google Drive" },
-                { value: "internal", label: "Storage Interno (Pago)" },
+                { value: "internal", label: isStorageActive ? "Storage Interno (Pago)" : "Storage Interno (Requer Subscrição)", disabled: !isStorageActive },
                 { value: "external_link", label: "Link Direto (MP4)" }
               ]}
             />
@@ -220,7 +223,7 @@ export default async function EditProduct({ params }) {
       </section>
 
       {/* ---- Conteúdo conforme tipo ---- */}
-      {p.type === "course" && <LessonsSection productId={p.id} />}
+      {p.type === "course" && <LessonsSection productId={p.id} isStorageActive={isStorageActive} />}
       {p.type === "book" && <BookSection product={p} />}
       {p.type === "mentorship" && <SlotsSection productId={p.id} />}
       {p.type === "event" && (
@@ -233,7 +236,7 @@ export default async function EditProduct({ params }) {
   )
 }
 
-async function LessonsSection({ productId }) {
+async function LessonsSection({ productId, isStorageActive }) {
   const svc = createServiceClient()
   
   const { data: modules } = await svc.from("modules")
@@ -282,7 +285,7 @@ async function LessonsSection({ productId }) {
               </div>
               
               <div className="p-4">
-                <AddLessonForm productId={productId} moduleId={m.id} modulePosition={m.position} />
+                <AddLessonForm productId={productId} moduleId={m.id} modulePosition={m.position} isStorageActive={isStorageActive} />
 
                 <div className="divide-y divide-neutral-100">
                   {moduleLessons.length === 0 && <div className="text-sm text-neutral-500">Sem aulas neste módulo.</div>}

@@ -46,7 +46,7 @@ export function PremiumSelect({ label, name, options = [], helper, ...props }) {
           {...props}
         >
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>{opt.label}</option>
+            <option key={opt.value} value={opt.value} disabled={opt.disabled}>{opt.label}</option>
           ))}
         </select>
         <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500">

@@ -47,3 +47,34 @@ export async function cancelStoragePlan(formData) {
   revalidatePath("/admin/storage")
   return { ok: true }
 }
+
+export async function adminActivateStorage(formData) {
+  const { profile } = await assertAuth()
+  if (profile.role !== "admin") throw new Error("Apenas admins podem ativar contas.")
+  const svc = createServiceClient()
+  const userId = formData.get("user_id")
+
+  const { error } = await svc.from("creator_storage_billing").update({
+    status: "active",
+    next_billing_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+  }).eq("user_id", userId)
+
+  if (error) throw new Error(error.message)
+  revalidatePath("/admin/storage")
+  return { ok: true }
+}
+
+export async function adminDeactivateStorage(formData) {
+  const { profile } = await assertAuth()
+  if (profile.role !== "admin") throw new Error("Apenas admins podem suspender contas.")
+  const svc = createServiceClient()
+  const userId = formData.get("user_id")
+
+  const { error } = await svc.from("creator_storage_billing").update({
+    status: "past_due"
+  }).eq("user_id", userId)
+
+  if (error) throw new Error(error.message)
+  revalidatePath("/admin/storage")
+  return { ok: true }
+}

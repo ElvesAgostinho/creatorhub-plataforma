@@ -137,6 +137,16 @@ export async function updateProduct(formData) {
     }
   }
 
+  // Verificar subscrição de storage se o vídeo promocional for "internal"
+  if (patch.promo_media_source === "internal" && patch.promo_video_url?.startsWith("storage:")) {
+    if (profile.role !== "admin") {
+      const { data: billing } = await svc.from("creator_storage_billing").select("status").eq("user_id", user.id).maybeSingle()
+      if (!billing || billing.status !== "active") {
+        throw new Error("Não tem permissão para usar o Storage Interno. Por favor, adira ao plano pago no menu Alojamento.")
+      }
+    }
+  }
+
   if (profile.role === "admin") {
     patch.published = !!formData.get("published")
   }
@@ -246,6 +256,14 @@ export async function addLesson(formData) {
 
   const media_source = formData.get("media_source")?.toString() || "internal"
   let external_media_url = formData.get("external_media_url")?.toString() || null
+
+  // Verificar subscrição de storage se a aula for usar o storage interno
+  if (media_source === "internal" && profile.role !== "admin") {
+    const { data: billing } = await svc.from("creator_storage_billing").select("status").eq("user_id", user.id).maybeSingle()
+    if (!billing || billing.status !== "active") {
+      throw new Error("Não tem permissão para hospedar vídeos no Storage Interno. Por favor, adira ao plano pago no menu Alojamento.")
+    }
+  }
 
   const { error } = await svc.from("lessons").insert({
     module_id,

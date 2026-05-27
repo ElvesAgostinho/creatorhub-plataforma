@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
-import { joinStoragePlan, cancelStoragePlan } from "./actions"
+import { joinStoragePlan, cancelStoragePlan, adminActivateStorage, adminDeactivateStorage } from "./actions"
 import ClientForm from "@/components/ClientForm"
-import { CheckCircle2, HardDrive, AlertTriangle } from "lucide-react"
+import { CheckCircle2, HardDrive, AlertTriangle, Users } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -12,7 +12,13 @@ export default async function StorageAdminPage() {
   if (!user) redirect(`/login?next=/admin/storage`)
 
   const svc = createServiceClient()
-  
+  const { data: profile } = await svc.from("profiles").select("role").eq("id", user.id).single()
+  const isAdmin = profile?.role === "admin"
+
+  if (isAdmin) {
+    return <AdminStorageManager svc={svc} />
+  }
+
   // Get storage billing status
   const { data: billing } = await svc
     .from("creator_storage_billing")
@@ -129,6 +135,82 @@ export default async function StorageAdminPage() {
           </div>
         </div>
 
+      </div>
+    </div>
+  )
+}
+
+async function AdminStorageManager({ svc }) {
+  // Buscar todas as subscrições e juntar com info do criador (profiles)
+  const { data: billings } = await svc
+    .from("creator_storage_billing")
+    .select("*, profiles(full_name, email)")
+    .order("created_at", { ascending: false })
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-8">
+      <div>
+        <h1 className="text-2xl font-extrabold flex items-center gap-2">
+          <HardDrive className="text-[#FF4500]" /> Gestão de Storage (Admin)
+        </h1>
+        <p className="text-neutral-500 mt-2">
+          Aprova ou suspende as subscrições de armazenamento dos teus criadores.
+        </p>
+      </div>
+
+      <div className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-neutral-50 border-b border-neutral-200">
+            <tr>
+              <th className="px-4 py-3 font-bold text-neutral-700">Criador</th>
+              <th className="px-4 py-3 font-bold text-neutral-700">Data Pedido</th>
+              <th className="px-4 py-3 font-bold text-neutral-700">Status</th>
+              <th className="px-4 py-3 font-bold text-neutral-700 text-right">Ação</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-neutral-100">
+            {!billings?.length && (
+              <tr><td colSpan="4" className="p-4 text-center text-neutral-500">Nenhum pedido de storage.</td></tr>
+            )}
+            {billings?.map(b => (
+              <tr key={b.id} className="hover:bg-neutral-50/50">
+                <td className="px-4 py-3">
+                  <div className="font-bold">{b.profiles?.full_name || "Desconhecido"}</div>
+                  <div className="text-xs text-neutral-500">{b.profiles?.email || b.user_id}</div>
+                </td>
+                <td className="px-4 py-3 text-neutral-600">
+                  {new Date(b.created_at).toLocaleDateString('pt-PT')}
+                </td>
+                <td className="px-4 py-3">
+                  <span className={`font-bold uppercase text-[10px] px-2 py-1 rounded-full ${
+                    b.status === 'active' ? 'bg-green-100 text-green-700' :
+                    b.status === 'pending' ? 'bg-orange-100 text-orange-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    {b.status}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-right">
+                  {b.status !== 'active' ? (
+                    <ClientForm action={adminActivateStorage} successMessage="Conta ativada com sucesso!">
+                      <input type="hidden" name="user_id" value={b.user_id} />
+                      <button className="text-xs bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-1.5 rounded transition">
+                        Ativar Plano
+                      </button>
+                    </ClientForm>
+                  ) : (
+                    <ClientForm action={adminDeactivateStorage} successMessage="Conta suspensa com sucesso!">
+                      <input type="hidden" name="user_id" value={b.user_id} />
+                      <button className="text-xs bg-red-100 hover:bg-red-200 text-red-700 font-bold px-3 py-1.5 rounded transition">
+                        Suspender
+                      </button>
+                    </ClientForm>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   )

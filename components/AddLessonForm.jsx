@@ -4,7 +4,7 @@ import { useState } from "react"
 import { addLesson } from "@/app/admin/products/actions"
 import Uploader from "@/components/Uploader"
 
-export default function AddLessonForm({ productId, moduleId, modulePosition }) {
+export default function AddLessonForm({ productId, moduleId, modulePosition, isStorageActive }) {
   const [videoUrl, setVideoUrl] = useState("")
   const [pdfUrl, setPdfUrl] = useState("")
 
@@ -41,7 +41,9 @@ export default function AddLessonForm({ productId, moduleId, modulePosition }) {
           }}
           className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
         >
-          <option value="internal">Storage Interno da Plataforma</option>
+          <option value="internal" disabled={!isStorageActive}>
+            {isStorageActive ? "Storage Interno da Plataforma" : "Storage Interno (Requer Subscrição)"}
+          </option>
           <option value="youtube">YouTube</option>
           <option value="vimeo">Vimeo</option>
           <option value="google_drive">Google Drive</option>
