@@ -28,6 +28,16 @@ export default async function CheckoutPage({ params, searchParams }) {
     .eq("product_id", item.id)
     .order("position", { ascending: true })
 
+  let lessons = []
+  if (modules && modules.length > 0) {
+    const { data: lData } = await supabase
+      .from("lessons")
+      .select("id, module_id, title")
+      .in("module_id", modules.map(m => m.id))
+      .order("position", { ascending: true })
+    if (lData) lessons = lData
+  }
+
   // Fetch Creator Profile (for avatar)
   // Assume creator is linked to the product. We can search by instructor name or if the product had created_by we could use it.
   // We'll just display what we have in `item`.
@@ -122,16 +132,75 @@ export default async function CheckoutPage({ params, searchParams }) {
         )}
 
         {/* Módulos do Curso */}
-        {modules && modules.length > 0 && (
+        {item.type === "course" && modules && modules.length > 0 && (
           <div>
             <h2 className="text-xl font-bold mb-4">Conteúdo do Curso</h2>
             <div className="border border-neutral-200 rounded-2xl overflow-hidden bg-white">
-              {modules.map((mod, i) => (
-                <div key={mod.id} className={`p-4 ${i !== modules.length - 1 ? 'border-b border-neutral-100' : ''}`}>
-                  <div className="font-bold text-sm text-neutral-800">Módulo {i + 1}</div>
-                  <div className="text-neutral-600 mt-1">{mod.title}</div>
-                </div>
-              ))}
+              {modules.map((mod, i) => {
+                const modLessons = lessons.filter(l => l.module_id === mod.id)
+                return (
+                  <div key={mod.id} className={`p-4 ${i !== modules.length - 1 ? 'border-b border-neutral-100' : ''}`}>
+                    <div className="font-bold text-sm text-neutral-800 flex justify-between">
+                      <span>Módulo {i + 1}</span>
+                      <span className="text-xs bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-full">{modLessons.length} aulas</span>
+                    </div>
+                    <div className="text-neutral-700 mt-1 font-medium">{mod.title}</div>
+                    {modLessons.length > 0 && (
+                      <ul className="mt-3 space-y-1.5 border-t border-neutral-50 pt-3">
+                        {modLessons.map(l => (
+                          <li key={l.id} className="text-sm text-neutral-500 flex items-start gap-2">
+                            <span className="text-neutral-300 mt-0.5">▶</span>
+                            <span>{l.title}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Informações Específicas de Outros Tipos */}
+        {item.type === "book" && (
+          <div className="p-6 border border-neutral-200 bg-white rounded-2xl flex items-start gap-4">
+            <div className="w-12 h-12 shrink-0 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg">E-book Digital (PDF)</h3>
+              <p className="text-sm text-neutral-600 mt-1">
+                Ao finalizar a compra, receberás acesso imediato ao ficheiro PDF deste livro, que poderás ler em qualquer dispositivo (telemóvel, tablet ou computador). O PDF é carimbado com o teu email para evitar pirataria.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {item.type === "mentorship" && (
+          <div className="p-6 border border-neutral-200 bg-white rounded-2xl flex items-start gap-4">
+            <div className="w-12 h-12 shrink-0 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg">Sessão de Mentoria / Consultoria</h3>
+              <p className="text-sm text-neutral-600 mt-1">
+                Esta compra garante-te acesso a uma sessão exclusiva. Após o pagamento, poderás agendar diretamente na área de membros, escolhendo o horário que melhor se adapta à tua disponibilidade entre as vagas abertas pelo criador.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {item.type === "event" && (
+          <div className="p-6 border border-neutral-200 bg-white rounded-2xl flex items-start gap-4">
+            <div className="w-12 h-12 shrink-0 bg-orange-50 text-[#FF4500] rounded-xl flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg">Evento Exclusivo</h3>
+              <p className="text-sm text-neutral-600 mt-1">
+                Acesso garantido ao evento ao vivo. Encontrarás o link de acesso seguro (Zoom, Meet, etc) na tua área de alunos. Mantém-te atento ao início do evento!
+              </p>
             </div>
           </div>
         )}
