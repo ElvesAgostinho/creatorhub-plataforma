@@ -3,6 +3,7 @@ import { getProductBySlug, hasActivePurchase, typeLabels } from "@/lib/data/prod
 import { getLessonsForProduct } from "@/lib/data/lessons"
 import { createServiceClient } from "@/lib/supabase/server"
 import { Star, ShieldCheck, PlayCircle, Globe, BookOpen } from "lucide-react"
+import ProductTabs from "@/components/ProductTabs"
 
 export const revalidate = 60
 
@@ -98,7 +99,19 @@ export default async function ProductPage({ params, searchParams }) {
         {/* LEFT COLUMN: Content */}
         <div className="space-y-12">
           
-          {/* Main Content Area: Reduced Image Size */}
+          {/* Video Section */}
+          {previewUrl && (
+            <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden relative border border-neutral-200 shadow-lg group mb-10">
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                <a href={previewUrl} target="_blank" className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer shadow-2xl">
+                  <PlayCircle className="w-10 h-10 text-black ml-1" />
+                </a>
+              </div>
+              {item.image && <img src={item.image} alt="Video cover" className="w-full h-full object-cover opacity-60" />}
+            </div>
+          )}
+
+          {/* Main Content Area: Image and Tabs */}
           <div className="flex flex-col md:flex-row gap-8">
             <div className="w-full md:w-1/3 max-w-[280px] shrink-0">
               <div className="aspect-square bg-neutral-100 rounded-2xl overflow-hidden relative border border-neutral-200 shadow-sm">
@@ -110,57 +123,13 @@ export default async function ProductPage({ params, searchParams }) {
               </div>
             </div>
             <div className="w-full md:flex-1">
-              <h3 className="text-xl font-bold text-neutral-900 mb-4">Details</h3>
-              <p className="text-neutral-600 leading-relaxed text-[15px] whitespace-pre-wrap">
-                {item.description}
-              </p>
+              <ProductTabs 
+                advantagesList={advantagesList} 
+                lessons={lessons} 
+                description={item.description} 
+              />
             </div>
           </div>
-
-          {/* Video Section */}
-          {previewUrl && (
-            <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden relative border border-neutral-200 shadow-lg group">
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <a href={previewUrl} target="_blank" className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer shadow-2xl">
-                  <PlayCircle className="w-10 h-10 text-black ml-1" />
-                </a>
-              </div>
-              {item.image && <img src={item.image} alt="Video cover" className="w-full h-full object-cover opacity-60" />}
-            </div>
-          )}
-
-          {/* Modules / Curriculum */}
-          {lessons && lessons.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-bold text-neutral-900 mb-6">Course Modules</h2>
-              <div className="border border-neutral-200 rounded-2xl overflow-hidden divide-y divide-neutral-200">
-                {lessons.map((lesson, idx) => (
-                  <div key={lesson.id} className="p-4 flex items-start gap-4 hover:bg-neutral-50 transition-colors">
-                    <div className="mt-1 text-neutral-400"><BookOpen className="w-5 h-5" /></div>
-                    <div>
-                      <h4 className="font-bold text-neutral-900 text-[15px]">Module {idx + 1}: {lesson.title}</h4>
-                      {lesson.description && <p className="text-sm text-neutral-500 mt-1">{lesson.description}</p>}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Benefits Section */}
-          {advantagesList.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-bold text-neutral-900 mb-6">Benefits</h2>
-              <ul className="space-y-4">
-                {advantagesList.map((adv, i) => (
-                  <li key={i} className="flex gap-3 text-neutral-700 text-[15px]">
-                    <span className="text-green-500 font-black shrink-0">✓</span>
-                    <span>{adv}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           <hr className="border-neutral-200" />
 
