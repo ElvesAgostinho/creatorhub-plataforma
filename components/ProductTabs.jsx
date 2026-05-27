@@ -6,9 +6,9 @@ export default function ProductTabs({ advantagesList, lessons, description }) {
   const [activeTab, setActiveTab] = useState("")
 
   useEffect(() => {
-    if (advantagesList?.length > 0) setActiveTab("advantages")
+    if (lessons?.length > 0) setActiveTab("content")
+    else if (advantagesList?.length > 0) setActiveTab("advantages")
     else if (description) setActiveTab("details")
-    else if (lessons?.length > 0) setActiveTab("content")
   }, [advantagesList, description, lessons])
 
   if (!activeTab) return null
@@ -16,12 +16,20 @@ export default function ProductTabs({ advantagesList, lessons, description }) {
   return (
     <div className="w-full">
       <div className="border-b border-neutral-200 flex gap-8 mb-8 overflow-x-auto no-scrollbar">
+        {lessons && lessons.length > 0 && (
+          <button 
+            onClick={() => setActiveTab("content")}
+            className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "content" ? "border-[#00A859] text-[#00A859]" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
+          >
+            Conteúdo
+          </button>
+        )}
         {advantagesList && advantagesList.length > 0 && (
           <button 
             onClick={() => setActiveTab("advantages")}
             className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "advantages" ? "border-[#00A859] text-[#00A859]" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
           >
-            Benefícios
+            Vantagens
           </button>
         )}
         {description && (
@@ -30,14 +38,6 @@ export default function ProductTabs({ advantagesList, lessons, description }) {
             className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "details" ? "border-[#00A859] text-[#00A859]" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
           >
             Detalhes
-          </button>
-        )}
-        {lessons && lessons.length > 0 && (
-          <button 
-            onClick={() => setActiveTab("content")}
-            className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "content" ? "border-[#00A859] text-[#00A859]" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
-          >
-            Conteúdo
           </button>
         )}
       </div>
