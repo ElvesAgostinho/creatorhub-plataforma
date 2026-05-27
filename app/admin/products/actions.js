@@ -123,6 +123,24 @@ export async function updateProduct(formData) {
     : 0
   const level = formData.get("level")?.toString() || null
 
+  let affiliate_extra_links = [];
+  const extraLinksRaw = formData.get("affiliate_extra_links")?.toString();
+  if (extraLinksRaw) {
+    try {
+      if (extraLinksRaw.trim().startsWith("[")) {
+        affiliate_extra_links = JSON.parse(extraLinksRaw);
+      } else {
+        affiliate_extra_links = extraLinksRaw.split('\n').map(line => {
+          const parts = line.split('|');
+          if (parts.length >= 2) {
+            return { label: parts[0].trim(), url: parts.slice(1).join('|').trim() };
+          }
+          return null;
+        }).filter(Boolean);
+      }
+    } catch(e) {}
+  }
+
   const patch = {
     title,
     description: formData.get("description")?.toString() || null,
@@ -142,6 +160,9 @@ export async function updateProduct(formData) {
     promo_video_url: formData.get("promo_video_url")?.toString() || null,
     promo_media_source: formData.get("promo_media_source")?.toString() || "internal",
     external_sales_url: formData.get("external_sales_url")?.toString() || null,
+    affiliate_training_video: formData.get("affiliate_training_video")?.toString() || null,
+    affiliate_materials_link: formData.get("affiliate_materials_link")?.toString() || null,
+    affiliate_extra_links,
   }
 
   // Verificar subscrição de storage se o vídeo promocional for "internal"

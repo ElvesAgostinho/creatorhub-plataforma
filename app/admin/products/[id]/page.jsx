@@ -177,6 +177,37 @@ export default async function EditProduct({ params }) {
                 helper="Se tiveres uma página de vendas fora da plataforma."
               />
             </div>
+            
+            <div className="sm:col-span-2 mt-4 pt-6 border-t border-neutral-100 grid gap-6">
+              <h4 className="font-bold text-neutral-800 flex items-center gap-2">🛠 Ferramentas para Afiliados</h4>
+              <p className="text-sm text-neutral-500">Fornece materiais para ajudar os teus afiliados a venderem mais.</p>
+              
+              <PremiumInput 
+                label="Vídeo de Treino para Afiliados (URL)" 
+                name="affiliate_training_video" 
+                defaultValue={p.affiliate_training_video || ""} 
+                placeholder="Ex: Link do Youtube a explicar como vender o produto" 
+              />
+              <PremiumInput 
+                label="Link para Materiais Promocionais (Drive/Dropbox)" 
+                name="affiliate_materials_link" 
+                defaultValue={p.affiliate_materials_link || ""} 
+                placeholder="Ex: https://drive.google.com/..." 
+                helper="Coloca aqui o link da pasta onde guardas imagens, vídeos e copys de anúncios."
+              />
+              <PremiumTextarea 
+                label="Links Extras para Divulgação" 
+                name="affiliate_extra_links" 
+                rows={3} 
+                defaultValue={
+                  Array.isArray(p.affiliate_extra_links) 
+                    ? p.affiliate_extra_links.map(l => `${l.label} | ${l.url}`).join('\n')
+                    : ""
+                } 
+                placeholder="Página VSL | https://vendas.com/vsl&#10;Checkout Direto | https://checkout.com/curso" 
+                helper="Um link por linha, separando o Nome e o URL por | (barra vertical)."
+              />
+            </div>
           </div>
 
 
