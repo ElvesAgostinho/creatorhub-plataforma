@@ -110,7 +110,9 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
       )
     }
 
-    const url = currentLesson.video_url
+    const isInternal = !currentLesson.media_source || currentLesson.media_source === 'internal'
+    const url = isInternal ? currentLesson.video_url : currentLesson.external_media_url
+
     if (!url) {
       return (
         <div className="w-full aspect-video bg-neutral-900 flex items-center justify-center border border-neutral-800 rounded-xl shadow-2xl">
@@ -119,12 +121,31 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
       )
     }
 
+    // Google Drive Iframe
+    if (currentLesson.media_source === 'google_drive' || url.includes('drive.google.com')) {
+      const driveUrl = url.replace('/view', '/preview')
+      return (
+        <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-neutral-800">
+          <iframe src={driveUrl} width="100%" height="100%" allow="autoplay" className="w-full h-full"></iframe>
+        </div>
+      )
+    }
+
+    // Vimeo Iframe
+    if (currentLesson.media_source === 'vimeo' || url.includes('vimeo.com')) {
+      const vimeoId = url.split('/').pop()
+      return (
+        <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl border border-neutral-800">
+          <iframe src={`https://player.vimeo.com/video/${vimeoId}?title=0&byline=0&portrait=0`} width="100%" height="100%" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" className="w-full h-full"></iframe>
+        </div>
+      )
+    }
+
     let finalUrl = url
-    let isYoutube = false
+    let isYoutube = currentLesson.media_source === 'youtube'
     let youtubeId = null
 
     if (url.startsWith("storage:lessons/")) {
-      // Usa o proxy local para que o Cloudflare (bizlink) guarde o vídeo em cache!
       finalUrl = `/storage/lessons/${url.replace("storage:lessons/", "")}`
     } else if (url.includes("youtube.com") || url.includes("youtu.be")) {
       isYoutube = true
@@ -141,6 +162,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
             width="100%"
             height="100%"
             src={`https://www.youtube.com/embed/${youtubeId}?rel=0`}
+
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation"
 import { revalidatePath } from "next/cache"
+import { cookies } from "next/headers"
 import { createClient } from "@/lib/supabase/server"
 
 export async function createPendingPurchase(formData) {
@@ -17,6 +18,8 @@ export async function createPendingPurchase(formData) {
   }
 
   let affiliate_id = null
+  
+  // 1. Tenta ler pela tag na URL (ref escondido)
   if (refCode) {
     const { data: linkData } = await supabase
       .from("affiliate_links")
@@ -25,6 +28,16 @@ export async function createPendingPurchase(formData) {
       .maybeSingle()
     if (linkData) affiliate_id = linkData.affiliate_id
   }
+
+  // 2. Se não encontrou na URL, procura no cookie global de tracking (setado em /ref/[code])
+  if (!affiliate_id) {
+    const cookieStore = cookies()
+    const cookieAffiliateId = cookieStore.get("ch_affiliate_id")?.value
+    if (cookieAffiliateId) {
+      affiliate_id = cookieAffiliateId
+    }
+  }
+
 
   const { data: product, error: pe } = await supabase
     .from("products")

@@ -27,10 +27,32 @@ export default function AddLessonForm({ productId, moduleId, modulePosition }) {
         <textarea name="description" rows={2} className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]" />
       </div>
       
-      <div className="sm:col-span-2 p-4 border border-neutral-200 bg-neutral-50 rounded-lg">
+      <div className="sm:col-span-2">
+        <label className="text-sm font-medium">Fonte do Vídeo</label>
+        <select 
+          name="media_source" 
+          defaultValue="internal"
+          onChange={(e) => {
+            // Just a simple visual toggle, we can use a small state or just let both be visible but visually explain
+            const val = e.target.value;
+            const isExt = val !== 'internal';
+            document.getElementById(`ext-input-${moduleId}`).style.display = isExt ? 'block' : 'none';
+            document.getElementById(`int-input-${moduleId}`).style.display = isExt ? 'none' : 'block';
+          }}
+          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
+        >
+          <option value="internal">Storage Interno da Plataforma</option>
+          <option value="youtube">YouTube</option>
+          <option value="vimeo">Vimeo</option>
+          <option value="google_drive">Google Drive</option>
+          <option value="external_link">Link Direto (MP4 externo)</option>
+        </select>
+      </div>
+      
+      <div id={`int-input-${moduleId}`} className="sm:col-span-2 p-4 border border-neutral-200 bg-neutral-50 rounded-lg">
         <label className="text-sm font-bold text-neutral-800">Ficheiro vídeo (MP4) - Máximo 100MB</label>
         <p className="text-xs text-neutral-500 mb-3">
-          Recomendamos vídeos bem comprimidos. Para vídeos maiores, aloja no Vimeo/YouTube e cola o link.
+          Recomendamos vídeos bem comprimidos. Para vídeos maiores, use YouTube ou Vimeo.
         </p>
         <Uploader 
           bucket="lessons" 
@@ -44,9 +66,9 @@ export default function AddLessonForm({ productId, moduleId, modulePosition }) {
         <input type="hidden" name="uploaded_video_path" value={videoUrl} />
       </div>
 
-      <div className="sm:col-span-2">
-        <label className="text-sm font-medium">Ou URL externo (YouTube/Vimeo/etc)</label>
-        <input type="text" name="video_url" placeholder="https://…" className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]" />
+      <div id={`ext-input-${moduleId}`} className="sm:col-span-2 hidden">
+        <label className="text-sm font-medium">Link do Vídeo Externo (YouTube, Vimeo, Drive, etc)</label>
+        <input type="text" name="external_media_url" placeholder="Ex: https://youtube.com/watch?v=..." className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]" />
       </div>
 
       <div className="sm:col-span-2 p-4 border border-neutral-200 bg-neutral-50 rounded-lg">

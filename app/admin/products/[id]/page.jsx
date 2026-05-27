@@ -130,6 +130,68 @@ export default async function EditProduct({ params }) {
               helper="Opcional. Os alunos verão um botão 'Aceder à Comunidade' no player."
             />
           </div>
+
+          <div className="sm:col-span-2 border-t border-neutral-100 pt-6 mt-2 grid sm:grid-cols-2 gap-6">
+            <h3 className="sm:col-span-2 font-bold text-lg text-neutral-800">Checkout & Afiliados</h3>
+
+            <div className="sm:col-span-2">
+              <PremiumTextarea 
+                label="Para quem é este curso? (Público-alvo)" 
+                name="target_audience" 
+                rows={3} 
+                defaultValue={p.target_audience || ""} 
+                placeholder="Ex: Criadores de conteúdo, designers, iniciantes..." 
+              />
+            </div>
+            
+            <div className="sm:col-span-2">
+              <PremiumTextarea 
+                label="Vantagens do Produto" 
+                name="advantages" 
+                rows={3} 
+                defaultValue={p.advantages || ""} 
+                placeholder="Ex: Certificado incluído&#10;Acesso vitalício&#10;Suporte direto..." 
+                helper="Uma vantagem por linha."
+              />
+            </div>
+
+            <PremiumInput 
+              label="Vídeo Promocional (URL)" 
+              name="promo_video_url" 
+              defaultValue={p.promo_video_url || ""} 
+              placeholder="Link do YouTube, Vimeo, Drive..." 
+            />
+            
+            <PremiumSelect 
+              label="Fonte do Vídeo Promocional" 
+              name="promo_media_source" 
+              defaultValue={p.promo_media_source || "youtube"}
+              options={[
+                { value: "youtube", label: "YouTube" },
+                { value: "vimeo", label: "Vimeo" },
+                { value: "google_drive", label: "Google Drive" },
+                { value: "internal", label: "Storage Interno (Pago)" },
+                { value: "external_link", label: "Link Direto (MP4)" }
+              ]}
+            />
+
+            <div className="sm:col-span-2">
+              <PremiumInput 
+                label="Página de Vendas Externa" 
+                name="external_sales_url" 
+                defaultValue={p.external_sales_url || ""} 
+                placeholder="Ex: https://meusite.com/curso" 
+                helper="Se tiveres uma página de vendas fora da plataforma."
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2 border-t border-neutral-100 pt-6 mt-2 grid sm:grid-cols-3 gap-6">
+            <h3 className="sm:col-span-3 font-bold text-lg text-neutral-800">Redes Sociais do Criador</h3>
+            <PremiumInput label="Instagram" name="social_instagram" defaultValue={p.creator_social_links?.instagram || ""} placeholder="https://instagram.com/..." />
+            <PremiumInput label="YouTube" name="social_youtube" defaultValue={p.creator_social_links?.youtube || ""} placeholder="https://youtube.com/..." />
+            <PremiumInput label="Website" name="social_website" defaultValue={p.creator_social_links?.website || ""} placeholder="https://meusite.com" />
+          </div>
           
           <div className="sm:col-span-2 flex flex-col gap-3 mt-4">
             <label className="flex items-center gap-3 text-sm font-bold text-neutral-800 bg-neutral-50 p-4 rounded-xl border border-neutral-200 cursor-pointer hover:bg-neutral-100 transition">

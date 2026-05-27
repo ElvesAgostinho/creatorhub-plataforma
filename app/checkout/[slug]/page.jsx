@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { getProductBySlug, typeLabels } from "@/lib/data/products"
 import { createPendingPurchase } from "./actions"
+import { CheckCircle2, Globe, Instagram, Youtube, Twitter, Facebook, ExternalLink } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -13,71 +14,185 @@ export default async function CheckoutPage({ params, searchParams }) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect(`/login?next=/checkout/${params.slug}`)
 
+  // Fetch Site Settings
   const { data: settings } = await supabase
     .from("site_settings")
     .select("*")
     .eq("id", "default")
     .single()
 
+  // Fetch Modules
+  const { data: modules } = await supabase
+    .from("modules")
+    .select("id, title")
+    .eq("product_id", item.id)
+    .order("position", { ascending: true })
+
+  // Fetch Creator Profile (for avatar)
+  // Assume creator is linked to the product. We can search by instructor name or if the product had created_by we could use it.
+  // We'll just display what we have in `item`.
+
   const fmt = n => (n ?? 0).toLocaleString("pt-PT")
 
-  return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 grid md:grid-cols-2 gap-10">
-      <div>
-        <h1 className="text-2xl font-extrabold text-[#111]">Finalizar compra</h1>
-        <p className="text-neutral-600 mt-1 text-sm">
-          Conclui o pagamento por transferência e a tua conta será ativada após confirmação.
-        </p>
+  const advantagesList = item.advantages ? item.advantages.split('\n').filter(Boolean) : []
+  const socialLinks = item.creatorSocialLinks || {}
 
-        <div className="mt-6 border border-neutral-200 rounded-2xl p-4 flex gap-4 bg-white shadow-sm">
-          <img src={item.image} alt={item.title} className="w-28 h-20 object-cover rounded-lg" />
-          <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase text-[#FF4500]">{typeLabels[item.type]}</span>
-            <span className="font-bold leading-snug">{item.title}</span>
-            <span className="text-sm text-neutral-600">por {item.instructor}</span>
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 grid lg:grid-cols-[1.5fr_1fr] gap-12">
+      {/* Esquerda: Informações do Produto e Criador (Estilo Hotmart) */}
+      <div className="space-y-8">
+        
+        {/* Media Promocional (Vídeo ou Imagem) */}
+        {item.promoVideoUrl ? (
+          <div className="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-lg border border-neutral-200">
+            {(item.promoMediaSource === 'youtube' || item.promoVideoUrl.includes('youtube.com') || item.promoVideoUrl.includes('youtu.be')) ? (
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${item.promoVideoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&]{11})/)?.[1] || ''}?rel=0`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            ) : (item.promoMediaSource === 'vimeo' || item.promoVideoUrl.includes('vimeo.com')) ? (
+              <iframe 
+                src={`https://player.vimeo.com/video/${item.promoVideoUrl.split('/').pop()}?title=0&byline=0&portrait=0`} 
+                width="100%" height="100%" frameBorder="0" allow="autoplay; fullscreen; picture-in-picture"
+              ></iframe>
+            ) : (item.promoMediaSource === 'google_drive' || item.promoVideoUrl.includes('drive.google.com')) ? (
+              <iframe src={item.promoVideoUrl.replace('/view', '/preview')} width="100%" height="100%" allow="autoplay"></iframe>
+            ) : (
+               <video src={item.promoVideoUrl.startsWith("storage:") ? `/storage/products/${item.promoVideoUrl.replace("storage:products/", "")}` : item.promoVideoUrl} controls className="w-full h-full object-cover" controlsList="nodownload" />
+            )}
+          </div>
+        ) : (
+          <div className="w-full aspect-video bg-neutral-100 rounded-2xl overflow-hidden shadow-sm border border-neutral-200">
+            <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+          </div>
+        )}
+
+        <div>
+          <h1 className="text-3xl font-extrabold text-[#111]">{item.title}</h1>
+          <p className="text-neutral-600 mt-2 text-lg">{item.description}</p>
+        </div>
+
+        {/* Informação do Criador */}
+        <div className="flex items-center gap-4 p-4 bg-neutral-50 rounded-2xl border border-neutral-100">
+          <div className="w-14 h-14 bg-gradient-to-tr from-[#FF4500] to-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
+            {item.instructor.charAt(0)}
+          </div>
+          <div>
+            <div className="text-sm text-neutral-500 font-medium">Criado por</div>
+            <div className="font-bold text-lg">{item.instructor}</div>
+            <div className="text-sm text-neutral-600">{item.role}</div>
+          </div>
+          
+          {/* Social Links do Criador */}
+          <div className="ml-auto flex gap-3 text-neutral-400">
+            {socialLinks.instagram && <a href={socialLinks.instagram} target="_blank" className="hover:text-[#E1306C]"><Instagram size={20} /></a>}
+            {socialLinks.youtube && <a href={socialLinks.youtube} target="_blank" className="hover:text-[#FF0000]"><Youtube size={20} /></a>}
+            {socialLinks.twitter && <a href={socialLinks.twitter} target="_blank" className="hover:text-[#1DA1F2]"><Twitter size={20} /></a>}
+            {socialLinks.website && <a href={socialLinks.website} target="_blank" className="hover:text-blue-500"><Globe size={20} /></a>}
           </div>
         </div>
 
-        <div className="mt-6 border border-[#FF4500]/20 rounded-2xl p-6 bg-[#FFF0EB]">
-          <div className="font-bold text-sm text-[#FF4500] uppercase tracking-wider">Instruções de pagamento</div>
-          <ol className="mt-4 space-y-3 text-sm text-neutral-800 list-decimal list-inside">
-            <li>Faz a transferência no valor de <strong>{fmt(item.price)} Kz</strong> para:
-              <div className="ml-5 mt-2 bg-white border border-[#FF4500]/20 rounded-xl p-4 text-sm leading-relaxed shadow-sm">
-                <div><strong>IBAN:</strong> <span className="font-mono bg-neutral-100 px-1.5 py-0.5 rounded text-neutral-900">{settings?.platform_iban || "Não configurado"}</span></div>
-                <div className="mt-1"><strong>Titular:</strong> {settings?.platform_beneficiary || "Não configurado"}</div>
-              </div>
-            </li>
-            <li>Tira foto/print do comprovativo.</li>
-            <li>Submete ao lado a referência da transferência (ID, últimos dígitos ou descrição).</li>
-            <li>Em até 24h o teu acesso será ativado e aparecerá na <strong>Biblioteca</strong>.</li>
-          </ol>
-        </div>
+        {/* Para quem é o curso */}
+        {item.targetAudience && (
+          <div>
+            <h2 className="text-xl font-bold mb-3">Para quem é este curso?</h2>
+            <p className="text-neutral-700 leading-relaxed bg-[#FF4500]/5 p-5 rounded-2xl border border-[#FF4500]/10">
+              {item.targetAudience}
+            </p>
+          </div>
+        )}
+
+        {/* Vantagens */}
+        {advantagesList.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold mb-4">Vantagens do Produto</h2>
+            <ul className="space-y-3">
+              {advantagesList.map((adv, i) => (
+                <li key={i} className="flex gap-3 text-neutral-700">
+                  <CheckCircle2 className="text-green-500 shrink-0 mt-0.5" size={20} />
+                  <span>{adv}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Módulos do Curso */}
+        {modules && modules.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold mb-4">Conteúdo do Curso</h2>
+            <div className="border border-neutral-200 rounded-2xl overflow-hidden bg-white">
+              {modules.map((mod, i) => (
+                <div key={mod.id} className={`p-4 ${i !== modules.length - 1 ? 'border-b border-neutral-100' : ''}`}>
+                  <div className="font-bold text-sm text-neutral-800">Módulo {i + 1}</div>
+                  <div className="text-neutral-600 mt-1">{mod.title}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Link Externo Opcional */}
+        {item.externalSalesUrl && (
+          <div className="mt-8 flex items-center justify-between p-5 border border-blue-100 bg-blue-50 rounded-2xl">
+            <div>
+              <div className="font-bold text-blue-900">Saber mais detalhes?</div>
+              <div className="text-sm text-blue-700 mt-1">Visite a página oficial do criador para mais informações.</div>
+            </div>
+            <a href={item.externalSalesUrl} target="_blank" className="flex items-center gap-2 px-4 py-2 bg-white text-blue-700 font-bold rounded-xl text-sm border border-blue-200 hover:bg-blue-100 transition-colors">
+              Página Oficial <ExternalLink size={16} />
+            </a>
+          </div>
+        )}
       </div>
 
+      {/* Direita: Checkout Form */}
       <aside>
         <form
           action={createPendingPurchase}
-          className="border border-neutral-200 rounded-2xl p-6 bg-white shadow-sm space-y-4 sticky top-24"
+          className="border border-neutral-200 rounded-2xl p-6 bg-white shadow-xl shadow-black/5 space-y-6 sticky top-24"
         >
+          <div>
+            <h2 className="text-xl font-extrabold text-[#111]">Finalizar compra</h2>
+            <p className="text-neutral-500 mt-1 text-xs">Transação 100% segura e encriptada.</p>
+          </div>
+
           <input type="hidden" name="slug" value={item.slug} />
           {searchParams?.ref && <input type="hidden" name="ref" value={searchParams.ref} />}
 
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-extrabold">{fmt(item.price)} Kz</span>
-            {item.discount > 0 && (
-              <span className="text-xs text-red-600 font-bold">{item.discount}% desc.</span>
-            )}
+          <div className="p-4 bg-neutral-50 rounded-xl border border-neutral-100 flex gap-4">
+            <img src={item.image} alt={item.title} className="w-20 h-14 object-cover rounded-md" />
+            <div>
+               <div className="font-bold leading-tight">{item.title}</div>
+               <div className="text-xs text-[#FF4500] font-bold mt-1 uppercase">{typeLabels[item.type]}</div>
+            </div>
           </div>
-          {item.discount > 0 && (
-            <div className="text-sm line-through text-neutral-500">{fmt(item.originalPrice)} Kz</div>
-          )}
 
           <div>
+            <div className="flex justify-between items-baseline mb-2">
+              <span className="text-neutral-600 font-medium">Total a pagar:</span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-extrabold text-[#111]">{fmt(item.price)} Kz</span>
+              </div>
+            </div>
+            {item.discount > 0 && (
+              <div className="flex justify-end gap-2 items-center">
+                <span className="text-xs text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded">- {item.discount}% desc.</span>
+                <span className="text-sm line-through text-neutral-400">{fmt(item.originalPrice)} Kz</span>
+              </div>
+            )}
+          </div>
+
+          <div className="border-t border-neutral-100 pt-6">
             <label className="text-sm font-bold text-neutral-800">Método de Pagamento</label>
             <select
               name="payment_method"
               defaultValue="transfer"
-              className="mt-2 w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#FF4500]/10 focus:border-[#FF4500] transition-all shadow-sm"
+              className="mt-2 w-full bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all shadow-sm"
             >
               <option value="transfer">Transferência Bancária / Multicaixa Express</option>
               <option value="unitel_money">Unitel Money</option>
@@ -85,26 +200,35 @@ export default async function CheckoutPage({ params, searchParams }) {
             </select>
           </div>
 
+          {/* Dados de Pagamento (Instruções) */}
+          <div className="bg-[#FFF0EB] border border-[#FF4500]/20 rounded-xl p-4 text-sm text-neutral-800">
+            Faz a transferência para:
+            <div className="mt-2 font-mono bg-white px-3 py-2 rounded-lg border border-[#FF4500]/10 font-bold text-center">
+              {settings?.platform_iban || "Não configurado"}
+            </div>
+            <div className="text-center mt-1 text-xs text-neutral-600">{settings?.platform_beneficiary}</div>
+          </div>
+
           <div>
-            <label className="text-sm font-bold text-neutral-800">Referência do pagamento</label>
+            <label className="text-sm font-bold text-neutral-800">Comprovativo / Referência</label>
             <input
               type="text"
               name="payment_ref"
-              placeholder="ex: TRX-2026-051234 ou últimos 6 dígitos"
-              className="mt-2 w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#FF4500]/10 focus:border-[#FF4500] transition-all shadow-sm"
+              required
+              placeholder="Ex: TRX-2026 ou últimos 6 dígitos"
+              className="mt-2 w-full bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all shadow-sm"
             />
-            <p className="text-xs text-neutral-500 mt-2">Isto ajuda-nos a confirmar a tua compra imediatamente.</p>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-3.5 rounded-xl transition-colors shadow-sm shadow-[#FF4500]/20 mt-4 uppercase tracking-wider text-sm"
+            className="w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-[#FF4500]/20 mt-4 uppercase tracking-wider text-sm flex justify-center items-center gap-2"
           >
-            Confirmar pedido
+            Confirmar Pedido Agora
           </button>
 
-          <p className="text-xs text-neutral-500">
-            Ao confirmar, criamos uma compra pendente em teu nome. Só ativamos o acesso após validação do pagamento.
+          <p className="text-xs text-center text-neutral-400 mt-4 px-4">
+            Ao comprar, concordas com os Termos de Serviço e Política de Privacidade da CreatorHub.
           </p>
         </form>
       </aside>

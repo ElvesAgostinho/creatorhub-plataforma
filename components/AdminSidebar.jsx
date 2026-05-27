@@ -27,12 +27,13 @@ export default function AdminSidebar() {
     { href: "/admin/products", label: "Produtos", icon: Package },
     { href: "/admin/campaigns", label: "Marketing 📈", icon: Megaphone },
     { href: "/admin/analytics", label: "Análises", icon: LineChart },
+    { href: "/admin/storage", label: "Alojamento", icon: Plug }, // Reusing Plug or maybe Database if available, I'll use Package or HardDrive
     { href: "/admin/integrations", label: "Integrações", icon: Plug },
     { href: "/admin/creators", label: "Candidaturas", icon: Users },
     { href: "/admin/academy", label: "Academia", icon: GraduationCap },
     { href: "/admin/certificates", label: "Certificados", icon: Award },
     { href: "/admin/resources", label: "Blog & Recursos", icon: BookOpen },
-    { href: "/admin/guide", label: "Guia de Aulas (Vídeo)", icon: PlaySquare },
+    { href: "/admin/guide", label: "Guia de Aulas", icon: PlaySquare },
     { href: "/admin/settings", label: "Definições", icon: Settings },
   ]
 

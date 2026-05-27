@@ -124,7 +124,17 @@ export async function updateProduct(formData) {
     event_starts_at: formData.get("event_starts_at")?.toString() || null,
     event_meeting_url: formData.get("event_meeting_url")?.toString() || null,
     youtube_preview_url: formData.get("youtube_preview_url")?.toString() || null,
-    community_url: formData.get("community_url")?.toString() || null
+    community_url: formData.get("community_url")?.toString() || null,
+    target_audience: formData.get("target_audience")?.toString() || null,
+    advantages: formData.get("advantages")?.toString() || null,
+    promo_video_url: formData.get("promo_video_url")?.toString() || null,
+    promo_media_source: formData.get("promo_media_source")?.toString() || "internal",
+    external_sales_url: formData.get("external_sales_url")?.toString() || null,
+    creator_social_links: {
+      instagram: formData.get("social_instagram")?.toString() || null,
+      youtube: formData.get("social_youtube")?.toString() || null,
+      website: formData.get("social_website")?.toString() || null
+    }
   }
 
   if (profile.role === "admin") {
@@ -234,11 +244,16 @@ export async function addLesson(formData) {
     .order("position", { ascending: false }).limit(1).maybeSingle()
   const position = (maxPos?.position || 0) + 1
 
+  const media_source = formData.get("media_source")?.toString() || "internal"
+  let external_media_url = formData.get("external_media_url")?.toString() || null
+
   const { error } = await svc.from("lessons").insert({
     module_id,
     title,
     description: formData.get("description")?.toString() || null,
     video_url,
+    media_source,
+    external_media_url,
     pdf_url,
     duration_seconds,
     position,
