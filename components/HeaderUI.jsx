@@ -190,7 +190,6 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
           </a>
 
           <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-neutral-700">
-            <a href="/academies" className={`transition ${pathname.startsWith("/academies") ? "text-[#FF4500]" : "hover:text-[#FF4500]"}`}>Academias</a>
             <a href="/academy" className={`transition ${pathname.startsWith("/academy") ? "text-[#FF4500]" : "hover:text-[#FF4500]"}`}>Membros ABOVE</a>
             <a href="/blog" className={`transition ${pathname.startsWith("/blog") ? "text-[#FF4500]" : "hover:text-[#FF4500]"}`}>Blog</a>
             <a href="/features" className={`transition ${pathname.startsWith("/features") ? "text-[#FF4500]" : "hover:text-[#FF4500]"}`}>O que inclui?</a>

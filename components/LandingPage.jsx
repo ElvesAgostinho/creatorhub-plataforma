@@ -116,58 +116,7 @@ export default function LandingPage({ user }) {
         </div>
       </section>
 
-      {/* 3. CLUBS & SUBSCRIPTIONS (DARK) */}
-      <section className="px-6 py-24 max-w-7xl mx-auto border-t border-neutral-800">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <div className="order-2 md:order-1 relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#FF4500]/20 to-transparent blur-3xl -z-10"></div>
-            <div className="bg-black border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl relative">
-              <div className="relative w-full h-48">
-                <Image src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?q=80&w=800&auto=format&fit=crop" alt="Clubes de Assinatura" fill className="object-cover opacity-50 mix-blend-overlay" sizes="(max-width: 768px) 100vw, 50vw" />
-              </div>
-              <div className="absolute inset-0 flex flex-col p-8">
-                <div className="flex-1"></div>
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img src="/creator_avatar_black.png" className="w-10 h-10 rounded-full border border-neutral-700" alt="Creator" />
-                    <div>
-                      <p className="font-bold text-white text-sm">Corretor de Imóveis</p>
-                      <p className="text-xs text-neutral-400">Conteúdo Premium</p>
-                    </div>
-                  </div>
-                  <span className="bg-[#FF4500] text-white text-xs font-bold px-3 py-1 rounded-full">15.000 Kz/mês</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="order-1 md:order-2">
-            <div className="inline-block border border-neutral-800 rounded-full px-4 py-2 text-sm font-bold mb-6 text-[#FF4500]">
-              NOVO: Clubes de Assinatura
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
-              A tua própria "Netflix".<br/>Receita recorrente todos os meses.
-            </h2>
-            <p className="text-neutral-400 text-lg mb-8">
-              Cria uma Academia Premium onde os teus alunos pagam uma mensalidade para ter acesso a vídeos exclusivos, comunidade VIP e aos teus melhores cursos. Tudo num único portal.
-            </p>
-            <ul className="space-y-4 mb-10">
-              <li className="flex items-center gap-3 font-medium text-neutral-300">
-                <span className="text-[#FF4500]">✓</span> Layout imersivo ao estilo das plataformas de streaming
-              </li>
-              <li className="flex items-center gap-3 font-medium text-neutral-300">
-                <span className="text-[#FF4500]">✓</span> Assinaturas mensais ou anuais automáticas
-              </li>
-              <li className="flex items-center gap-3 font-medium text-neutral-300">
-                <span className="text-[#FF4500]">✓</span> Inclui dezenas de cursos num só pacote
-              </li>
-            </ul>
-            <a href="/academies" className="bg-white text-black hover:bg-neutral-200 font-bold px-8 py-4 rounded-xl transition shadow-lg inline-block">
-              Explorar Academias
-            </a>
-          </div>
-        </div>
-      </section>
+
 
       {/* 4. MEMBERS AREA (LIGHT) */}
       <section className="bg-[#F8F7F5] text-[#111111] py-24 px-6 rounded-t-[3rem]">
