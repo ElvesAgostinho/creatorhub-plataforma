@@ -102,14 +102,7 @@ export default async function EditProduct({ params }) {
             ]}
           />
           
-          {p.type === "event" && (
-            <>
-              <PremiumInput label="Início do evento" name="event_starts_at" type="datetime-local"
-                defaultValue={p.event_starts_at ? new Date(p.event_starts_at).toISOString().slice(0,16) : ""} />
-              <PremiumInput label="Link da sala (Zoom/Jitsi)" name="event_meeting_url" defaultValue={p.event_meeting_url || ""} />
-            </>
-          )}
-          
+
           <div className="sm:col-span-2">
             <PremiumTextarea label="Descrição" name="description" rows={4} defaultValue={p.description || ""} />
           </div>

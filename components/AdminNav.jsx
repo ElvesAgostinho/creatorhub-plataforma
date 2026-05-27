@@ -12,7 +12,7 @@ export default function AdminNav() {
     { href: "/admin/creators", label: "Candidaturas" },
     { href: "/admin/broadcasts", label: "Avisos" },
 
-    { href: "/admin/resources", label: "Blog & Recursos" },
+
     { href: "/admin/settings", label: "Definições" }
   ]
 

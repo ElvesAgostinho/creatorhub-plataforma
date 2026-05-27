@@ -79,7 +79,7 @@ export default async function AdminProducts() {
               </div>
               <div>
                 <h3 className="text-2xl font-black mb-2 relative z-10">Novo Produto</h3>
-                <p className="text-white/80 text-sm relative z-10 font-medium">Expande o teu império digital. Cria cursos, eventos ou mentorias.</p>
+                <p className="text-white/80 text-sm relative z-10 font-medium">Expande o teu império digital. Cria cursos ou mentorias.</p>
               </div>
               <div className="relative z-10 mt-8">
                 <a href="/admin/products/new" className="bg-white text-[#FF4500] hover:bg-neutral-100 font-bold py-4 px-6 rounded-xl transition-colors text-center shadow-lg block w-full">

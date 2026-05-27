@@ -33,22 +33,18 @@ export default function Footer({ user }) {
         {/* Breadcrumbs */}
         <div className="flex items-center gap-2 mb-16 text-neutral-500 font-medium text-sm">
           <a href="/" className="hover:text-neutral-900 transition">Início</a>
-          <span className="text-neutral-300">/</span>
-          <a href="/blog" className="hover:text-neutral-900 transition">Blog</a>
         </div>
 
         {/* Links Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-20 font-medium">
           <ul className="space-y-4">
             <li><a href={user ? "/library" : "/signup"} className="hover:text-neutral-900 transition">{user ? "A minha Biblioteca" : "Cadastre-se gratuitamente"}</a></li>
-            <li><a href="/blog" className="hover:text-neutral-900 transition">Materiais Educativos</a></li>
             <li><a href="/features" className="hover:text-neutral-900 transition">Como funciona?</a></li>
             <li><a href="/support" className="hover:text-neutral-900 transition">Suporte e Ajuda</a></li>
           </ul>
           <ul className="space-y-4">
             <li><a href={user ? "/affiliates" : "/login?next=/affiliates"} className="hover:text-neutral-900 transition">Afiliado</a></li>
             <li><a href="/features" className="hover:text-neutral-900 transition">Soluções da ABOVE</a></li>
-            <li><a href="/blog" className="hover:text-neutral-900 transition">Marketing Digital</a></li>
             <li><a href={user ? "/become-creator" : "/login?next=/become-creator"} className="hover:text-neutral-900 transition">Capacitação para creators</a></li>
           </ul>
           <ul className="space-y-4">

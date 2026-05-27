@@ -32,7 +32,7 @@ export default function AdminSidebar() {
     { href: "/admin/integrations", label: "Integrações", icon: Plug },
     { href: "/admin/creators", label: "Candidaturas", icon: Users },
     { href: "/admin/certificates", label: "Certificados", icon: Award },
-    { href: "/admin/resources", label: "Blog & Recursos", icon: BookOpen },
+
     { href: "/admin/guide", label: "Guia de Aulas", icon: PlaySquare },
     { href: "/admin/profile", label: "O Meu Perfil", icon: Users },
     { href: "/admin/settings", label: "Definições", icon: Settings },

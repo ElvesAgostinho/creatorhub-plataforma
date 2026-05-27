@@ -53,7 +53,6 @@ export default async function Library() {
           </div>
         ) : (
           <div className="mt-12 space-y-16">
-            {["course", "book", "mentorship", "event"].map(typeKey => {
             {["course", "book", "mentorship"].map(typeKey => {
               const typeItems = items.filter(it => it.product.type === typeKey)
               if (typeItems.length === 0) return null
@@ -78,16 +77,14 @@ export default async function Library() {
                       const hrefByType = {
                         course: `/learn/${it.product.slug}`,
                         book: `/api/books/${it.product.slug}/download`,
-                        mentorship: `/book/${it.product.slug}`,
-                        event: `/product/${it.product.slug}`
+                        mentorship: `/book/${it.product.slug}`
                       }
                       const href = hrefByType[it.product.type] || `/product/${it.product.slug}`
                       const target = it.product.type === "book" ? "_blank" : undefined
                       const cta = {
                         course: "Continuar curso",
                         book: "Abrir PDF",
-                        mentorship: "Agendar sessão",
-                        event: "Aceder ao evento"
+                        mentorship: "Agendar sessão"
                       }[it.product.type] || "Aceder"
                       
                       return (
