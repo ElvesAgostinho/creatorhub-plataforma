@@ -88,17 +88,12 @@ export default function ProductCard({ item }) {
             )}
           </div>
 
-          <button 
-            onClick={handleAddToCart}
-            disabled={isAdded}
-            className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300 ${
-              isAdded 
-                ? "bg-emerald-500 text-white cursor-default shadow-md shadow-emerald-500/20" 
-                : "bg-neutral-100 text-neutral-600 hover:bg-[#FF4500] hover:text-white hover:scale-110 hover:shadow-[0_8px_20px_rgba(255,69,0,0.3)]"
-            }`}
+          <a 
+            href={href}
+            className="w-11 h-11 bg-neutral-100 text-neutral-600 hover:bg-[#FF4500] hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_20px_rgba(255,69,0,0.3)]"
           >
-            {isAdded ? <Check className="w-5 h-5" /> : <ShoppingCart className="w-5 h-5" />}
-          </button>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
         </div>
       </div>
     </div>

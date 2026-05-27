@@ -89,17 +89,6 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
           </div>
 
           <div className="flex items-center gap-3">
-            <button 
-              onClick={() => setIsCartOpen(true)}
-              className="relative text-neutral-600 hover:text-[#FF4500] transition p-2"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              {isMounted && cart.length > 0 && (
-                <span className="absolute top-0 right-0 bg-[#FF4500] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">
-                  {cart.length}
-                </span>
-              )}
-            </button>
             {user ? (
               <div className="flex items-center gap-4">
                 <a href="/library" className="hidden sm:inline-block border border-[#FF4500] text-[#FF4500] hover:bg-[#FFF0EB] font-bold text-sm px-4 py-1.5 rounded-full transition">
@@ -196,17 +185,6 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <button 
-            onClick={() => setIsCartOpen(true)}
-            className="relative text-neutral-600 hover:text-[#FF4500] transition p-2 hidden sm:block"
-          >
-            <ShoppingCart className="w-5 h-5" />
-            {isMounted && cart.length > 0 && (
-              <span className="absolute top-0 right-0 bg-[#FF4500] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">
-                {cart.length}
-              </span>
-            )}
-          </button>
           {user ? (
              <div className="flex items-center gap-4">
                <a href="/inbox" className="relative text-neutral-600 hover:text-neutral-900 transition">
