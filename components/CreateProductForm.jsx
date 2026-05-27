@@ -50,8 +50,6 @@ export default function CreateProductForm({ isStorageActive }) {
           { value: "course", label: "Curso Online" },
           { value: "book", label: "E-book / PDF" },
           { value: "mentorship", label: "Mentoria / Consultoria" },
-          { value: "event", label: "Evento / Workshop" },
-          { value: "community", label: "Comunidade Privada" },
           { value: "audiobook", label: "Audiobook / Podcast" },
           { value: "template", label: "Templates / Planilhas" }
         ]}

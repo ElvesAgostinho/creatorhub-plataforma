@@ -27,6 +27,7 @@ export default function AdminSidebar() {
     { href: "/admin/products", label: "Produtos", icon: Package },
     { href: "/admin/campaigns", label: "Marketing 📈", icon: Megaphone },
     { href: "/admin/analytics", label: "Análises", icon: LineChart },
+    { href: "/admin/finances", label: "Finanças", icon: Award },
     { href: "/admin/storage", label: "Alojamento", icon: Plug }, // Reusing Plug or maybe Database if available, I'll use Package or HardDrive
     { href: "/admin/integrations", label: "Integrações", icon: Plug },
     { href: "/admin/creators", label: "Candidaturas", icon: Users },
