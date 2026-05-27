@@ -68,7 +68,33 @@ export default async function Dashboard() {
           </button>
         </form>
       </div>
+      </div>
 
+      {/* ACTIVE COURSES / PROGRESS */}
+      {myPurchases.length > 0 && (
+        <div className="mt-8 mb-8">
+          <h2 className="text-xl font-bold mb-4">Continua de onde paraste</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {myPurchases.slice(0, 3).map(p => (
+              <div key={p.id} className="border border-neutral-200 rounded-2xl p-4 bg-white flex items-center gap-4 hover:shadow-md transition group">
+                <div className="w-16 h-16 rounded-xl bg-neutral-100 flex-shrink-0 overflow-hidden border border-neutral-100">
+                  {p.product?.image_url && <img src={p.product.image_url} className="w-full h-full object-cover" alt="Cover" />}
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-bold text-sm line-clamp-1 group-hover:text-[#FF4500] transition-colors">{p.product?.title || 'Curso'}</h4>
+                  <div className="w-full bg-neutral-100 h-2 rounded-full mt-2 overflow-hidden">
+                    <div className="bg-[#FF4500] h-full" style={{ width: '0%' }}></div>
+                  </div>
+                  <div className="text-[10px] font-bold text-neutral-400 mt-1">0% CONCLUÍDO</div>
+                </div>
+                <a href={p.product?.type === 'course' ? `/learn/${p.product?.slug}` : `/library`} className="w-10 h-10 rounded-full bg-[#FF4500]/10 flex items-center justify-center text-[#FF4500] hover:bg-[#FF4500] hover:text-white transition">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {cards.map(c => (
           <a

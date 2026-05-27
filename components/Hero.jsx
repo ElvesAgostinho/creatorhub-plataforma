@@ -37,13 +37,22 @@ export default function Hero() {
             <input
               type="search"
               name="q"
-              placeholder="O que queres aprender hoje?"
+              placeholder="Pesquisa marketing, finanças, programação..."
               className="w-full bg-white border border-neutral-300 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent rounded-full pl-6 pr-14 py-4 text-base transition-all shadow-md"
             />
             <button type="submit" className="absolute right-2 w-10 h-10 flex items-center justify-center bg-[#FF4500] hover:bg-[#e63e00] text-white rounded-full transition-colors">
               <Search className="w-5 h-5" />
             </button>
           </form>
+          
+          {/* Quick Categories */}
+          <div className="flex items-center gap-2 mt-4 flex-wrap">
+            <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider mr-1">Sugestões:</span>
+            <a href="/marketplace?category=Marketing" className="text-xs font-semibold px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition">Marketing</a>
+            <a href="/marketplace?category=Finanças" className="text-xs font-semibold px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition">Finanças</a>
+            <a href="/marketplace?type=book" className="text-xs font-semibold px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition">E-books</a>
+            <a href="/marketplace?type=course" className="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#FF4500]/10 hover:bg-[#FF4500]/20 text-[#FF4500] transition">Cursos Online</a>
+          </div>
         </div>
 
         {/* Removed social proof section per user request */}

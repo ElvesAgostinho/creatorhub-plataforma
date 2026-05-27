@@ -30,15 +30,13 @@ export default async function CheckoutPage({ params, searchParams }) {
         <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
           
           {/* Header */}
-          <div className="px-8 py-6 border-b border-neutral-100 flex items-center justify-between">
+          <div className="px-8 py-6 border-b border-neutral-100 flex items-center justify-between bg-[#FAFAFA]">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#FF4500] rounded-full flex items-center justify-center text-white font-black text-xl">
-                C
-              </div>
-              <span className="font-extrabold text-xl tracking-tight">CreatorHub</span>
+              <span className="text-2xl font-black italic tracking-tighter text-[#FF4500]">ABOVE</span>
             </div>
-            <div className="flex items-center gap-4">
-              <span className="bg-[#FF4500] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">New Look</span>
+            <div className="flex items-center gap-2 text-[#00A859] font-bold text-xs uppercase tracking-widest bg-[#00A859]/10 px-3 py-1.5 rounded-full">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Ambiente Seguro
             </div>
           </div>
 
@@ -59,7 +57,7 @@ export default async function CheckoutPage({ params, searchParams }) {
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-neutral-900 leading-tight">{item.title}</h1>
-                  <p className="text-neutral-500 mt-1">Author: {item.instructor}</p>
+                  <p className="text-neutral-500 mt-1">Produtor: {item.instructor}</p>
                   <div className="text-3xl font-black text-neutral-900 mt-2">{fmt(item.price)} Kz</div>
                 </div>
               </div>
@@ -68,36 +66,36 @@ export default async function CheckoutPage({ params, searchParams }) {
 
               {/* Personal Info */}
               <div className="space-y-6">
-                <h2 className="text-xl font-bold text-neutral-900">Personal info</h2>
+                <h2 className="text-xl font-bold text-neutral-900">Dados Pessoais</h2>
                 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-bold text-neutral-700 mb-2">Your email address</label>
+                    <label className="block text-sm font-bold text-neutral-700 mb-2">O teu e-mail</label>
                     <input 
                       type="email" 
                       defaultValue={user.email}
                       required
-                      placeholder="Enter the email to receive your purchase"
+                      placeholder="Insere o e-mail onde vais receber o acesso"
                       className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-neutral-700 mb-2">Confirm your email</label>
+                    <label className="block text-sm font-bold text-neutral-700 mb-2">Confirma o teu e-mail</label>
                     <input 
                       type="email" 
                       defaultValue={user.email}
                       required
-                      placeholder="Enter your email again"
+                      placeholder="Insere novamente o teu e-mail"
                       className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-bold text-neutral-700 mb-2">Your full name</label>
+                    <label className="block text-sm font-bold text-neutral-700 mb-2">Nome completo</label>
                     <input 
                       type="text" 
                       name="full_name"
                       required
-                      placeholder="Enter your full name"
+                      placeholder="Insere o teu nome completo"
                       className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
                     />
                   </div>
@@ -108,7 +106,7 @@ export default async function CheckoutPage({ params, searchParams }) {
 
               {/* Payment Method */}
               <div className="space-y-6">
-                <h2 className="text-xl font-bold text-neutral-900">Payment method</h2>
+                <h2 className="text-xl font-bold text-neutral-900">Método de Pagamento</h2>
                 
                 <div>
                   <select
@@ -150,16 +148,17 @@ export default async function CheckoutPage({ params, searchParams }) {
               <div className="text-2xl font-black text-neutral-900">{fmt(item.price)} Kz</div>
               <button
                 type="submit"
-                className="bg-[#00A859] hover:bg-[#009650] text-white font-bold text-lg px-12 py-4 rounded-lg transition-colors shadow-sm"
+                className="bg-[#00A859] hover:bg-[#009650] text-white font-bold text-lg px-12 py-4 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,168,89,0.39)] hover:shadow-[0_6px_20px_rgba(0,168,89,0.23)] hover:-translate-y-0.5"
               >
-                Buy now
+                Comprar agora
               </button>
             </div>
           </form>
         </div>
         
-        <div className="text-center mt-6 text-sm text-neutral-400 font-medium">
-          Powered by CreatorHub
+        <div className="text-center mt-6 text-sm text-neutral-400 font-medium flex items-center justify-center gap-2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          Pagamento 100% Seguro • ABOVE
         </div>
 
       </div>

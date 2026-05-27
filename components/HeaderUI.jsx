@@ -96,8 +96,12 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                 </a>
                 <div className="relative group">
                   <button className="flex items-center gap-2 hover:opacity-80 focus:outline-none py-2">
-                    <span className="w-9 h-9 rounded-full bg-[#FF4500] text-white flex items-center justify-center font-bold text-sm shadow-md">
-                      {initial}
+                    <span className="w-9 h-9 rounded-full bg-[#FF4500] text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden border border-neutral-200">
+                      {profile?.avatar_url ? (
+                        <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                      ) : (
+                        initial
+                      )}
                     </span>
                   </button>
                   <div className="absolute right-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
@@ -177,10 +181,10 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
             <span className="text-3xl font-black italic tracking-tighter text-[#FF4500]">ABOVE</span>
           </a>
 
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-neutral-700">
-            <a href="/features" className={`transition ${pathname.startsWith("/features") ? "text-[#FF4500]" : "hover:text-[#FF4500]"}`}>O que inclui?</a>
-            <a href="/marketplace" className={`transition ${pathname.startsWith("/marketplace") ? "text-[#FF4500]" : "hover:text-[#FF4500]"}`}>Marketplace</a>
-            <a href="/support" className={`transition ${pathname.startsWith("/support") ? "text-[#FF4500]" : "hover:text-[#FF4500]"}`}>Ajuda</a>
+          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-neutral-600">
+            <a href="/features" className={`transition relative py-2 ${pathname.startsWith("/features") ? "text-[#FF4500] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[#FF4500] after:rounded-t-md" : "hover:text-[#111]"}`}>Como funciona?</a>
+            <a href="/marketplace" className={`transition relative py-2 ${pathname.startsWith("/marketplace") ? "text-[#FF4500] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[#FF4500] after:rounded-t-md" : "hover:text-[#111]"}`}>Marketplace</a>
+            <a href="/support" className={`transition relative py-2 ${pathname.startsWith("/support") ? "text-[#FF4500] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[#FF4500] after:rounded-t-md" : "hover:text-[#111]"}`}>Ajuda</a>
           </nav>
         </div>
 
@@ -198,8 +202,12 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                
                <div className="relative group">
                   <button className="flex items-center gap-2 hover:opacity-80 focus:outline-none py-2">
-                    <span className="w-9 h-9 rounded-full bg-[#FF4500] text-white flex items-center justify-center font-bold text-sm shadow-md">
-                      {initial}
+                    <span className="w-9 h-9 rounded-full bg-[#FF4500] text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden border border-neutral-200">
+                      {profile?.avatar_url ? (
+                        <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                      ) : (
+                        initial
+                      )}
                     </span>
                   </button>
                   <div className="absolute right-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">

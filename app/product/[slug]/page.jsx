@@ -156,7 +156,7 @@ export default async function ProductPage({ params, searchParams }) {
 
           {/* Learn more about the content creator */}
           <div>
-            <h2 className="text-2xl font-bold text-neutral-900 mb-6">Learn more about the content creator</h2>
+            <h2 className="text-2xl font-bold text-neutral-900 mb-6">Sobre o Produtor</h2>
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
               <div className="w-24 h-24 bg-neutral-200 rounded-full overflow-hidden shrink-0 flex items-center justify-center text-3xl font-bold text-neutral-500 border-4 border-white shadow-md">
                 {item.avatar || creatorProfile?.avatar_url ? (
@@ -167,7 +167,7 @@ export default async function ProductPage({ params, searchParams }) {
               </div>
               <div className="flex-1">
                 <h3 className="font-bold text-neutral-900 text-xl">{item.instructor || creatorProfile?.full_name}</h3>
-                <p className="text-sm text-neutral-500 font-medium mt-1">{creatorProfile?.bio || item.role || "Content Creator"}</p>
+                <p className="text-sm text-neutral-500 font-medium mt-1">{creatorProfile?.bio || item.role || "Criador de Conteúdo"}</p>
                 
                 {/* Social Links */}
                 <div className="flex flex-wrap gap-3 mt-4">
@@ -195,8 +195,8 @@ export default async function ProductPage({ params, searchParams }) {
           {/* Evaluations */}
           <div>
             <div className="flex justify-between items-end mb-8">
-              <h2 className="text-2xl font-bold text-neutral-900">Evaluations</h2>
-              <button className="text-sm font-bold text-neutral-600 underline">Filter ≡</button>
+              <h2 className="text-2xl font-bold text-neutral-900">Avaliações</h2>
+              <button className="text-sm font-bold text-neutral-600 underline">Filtrar ≡</button>
             </div>
             
             <div className="flex gap-10 items-center mb-10">
@@ -247,10 +247,29 @@ export default async function ProductPage({ params, searchParams }) {
             </div>
           </div>
 
+          {/* FAQ Section */}
+          <div className="pt-8 mb-8 border-t border-neutral-100">
+            <h2 className="text-2xl font-bold text-neutral-900 mb-6">Perguntas Frequentes</h2>
+            <div className="space-y-4">
+              <div className="border border-neutral-200 rounded-xl p-5 bg-[#FAFAFA]">
+                <h4 className="font-bold text-neutral-900">Como recebo o acesso ao produto?</h4>
+                <p className="text-sm text-neutral-600 mt-2">Após a confirmação do pagamento, receberás automaticamente um e-mail com os teus dados de acesso e o link para a área de membros.</p>
+              </div>
+              <div className="border border-neutral-200 rounded-xl p-5 bg-[#FAFAFA]">
+                <h4 className="font-bold text-neutral-900">Quais as formas de pagamento?</h4>
+                <p className="text-sm text-neutral-600 mt-2">Aceitamos pagamentos por Referência Multicaixa (Express), Transferência Bancária, Cartão de Crédito e Unitel Money.</p>
+              </div>
+              <div className="border border-neutral-200 rounded-xl p-5 bg-[#FAFAFA]">
+                <h4 className="font-bold text-neutral-900">Tenho garantia?</h4>
+                <p className="text-sm text-neutral-600 mt-2">Sim, todos os produtos têm uma garantia de 7 dias. Se não ficares satisfeito, devolvemos 100% do teu dinheiro sem burocracias.</p>
+              </div>
+            </div>
+          </div>
+
           {/* Other products from the same creator */}
           {otherProducts.length > 0 && (
-            <div className="pt-8">
-              <h2 className="text-2xl font-bold text-neutral-900 mb-6">Other products from the same creator</h2>
+            <div className="pt-8 border-t border-neutral-100">
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">Outros produtos deste produtor</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {otherProducts.map(p => (
                   <a href={`/product/${p.slug}`} key={p.id} className="group cursor-pointer">
@@ -305,9 +324,9 @@ export default async function ProductPage({ params, searchParams }) {
                 {/* Hotmart style Green Button */}
                 <a 
                   href={`/checkout/${item.slug}${searchParams?.ref ? `?ref=${searchParams.ref}` : ''}`} 
-                  className="block w-full text-center bg-[#00A859] hover:bg-[#009650] transition-colors text-white font-bold text-lg py-4 rounded-xl shadow-sm"
+                  className="block w-full text-center bg-[#00A859] hover:bg-[#009650] transition-colors text-white font-bold text-lg py-4 rounded-xl shadow-[0_4px_14px_0_rgba(0,168,89,0.39)] hover:shadow-[0_6px_20px_rgba(0,168,89,0.23)] hover:-translate-y-0.5"
                 >
-                  Proceed to payment
+                  Comprar agora
                 </a>
 
                 {/* Guarantees and extra info */}
@@ -315,16 +334,16 @@ export default async function ProductPage({ params, searchParams }) {
                   <div className="flex gap-3 text-sm text-neutral-700 font-medium items-center">
                     <Star className="w-5 h-5 text-yellow-500 fill-yellow-500 shrink-0" />
                     <span>{item.reviewsPositive ? (item.reviewsPositive / 20).toFixed(1) : "5.0"} ({item.reviewsCount || 0})</span>
-                    <span className="flex items-center gap-1 ml-auto text-neutral-500"><ShieldCheck className="w-4 h-4" /> Top Rated</span>
+                    <span className="flex items-center gap-1 ml-auto text-neutral-500"><ShieldCheck className="w-4 h-4" /> Mais Vendido</span>
                   </div>
-                  <div className="flex gap-3 text-sm text-neutral-700 font-medium items-center">
-                    <ShieldCheck className="w-5 h-5 text-neutral-900 shrink-0" />
-                    7-day guarantee
+                  <div className="flex gap-3 text-sm text-neutral-700 font-medium items-center bg-[#F4FDF8] text-[#00A859] p-3 rounded-lg border border-[#E8F8F0]">
+                    <ShieldCheck className="w-5 h-5 text-[#00A859] shrink-0" />
+                    Garantia de 7 dias
                   </div>
                 </div>
 
                 <div className="text-xs text-neutral-400 text-center mt-4">
-                  After you purchase the product, you'll receive access instructions via email.
+                  Após a compra, receberás as instruções de acesso por e-mail.
                 </div>
               </div>
             )}

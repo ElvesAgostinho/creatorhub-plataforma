@@ -31,8 +31,20 @@ export default function Footer({ user }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 mb-16 text-neutral-500 font-medium text-sm">
+        <div className="flex items-center gap-2 mb-10 text-neutral-500 font-medium text-sm">
           <a href="/" className="hover:text-neutral-900 transition">Início</a>
+        </div>
+
+        {/* Newsletter */}
+        <div className="bg-[#FAFAFA] border border-neutral-200 rounded-3xl p-8 mb-16 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 className="text-xl font-bold text-[#111] mb-2">Recebe as melhores estratégias de vendas</h3>
+            <p className="text-neutral-500 text-sm">Junta-te a mais de 10.000 criadores na nossa newsletter semanal.</p>
+          </div>
+          <form className="flex w-full md:w-auto gap-2">
+            <input type="email" placeholder="O teu melhor e-mail" className="px-4 py-3 rounded-xl border border-neutral-300 w-full md:w-72 focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500]" />
+            <button className="bg-[#111] hover:bg-black text-white px-6 py-3 rounded-xl font-bold transition shadow-sm">Subscrever</button>
+          </form>
         </div>
 
         {/* Links Grid */}
@@ -94,12 +106,26 @@ export default function Footer({ user }) {
             </div>
           </div>
           
-          <div className="bg-[#F0F4F4] px-4 py-3 rounded-lg flex items-center justify-between min-w-[240px] text-neutral-800 font-semibold text-sm cursor-pointer hover:bg-[#e4ecec] transition">
-            <div className="flex flex-col">
-              <span className="text-[10px] text-neutral-500 font-normal">Idioma</span>
-              Português - Angola
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div className="bg-[#F0F4F4] px-4 py-3 rounded-lg flex items-center justify-between min-w-[200px] text-neutral-800 font-semibold text-sm cursor-pointer hover:bg-[#e4ecec] transition">
+              <div className="flex flex-col">
+                <span className="text-[10px] text-neutral-500 font-normal">Idioma</span>
+                Português - Angola
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
             </div>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
+            
+            <div className="flex flex-col gap-2 opacity-60 grayscale hover:grayscale-0 transition-all">
+              <span className="text-[10px] font-bold tracking-wider text-neutral-500 uppercase">Pagamento Seguro</span>
+              <div className="flex gap-2">
+                <div className="bg-white border border-neutral-200 rounded px-2 py-1 flex items-center justify-center h-8" title="Multicaixa Express">
+                  <span className="font-black text-xs">MCX</span>
+                </div>
+                <div className="bg-white border border-neutral-200 rounded px-2 py-1 flex items-center justify-center h-8" title="SSL Secure">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
