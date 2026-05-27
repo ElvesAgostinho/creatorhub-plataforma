@@ -44,6 +44,10 @@ export default async function ProfilePage() {
               <label className="text-sm font-bold text-neutral-800">Especialidade / Profissão</label>
               <input type="text" name="specialty" defaultValue={profile?.specialty || ""} placeholder="Ex: Investidor e Mentor" className={cls} required />
             </div>
+            <div className="sm:col-span-2">
+              <label className="text-sm font-bold text-neutral-800">Biografia Curta</label>
+              <textarea name="bio" defaultValue={profile?.bio || ""} placeholder="Escreve um pouco sobre ti..." className={cls} rows="3"></textarea>
+            </div>
           </div>
 
           <div className="pt-6 border-t border-neutral-100">
@@ -57,7 +61,19 @@ export default async function ProfilePage() {
                 <label className="text-sm font-bold text-neutral-800">YouTube (URL)</label>
                 <input type="url" name="youtube" defaultValue={profile?.youtube || ""} placeholder="https://youtube.com/..." className={cls} />
               </div>
-              <div className="sm:col-span-2">
+              <div>
+                <label className="text-sm font-bold text-neutral-800">Facebook (URL)</label>
+                <input type="url" name="facebook" defaultValue={profile?.facebook || ""} placeholder="https://facebook.com/..." className={cls} />
+              </div>
+              <div>
+                <label className="text-sm font-bold text-neutral-800">Twitter (X) (URL)</label>
+                <input type="url" name="twitter" defaultValue={profile?.twitter || ""} placeholder="https://twitter.com/..." className={cls} />
+              </div>
+              <div>
+                <label className="text-sm font-bold text-neutral-800">LinkedIn (URL)</label>
+                <input type="url" name="linkedin" defaultValue={profile?.linkedin || ""} placeholder="https://linkedin.com/..." className={cls} />
+              </div>
+              <div>
                 <label className="text-sm font-bold text-neutral-800">Website Oficial</label>
                 <input type="url" name="website" defaultValue={profile?.website || ""} placeholder="https://meusite.com" className={cls} />
               </div>

@@ -4,6 +4,8 @@ import { getLessonsForProduct } from "@/lib/data/lessons"
 import { createServiceClient } from "@/lib/supabase/server"
 import { Star, ShieldCheck, PlayCircle, Globe, BookOpen } from "lucide-react"
 import ProductTabs from "@/components/ProductTabs"
+import ShareButton from "@/components/ShareButton"
+import ReviewForm from "@/components/ReviewForm"
 
 export const revalidate = 60
 
@@ -51,6 +53,34 @@ export default async function ProductPage({ params, searchParams }) {
     if (profData) creatorProfile = profData
   }
 
+  // Fetch Reviews
+  const { data: reviewsData } = await svc
+    .from("product_reviews")
+    .select("*")
+    .eq("product_id", item.id)
+    .order("created_at", { ascending: false })
+
+  const reviews = reviewsData || []
+  const totalReviews = reviews.length
+  const averageRating = totalReviews > 0 
+    ? (reviews.reduce((acc, r) => acc + r.rating, 0) / totalReviews).toFixed(1)
+    : "5.0"
+
+  // Fetch reviewers profiles
+  const userIds = reviews.map(r => r.user_id)
+  let reviewersMap = {}
+  if (userIds.length > 0) {
+    const { data: reviewersProfiles } = await svc.from("profiles").select("id, full_name").in("id", userIds)
+    if (reviewersProfiles) {
+      reviewersProfiles.forEach(p => reviewersMap[p.id] = p.full_name)
+    }
+  }
+
+  const displayReviews = reviews.map(r => ({
+    ...r,
+    user_name: reviewersMap[r.user_id] || "Anónimo"
+  }))
+
   const SocialIcon = ({ type, url }) => {
     if (!url) return null
     let iconEl = <Globe className="w-5 h-5" />
@@ -84,8 +114,8 @@ export default async function ProductPage({ params, searchParams }) {
           <div className="flex items-center gap-6 text-sm text-neutral-600 flex-wrap">
             <div className="flex items-center gap-2 font-medium">
               <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-              <span className="font-bold text-neutral-900">{item.reviewsPositive ? (item.reviewsPositive / 20).toFixed(1) : "5.0"}</span> 
-              <span>({item.reviewsCount || 0} reviews)</span>
+              <span className="font-bold text-neutral-900">{averageRating}</span> 
+              <span>({totalReviews} avaliações)</span>
             </div>
             {item.bestSeller && (
               <div className="flex items-center gap-1 font-bold text-neutral-900">
@@ -95,10 +125,7 @@ export default async function ProductPage({ params, searchParams }) {
             <div className="flex items-center gap-1">
               <span>🌎</span> English / Português
             </div>
-            <div className="ml-auto flex items-center gap-2 font-bold text-neutral-900 cursor-pointer hover:text-[#FF4500] transition-colors">
-              <span>Share</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-            </div>
+            <ShareButton title={item.title} text={item.description} url="" />
           </div>
         </div>
       </div>
@@ -162,12 +189,15 @@ export default async function ProductPage({ params, searchParams }) {
                 {item.avatar || creatorProfile?.avatar_url ? (
                   <img src={item.avatar || creatorProfile?.avatar_url} alt={item.instructor} className="w-full h-full object-cover" />
                 ) : (
-                  item.instructor?.charAt(0) || "U"
+                  (item.instructor || creatorProfile?.full_name)?.charAt(0) || "U"
                 )}
               </div>
               <div className="flex-1">
-                <h3 className="font-bold text-neutral-900 text-xl">{item.instructor || creatorProfile?.full_name}</h3>
-                <p className="text-sm text-neutral-500 font-medium mt-1">{creatorProfile?.bio || item.role || "Criador de Conteúdo"}</p>
+                <h3 className="font-bold text-neutral-900 text-xl">{creatorProfile?.full_name || item.instructor}</h3>
+                <p className="text-sm text-neutral-500 font-medium mt-1">{creatorProfile?.specialty || item.role || "Criador de Conteúdo"}</p>
+                {creatorProfile?.bio && (
+                  <p className="text-sm text-neutral-700 mt-3">{creatorProfile.bio}</p>
+                )}
                 
                 {/* Social Links */}
                 <div className="flex flex-wrap gap-3 mt-4">
@@ -177,14 +207,6 @@ export default async function ProductPage({ params, searchParams }) {
                   <SocialIcon type="twitter" url={creatorProfile?.twitter} />
                   <SocialIcon type="youtube" url={creatorProfile?.youtube} />
                   <SocialIcon type="linkedin" url={creatorProfile?.linkedin} />
-                  {/* Fallback demo links if none exist in DB */}
-                  {!creatorProfile?.website && !creatorProfile?.instagram && (
-                    <>
-                      <SocialIcon type="instagram" url="https://instagram.com" />
-                      <SocialIcon type="youtube" url="https://youtube.com" />
-                      <SocialIcon type="website" url="https://example.com" />
-                    </>
-                  )}
                 </div>
               </div>
             </div>
@@ -196,55 +218,62 @@ export default async function ProductPage({ params, searchParams }) {
           <div>
             <div className="flex justify-between items-end mb-8">
               <h2 className="text-2xl font-bold text-neutral-900">Avaliações</h2>
-              <button className="text-sm font-bold text-neutral-600 underline">Filtrar ≡</button>
+              {displayReviews.length > 0 && (
+                <button className="text-sm font-bold text-neutral-600 underline">Filtrar ≡</button>
+              )}
             </div>
             
             <div className="flex gap-10 items-center mb-10">
               <div className="text-center">
                 <div className="flex items-center gap-2">
-                  <span className="text-6xl font-black text-neutral-900">{item.reviewsPositive ? (item.reviewsPositive / 20).toFixed(1) : "5.0"}</span>
+                  <span className="text-6xl font-black text-neutral-900">{averageRating}</span>
                   <Star className="w-8 h-8 text-yellow-500 fill-yellow-500" />
                 </div>
-                <div className="text-sm text-neutral-500 font-medium mt-1">{item.reviewsCount || 0} reviews</div>
+                <div className="text-sm text-neutral-500 font-medium mt-1">{totalReviews} {totalReviews === 1 ? 'avaliação' : 'avaliações'}</div>
               </div>
               
               <div className="flex-1 max-w-xs space-y-2">
-                {[5,4,3,2,1].map(stars => (
-                  <div key={stars} className="flex items-center gap-3">
-                    <div className="flex">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-3 h-3 ${i < stars ? "text-neutral-600 fill-neutral-600" : "text-neutral-200 fill-neutral-200"}`} />
-                      ))}
+                {[5,4,3,2,1].map(stars => {
+                  const count = displayReviews.filter(r => r.rating === stars).length;
+                  const percent = totalReviews > 0 ? Math.round((count / totalReviews) * 100) : 0;
+                  return (
+                    <div key={stars} className="flex items-center gap-3">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className={`w-3 h-3 ${i < stars ? "text-neutral-600 fill-neutral-600" : "text-neutral-200 fill-neutral-200"}`} />
+                        ))}
+                      </div>
+                      <div className="flex-1 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-neutral-600 transition-all" style={{ width: `${percent}%` }}></div>
+                      </div>
                     </div>
-                    <div className="flex-1 h-1.5 bg-neutral-200 rounded-full overflow-hidden">
-                      <div className="h-full bg-neutral-600" style={{ width: stars === 5 ? '80%' : stars === 4 ? '15%' : '0%' }}></div>
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
 
-            {/* Fake Reviews for Demo */}
+            {/* Real Reviews */}
             <div className="space-y-6">
-              <div className="border-t border-neutral-100 pt-6">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="font-bold">5</span>
-                  <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                  <span className="text-xs text-neutral-400 ml-2">12/31/2025</span>
-                </div>
-                <p className="text-neutral-900 mb-2">Like learning more</p>
-                <div className="text-xs font-bold text-neutral-400 uppercase">HUSSAIN</div>
-              </div>
-              <div className="border-t border-neutral-100 pt-6">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="font-bold">5</span>
-                  <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                  <span className="text-xs text-neutral-400 ml-2">10/20/2025</span>
-                </div>
-                <p className="text-neutral-900 mb-2">This is a Nice Platform.</p>
-                <div className="text-xs font-bold text-neutral-400 uppercase">PEDRO ALMEIDA</div>
-              </div>
+              {displayReviews.length === 0 ? (
+                <div className="text-neutral-500 italic">Ainda não existem avaliações para este produto.</div>
+              ) : (
+                displayReviews.map(r => (
+                  <div key={r.id} className="border-t border-neutral-100 pt-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="font-bold">{r.rating}</span>
+                      <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                      <span className="text-xs text-neutral-400 ml-2">{new Date(r.created_at).toLocaleDateString()}</span>
+                    </div>
+                    {r.comment && <p className="text-neutral-900 mb-2">{r.comment}</p>}
+                    <div className="text-xs font-bold text-neutral-400 uppercase">{r.user_name}</div>
+                  </div>
+                ))
+              )}
             </div>
+
+            {owned && (
+              <ReviewForm productId={item.id} />
+            )}
           </div>
 
           {/* FAQ Section */}
@@ -279,7 +308,7 @@ export default async function ProductPage({ params, searchParams }) {
                       ) : null}
                     </div>
                     <h4 className="font-bold text-sm text-neutral-900 leading-snug line-clamp-2">{p.title}</h4>
-                    <p className="text-xs text-neutral-500 mt-1">{item.instructor || creatorProfile?.full_name}</p>
+                    <p className="text-xs text-neutral-500 mt-1">{creatorProfile?.full_name || item.instructor}</p>
                   </a>
                 ))}
               </div>
@@ -333,7 +362,7 @@ export default async function ProductPage({ params, searchParams }) {
                 <div className="space-y-4 pt-2">
                   <div className="flex gap-3 text-sm text-neutral-700 font-medium items-center">
                     <Star className="w-5 h-5 text-yellow-500 fill-yellow-500 shrink-0" />
-                    <span>{item.reviewsPositive ? (item.reviewsPositive / 20).toFixed(1) : "5.0"} ({item.reviewsCount || 0})</span>
+                    <span>{averageRating} ({totalReviews})</span>
                     <span className="flex items-center gap-1 ml-auto text-neutral-500"><ShieldCheck className="w-4 h-4" /> Mais Vendido</span>
                   </div>
                   <div className="flex gap-3 text-sm text-neutral-700 font-medium items-center bg-[#F4FDF8] text-[#00A859] p-3 rounded-lg border border-[#E8F8F0]">
