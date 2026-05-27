@@ -22,10 +22,7 @@ export default function Hero() {
       </div>
 
       <div className="relative h-full px-6 sm:px-12 md:px-16 flex flex-col justify-center max-w-7xl mx-auto space-y-6">
-        <div className="inline-flex items-center gap-2 bg-[#FF4500]/10 border border-[#FF4500]/20 text-[#FF4500] text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full w-fit">
-          <span className="w-2 h-2 rounded-full bg-[#FF4500] animate-pulse" />
-          O Marketplace dos Criadores
-        </div>
+        {/* Badge removed per user request */}
         
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-neutral-900 leading-[1.05] tracking-tight">
           Aprende o que <br /> <span className="text-[#FF4500]">realmente importa.</span>
