@@ -47,8 +47,6 @@ export async function createProduct(formData) {
   const slug = slugInput ? slugify(slugInput) : slugify(title)
   const description = formData.get("description")?.toString() || null
   const image_url = formData.get("image_url")?.toString() || null
-  const instructor_name = formData.get("instructor_name")?.toString() || null
-  const instructor_role = formData.get("instructor_role")?.toString() || null
   const price = Number(formData.get("price") || 0)
   const original_price = Number(formData.get("original_price") || price)
   const discount = original_price > price
@@ -77,8 +75,6 @@ export async function createProduct(formData) {
     title,
     description,
     image_url,
-    instructor_name,
-    instructor_role,
     price_cents: Math.round(price * 100),
     original_price_cents: Math.round(original_price * 100),
     discount_pct: discount,
@@ -89,11 +85,6 @@ export async function createProduct(formData) {
     promo_video_url,
     promo_media_source,
     external_sales_url: formData.get("external_sales_url")?.toString() || null,
-    creator_social_links: {
-      instagram: formData.get("social_instagram")?.toString() || null,
-      youtube: formData.get("social_youtube")?.toString() || null,
-      website: formData.get("social_website")?.toString() || null
-    },
     published: profile.role === "admin",
     created_by: user.id
   }).select("id").single()
@@ -136,8 +127,6 @@ export async function updateProduct(formData) {
     title,
     description: formData.get("description")?.toString() || null,
     image_url: formData.get("image_url")?.toString() || null,
-    instructor_name: formData.get("instructor_name")?.toString() || null,
-    instructor_role: formData.get("instructor_role")?.toString() || null,
     price_cents: Math.round(price * 100),
     original_price_cents: Math.round(original_price * 100),
     discount_pct: discount,
@@ -153,11 +142,6 @@ export async function updateProduct(formData) {
     promo_video_url: formData.get("promo_video_url")?.toString() || null,
     promo_media_source: formData.get("promo_media_source")?.toString() || "internal",
     external_sales_url: formData.get("external_sales_url")?.toString() || null,
-    creator_social_links: {
-      instagram: formData.get("social_instagram")?.toString() || null,
-      youtube: formData.get("social_youtube")?.toString() || null,
-      website: formData.get("social_website")?.toString() || null
-    }
   }
 
   // Verificar subscrição de storage se o vídeo promocional for "internal"

@@ -147,11 +147,10 @@ export default async function AffiliatePanel({ searchParams }) {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {products.map(p => {
-                const affiliateLink = `https://above.ao/product/${p.slug}?ref=${user.id.split('-')[0]}`
                 const comm = Math.round((p.price_cents * 0.2)/100)
                 
                 return (
-                  <div key={p.id} className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-[#FF4500]/30 transition-all duration-500 flex flex-col text-neutral-900">
+                  <a href={`/affiliate-panel/product/${p.slug}`} key={p.id} className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-[#FF4500]/30 transition-all duration-500 flex flex-col text-neutral-900">
                     <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
                       {p.image_url ? (
                         <img
@@ -190,22 +189,11 @@ export default async function AffiliatePanel({ searchParams }) {
                         </div>
                       </div>
 
-                      <div className="mt-2 bg-neutral-50 rounded-xl p-1.5 flex items-center border border-neutral-200 group-hover:border-[#FF4500]/40 transition-colors">
-                        <input 
-                          type="text" 
-                          readOnly 
-                          value={affiliateLink} 
-                          className="bg-transparent text-xs text-neutral-500 font-medium w-full px-3 outline-none"
-                        />
-                        <button 
-                          className="shrink-0 bg-white p-2.5 rounded-lg border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-neutral-600 shadow-sm transition-all"
-                          title="Copiar Link (Selecione o texto acima)"
-                        >
-                          <CopyIcon size={16} />
-                        </button>
+                      <div className="mt-2 text-center text-sm font-bold text-[#FF4500] group-hover:bg-[#FF4500] group-hover:text-white border border-[#FF4500]/20 py-2.5 rounded-xl transition-colors">
+                        Ver Detalhes e Afiliar-se
                       </div>
                     </div>
-                  </div>
+                  </a>
                 )
               })}
             </div>

@@ -76,10 +76,7 @@ export default async function EditProduct({ params }) {
           </div>
           
           <PremiumInput label="Imagem (URL)" name="image_url" defaultValue={p.image_url || ""} />
-          
-          <PremiumInput label="Nome do Criador / Autor / Mentor" name="instructor_name" defaultValue={p.instructor_name || ""} />
-          <PremiumInput label="Cargo / Título" name="instructor_role" defaultValue={p.instructor_role || ""} />
-          
+
           <PremiumInput label="Preço Atual (Kz)" name="price" type="number" defaultValue={Math.round((p.price_cents||0)/100)} />
           <PremiumInput label="Preço original (Kz)" name="original_price" type="number" defaultValue={Math.round((p.original_price_cents||0)/100)} />
           
@@ -189,12 +186,7 @@ export default async function EditProduct({ params }) {
             </div>
           </div>
 
-          <div className="sm:col-span-2 border-t border-neutral-100 pt-6 mt-2 grid sm:grid-cols-3 gap-6">
-            <h3 className="sm:col-span-3 font-bold text-lg text-neutral-800">Redes Sociais do Criador</h3>
-            <PremiumInput label="Instagram" name="social_instagram" defaultValue={p.creator_social_links?.instagram || ""} placeholder="https://instagram.com/..." />
-            <PremiumInput label="YouTube" name="social_youtube" defaultValue={p.creator_social_links?.youtube || ""} placeholder="https://youtube.com/..." />
-            <PremiumInput label="Website" name="social_website" defaultValue={p.creator_social_links?.website || ""} placeholder="https://meusite.com" />
-          </div>
+
           
           <div className="sm:col-span-2 flex flex-col gap-3 mt-4">
             <label className="flex items-center gap-3 text-sm font-bold text-neutral-800 bg-neutral-50 p-4 rounded-xl border border-neutral-200 cursor-pointer hover:bg-neutral-100 transition">

@@ -107,10 +107,6 @@ export default function CreateProductForm({ isStorageActive }) {
         />
       </div>
 
-      {/* DADOS DO CRIADOR */}
-      <PremiumInput label="Nome do Criador" name="instructor_name" placeholder="O teu nome" />
-      <PremiumInput label="Especialidade" name="instructor_role" placeholder="Ex: Investidor e Mentor" />
-      
       {/* CHECKOUT & AFILIADOS */}
       <div className="sm:col-span-2 border-t border-neutral-100 pt-6 mt-2 grid sm:grid-cols-2 gap-6">
         <h3 className="sm:col-span-2 font-bold text-lg text-neutral-800">Checkout & Detalhes</h3>
@@ -163,12 +159,6 @@ export default function CreateProductForm({ isStorageActive }) {
         </div>
       </div>
 
-      <div className="sm:col-span-2 border-t border-neutral-100 pt-6 mt-2 grid sm:grid-cols-3 gap-6">
-        <h3 className="sm:col-span-3 font-bold text-lg text-neutral-800">Redes Sociais do Criador</h3>
-        <PremiumInput label="Instagram" name="social_instagram" placeholder="https://instagram.com/..." />
-        <PremiumInput label="YouTube" name="social_youtube" placeholder="https://youtube.com/..." />
-        <PremiumInput label="Website" name="social_website" placeholder="https://meusite.com" />
-      </div>
 
       {/* CAPA */}
       <div className="sm:col-span-2 mt-4 p-6 border-2 border-dashed border-neutral-300 bg-neutral-50 rounded-2xl">

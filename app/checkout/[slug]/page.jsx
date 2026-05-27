@@ -88,8 +88,12 @@ export default async function CheckoutPage({ params, searchParams }) {
 
         {/* Informação do Criador */}
         <div className="flex items-center gap-4 p-4 bg-neutral-50 rounded-2xl border border-neutral-100">
-          <div className="w-14 h-14 bg-gradient-to-tr from-[#FF4500] to-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl">
-            {item.instructor.charAt(0)}
+          <div className="w-14 h-14 bg-gradient-to-tr from-[#FF4500] to-orange-400 rounded-full flex items-center justify-center text-white font-bold text-xl overflow-hidden shrink-0">
+            {item.avatar ? (
+              <img src={item.avatar} alt={item.instructor} className="w-full h-full object-cover" />
+            ) : (
+              item.instructor.charAt(0)
+            )}
           </div>
           <div>
             <div className="text-sm text-neutral-500 font-medium">Criado por</div>
