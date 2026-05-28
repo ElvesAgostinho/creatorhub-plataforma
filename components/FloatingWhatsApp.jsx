@@ -45,9 +45,9 @@ export default function FloatingWhatsApp({ user }) {
           className="relative w-16 h-16 rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-all hover:scale-105 group overflow-hidden ring-4 ring-white"
         >
           <img 
-            src="/bot_avatar.png" 
+            src="/whatsapp_icon_black.png" 
             alt="Suporte Automático" 
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-top bg-white"
           />
           {/* Green dot indicating online status */}
           <span className="absolute bottom-0 right-0 w-4 h-4 bg-[#25D366] border-2 border-white rounded-full"></span>

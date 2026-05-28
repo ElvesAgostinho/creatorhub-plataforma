@@ -42,11 +42,12 @@ export default function Hero() {
         <div className="w-full md:w-1/2 relative h-[400px] md:h-full flex items-end justify-center md:justify-end">
           <div className="absolute inset-0 md:inset-y-0 right-0 w-full md:w-[120%] h-full">
             <Image
-              src="/marketplace_hero_graphic.png"
+              src="/marketplace_hero_graphic.png?v=2"
               alt="Pessoa sorrindo e aprendendo"
               fill
-              className="object-contain object-bottom md:object-right-bottom"
+              className="object-contain object-top md:object-right-top bg-white"
               priority
+              unoptimized
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
