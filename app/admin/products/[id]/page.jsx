@@ -38,6 +38,14 @@ export default async function EditProduct({ params }) {
   const { data: billing } = await svc.from("creator_storage_billing").select("status").eq("user_id", user.id).maybeSingle()
   const isStorageActive = profile.role === "admin" || billing?.status === "active"
 
+  const { data: settingsRows } = await svc.from("platform_settings").select("key, value")
+  const settings = {}
+  for (const row of settingsRows || []) {
+    settings[row.key] = row.value === "true"
+  }
+  const platformVideoEnabled = settings.upload_video_enabled !== false
+  const platformPhotoEnabled = settings.upload_photo_enabled !== false
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-8">
       <div className="flex items-center justify-between flex-wrap gap-3">
@@ -62,7 +70,12 @@ export default async function EditProduct({ params }) {
           Faz upload (jpg/png/webp) ou cola um URL na secção "Dados gerais" abaixo. Upload sobrepõe o URL.
         </p>
 
-        <EditProductCoverForm productId={p.id} currentImageUrl={p.image_url} />
+        <EditProductCoverForm 
+          productId={p.id} 
+          currentImageUrl={p.image_url} 
+          isStorageActive={isStorageActive} 
+          platformPhotoEnabled={platformPhotoEnabled} 
+        />
       </section>
 
       {/* ---- Dados gerais ---- */}
@@ -239,7 +252,7 @@ export default async function EditProduct({ params }) {
       </section>
 
       {/* ---- Conteúdo conforme tipo ---- */}
-      {p.type === "course" && <LessonsSection productId={p.id} isStorageActive={isStorageActive} />}
+      {p.type === "course" && <LessonsSection productId={p.id} isStorageActive={isStorageActive} platformVideoEnabled={platformVideoEnabled} platformPhotoEnabled={platformPhotoEnabled} />}
       {p.type === "book" && <BookSection product={p} />}
       {p.type === "mentorship" && <SlotsSection productId={p.id} />}
 
@@ -247,7 +260,7 @@ export default async function EditProduct({ params }) {
   )
 }
 
-async function LessonsSection({ productId, isStorageActive }) {
+async function LessonsSection({ productId, isStorageActive, platformVideoEnabled, platformPhotoEnabled }) {
   const svc = createServiceClient()
   
   const { data: modules } = await svc.from("modules")
@@ -296,7 +309,14 @@ async function LessonsSection({ productId, isStorageActive }) {
               </div>
               
               <div className="p-4">
-                <AddLessonForm productId={productId} moduleId={m.id} modulePosition={m.position} isStorageActive={isStorageActive} />
+                <AddLessonForm 
+                  productId={productId} 
+                  moduleId={m.id} 
+                  modulePosition={m.position} 
+                  isStorageActive={isStorageActive} 
+                  platformVideoEnabled={platformVideoEnabled} 
+                  platformPhotoEnabled={platformPhotoEnabled} 
+                />
 
                 <div className="divide-y divide-neutral-100">
                   {moduleLessons.length === 0 && <div className="text-sm text-neutral-500">Sem aulas neste módulo.</div>}

@@ -3,11 +3,12 @@
 import { useState } from "react"
 import { createProduct } from "@/app/admin/products/actions"
 import Uploader from "@/components/Uploader"
+import MediaLinkInput from "@/components/MediaLinkInput"
 import { PremiumInput, PremiumSelect, PremiumTextarea, PremiumButton } from "@/components/PremiumForms"
 import { categoryTree } from "@/lib/data/categories"
 import ClientForm from "@/components/ClientForm"
 
-export default function CreateProductForm({ isStorageActive }) {
+export default function CreateProductForm({ isStorageActive, platformVideoEnabled = true, platformPhotoEnabled = true }) {
   const [type, setType] = useState("course")
   const [category, setCategory] = useState(Object.keys(categoryTree)[0])
   const [subcategory, setSubcategory] = useState(categoryTree[Object.keys(categoryTree)[0]][0])
@@ -160,14 +161,32 @@ export default function CreateProductForm({ isStorageActive }) {
 
       {/* CAPA */}
       <div className="sm:col-span-2 mt-4 p-6 border-2 border-dashed border-neutral-300 bg-neutral-50 rounded-2xl">
-        <Uploader 
-          bucket="images" 
-          accept="image/jpeg,image/png,image/webp" 
-          label="Upload da Imagem de Capa (Formato 16:9)"
-          onSuccess={(url) => setImageUrl(url)}
-        />
+        <label className="text-sm font-extrabold text-neutral-800 mb-2 block">Imagem de Capa do Produto</label>
+        <div className="grid sm:grid-cols-2 gap-6">
+          <div>
+            <Uploader 
+              bucket="images" 
+              accept="image/jpeg,image/png,image/webp" 
+              label="Upload de Ficheiro (Formato 16:9)"
+              onSuccess={(url) => setImageUrl(url)}
+              isStorageActive={isStorageActive}
+              uploadType="photo"
+              platformEnabled={platformPhotoEnabled}
+            />
+          </div>
+          <div>
+            <MediaLinkInput
+              name="image_url_ext"
+              label="Ou usa um Link de Imagem Externo"
+              placeholder="Ex: https://drive.google.com/..."
+              type="image"
+              helper="Se colares um link, este terá prioridade sobre o upload."
+              onChange={(url) => setImageUrl(url)}
+            />
+          </div>
+        </div>
         <input type="hidden" name="image_url" value={imageUrl} />
-        {imageUrl && <p className="text-green-600 font-bold mt-2 text-sm text-center">✅ Imagem carregada com sucesso!</p>}
+        {imageUrl && <p className="text-green-600 font-bold mt-2 text-sm text-center">✅ Imagem definida com sucesso!</p>}
       </div>
 
       {/* DYNAMIC FORMS BASED ON TYPE */}

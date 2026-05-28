@@ -15,12 +15,18 @@ async function assertAuth() {
   return { user, profile }
 }
 
+async function assertAdmin() {
+  const { profile } = await assertAuth()
+  if (profile.role !== "admin") throw new Error("Apenas o superadmin pode executar esta ação.")
+  return { profile }
+}
+
+// ─── Creator Actions ──────────────────────────────────────────────────────────
+
 export async function joinStoragePlan(formData) {
   const { user } = await assertAuth()
   const svc = createServiceClient()
 
-  // In a real app we would integrate with a payment gateway to subscribe.
-  // Here we just mark it as pending.
   const { error } = await svc.from("creator_storage_billing").upsert({
     user_id: user.id,
     status: "pending",
@@ -48,9 +54,10 @@ export async function cancelStoragePlan(formData) {
   return { ok: true }
 }
 
+// ─── Admin: Activate / Deactivate Individual Creator ─────────────────────────
+
 export async function adminActivateStorage(formData) {
-  const { profile } = await assertAuth()
-  if (profile.role !== "admin") throw new Error("Apenas admins podem ativar contas.")
+  await assertAdmin()
   const svc = createServiceClient()
   const userId = formData.get("user_id")
 
@@ -65,8 +72,7 @@ export async function adminActivateStorage(formData) {
 }
 
 export async function adminDeactivateStorage(formData) {
-  const { profile } = await assertAuth()
-  if (profile.role !== "admin") throw new Error("Apenas admins podem suspender contas.")
+  await assertAdmin()
   const svc = createServiceClient()
   const userId = formData.get("user_id")
 
@@ -76,5 +82,41 @@ export async function adminDeactivateStorage(formData) {
 
   if (error) throw new Error(error.message)
   revalidatePath("/admin/storage")
+  return { ok: true }
+}
+
+// ─── Admin: Global Upload Toggles ────────────────────────────────────────────
+
+export async function adminToggleVideoUpload(formData) {
+  await assertAdmin()
+  const svc = createServiceClient()
+  const enabled = formData.get("enabled") === "true"
+
+  const { error } = await svc.from("platform_settings").upsert({
+    key: "upload_video_enabled",
+    value: String(enabled),
+    updated_at: new Date().toISOString(),
+  }, { onConflict: "key" })
+
+  if (error) throw new Error(error.message)
+  revalidatePath("/admin/storage")
+  revalidatePath("/api/platform-settings")
+  return { ok: true }
+}
+
+export async function adminTogglePhotoUpload(formData) {
+  await assertAdmin()
+  const svc = createServiceClient()
+  const enabled = formData.get("enabled") === "true"
+
+  const { error } = await svc.from("platform_settings").upsert({
+    key: "upload_photo_enabled",
+    value: String(enabled),
+    updated_at: new Date().toISOString(),
+  }, { onConflict: "key" })
+
+  if (error) throw new Error(error.message)
+  revalidatePath("/admin/storage")
+  revalidatePath("/api/platform-settings")
   return { ok: true }
 }

@@ -2,11 +2,8 @@
 
 import { useEffect, useRef, useState } from "react"
 import { saveProgress } from "@/app/learn/[slug]/actions"
-import dynamic from "next/dynamic"
 import AIAssistant from "./AIAssistant"
-import HlsPlayer from "@/components/HlsPlayer"
-
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false })
+import MediaEmbed from "@/components/MediaEmbed"
 
 function fmtTime(secs) {
   const s = Math.floor(secs || 0)
@@ -226,39 +223,16 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
         {/* Vídeo */}
         <div className="px-8 py-4">
            <div className="aspect-video bg-black rounded-3xl relative shadow-[0_0_50px_rgba(255,69,0,0.1)] border border-neutral-800/50 overflow-hidden ring-1 ring-white/5">
-             {(() => {
-               let finalUrl = current.video_url || "";
-               if (finalUrl.startsWith("storage:lessons/")) {
-                 finalUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/lessons/${finalUrl.replace("storage:lessons/", "")}`;
-               }
-               
-               if (finalUrl.includes('.m3u8')) {
-                 return (
-                   <HlsPlayer
-                     src={finalUrl}
-                     onTimeUpdate={onTimeUpdate}
-                     onEnded={onEnded}
-                     className="w-full h-full object-contain bg-black"
-                   />
-                 );
-               }
-               
-               return (
-                 <video 
-                   ref={videoRef}
-                   src={finalUrl} 
-                   controls 
-                   playsInline
-                   className="w-full h-full object-contain bg-black"
-                   controlsList="nodownload"
-                   onTimeUpdate={onTimeUpdate}
-                   onEnded={onEnded}
-                 />
-               );
-             })()}
-             
-             {/* Glow effect at the bottom simulating the reference image */}
-             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-[#FF4500]/20 blur-3xl pointer-events-none rounded-full"></div>
+             <MediaEmbed
+               src={current.video_url || current.external_media_url || ""}
+               mediaSource={current.media_source}
+               onTimeUpdate={onTimeUpdate}
+               onEnded={onEnded}
+               className="w-full h-full"
+               type="video"
+             />
+             {/* Glow effect */}
+             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-[#FF4500]/20 blur-3xl pointer-events-none rounded-full" />
            </div>
         </div>
         

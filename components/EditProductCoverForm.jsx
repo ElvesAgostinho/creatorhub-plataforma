@@ -4,7 +4,7 @@ import { useState } from "react"
 import { uploadProductImage } from "@/app/admin/products/actions"
 import Uploader from "@/components/Uploader"
 
-export default function EditProductCoverForm({ productId, currentImageUrl }) {
+export default function EditProductCoverForm({ productId, currentImageUrl, isStorageActive = true, platformPhotoEnabled = true }) {
   const [imageUrl, setImageUrl] = useState("")
 
   return (
@@ -26,6 +26,9 @@ export default function EditProductCoverForm({ productId, currentImageUrl }) {
           accept="image/jpeg,image/png,image/webp" 
           label="Carregar nova capa"
           onSuccess={(url) => setImageUrl(url)}
+          isStorageActive={isStorageActive}
+          uploadType="photo"
+          platformEnabled={platformPhotoEnabled}
         />
         <input type="hidden" name="image_url" value={imageUrl} />
         

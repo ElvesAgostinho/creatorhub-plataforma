@@ -30,6 +30,14 @@ export default async function NewProductPage() {
 
   const isStorageActive = profile?.role === "admin" || billing?.status === "active"
 
+  const { data: settingsRows } = await supabase.from("platform_settings").select("key, value")
+  const settings = {}
+  for (const row of settingsRows || []) {
+    settings[row.key] = row.value === "true"
+  }
+  const platformVideoEnabled = settings.upload_video_enabled !== false
+  const platformPhotoEnabled = settings.upload_photo_enabled !== false
+
   return (
     <div className="bg-[#F8F7F5] min-h-screen pt-10 pb-20 font-sans">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -46,7 +54,7 @@ export default async function NewProductPage() {
 
         {/* FORM CONTAINER */}
         <div className="bg-white border border-neutral-200 rounded-3xl p-8 sm:p-10 shadow-sm">
-          <CreateProductForm isStorageActive={isStorageActive} />
+          <CreateProductForm isStorageActive={isStorageActive} platformVideoEnabled={platformVideoEnabled} platformPhotoEnabled={platformPhotoEnabled} />
         </div>
 
       </div>
