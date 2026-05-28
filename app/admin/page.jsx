@@ -2,7 +2,7 @@ import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { approvePurchase, rejectPurchase } from "./actions"
 import PieChartPremium from "@/components/charts/PieChartPremium"
-import { Wallet, TrendingUp, ShoppingCart, Clock, CheckCircle2, XCircle, CreditCard, Users, Megaphone, Check } from "lucide-react"
+import { Wallet, TrendingUp, ShoppingCart, Clock, CheckCircle2, XCircle, CreditCard, Users, Megaphone, Check, Search } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -159,20 +159,21 @@ export default async function AdminPage({ searchParams }) {
                       <div className="w-16 h-16 bg-neutral-50 rounded-full flex items-center justify-center text-neutral-300 mx-auto mb-3">
                         <Search size={24} />
                       </div>
-                      <p className="text-neutral-500 font-medium">Nenhuma transação {statusStyles[status].label.toLowerCase()} encontrada.</p>
+                      <p className="text-neutral-500 font-medium">Nenhuma transação {statusStyles[status]?.label?.toLowerCase() || status} encontrada.</p>
                     </td>
                   </tr>
                 )}
                 
                 {filteredRows?.map(r => {
-                  const SIcon = statusStyles[r.status].icon
+                  const style = statusStyles[r.status] || { label: "Desconhecido", color: "bg-neutral-100 text-neutral-500", icon: Clock }
+                  const SIcon = style.icon
                   return (
                     <tr key={r.id} className="hover:bg-neutral-50 transition-colors align-middle group">
                       {/* STATUS */}
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider border ${statusStyles[r.status].color}`}>
+                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider border ${style.color}`}>
                           <SIcon size={12} strokeWidth={3} />
-                          {statusStyles[r.status].label}
+                          {style.label}
                         </span>
                       </td>
 
@@ -252,7 +253,7 @@ export default async function AdminPage({ searchParams }) {
           
           {filteredRows.length > 0 && (
             <div className="border-t border-neutral-200 px-6 py-4 flex items-center justify-between text-xs text-neutral-500 font-medium bg-[#F8F9FA]">
-              Mostrando {filteredRows.length} resultados para "{statusStyles[status].label}"
+              Mostrando {filteredRows.length} resultados para "{statusStyles[status]?.label || status}"
             </div>
           )}
         </div>
