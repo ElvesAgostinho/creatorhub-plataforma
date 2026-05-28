@@ -5,59 +5,54 @@ import { Search } from "lucide-react"
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-[500px] md:h-[600px] bg-white overflow-hidden">
-      
-      {/* Beautiful Static Background Image (Full Width/Extremities) */}
-      <div className="absolute inset-0">
-        <Image
-          src="/hero_mobile.png"
-          alt="Pessoas a aprender num ambiente moderno e corporativo"
-          fill
-          className="object-cover object-[center_right]"
-          priority
-        />
-        {/* Gradient Overlays for Readability against white */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent sm:hidden" />
-      </div>
-
-      <div className="relative h-full px-6 sm:px-12 md:px-16 flex flex-col justify-center max-w-7xl mx-auto space-y-6">
-        {/* Badge removed per user request */}
+    <section className="relative w-full overflow-hidden bg-white pt-10 sm:pt-16 pb-0 md:h-[600px] flex items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full h-full flex flex-col md:flex-row items-center justify-between gap-10">
         
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-neutral-900 leading-[1.05] tracking-tight">
-          Aprende o que <br /> <span className="text-[#FF4500]">realmente importa.</span>
-        </h1>
-        
-        <p className="text-neutral-600 text-lg sm:text-xl font-medium max-w-xl leading-relaxed">
-          Explora centenas de cursos, mentorias e e-books exclusivos criados pelos melhores especialistas do mercado.
-        </p>
-
-        <div className="pt-4">
-          <form action="/marketplace" method="GET" className="relative flex items-center max-w-md">
-            <input
-              type="search"
-              name="q"
-              placeholder="Pesquisa marketing, finanças, programação..."
-              className="w-full bg-white border border-neutral-300 text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent rounded-full pl-6 pr-14 py-4 text-base transition-all shadow-md"
-            />
-            <button type="submit" className="absolute right-2 w-10 h-10 flex items-center justify-center bg-[#FF4500] hover:bg-[#e63e00] text-white rounded-full transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
-          </form>
+        {/* Left Side Content */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center space-y-6 relative z-10 md:-mt-10">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black text-neutral-900 leading-[1.05] tracking-tight">
+            O que você quer <br />
+            <span className="text-[#FF4500]">aprender</span> hoje?
+          </h1>
           
-          {/* Quick Categories */}
-          <div className="flex items-center gap-2 mt-4 flex-wrap">
-            <span className="text-xs font-bold text-neutral-500 uppercase tracking-wider mr-1">Sugestões:</span>
-            <a href="/marketplace?category=Marketing" className="text-xs font-semibold px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition">Marketing</a>
-            <a href="/marketplace?category=Finanças" className="text-xs font-semibold px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition">Finanças</a>
-            <a href="/marketplace?type=book" className="text-xs font-semibold px-3 py-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition">E-books</a>
-            <a href="/marketplace?type=course" className="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#FF4500]/10 hover:bg-[#FF4500]/20 text-[#FF4500] transition">Cursos Online</a>
+          <p className="text-neutral-700 text-lg sm:text-xl font-medium max-w-md leading-relaxed">
+            Pesquise um tema e escolha cursos perfeitos para você
+          </p>
+
+          <div className="pt-2">
+            <form action="/marketplace" method="GET" className="relative flex items-center max-w-lg w-full">
+              <input
+                type="search"
+                name="q"
+                placeholder='Tente "marketing" ou "culinária"'
+                className="w-full bg-[#f4f5f7] border border-transparent text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent rounded-full pl-6 pr-14 py-4 text-base transition-all"
+              />
+              <button 
+                type="submit" 
+                className="absolute right-2 w-11 h-11 flex items-center justify-center bg-[#2b2b2b] hover:bg-[#1a1a1a] text-white rounded-full transition-colors"
+                aria-label="Pesquisar"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+            </form>
           </div>
         </div>
 
-        {/* Removed social proof section per user request */}
-      </div>
+        {/* Right Side Graphic */}
+        <div className="w-full md:w-1/2 relative h-[400px] md:h-full flex items-end justify-center md:justify-end">
+          <div className="absolute inset-0 md:inset-y-0 right-0 w-full md:w-[120%] h-full">
+            <Image
+              src="/marketplace_hero_graphic.png"
+              alt="Pessoa sorrindo e aprendendo"
+              fill
+              className="object-contain object-bottom md:object-right-bottom"
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+        </div>
 
+      </div>
     </section>
   )
 }
