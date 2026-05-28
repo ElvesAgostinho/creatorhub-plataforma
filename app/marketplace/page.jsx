@@ -84,9 +84,9 @@ export default async function MarketplaceHome({ searchParams }) {
 
             {/* Image (Right) */}
             <div className="w-full lg:w-1/2 relative flex justify-center lg:justify-end mt-10 lg:mt-0">
-              <div className="relative w-full max-w-[500px] aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/50">
+              <div className="relative w-full max-w-[500px] aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/50 bg-neutral-100">
                 <img 
-                  src="/hero_woman_laptop.png" 
+                  src="/marketplace_hero_clean.png" 
                   alt="Aprender online na plataforma" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
