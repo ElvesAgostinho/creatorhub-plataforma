@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
-import { sendPaymentConfirmation } from "@/lib/email"
+import { sendPaymentConfirmation, sendCreatorSaleNotification } from "@/lib/email"
 
 async function requireAdmin() {
   const supabase = createClient()
@@ -58,7 +58,6 @@ export async function approvePurchase(formData) {
       .maybeSingle()
       
     if (creatorProfile?.email) {
-      const { sendCreatorSaleNotification } = require("@/lib/email")
       const amountFormatted = new Intl.NumberFormat('pt-AO', { style: 'currency', currency: 'AOA' }).format(purchase.amount_cents)
       await sendCreatorSaleNotification(
         creatorProfile.email,
