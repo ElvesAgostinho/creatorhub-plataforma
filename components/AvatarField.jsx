@@ -5,11 +5,15 @@ import Uploader from "@/components/Uploader"
 export default function AvatarField({ userId, defaultUrl, defaultInitial }) {
   const [url, setUrl] = useState(defaultUrl)
 
+  const displayUrl = url?.startsWith("storage:")
+    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${url.split(":")[1]}`
+    : url;
+
   return (
     <div className="flex flex-col sm:flex-row gap-8 items-start mb-8">
       <div className="shrink-0 w-32 h-32 rounded-full overflow-hidden bg-neutral-100 border-4 border-white shadow-lg">
-        {url ? (
-          <img src={url} alt="Avatar" className="w-full h-full object-cover" />
+        {displayUrl ? (
+          <img src={displayUrl} alt="Avatar" className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-neutral-300">
             {defaultInitial}

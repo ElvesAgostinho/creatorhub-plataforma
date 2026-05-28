@@ -138,8 +138,8 @@ export default function Uploader({
         setProgress(100)
 
         let finalPath = filename
-        if (bucket === "images") {
-          const { data } = supabase.storage.from("images").getPublicUrl(filename)
+        if (bucket === "images" || bucket === "avatars") {
+          const { data } = supabase.storage.from(bucket).getPublicUrl(filename)
           finalPath = data.publicUrl
         } else {
           finalPath = `storage:${bucket}/${filename}`
