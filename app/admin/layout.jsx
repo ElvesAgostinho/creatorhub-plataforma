@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }) {
   return (
     <div className="min-h-screen bg-[#F8F7F5] flex font-sans text-neutral-900">
       {/* Barra Lateral Fixa (Desktop) */}
-      <AdminSidebar />
+      <AdminSidebar role={profile.role} />
       
       {/* Área de Conteúdo Principal */}
       <div className="flex-1 flex flex-col min-h-screen overflow-hidden">

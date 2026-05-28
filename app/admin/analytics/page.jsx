@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import AdminNav from "@/components/AdminNav"
+
 
 export const dynamic = "force-dynamic"
 
@@ -106,7 +106,7 @@ export default async function AnalyticsPage() {
         
         <div className="flex items-center justify-between flex-wrap gap-3 mb-8">
           <h1 className="text-3xl font-extrabold text-[#111]">{isAdmin ? "Admin — Análises (Global)" : "Análises de Vendas"}</h1>
-          <AdminNav />
+
         </div>
 
         <div className="flex items-center justify-between mb-8">

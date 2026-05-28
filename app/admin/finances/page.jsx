@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
-import AdminNav from "@/components/AdminNav"
+
 
 export const dynamic = "force-dynamic"
 
@@ -96,7 +96,7 @@ export default async function FinancesPage() {
         
         <div className="flex items-center justify-between flex-wrap gap-3 mb-8">
           <h1 className="text-3xl font-extrabold text-[#111]">Gestão Financeira e Comissões</h1>
-          <AdminNav />
+
         </div>
 
         <div className="bg-white border border-neutral-200 rounded-3xl p-8 mb-10 shadow-sm">

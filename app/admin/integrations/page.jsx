@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import AdminNav from "@/components/AdminNav"
+
 import IntegrationsClient from "./IntegrationsClient"
 
 export const dynamic = "force-dynamic"
@@ -31,7 +31,7 @@ export default async function IntegrationsPage() {
         
         <div className="flex items-center justify-between flex-wrap gap-3 mb-8">
           <h1 className="text-3xl font-extrabold text-[#111]">Admin — Integrações</h1>
-          <AdminNav />
+
         </div>
 
         <p className="text-neutral-500 mb-8 max-w-2xl">
