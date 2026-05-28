@@ -112,11 +112,7 @@ export default function ProductTabsHotmart({ moduleList, advantagesList, lessons
           {[
             { label: "Tipo", value: type === "course" ? "Curso Online" : type === "book" ? "Livro Digital" : type === "mentorship" ? "Mentoria" : type },
             { label: "Categoria", value: category || "—" },
-            { label: "Nível", value: level || "Todos os níveis" },
-            { label: "Acesso", value: "Vitalício após compra" },
-            { label: "Dispositivos", value: "PC, Tablet e Telemóvel" },
-            { label: "Idioma", value: "Português" },
-            { label: "Certificado", value: type === "course" ? "Incluído" : "—" },
+            { label: "Nível", value: level || "—" },
             { label: "Aulas", value: lessons.length > 0 ? `${lessons.length} aulas` : "—" },
           ].map(({ label, value }) => value && value !== "—" ? (
             <div key={label} className="flex gap-4 py-2.5 border-b border-neutral-100 last:border-none">

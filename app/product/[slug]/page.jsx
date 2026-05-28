@@ -36,8 +36,8 @@ export default async function ProductPage({ params, searchParams }) {
   const modulesMap = {}
   if (lessons) {
     lessons.forEach(l => {
-      const key = l.module?.id || "general"
-      const title = l.module?.title || "Módulo Geral"
+      const key = l.module_id || "general"
+      const title = l.module_title || "Módulo Geral"
       if (!modulesMap[key]) modulesMap[key] = { title, lessons: [] }
       modulesMap[key].lessons.push(l)
     })
@@ -77,11 +77,11 @@ export default async function ProductPage({ params, searchParams }) {
   const totalReviews = reviews.length
   const averageRating = totalReviews > 0
     ? (reviews.reduce((acc, r) => acc + r.rating, 0) / totalReviews).toFixed(1)
-    : "5.0"
+    : "0.0"
 
   const positiveReviewPct = totalReviews > 0
     ? Math.round((reviews.filter(r => r.rating >= 4).length / totalReviews) * 100)
-    : 100
+    : 0
 
   // Fetch reviewers profiles
   const userIds = reviews.map(r => r.user_id)
@@ -138,15 +138,21 @@ export default async function ProductPage({ params, searchParams }) {
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-neutral-600">
             {/* Rating */}
             <div className="flex items-center gap-1.5 font-semibold">
-              <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-              <span className="text-neutral-900 font-bold">{averageRating}</span>
-              <a href="#avaliacoes" className="text-neutral-500 underline hover:text-neutral-900 font-normal">({totalReviews})</a>
+              <Star className={`w-4 h-4 ${totalReviews > 0 ? "text-yellow-500 fill-yellow-500" : "text-neutral-300 fill-neutral-300"}`} />
+              {totalReviews > 0 ? (
+                <>
+                  <span className="text-neutral-900 font-bold">{averageRating}</span>
+                  <a href="#avaliacoes" className="text-neutral-500 underline hover:text-neutral-900 font-normal">({totalReviews})</a>
+                </>
+              ) : (
+                <span className="text-neutral-500 font-normal">Sem avaliações</span>
+              )}
             </div>
 
             {/* Best seller badge */}
             {item.bestSeller && (
-              <div className="flex items-center gap-1.5 font-semibold text-neutral-800">
-                <ThumbsUp className="w-4 h-4" /> Bem Avaliado
+              <div className="flex items-center gap-1.5 font-semibold text-[#FF4500]">
+                <ThumbsUp className="w-4 h-4" /> Destaque
               </div>
             )}
 
@@ -386,9 +392,15 @@ export default async function ProductPage({ params, searchParams }) {
                 {/* Trust items */}
                 <div className="pt-1 space-y-3 text-sm text-neutral-700">
                   <div className="flex items-center gap-2">
-                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500 shrink-0" />
-                    <span><strong>{averageRating}</strong> ({totalReviews})</span>
-                    <span className="ml-auto text-neutral-500 flex items-center gap-1 text-xs"><ThumbsUp className="w-3.5 h-3.5" /> Bem Avaliado</span>
+                    <Star className={`w-4 h-4 ${totalReviews > 0 ? "text-yellow-500 fill-yellow-500" : "text-neutral-300 fill-neutral-300"} shrink-0`} />
+                    {totalReviews > 0 ? (
+                      <span><strong>{averageRating}</strong> ({totalReviews})</span>
+                    ) : (
+                      <span className="text-neutral-500">Novo Produto</span>
+                    )}
+                    {item.bestSeller && (
+                      <span className="ml-auto text-[#FF4500] flex items-center gap-1 text-xs font-bold"><ThumbsUp className="w-3.5 h-3.5" /> Destaque</span>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-2">
