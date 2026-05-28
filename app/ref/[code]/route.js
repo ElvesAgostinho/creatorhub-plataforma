@@ -33,7 +33,7 @@ export async function GET(request, { params }) {
   let redirectUrl = '/'
   
   if (link.destination_type === 'product_page' && link.products?.slug) {
-    redirectUrl = new URL(`/courses/${link.products.slug}`, request.url).toString()
+    redirectUrl = new URL(`/product/${link.products.slug}`, request.url).toString()
   } else if (link.destination_type === 'direct_checkout' && link.products?.slug) {
     redirectUrl = new URL(`/checkout/${link.products.slug}`, request.url).toString()
   } else if (link.destination_url) {

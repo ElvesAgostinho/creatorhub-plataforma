@@ -41,6 +41,9 @@ export async function updateProfile(formData) {
 
   revalidatePath("/admin/profile")
   revalidatePath("/checkout/[slug]", "page")
+  revalidatePath("/product/[slug]", "page")
+  revalidatePath("/marketplace/product/[slug]", "page")
+  revalidatePath("/affiliate-panel/product/[slug]", "page")
   
   return { ok: true }
 }

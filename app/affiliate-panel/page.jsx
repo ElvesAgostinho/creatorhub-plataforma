@@ -51,7 +51,7 @@ export default async function AffiliatePanel({ searchParams }) {
   // Get products the affiliate can promote
   let productsQuery = supabase
     .from("products")
-    .select("id, slug, title, price_cents, image_url, type")
+    .select("id, slug, title, price_cents, image_url, type, affiliate_commission_pct")
     .eq("published", true)
   
   if (searchFilter) {
@@ -82,9 +82,14 @@ export default async function AffiliatePanel({ searchParams }) {
             <h1 className="text-4xl font-black text-neutral-900 tracking-tight">Dashboard de Afiliado</h1>
             <p className="text-neutral-500 mt-2 text-base font-medium">Bem-vindo(a), {profile?.full_name?.split(' ')[0]}. Acompanha o teu desempenho em tempo real.</p>
           </div>
-          <a href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-sm font-bold transition-all shadow-sm text-neutral-700">
-            Voltar à Biblioteca
-          </a>
+          <div className="flex gap-3 flex-wrap">
+            <a href="/marketplace/affiliates" className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#FF4500] hover:bg-[#E03E00] text-white text-sm font-bold transition-all shadow-md">
+              🛒 Marketplace de Afiliados
+            </a>
+            <a href="/dashboard" className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-sm font-bold transition-all shadow-sm text-neutral-700">
+              Voltar à Biblioteca
+            </a>
+          </div>
         </div>
 
         {/* KPI CARDS */}
@@ -133,7 +138,8 @@ export default async function AffiliatePanel({ searchParams }) {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {products.map(p => {
-                const comm = Math.round((p.price_cents * 0.2)/100)
+                const commissionPct = p.affiliate_commission_pct || 20
+                const comm = Math.round((p.price_cents * commissionPct) / 10000)
                 
                 return (
                   <a href={`/affiliate-panel/product/${p.slug}`} key={p.id} className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-[#FF4500]/30 transition-all duration-500 flex flex-col text-neutral-900">
@@ -170,7 +176,7 @@ export default async function AffiliatePanel({ searchParams }) {
                           <p className="font-bold text-neutral-600">{fmt(Math.round(p.price_cents/100))} Kz</p>
                         </div>
                         <div className="text-right">
-                          <p className="text-[10px] font-black text-[#10B981] uppercase tracking-wider">Comissão (20%)</p>
+                          <p className="text-[10px] font-black text-[#10B981] uppercase tracking-wider">Comissão ({commissionPct}%)</p>
                           <p className="font-black text-xl text-[#10B981]">{fmt(comm)} Kz</p>
                         </div>
                       </div>

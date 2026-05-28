@@ -6,6 +6,7 @@ import { Star, ShieldCheck, Globe, Monitor, Users, ThumbsUp } from "lucide-react
 import ShareButton from "@/components/ShareButton"
 import ReviewForm from "@/components/ReviewForm"
 import ProductTabsHotmart from "@/components/ProductTabsHotmart"
+import CreatorSocialLinks from "@/components/CreatorSocialLinks"
 
 export const revalidate = 60
 
@@ -97,14 +98,14 @@ export default async function ProductPage({ params, searchParams }) {
     user_name: reviewersMap[r.user_id] || "Anónimo"
   }))
 
-  // Social icons helper
+  // Social links object (dynamic, from creatorProfile)
   const socialLinks = {
-    website: creatorProfile?.website,
-    instagram: creatorProfile?.instagram,
-    facebook: creatorProfile?.facebook,
-    twitter: creatorProfile?.twitter,
-    youtube: creatorProfile?.youtube,
-    linkedin: creatorProfile?.linkedin,
+    website: creatorProfile?.website || null,
+    instagram: creatorProfile?.instagram || null,
+    facebook: creatorProfile?.facebook || null,
+    twitter: creatorProfile?.twitter || null,
+    youtube: creatorProfile?.youtube || null,
+    linkedin: creatorProfile?.linkedin || null,
   }
 
   return (
@@ -239,18 +240,8 @@ export default async function ProductPage({ params, searchParams }) {
                 {creatorProfile?.bio && (
                   <p className="text-sm text-neutral-700 mt-3 leading-relaxed">{creatorProfile.bio}</p>
                 )}
-                {/* Social Links */}
-                <div className="flex gap-2 mt-3 flex-wrap">
-                  {Object.entries(socialLinks).map(([type, url]) => {
-                    if (!url) return null
-                    return (
-                      <a key={type} href={url.startsWith('http') ? url : `https://${url}`} target="_blank" rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600 hover:bg-[#FF4500] hover:text-white transition-colors">
-                        <Globe className="w-4 h-4" />
-                      </a>
-                    )
-                  })}
-                </div>
+                {/* Social Links — ícones específicos por rede */}
+                <CreatorSocialLinks socialLinks={socialLinks} className="mt-3" />
               </div>
             </div>
           </div>

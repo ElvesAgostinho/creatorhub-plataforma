@@ -2,71 +2,68 @@ import { notFound, redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { getProductBySlug, typeLabels } from "@/lib/data/products"
 import { getLessonsForProduct } from "@/lib/data/lessons"
-import { 
-  CheckCircle2, Star, Shield, Monitor, Users, TrendingUp, 
-  PlayCircle, FolderDown, ChevronDown, Award,
-  Flame, ThumbsUp, Zap
+import {
+  CheckCircle2, Star, Shield, Monitor, Users, TrendingUp,
+  PlayCircle, ChevronDown, Award,
+  Flame, ThumbsUp, Zap, ArrowRight, BadgeCheck, BarChart3,
+  Package, Clock, Tag, ChevronLeft, ExternalLink
 } from "lucide-react"
-import AffiliateLinksPanel from "@/components/AffiliateLinksPanel"
+import MarketplaceAffiliateActions from "@/components/MarketplaceAffiliateActions"
 import CreatorSocialLinks from "@/components/CreatorSocialLinks"
 
 export const dynamic = "force-dynamic"
 
-export default async function AffiliateProductDetails({ params }) {
+export default async function MarketplaceProductPage({ params }) {
   const item = await getProductBySlug(params.slug)
   if (!item) notFound()
 
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect(`/login?next=/affiliate-panel/product/${params.slug}`)
 
-  const { data: application } = await supabase
-    .from("affiliate_applications")
-    .select("status")
-    .eq("user_id", user.id)
-    .maybeSingle()
-
-  if (!application || application.status !== "approved") {
-    redirect("/affiliates")
+  // Check affiliate status
+  let affiliateStatus = null // null | 'pending' | 'approved' | 'rejected'
+  let affiliateId = null
+  if (user) {
+    const { data: app } = await supabase
+      .from("affiliate_applications")
+      .select("status")
+      .eq("user_id", user.id)
+      .maybeSingle()
+    affiliateStatus = app?.status || null
+    affiliateId = user.id.split('-')[0]
   }
 
-  const affiliateId = user.id.split('-')[0]
-  const commissionPct = item.affiliate_commission_pct || 20
-  const commValue = Math.round((item.price * commissionPct) / 100)
-
   const svc = createServiceClient()
+
+  // Fetch extra product fields
   const { data: productRow } = await svc
     .from("products")
-    .select("created_by, affiliate_training_video, affiliate_materials_link, affiliate_extra_links")
+    .select("created_by, affiliate_commission_pct, affiliate_training_video, affiliate_materials_link")
     .eq("id", item.id)
     .single()
 
   const creatorId = productRow?.created_by
-  const affiliateTrainingVideo = productRow?.affiliate_training_video
-  const affiliateMaterialsLink = productRow?.affiliate_materials_link
-  const affiliateExtraLinks = productRow?.affiliate_extra_links || []
+  const commissionPct = productRow?.affiliate_commission_pct || item.affiliate_commission_pct || 20
+  const commValue = Math.round((item.price * commissionPct) / 100)
 
   // Creator profile
   let creatorProfile = null
-  let otherProducts = []
+  let creatorProductsCount = 0
   if (creatorId) {
     const { data: profData } = await svc.from("profiles").select("*").eq("id", creatorId).single()
     if (profData) creatorProfile = profData
-
-    const { data: pData } = await svc
+    const { count } = await svc
       .from("products")
-      .select("id, slug, title, image_url, price_cents, type, affiliate_commission_pct")
+      .select("id", { count: "exact", head: true })
       .eq("created_by", creatorId)
       .eq("published", true)
-      .neq("id", item.id)
-      .limit(4)
-    if (pData) otherProducts = pData
+    creatorProductsCount = count || 0
   }
 
   // Lessons & modules
   let lessons = []
-  try { lessons = await getLessonsForProduct(item.id) || [] } catch(e) {}
-  
+  try { lessons = await getLessonsForProduct(item.id) || [] } catch (e) {}
+
   const modulesMap = {}
   lessons.forEach(l => {
     const key = l.module?.id || "general"
@@ -76,7 +73,7 @@ export default async function AffiliateProductDetails({ params }) {
   })
   const moduleList = Object.values(modulesMap)
 
-  // Reviews summary
+  // Reviews
   const { data: reviewsData } = await svc
     .from("product_reviews")
     .select("rating")
@@ -93,54 +90,44 @@ export default async function AffiliateProductDetails({ params }) {
   const advantagesList = item.advantages ? item.advantages.split('\n').filter(Boolean) : []
   const fmt = n => (n ?? 0).toLocaleString("pt-PT")
 
-  // YouTube embed
-  let embedVideoUrl = null
-  if (affiliateTrainingVideo) {
-    const m = affiliateTrainingVideo.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)
-    if (m && m[2].length === 11) embedVideoUrl = `https://www.youtube.com/embed/${m[2]}`
-  }
+  // Affiliate link preview (if already approved)
+  const affiliateLink = affiliateStatus === 'approved' && affiliateId
+    ? `https://above.ao/product/${item.slug}?ref=${affiliateId}`
+    : null
 
-  // Build affiliate links array
-  const baseLink = `https://above.ao/product/${item.slug}?ref=${affiliateId}`
-  const allLinks = [
-    { label: "Página do Produto", url: baseLink },
-    ...(item.external_sales_url ? [{
-      label: "Página de Vendas Externa",
-      url: `${item.external_sales_url}${item.external_sales_url.includes('?') ? '&' : '?'}ref=${affiliateId}`
-    }] : []),
-    ...(affiliateExtraLinks || []).map(l => ({
-      label: l.label,
-      url: `${l.url}${l.url.includes('?') ? '&' : '?'}ref=${affiliateId}`
-    }))
-  ]
+  const isAffiliate = affiliateStatus === 'approved'
+  const isPending = affiliateStatus === 'pending'
 
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
+
       {/* ── TOP BAR ── */}
       <div className="bg-white border-b border-neutral-200 sticky top-0 z-20 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
-          <a href="/affiliate-panel" className="flex items-center gap-2 text-sm font-semibold text-neutral-500 hover:text-neutral-900 transition-colors">
-            ← Voltar ao painel
+          <a href="/marketplace" className="flex items-center gap-2 text-sm font-semibold text-neutral-500 hover:text-neutral-900 transition-colors">
+            <ChevronLeft size={16} />
+            Voltar ao Marketplace
           </a>
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-[#00A859] bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
               <Zap size={14} className="fill-[#00A859]" />
               Comissão: {commissionPct}% · {fmt(commValue)} Kz/venda
             </div>
-            <a href={`/product/${item.slug}`} target="_blank" className="text-sm font-semibold text-[#FF4500] hover:underline">
-              Ver página pública ↗
+            <a href={`/product/${item.slug}`} target="_blank" className="text-sm font-semibold text-[#FF4500] hover:underline flex items-center gap-1">
+              Ver página pública <ExternalLink size={13} />
             </a>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        
-        {/* ── HERO PRODUCT HEADER (Hotmart style) ── */}
+
+        {/* ── HERO PRODUCT HEADER ── */}
         <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden mb-6">
-          <div className="bg-neutral-900 px-6 py-5">
+          {/* Dark header */}
+          <div className="bg-neutral-900 px-6 py-6">
             <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center">
-              {/* Product thumbnail */}
+              {/* Thumbnail */}
               <div className="w-24 h-24 rounded-xl overflow-hidden border-2 border-white/20 shrink-0 bg-neutral-700">
                 {item.image ? (
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
@@ -158,6 +145,16 @@ export default async function AffiliateProductDetails({ params }) {
                       {item.category}
                     </span>
                   )}
+                  {isAffiliate && (
+                    <span className="text-[10px] font-black uppercase tracking-wider bg-[#00A859] text-white px-2 py-1 rounded flex items-center gap-1">
+                      <BadgeCheck size={10} /> Já és afiliado
+                    </span>
+                  )}
+                  {isPending && (
+                    <span className="text-[10px] font-black uppercase tracking-wider bg-amber-500 text-white px-2 py-1 rounded">
+                      Candidatura pendente
+                    </span>
+                  )}
                 </div>
                 <h1 className="text-xl sm:text-2xl font-black text-white leading-tight">{item.title}</h1>
                 <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-white/60">
@@ -165,7 +162,7 @@ export default async function AffiliateProductDetails({ params }) {
                   <div className="flex items-center gap-1">
                     <Star size={13} className="fill-yellow-400 text-yellow-400" />
                     <span className="text-white font-semibold">{avgRating}</span>
-                    <span>({totalReviews})</span>
+                    <span>({totalReviews} avaliações)</span>
                   </div>
                   {item.level && <span className="capitalize">{item.level}</span>}
                 </div>
@@ -179,7 +176,7 @@ export default async function AffiliateProductDetails({ params }) {
               { icon: <TrendingUp size={16} className="text-[#FF4500]" />, label: "Comissão", value: `${commissionPct}%` },
               { icon: <Award size={16} className="text-yellow-500" />, label: "Avaliação", value: `${avgRating} ⭐` },
               { icon: <ThumbsUp size={16} className="text-green-500" />, label: "Positivas", value: `${positiveReviewPct}%` },
-              { icon: <Flame size={16} className="text-orange-500" />, label: "Links disponíveis", value: `${allLinks.length}` },
+              { icon: <Flame size={16} className="text-orange-500" />, label: "Aulas", value: lessons.length > 0 ? `${lessons.length}` : "—" },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center justify-center py-4 px-3 text-center gap-1">
                 {stat.icon}
@@ -193,72 +190,17 @@ export default async function AffiliateProductDetails({ params }) {
         {/* ── MAIN 2-COL LAYOUT ── */}
         <div className="grid lg:grid-cols-[1fr_380px] gap-6">
 
-          {/* LEFT */}
+          {/* LEFT COLUMN */}
           <div className="space-y-6">
-
-            {/* Vídeo de treino do criador */}
-            {affiliateTrainingVideo && (
-              <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
-                <div className="px-6 py-4 border-b border-neutral-100 flex items-center gap-2">
-                  <PlayCircle size={18} className="text-[#FF4500]" />
-                  <h2 className="font-bold text-neutral-900">Palavra do Produtor</h2>
-                  <span className="ml-auto text-xs text-neutral-400">Como vender este produto</span>
-                </div>
-                <div className="p-4">
-                  <div className="w-full aspect-video bg-black rounded-xl overflow-hidden relative">
-                    {embedVideoUrl ? (
-                      <iframe
-                        src={embedVideoUrl}
-                        className="absolute inset-0 w-full h-full"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <a href={affiliateTrainingVideo} target="_blank" className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl">
-                          <PlayCircle size={32} className="text-[#FF4500] ml-1" />
-                        </div>
-                      </a>
-                    )}
-                  </div>
-                  <p className="text-sm text-neutral-500 mt-3 leading-relaxed">
-                    O criador preparou este vídeo especificamente para os seus afiliados. Aprende as melhores estratégias e argumentos de venda para maximizares as tuas conversões.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* Material de divulgação */}
-            {affiliateMaterialsLink && (
-              <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-orange-200 p-5 flex flex-col sm:flex-row items-center gap-4 justify-between">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF4500] flex items-center justify-center shrink-0">
-                    <FolderDown size={20} className="text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-neutral-900">Material Promocional</h3>
-                    <p className="text-sm text-neutral-600 mt-0.5">Banners, copys, vídeos e criativos prontos para usar nas tuas campanhas.</p>
-                  </div>
-                </div>
-                <a
-                  href={affiliateMaterialsLink}
-                  target="_blank"
-                  className="shrink-0 bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md hover:-translate-y-0.5 text-sm whitespace-nowrap"
-                >
-                  Aceder ao Material
-                </a>
-              </div>
-            )}
 
             {/* Sobre o produto */}
             <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-neutral-100">
+              <div className="px-6 py-4 border-b border-neutral-100 flex items-center gap-2">
+                <Package size={16} className="text-neutral-500" />
                 <h2 className="font-bold text-neutral-900">Sobre o Produto</h2>
               </div>
               <div className="p-6">
-                {/* Image + Description */}
-                <div className="flex gap-5 mb-6">
+                <div className="flex gap-5 mb-5">
                   {item.image && (
                     <div className="w-28 h-28 shrink-0 rounded-xl overflow-hidden border border-neutral-200">
                       <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
@@ -266,8 +208,6 @@ export default async function AffiliateProductDetails({ params }) {
                   )}
                   <p className="text-sm text-neutral-700 leading-relaxed">{item.description}</p>
                 </div>
-
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2 text-xs">
                   {item.level && <span className="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full font-semibold capitalize">{item.level}</span>}
                   {item.category && <span className="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full font-semibold">{item.category}</span>}
@@ -278,11 +218,32 @@ export default async function AffiliateProductDetails({ params }) {
               </div>
             </div>
 
-            {/* Conteúdo do curso (módulos) */}
+            {/* O que o comprador recebe */}
+            {advantagesList.length > 0 && (
+              <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
+                <div className="px-6 py-4 border-b border-neutral-100 flex items-center gap-2">
+                  <CheckCircle2 size={16} className="text-[#00A859]" />
+                  <h2 className="font-bold text-neutral-900">O que o comprador vai receber</h2>
+                </div>
+                <div className="p-6 grid sm:grid-cols-2 gap-3">
+                  {advantagesList.map((adv, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <CheckCircle2 size={16} className="text-[#00A859] shrink-0 mt-0.5" />
+                      <span className="text-sm text-neutral-700 leading-relaxed">{adv}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Conteúdo do curso */}
             {item.type === 'course' && moduleList.length > 0 && (
               <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
-                  <h2 className="font-bold text-neutral-900">Conteúdo do Curso</h2>
+                  <div className="flex items-center gap-2">
+                    <PlayCircle size={16} className="text-[#FF4500]" />
+                    <h2 className="font-bold text-neutral-900">Conteúdo do Curso</h2>
+                  </div>
                   <span className="text-xs text-neutral-400">{moduleList.length} módulos · {lessons.length} aulas</span>
                 </div>
                 <div className="divide-y divide-neutral-100">
@@ -318,26 +279,10 @@ export default async function AffiliateProductDetails({ params }) {
               </div>
             )}
 
-            {/* Vantagens */}
-            {advantagesList.length > 0 && (
-              <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
-                <div className="px-6 py-4 border-b border-neutral-100">
-                  <h2 className="font-bold text-neutral-900">O que o cliente vai receber</h2>
-                </div>
-                <div className="p-6 grid sm:grid-cols-2 gap-3">
-                  {advantagesList.map((adv, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <CheckCircle2 size={16} className="text-[#00A859] shrink-0 mt-0.5" />
-                      <span className="text-sm text-neutral-700 leading-relaxed">{adv}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Sobre o criador */}
             <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-neutral-100">
+              <div className="px-6 py-4 border-b border-neutral-100 flex items-center gap-2">
+                <Users size={16} className="text-neutral-500" />
                 <h2 className="font-bold text-neutral-900">Sobre o Produtor</h2>
               </div>
               <div className="p-6 flex gap-5 items-start">
@@ -351,53 +296,62 @@ export default async function AffiliateProductDetails({ params }) {
                 <div className="flex-1">
                   <h3 className="font-bold text-neutral-900">{creatorProfile?.full_name || item.instructor}</h3>
                   <p className="text-sm text-neutral-500 mt-0.5">{creatorProfile?.specialty || item.role || "Criador de Conteúdo"}</p>
+                  <div className="flex items-center gap-2 mt-2 text-xs text-neutral-500">
+                    <BarChart3 size={12} />
+                    <span>{creatorProductsCount} produto{creatorProductsCount !== 1 ? 's' : ''} publicado{creatorProductsCount !== 1 ? 's' : ''}</span>
+                  </div>
                   {creatorProfile?.bio && (
                     <p className="text-sm text-neutral-600 mt-3 leading-relaxed">{creatorProfile.bio}</p>
                   )}
-                  <CreatorSocialLinks
-                    socialLinks={{
-                      website: creatorProfile?.website,
-                      instagram: creatorProfile?.instagram,
-                      youtube: creatorProfile?.youtube,
-                      linkedin: creatorProfile?.linkedin,
-                      twitter: creatorProfile?.twitter,
-                      facebook: creatorProfile?.facebook,
-                    }}
-                    className="mt-3"
-                  />
+                <CreatorSocialLinks
+                  socialLinks={{
+                    website: creatorProfile?.website,
+                    instagram: creatorProfile?.instagram,
+                    youtube: creatorProfile?.youtube,
+                    linkedin: creatorProfile?.linkedin,
+                    twitter: creatorProfile?.twitter,
+                    facebook: creatorProfile?.facebook,
+                  }}
+                  className="mt-3"
+                />
                 </div>
               </div>
             </div>
 
-            {/* Outros produtos do criador */}
-            {otherProducts.length > 0 && (
-              <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
-                <div className="px-6 py-4 border-b border-neutral-100">
-                  <h2 className="font-bold text-neutral-900">Outros produtos de {creatorProfile?.full_name || item.instructor}</h2>
+            {/* Tracking info */}
+            <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
+              <div className="px-6 py-4 border-b border-neutral-100 flex items-center gap-2">
+                <Shield size={16} className="text-neutral-500" />
+                <h2 className="font-bold text-neutral-900">Como funciona o rastreio</h2>
+              </div>
+              <div className="p-6 grid sm:grid-cols-3 gap-4">
+                <div className="flex flex-col items-center text-center p-4 bg-neutral-50 rounded-xl gap-2">
+                  <div className="w-10 h-10 rounded-full bg-white border border-neutral-200 flex items-center justify-center">
+                    <Shield size={18} className="text-green-500" />
+                  </div>
+                  <p className="text-sm font-bold text-neutral-800">Cookie seguro</p>
+                  <p className="text-xs text-neutral-500 leading-relaxed">As tuas vendas são rastreadas automaticamente via cookie de sessão</p>
                 </div>
-                <div className="p-4 grid sm:grid-cols-2 gap-3">
-                  {otherProducts.map(p => (
-                    <a key={p.id} href={`/affiliate-panel/product/${p.slug}`}
-                      className="flex items-center gap-3 p-3 rounded-xl border border-neutral-100 hover:border-[#FF4500]/30 hover:bg-neutral-50 transition-all group">
-                      <div className="w-14 h-14 rounded-lg overflow-hidden bg-neutral-100 shrink-0 border border-neutral-200">
-                        {p.image_url && <img src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-neutral-800 line-clamp-2 leading-snug group-hover:text-[#FF4500] transition-colors">{p.title}</p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs text-neutral-500 font-medium">{fmt(Math.round(p.price_cents / 100))} Kz</span>
-                          <span className="text-[10px] bg-green-50 text-green-700 font-bold px-1.5 py-0.5 rounded">{p.affiliate_commission_pct || 20}% com.</span>
-                        </div>
-                      </div>
-                    </a>
-                  ))}
+                <div className="flex flex-col items-center text-center p-4 bg-neutral-50 rounded-xl gap-2">
+                  <div className="w-10 h-10 rounded-full bg-white border border-neutral-200 flex items-center justify-center">
+                    <Clock size={18} className="text-blue-500" />
+                  </div>
+                  <p className="text-sm font-bold text-neutral-800">30 dias de cookie</p>
+                  <p className="text-xs text-neutral-500 leading-relaxed">Se o utilizador comprar nos próximos 30 dias, ganhas a comissão</p>
+                </div>
+                <div className="flex flex-col items-center text-center p-4 bg-neutral-50 rounded-xl gap-2">
+                  <div className="w-10 h-10 rounded-full bg-white border border-neutral-200 flex items-center justify-center">
+                    <Tag size={18} className="text-purple-500" />
+                  </div>
+                  <p className="text-sm font-bold text-neutral-800">Parâmetro ?ref=</p>
+                  <p className="text-xs text-neutral-500 leading-relaxed">O teu ID único é incluído no link para identificar as tuas conversões</p>
                 </div>
               </div>
-            )}
+            </div>
 
           </div>
 
-          {/* RIGHT: Sticky links panel */}
+          {/* RIGHT COLUMN: CTA Panel */}
           <aside>
             <div className="sticky top-20 space-y-4">
 
@@ -422,27 +376,48 @@ export default async function AffiliateProductDetails({ params }) {
                     <div className="text-[10px] text-neutral-400 uppercase font-bold mt-0.5">Positivas</div>
                   </div>
                   <div className="px-2">
-                    <div className="font-black text-neutral-900 text-base">{allLinks.length}</div>
-                    <div className="text-[10px] text-neutral-400 uppercase font-bold mt-0.5">Links</div>
+                    <div className="font-black text-neutral-900 text-base">{lessons.length || "—"}</div>
+                    <div className="text-[10px] text-neutral-400 uppercase font-bold mt-0.5">Aulas</div>
                   </div>
                 </div>
 
-                <div className="p-4 space-y-3 text-xs text-neutral-600">
-                  <div className="flex items-center gap-2"><Shield size={13} className="text-green-500" /> Rastreio automático por cookie</div>
-                  <div className="flex items-center gap-2"><Monitor size={13} className="text-blue-500" /> Funciona em todos os dispositivos</div>
-                  <div className="flex items-center gap-2"><Users size={13} className="text-purple-500" /> Cookie de 30 dias</div>
+                {/* CTA Actions — Client Component */}
+                <MarketplaceAffiliateActions
+                  isLoggedIn={!!user}
+                  affiliateStatus={affiliateStatus}
+                  affiliateLink={affiliateLink}
+                  productSlug={item.slug}
+                  productTitle={item.title}
+                />
+              </div>
+
+              {/* How it works */}
+              <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm p-5">
+                <h3 className="text-sm font-bold text-neutral-900 mb-4">Como começar a promover</h3>
+                <div className="space-y-3">
+                  {[
+                    { step: "1", title: "Regista-te como afiliado", desc: "Cria a tua conta e candidata-te ao programa" },
+                    { step: "2", title: "Aguarda aprovação", desc: "A nossa equipa analisa a tua candidatura" },
+                    { step: "3", title: "Copia o teu link", desc: "Acede ao painel e obtém o teu link exclusivo" },
+                    { step: "4", title: "Promove e ganha", desc: `${commissionPct}% de comissão por cada venda gerada` },
+                  ].map((s, i) => (
+                    <div key={i} className="flex gap-3 items-start">
+                      <div className="w-6 h-6 rounded-full bg-[#FF4500] text-white text-xs font-black flex items-center justify-center shrink-0 mt-0.5">{s.step}</div>
+                      <div>
+                        <p className="text-xs font-bold text-neutral-800">{s.title}</p>
+                        <p className="text-xs text-neutral-500 mt-0.5">{s.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Links panel */}
-              <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
-                <div className="px-5 py-4 border-b border-neutral-100">
-                  <h3 className="font-bold text-neutral-900 text-sm">Os teus links de afiliado</h3>
-                  <p className="text-xs text-neutral-400 mt-0.5">{allLinks.length} {allLinks.length === 1 ? 'link disponível' : 'links disponíveis'}</p>
-                </div>
-                <div className="p-5">
-                  <AffiliateLinksPanel links={allLinks} commission={commissionPct} affiliateId={affiliateId} />
-                </div>
+              {/* Trust signals */}
+              <div className="bg-neutral-50 rounded-2xl border border-neutral-100 p-4 space-y-2.5 text-xs text-neutral-600">
+                <div className="flex items-center gap-2"><Shield size={13} className="text-green-500" /> Rastreio automático por cookie</div>
+                <div className="flex items-center gap-2"><Monitor size={13} className="text-blue-500" /> Funciona em todos os dispositivos</div>
+                <div className="flex items-center gap-2"><Users size={13} className="text-purple-500" /> Cookie válido por 30 dias</div>
+                <div className="flex items-center gap-2"><BadgeCheck size={13} className="text-[#FF4500]" /> Comissões pagas mensalmente</div>
               </div>
 
             </div>
