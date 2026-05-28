@@ -1,4 +1,5 @@
 import { notFound, redirect } from "next/navigation"
+import { headers } from "next/headers"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { getProductBySlug, typeLabels } from "@/lib/data/products"
 import { getLessonsForProduct } from "@/lib/data/lessons"
@@ -100,8 +101,12 @@ export default async function AffiliateProductDetails({ params }) {
     if (m && m[2].length === 11) embedVideoUrl = `https://www.youtube.com/embed/${m[2]}`
   }
 
-  // Build affiliate links array
-  const baseLink = `https://above.ao/product/${item.slug}?ref=${affiliateId}`
+  // Build affiliate links array dynamically
+  const headersList = headers()
+  const host = headersList.get("host") || "bizlink.topconsultores.pt"
+  const protocol = host.includes("localhost") || host.includes("127.0.0.1") ? "http" : "https"
+  const domain = `${protocol}://${host}`
+  const baseLink = `${domain}/product/${item.slug}?ref=${affiliateId}`
   const allLinks = [
     { label: "Página do Produto", url: baseLink },
     ...(item.external_sales_url ? [{

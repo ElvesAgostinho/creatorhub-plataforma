@@ -1,4 +1,5 @@
 import { notFound, redirect } from "next/navigation"
+import { headers } from "next/headers"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import { getProductBySlug, typeLabels } from "@/lib/data/products"
 import { getLessonsForProduct } from "@/lib/data/lessons"
@@ -90,9 +91,13 @@ export default async function MarketplaceProductPage({ params }) {
   const advantagesList = item.advantages ? item.advantages.split('\n').filter(Boolean) : []
   const fmt = n => (n ?? 0).toLocaleString("pt-PT")
 
-  // Affiliate link preview (if already approved)
+  // Affiliate link preview dynamically resolved using request headers
+  const headersList = headers()
+  const host = headersList.get("host") || "bizlink.topconsultores.pt"
+  const protocol = host.includes("localhost") || host.includes("127.0.0.1") ? "http" : "https"
+  const domain = `${protocol}://${host}`
   const affiliateLink = affiliateStatus === 'approved' && affiliateId
-    ? `https://above.ao/product/${item.slug}?ref=${affiliateId}`
+    ? `${domain}/product/${item.slug}?ref=${affiliateId}`
     : null
 
   const isAffiliate = affiliateStatus === 'approved'
