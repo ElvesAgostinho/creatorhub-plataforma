@@ -30,7 +30,7 @@ export async function approvePurchase(formData) {
 
   const { data: purchase, error: pe } = await svc
     .from("purchases")
-    .select("*, products(title, affiliate_commission_pct, creator_id), profiles(email, full_name)")
+    .select("*, products(title, affiliate_commission_pct, created_by), profiles(email, full_name)")
     .eq("id", id)
     .maybeSingle()
 
@@ -50,11 +50,11 @@ export async function approvePurchase(formData) {
   }
 
   // Send Notification to Creator
-  if (purchase.products?.creator_id) {
+  if (purchase.products?.created_by) {
     const { data: creatorProfile } = await svc
       .from("profiles")
       .select("email")
-      .eq("id", purchase.products.creator_id)
+      .eq("id", purchase.products.created_by)
       .maybeSingle()
       
     if (creatorProfile?.email) {
@@ -81,11 +81,11 @@ export async function approvePurchase(formData) {
   }
 
   // Webhooks Dispatch
-  if (purchase.products?.creator_id) {
+  if (purchase.products?.created_by) {
     const { data: integrations } = await svc
       .from("creator_integrations")
       .select("*")
-      .eq("creator_id", purchase.products.creator_id)
+      .eq("creator_id", purchase.products.created_by)
       .eq("is_active", true)
 
     if (integrations && integrations.length > 0) {
