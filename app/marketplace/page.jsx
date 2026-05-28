@@ -40,43 +40,61 @@ export default async function MarketplaceHome({ searchParams }) {
       
       {/* SEARCH HERO */}
       {!isFiltered && (
-        <div className="bg-white border-b border-neutral-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 flex flex-col items-center text-center">
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#111827] mb-4">
-              O que queres aprender hoje?
-            </h1>
-            <p className="text-lg text-neutral-500 mb-8 max-w-2xl">
-              Aprende com os melhores criadores. Cursos, e-books e mentorias que te levam ao próximo nível.
-            </p>
+        <div className="bg-white border-b border-neutral-200 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 py-16 sm:py-24 flex flex-col lg:flex-row items-center justify-between gap-12">
             
-            {/* Search Bar */}
-            <form action="/marketplace" className="w-full max-w-2xl relative shadow-lg shadow-neutral-200/50 rounded-full mb-8">
-              <input 
-                type="text" 
-                name="q"
-                placeholder="Pesquisar por cursos, habilidades ou criadores..." 
-                className="w-full pl-6 pr-14 py-4 sm:py-5 rounded-full border border-neutral-200 text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-shadow"
-                defaultValue={searchQuery || ""}
-              />
-              <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#FF4500] hover:bg-[#E03E00] text-white rounded-full flex items-center justify-center transition-colors">
-                <Search size={24} strokeWidth={2.5} />
-              </button>
-            </form>
+            <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#111827] mb-6 leading-tight">
+                O que queres <br className="hidden lg:block"/>
+                <span className="text-[#FF4500]">aprender hoje?</span>
+              </h1>
+              <p className="text-lg text-neutral-500 mb-8 max-w-xl">
+                Aprende com os melhores criadores. Cursos, e-books e mentorias que te levam ao próximo nível na tua carreira.
+              </p>
+              
+              {/* Search Bar */}
+              <form action="/marketplace" className="w-full max-w-xl relative shadow-lg shadow-neutral-200/50 rounded-full mb-8">
+                <input 
+                  type="text" 
+                  name="q"
+                  placeholder="Pesquisar por cursos, habilidades..." 
+                  className="w-full pl-6 pr-14 py-4 sm:py-5 rounded-full border border-neutral-200 text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-shadow"
+                  defaultValue={searchQuery || ""}
+                />
+                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#FF4500] hover:bg-[#E03E00] text-white rounded-full flex items-center justify-center transition-colors">
+                  <Search size={24} strokeWidth={2.5} />
+                </button>
+              </form>
 
-            {/* Category Chips */}
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <span className="text-sm font-bold text-neutral-400 mr-2">Populares:</span>
-              {categoryChips.map(chip => (
-                <a 
-                  key={chip.label} 
-                  href={`/marketplace?category=${chip.value}`}
-                  className="bg-neutral-50 border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-neutral-700 px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 flex items-center gap-2"
-                >
-                  <span>{chip.icon}</span>
-                  {chip.label}
-                </a>
-              ))}
+              {/* Category Chips */}
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-sm font-bold text-neutral-400 mr-1">Populares:</span>
+                {categoryChips.slice(0, 4).map(chip => (
+                  <a 
+                    key={chip.label} 
+                    href={`/marketplace?category=${chip.value}`}
+                    className="bg-neutral-50 border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-neutral-700 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5"
+                  >
+                    <span>{chip.icon}</span>
+                    {chip.label}
+                  </a>
+                ))}
+              </div>
             </div>
+
+            {/* Image (Right) */}
+            <div className="w-full lg:w-1/2 relative flex justify-center lg:justify-end mt-10 lg:mt-0">
+              <div className="relative w-full max-w-[500px] aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/50">
+                <img 
+                  src="/hero_woman_laptop.png" 
+                  alt="Aprender online na plataforma" 
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                />
+                {/* Subtle overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#FF4500]/10 to-transparent mix-blend-overlay pointer-events-none"></div>
+              </div>
+            </div>
+
           </div>
         </div>
       )}
