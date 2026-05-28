@@ -25,8 +25,8 @@ export default function AvatarField({ userId, defaultUrl, defaultInitial }) {
         <p className="text-xs text-neutral-500 mb-3">Faz o upload de uma foto tua. O tamanho ideal é 500x500px.</p>
         <Uploader 
           bucket="avatars" 
-          folder={userId} 
-          onUploadSuccess={(newUrl) => {
+          pathPrefix={`${userId}/`}
+          onSuccess={(newUrl) => {
             setUrl(newUrl)
           }}
         />
