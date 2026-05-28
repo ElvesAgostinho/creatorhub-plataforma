@@ -3,7 +3,7 @@ import { getProducts, getFeaturedProducts } from "@/lib/data/products"
 import { Search, Flame, Star, Clock } from "lucide-react"
 import { categoryTree } from "@/lib/data/categories"
 
-export const revalidate = 60
+export const dynamic = "force-dynamic"
 
 export default async function MarketplaceHome({ searchParams }) {
   const params = await searchParams;
