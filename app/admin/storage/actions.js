@@ -61,11 +61,13 @@ export async function adminActivateStorage(formData) {
   const svc = createServiceClient()
   const userId = formData.get("user_id")
 
-  const { error } = await svc.from("creator_storage_billing").update({
+  const { error } = await svc.from("creator_storage_billing").upsert({
+    user_id: userId,
     status: "active",
     storage_blocked: false,
+    monthly_fee_cents: 2000000,
     next_billing_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-  }).eq("user_id", userId)
+  }, { onConflict: "user_id" })
 
   if (error) throw new Error(error.message)
   revalidatePath("/admin/storage")
@@ -77,9 +79,11 @@ export async function adminDeactivateStorage(formData) {
   const svc = createServiceClient()
   const userId = formData.get("user_id")
 
-  const { error } = await svc.from("creator_storage_billing").update({
-    status: "past_due"
-  }).eq("user_id", userId)
+  const { error } = await svc.from("creator_storage_billing").upsert({
+    user_id: userId,
+    status: "past_due",
+    monthly_fee_cents: 2000000
+  }, { onConflict: "user_id" })
 
   if (error) throw new Error(error.message)
   revalidatePath("/admin/storage")
@@ -91,9 +95,11 @@ export async function adminBlockUserStorage(formData) {
   const svc = createServiceClient()
   const userId = formData.get("user_id")
 
-  const { error } = await svc.from("creator_storage_billing").update({
-    storage_blocked: true
-  }).eq("user_id", userId)
+  const { error } = await svc.from("creator_storage_billing").upsert({
+    user_id: userId,
+    storage_blocked: true,
+    monthly_fee_cents: 2000000
+  }, { onConflict: "user_id" })
 
   if (error) throw new Error(error.message)
   revalidatePath("/admin/storage")
@@ -105,9 +111,11 @@ export async function adminUnblockUserStorage(formData) {
   const svc = createServiceClient()
   const userId = formData.get("user_id")
 
-  const { error } = await svc.from("creator_storage_billing").update({
-    storage_blocked: false
-  }).eq("user_id", userId)
+  const { error } = await svc.from("creator_storage_billing").upsert({
+    user_id: userId,
+    storage_blocked: false,
+    monthly_fee_cents: 2000000
+  }, { onConflict: "user_id" })
 
   if (error) throw new Error(error.message)
   revalidatePath("/admin/storage")
