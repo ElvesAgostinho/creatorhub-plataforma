@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { PackagePlus, LayoutGrid, Search, MoreVertical, Edit, ExternalLink, Activity, Eye, PlaySquare, TrendingUp } from "lucide-react"
+import ProductActionsDropdown from "@/components/ProductActionsDropdown"
 
 export const dynamic = "force-dynamic"
 
@@ -188,9 +189,7 @@ export default async function AdminProducts({ searchParams }) {
                         <Link href={`/product/${product.slug}`} target="_blank" className="p-2 text-neutral-400 hover:text-[#FF4500] hover:bg-[#FFF0EB] rounded-lg transition-colors" title="Ver Página de Vendas">
                           <ExternalLink size={18} />
                         </Link>
-                        <button className="p-2 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors">
-                          <MoreVertical size={18} />
-                        </button>
+                        <ProductActionsDropdown product={product} />
                       </div>
                     </td>
                   </tr>

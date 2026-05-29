@@ -113,16 +113,11 @@ export default function EbookReaderClient({ product, pdfUrl }) {
 
       const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null
 
-      if (currentNightMode) {
-        ctx.fillStyle = "#1a1a1a"
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-      }
-
       const task = page.render({
         canvasContext: ctx,
         transform: transform,
         viewport,
-        background: currentNightMode ? "#1a1a1a" : "white"
+        background: "white"
       })
 
       currentRenderTask.current = task
@@ -327,7 +322,10 @@ export default function EbookReaderClient({ product, pdfUrl }) {
           <canvas
             ref={canvasRef}
             className={`shadow-2xl rounded select-none max-w-none transition-opacity ${isLoading || error ? "opacity-0 pointer-events-none hidden" : "opacity-100"} ${nightMode ? "border border-white/10" : ""}`}
-            style={{ userSelect: "none" }}
+            style={{ 
+              userSelect: "none",
+              filter: nightMode ? "invert(0.9) hue-rotate(180deg)" : "none" 
+            }}
           />
         </div>
       </main>
