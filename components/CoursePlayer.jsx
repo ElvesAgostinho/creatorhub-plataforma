@@ -416,16 +416,14 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
                   <Info size={16} />
                   Visão Geral
                 </button>
-                {getPdfUrl() && (
-                  <button 
-                    onClick={() => setActiveTab('materials')}
-                    className={`flex items-center gap-2 py-4 px-2 text-sm font-bold border-b-2 transition-colors mr-6 ${activeTab === 'materials' ? 'text-neutral-900' : 'text-neutral-500 hover:text-neutral-700 border-transparent'}`}
-                    style={activeTab === 'materials' ? { borderBottomColor: primaryColor } : {}}
-                  >
-                    <FileText size={16} />
-                    Materiais
-                  </button>
-                )}
+                <button 
+                  onClick={() => setActiveTab('materials')}
+                  className={`flex items-center gap-2 py-4 px-2 text-sm font-bold border-b-2 transition-colors mr-6 ${activeTab === 'materials' ? 'text-neutral-900' : 'text-neutral-500 hover:text-neutral-700 border-transparent'}`}
+                  style={activeTab === 'materials' ? { borderBottomColor: primaryColor } : {}}
+                >
+                  <FileText size={16} />
+                  Materiais
+                </button>
                 <button 
                   onClick={() => setActiveTab('qa')}
                   className={`flex items-center gap-2 py-4 px-2 text-sm font-bold border-b-2 transition-colors ${activeTab === 'qa' ? 'text-neutral-900' : 'text-neutral-500 hover:text-neutral-700 border-transparent'}`}
@@ -466,28 +464,40 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
                 )}
 
                 {/* MATERIALS TAB */}
-                {activeTab === 'materials' && getPdfUrl() && (
+                {activeTab === 'materials' && (
                   <div className="space-y-4">
-                    <p className="text-sm font-medium text-neutral-500 mb-2">Arquivos disponíveis para esta aula:</p>
-                    <a 
-                      href={getPdfUrl()} 
-                      target="_blank" 
-                      download
-                      className="group flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-white hover:border-[#FF4500] hover:shadow-md transition-all cursor-pointer"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-red-50 text-red-500 flex items-center justify-center shrink-0">
-                          <FileText size={24} />
+                    {getPdfUrl() ? (
+                      <>
+                        <p className="text-sm font-medium text-neutral-500 mb-2">Arquivos disponíveis para esta aula:</p>
+                        <a 
+                          href={getPdfUrl()} 
+                          target="_blank" 
+                          download
+                          className="group flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-white hover:border-[#FF4500] hover:shadow-md transition-all cursor-pointer"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-lg bg-red-50 text-red-500 flex items-center justify-center shrink-0">
+                              <FileText size={24} />
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-neutral-900 group-hover:text-[#FF4500] transition-colors">Material de Apoio (PDF)</h4>
+                              <p className="text-xs text-neutral-500 mt-0.5">Clique para baixar ou visualizar</p>
+                            </div>
+                          </div>
+                          <div className="w-10 h-10 rounded-full bg-neutral-50 text-neutral-400 flex items-center justify-center group-hover:bg-[#FFF0EB] group-hover:text-[#FF4500] transition-colors">
+                            <Download size={18} />
+                          </div>
+                        </a>
+                      </>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center py-12 text-center">
+                        <div className="w-14 h-14 rounded-2xl bg-neutral-100 text-neutral-300 flex items-center justify-center mb-4">
+                          <FileText size={28} />
                         </div>
-                        <div>
-                          <h4 className="font-bold text-neutral-900 group-hover:text-[#FF4500] transition-colors">Material de Apoio (PDF)</h4>
-                          <p className="text-xs text-neutral-500 mt-0.5">Clique para baixar ou visualizar</p>
-                        </div>
+                        <p className="text-sm font-bold text-neutral-500">Sem materiais para esta aula</p>
+                        <p className="text-xs text-neutral-400 mt-1">O criador não adicionou materiais de apoio a esta aula.</p>
                       </div>
-                      <div className="w-10 h-10 rounded-full bg-neutral-50 text-neutral-400 flex items-center justify-center group-hover:bg-[#FFF0EB] group-hover:text-[#FF4500] transition-colors">
-                        <Download size={18} />
-                      </div>
-                    </a>
+                    )}
                   </div>
                 )}
 

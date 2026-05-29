@@ -33,10 +33,10 @@ export default async function CommunitiesPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {communities.map(it => (
-            <div key={it.id} className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
+            <div key={it.purchaseId} className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
               <div className="w-20 h-20 rounded-2xl bg-neutral-100 overflow-hidden mb-4 border border-neutral-100 shrink-0">
-                {it.product.image_url ? (
-                  <img src={it.product.image_url} alt={it.product.title} className="w-full h-full object-cover" />
+                {it.product.image ? (
+                  <img src={it.product.image} alt={it.product.title} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-neutral-300">
                     <MessageSquare size={32} />

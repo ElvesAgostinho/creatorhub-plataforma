@@ -18,7 +18,7 @@ export default async function CertificatesPage() {
 
   const completedCourses = courses.filter(it => {
     const progress = progressMap[it.product.id]
-    return progress && progress.pct === 100
+    return typeof progress === "number" ? progress === 100 : progress?.pct === 100
   })
 
   return (
@@ -39,10 +39,10 @@ export default async function CertificatesPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {completedCourses.map(it => (
-            <div key={it.id} className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition group flex flex-col">
+            <div key={it.purchaseId} className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition group flex flex-col">
               <div className="aspect-video bg-neutral-100 relative overflow-hidden">
-                {it.product.image_url ? (
-                  <img src={it.product.image_url} alt={it.product.title} className="w-full h-full object-cover" />
+                {it.product.image ? (
+                  <img src={it.product.image} alt={it.product.title} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-neutral-300">
                     <Award size={48} />
