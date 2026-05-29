@@ -4,12 +4,20 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import Link from "next/link"
 import {
   ArrowLeft, Download, ChevronLeft, ChevronRight,
-  ZoomIn, ZoomOut, Moon, Sun, Maximize2, BookOpen, Loader2
+  ZoomIn, ZoomOut, Moon, Sun, BookOpen, Loader2
 } from "lucide-react"
 
 export default function EbookReaderClient({ product, pdfUrl }) {
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
+  const pdfDocRef = useRef(null)
+  const currentRenderTask = useRef(null)
+
+  // Refs para sempre ter os valores mais recentes sem depender de closures
+  const scaleRef = useRef(1.2)
+  const pageNumRef = useRef(1)
+  const nightModeRef = useRef(false)
+
   const [pdfDoc, setPdfDoc] = useState(null)
   const [pageNum, setPageNum] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
@@ -18,35 +26,35 @@ export default function EbookReaderClient({ product, pdfUrl }) {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [pageInput, setPageInput] = useState("1")
-  const [renderTask, setRenderTask] = useState(null)
-  const isRendering = useRef(false)
 
-  // Load pdf.js from CDN
+  // Sincronizar refs com o state
+  useEffect(() => { scaleRef.current = scale }, [scale])
+  useEffect(() => { pageNumRef.current = pageNum }, [pageNum])
+  useEffect(() => { nightModeRef.current = nightMode }, [nightMode])
+  useEffect(() => { pdfDocRef.current = pdfDoc }, [pdfDoc])
+
+  // Carregar pdf.js do CDN
   useEffect(() => {
     const loadPdfJs = async () => {
       try {
-        if (window.pdfjsLib) return
-
-        // Load pdf.js
-        await new Promise((resolve, reject) => {
-          const script = document.createElement("script")
-          script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
-          script.onload = resolve
-          script.onerror = reject
-          document.head.appendChild(script)
-        })
-
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
-          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"
+        if (!window.pdfjsLib) {
+          await new Promise((resolve, reject) => {
+            const script = document.createElement("script")
+            script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
+            script.onload = resolve
+            script.onerror = reject
+            document.head.appendChild(script)
+          })
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"
+        }
+        await loadDocument()
       } catch (e) {
         setError("Erro ao carregar leitor de PDF. Tenta recarregar a página.")
         setIsLoading(false)
       }
     }
-
-    loadPdfJs().then(() => {
-      loadDocument()
-    })
+    loadPdfJs()
   }, [])
 
   const loadDocument = useCallback(async () => {
@@ -61,9 +69,12 @@ export default function EbookReaderClient({ product, pdfUrl }) {
         cMapPacked: true,
       })
       const doc = await loadingTask.promise
+      pdfDocRef.current = doc
       setPdfDoc(doc)
       setTotalPages(doc.numPages)
       setIsLoading(false)
+      // Renderizar a primeira página
+      renderPage(1, doc, scaleRef.current, nightModeRef.current)
     } catch (e) {
       console.error("[EbookReader] Erro ao carregar PDF:", e)
       setError(`Erro ao carregar o PDF: ${e.message}`)
@@ -71,28 +82,31 @@ export default function EbookReaderClient({ product, pdfUrl }) {
     }
   }, [pdfUrl])
 
-  // Render page whenever pdfDoc, pageNum or scale changes
-  useEffect(() => {
-    if (!pdfDoc) return
-    renderPage(pageNum)
-  }, [pdfDoc, pageNum, scale, nightMode])
+  // Função de renderização — recebe tudo por parâmetro, sem closures velhas
+  const renderPage = useCallback(async (num, doc, currentScale, currentNightMode) => {
+    const pdf = doc || pdfDocRef.current
+    if (!pdf || !canvasRef.current) return
 
-  const renderPage = useCallback(async (num) => {
-    if (!pdfDoc || !canvasRef.current) return
-    if (isRendering.current) return
-    isRendering.current = true
+    // Cancelar render anterior em curso
+    if (currentRenderTask.current) {
+      try {
+        currentRenderTask.current.cancel()
+      } catch (_) {}
+      currentRenderTask.current = null
+    }
 
     try {
-      const page = await pdfDoc.getPage(num)
+      const page = await pdf.getPage(num)
+      if (!canvasRef.current) return
+
       const canvas = canvasRef.current
       const ctx = canvas.getContext("2d")
 
-      const viewport = page.getViewport({ scale })
+      const viewport = page.getViewport({ scale: currentScale })
       canvas.width = viewport.width
       canvas.height = viewport.height
 
-      // Night mode background
-      if (nightMode) {
+      if (currentNightMode) {
         ctx.fillStyle = "#1a1a1a"
         ctx.fillRect(0, 0, canvas.width, canvas.height)
       }
@@ -100,28 +114,60 @@ export default function EbookReaderClient({ product, pdfUrl }) {
       const task = page.render({
         canvasContext: ctx,
         viewport,
-        background: nightMode ? "#1a1a1a" : "white"
+        background: currentNightMode ? "#1a1a1a" : "white"
       })
 
+      currentRenderTask.current = task
+
       await task.promise
+      currentRenderTask.current = null
       setPageInput(String(num))
     } catch (e) {
-      if (e.name !== "RenderingCancelledException") {
+      if (e?.name !== "RenderingCancelledException") {
         console.error("[EbookReader] Render error:", e)
       }
-    } finally {
-      isRendering.current = false
     }
-  }, [pdfDoc, scale, nightMode])
+  }, [])
+
+  // Re-renderizar sempre que page, scale ou nightMode mudam
+  useEffect(() => {
+    if (!pdfDocRef.current) return
+    renderPage(pageNum, pdfDocRef.current, scale, nightMode)
+  }, [pageNum, scale, nightMode, renderPage])
 
   const goToPage = useCallback((n) => {
+    if (!totalPages) return
     const p = Math.max(1, Math.min(n, totalPages))
     setPageNum(p)
     setPageInput(String(p))
   }, [totalPages])
 
-  const zoomIn = () => setScale(s => Math.min(s + 0.25, 3))
-  const zoomOut = () => setScale(s => Math.max(s - 0.25, 0.5))
+  const zoomIn = useCallback(() => {
+    setScale(s => {
+      const next = Math.round(Math.min(s + 0.25, 3) * 100) / 100
+      return next
+    })
+  }, [])
+
+  const zoomOut = useCallback(() => {
+    setScale(s => {
+      const next = Math.round(Math.max(s - 0.25, 0.5) * 100) / 100
+      return next
+    })
+  }, [])
+
+  // Atalhos de teclado
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.target.tagName === "INPUT") return
+      if (e.code === "ArrowLeft" || e.code === "ArrowUp") { e.preventDefault(); goToPage(pageNumRef.current - 1) }
+      if (e.code === "ArrowRight" || e.code === "ArrowDown") { e.preventDefault(); goToPage(pageNumRef.current + 1) }
+      if (e.code === "Equal" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); zoomIn() }
+      if (e.code === "Minus" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); zoomOut() }
+    }
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [goToPage, zoomIn, zoomOut])
 
   const readProgress = totalPages > 0 ? Math.round((pageNum / totalPages) * 100) : 0
 
@@ -176,7 +222,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
               className={`w-12 text-center text-sm font-bold rounded-lg border py-1 px-1 transition ${nightMode ? "bg-white/10 border-white/20 text-white" : "bg-neutral-50 border-neutral-200 text-neutral-900"}`}
             />
             <span className={`text-sm ${nightMode ? "text-white/40" : "text-neutral-400"}`}>
-              / {totalPages}
+              / {totalPages || "—"}
             </span>
           </div>
           <button
@@ -192,16 +238,22 @@ export default function EbookReaderClient({ product, pdfUrl }) {
         <div className="flex items-center gap-1.5">
           <button
             onClick={zoomOut}
-            className={`w-8 h-8 rounded-lg flex items-center justify-center transition ${nightMode ? "text-white/60 hover:bg-white/10" : "text-neutral-500 hover:bg-neutral-100"}`}
+            disabled={scale <= 0.5}
+            className={`w-8 h-8 rounded-lg flex items-center justify-center disabled:opacity-30 transition ${nightMode ? "text-white/60 hover:bg-white/10" : "text-neutral-500 hover:bg-neutral-100"}`}
           >
             <ZoomOut size={16} />
           </button>
-          <span className={`text-xs font-bold w-10 text-center ${nightMode ? "text-white/60" : "text-neutral-500"}`}>
+          <button
+            onClick={() => setScale(1.2)}
+            className={`text-xs font-bold w-12 text-center px-1 py-1 rounded-lg transition cursor-pointer ${nightMode ? "text-white/60 hover:bg-white/10" : "text-neutral-500 hover:bg-neutral-100"}`}
+            title="Repor zoom"
+          >
             {Math.round(scale * 100)}%
-          </span>
+          </button>
           <button
             onClick={zoomIn}
-            className={`w-8 h-8 rounded-lg flex items-center justify-center transition ${nightMode ? "text-white/60 hover:bg-white/10" : "text-neutral-500 hover:bg-neutral-100"}`}
+            disabled={scale >= 3}
+            className={`w-8 h-8 rounded-lg flex items-center justify-center disabled:opacity-30 transition ${nightMode ? "text-white/60 hover:bg-white/10" : "text-neutral-500 hover:bg-neutral-100"}`}
           >
             <ZoomIn size={16} />
           </button>
@@ -226,9 +278,9 @@ export default function EbookReaderClient({ product, pdfUrl }) {
       </header>
 
       {/* Reading progress bar */}
-      <div className="h-0.5 shrink-0 bg-transparent relative">
+      <div className="h-1 shrink-0 bg-neutral-200/50 relative">
         <div
-          className="h-full bg-[#FF4500] transition-all duration-300"
+          className="h-full bg-[#FF4500] transition-all duration-500"
           style={{ width: `${readProgress}%` }}
         />
       </div>
@@ -263,16 +315,11 @@ export default function EbookReaderClient({ product, pdfUrl }) {
           </div>
         )}
 
-        {!isLoading && !error && (
-          <canvas
-            ref={canvasRef}
-            className={`shadow-2xl max-w-full rounded select-none ${nightMode ? "border border-white/10" : ""}`}
-            style={{
-              filter: nightMode ? "invert(0.9) hue-rotate(180deg)" : "none",
-              userSelect: "none",
-            }}
-          />
-        )}
+        <canvas
+          ref={canvasRef}
+          className={`shadow-2xl rounded select-none transition-opacity ${isLoading || error ? "opacity-0 pointer-events-none w-0 h-0" : "opacity-100"} ${nightMode ? "border border-white/10" : ""}`}
+          style={{ userSelect: "none" }}
+        />
       </main>
 
       {/* Bottom navigation bar */}
