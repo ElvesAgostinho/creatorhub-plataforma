@@ -3,10 +3,11 @@ import { createClient, createServiceClient } from "@/lib/supabase/server"
 import {
   joinStoragePlan, cancelStoragePlan,
   adminActivateStorage, adminDeactivateStorage,
+  adminBlockUserStorage, adminUnblockUserStorage,
   adminToggleVideoUpload, adminTogglePhotoUpload
 } from "./actions"
 import ClientForm from "@/components/ClientForm"
-import { CheckCircle2, HardDrive, AlertTriangle, Video, Image, ToggleLeft, ToggleRight } from "lucide-react"
+import { CheckCircle2, HardDrive, AlertTriangle, Video, Image, ToggleLeft, ToggleRight, ShieldOff, ShieldCheck, Ban } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
@@ -31,6 +32,7 @@ export default async function StorageAdminPage() {
     .maybeSingle()
 
   const isSubscribed = billing && (billing.status === "active" || billing.status === "pending")
+  const isBlocked = billing?.storage_blocked === true
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8">
@@ -42,6 +44,16 @@ export default async function StorageAdminPage() {
           Gere a subscrição de armazenamento interno para hospedares vídeos e imagens das aulas de forma segura e sem anúncios.
         </p>
       </div>
+
+      {isBlocked && (
+        <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-2xl p-5 text-red-800">
+          <Ban size={22} className="shrink-0" />
+          <div>
+            <div className="font-bold">Conta de Storage Bloqueada</div>
+            <div className="text-sm mt-1">O acesso ao armazenamento foi suspenso pelo administrador. Contacta o suporte para mais informações.</div>
+          </div>
+        </div>
+      )}
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Plan Info */}
@@ -71,9 +83,9 @@ export default async function StorageAdminPage() {
               </button>
             </ClientForm>
           ) : (
-            <div className="p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 font-medium flex items-center gap-2">
-              <CheckCircle2 size={20} />
-              Plano {billing.status === "pending" ? "Pendente de Ativação" : "Ativo"}
+            <div className={`p-4 rounded-xl text-sm font-medium flex items-center gap-2 ${isBlocked ? "bg-red-50 border border-red-200 text-red-800" : "bg-green-50 border border-green-200 text-green-800"}`}>
+              {isBlocked ? <Ban size={18} /> : <CheckCircle2 size={18} />}
+              {isBlocked ? "Conta Bloqueada pelo Admin" : billing.status === "pending" ? "Pendente de Ativação" : "Plano Ativo"}
             </div>
           )}
         </div>
@@ -91,11 +103,12 @@ export default async function StorageAdminPage() {
                 <div className="flex justify-between items-center py-2 border-b border-neutral-100">
                   <span className="text-neutral-500">Status</span>
                   <span className={`font-bold uppercase text-xs px-2 py-1 rounded ${
+                    isBlocked ? "bg-red-100 text-red-700" :
                     billing.status === "active" ? "bg-green-100 text-green-700" :
                     billing.status === "pending" ? "bg-orange-100 text-orange-700" :
                     "bg-red-100 text-red-700"
                   }`}>
-                    {billing.status}
+                    {isBlocked ? "Bloqueado" : billing.status}
                   </span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-neutral-100">
@@ -112,7 +125,7 @@ export default async function StorageAdminPage() {
                   </div>
                 )}
 
-                {isSubscribed && (
+                {isSubscribed && !isBlocked && (
                   <ClientForm action={cancelStoragePlan} successMessage="Subscrição cancelada.">
                     <button type="submit" className="text-sm text-red-600 hover:underline mt-4">
                       Cancelar Subscrição
@@ -179,7 +192,7 @@ async function AdminStorageManager({ svc }) {
           <HardDrive className="text-[#FF4500]" /> Gestão de Storage (Superadmin)
         </h1>
         <p className="text-neutral-500 mt-2">
-          Controla o acesso ao armazenamento interno e gere as subscrições dos criadores.
+          Controla o acesso ao armazenamento interno e gere as subscrições dos criadores individualmente.
         </p>
       </div>
 
@@ -190,7 +203,6 @@ async function AdminStorageManager({ svc }) {
         </h2>
         <p className="text-sm text-neutral-500 mb-6">
           Ativa ou desativa o upload para <strong>todos os criadores pagos</strong> da plataforma.
-          Quando desativado, apenas links externos (YouTube, Vimeo, Drive) ficam disponíveis.
         </p>
 
         <div className="grid sm:grid-cols-2 gap-4">
@@ -258,10 +270,6 @@ async function AdminStorageManager({ svc }) {
             </ClientForm>
           </div>
         </div>
-
-        <p className="text-xs text-neutral-400 mt-4 flex items-center gap-1">
-          ⚠ Estes controlos não cancelam subscrições — apenas bloqueiam o botão de upload na interface.
-        </p>
       </section>
 
       {/* ── Subscriptions Table ── */}
@@ -276,12 +284,13 @@ async function AdminStorageManager({ svc }) {
                 <th className="px-4 py-3 font-bold text-neutral-700">Criador</th>
                 <th className="px-4 py-3 font-bold text-neutral-700">Data Pedido</th>
                 <th className="px-4 py-3 font-bold text-neutral-700">Status</th>
-                <th className="px-4 py-3 font-bold text-neutral-700 text-right">Ação</th>
+                <th className="px-4 py-3 font-bold text-neutral-700">Bloqueado</th>
+                <th className="px-4 py-3 font-bold text-neutral-700 text-right">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-100">
               {!billings?.length && (
-                <tr><td colSpan="4" className="p-4 text-center text-neutral-500">Nenhum pedido de storage.</td></tr>
+                <tr><td colSpan="5" className="p-4 text-center text-neutral-500">Nenhum pedido de storage.</td></tr>
               )}
               {billings?.map(b => (
                 <tr key={b.id} className="hover:bg-neutral-50/50">
@@ -301,22 +310,53 @@ async function AdminStorageManager({ svc }) {
                       {b.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right">
-                    {b.status !== "active" ? (
-                      <ClientForm action={adminActivateStorage} successMessage="Conta ativada com sucesso!">
-                        <input type="hidden" name="user_id" value={b.user_id} />
-                        <button className="text-xs bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-1.5 rounded transition">
-                          Ativar Plano
-                        </button>
-                      </ClientForm>
+                  <td className="px-4 py-3">
+                    {b.storage_blocked ? (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-red-100 text-red-700">
+                        <Ban size={10} /> Bloqueado
+                      </span>
                     ) : (
-                      <ClientForm action={adminDeactivateStorage} successMessage="Conta suspensa com sucesso!">
-                        <input type="hidden" name="user_id" value={b.user_id} />
-                        <button className="text-xs bg-red-100 hover:bg-red-200 text-red-700 font-bold px-3 py-1.5 rounded transition">
-                          Suspender
-                        </button>
-                      </ClientForm>
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full bg-neutral-100 text-neutral-500">
+                        Livre
+                      </span>
                     )}
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <div className="flex items-center justify-end gap-2 flex-wrap">
+                      {/* Activate / Deactivate */}
+                      {b.status !== "active" ? (
+                        <ClientForm action={adminActivateStorage} successMessage="Conta ativada!">
+                          <input type="hidden" name="user_id" value={b.user_id} />
+                          <button className="text-xs bg-green-600 hover:bg-green-700 text-white font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
+                            <ShieldCheck size={12} /> Ativar
+                          </button>
+                        </ClientForm>
+                      ) : (
+                        <ClientForm action={adminDeactivateStorage} successMessage="Conta suspensa!">
+                          <input type="hidden" name="user_id" value={b.user_id} />
+                          <button className="text-xs bg-orange-100 hover:bg-orange-200 text-orange-700 font-bold px-3 py-1.5 rounded transition">
+                            Suspender
+                          </button>
+                        </ClientForm>
+                      )}
+
+                      {/* Block / Unblock */}
+                      {b.storage_blocked ? (
+                        <ClientForm action={adminUnblockUserStorage} successMessage="Upload desbloqueado!">
+                          <input type="hidden" name="user_id" value={b.user_id} />
+                          <button className="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
+                            <ShieldCheck size={12} /> Desbloquear
+                          </button>
+                        </ClientForm>
+                      ) : (
+                        <ClientForm action={adminBlockUserStorage} successMessage="Upload bloqueado individualmente!">
+                          <input type="hidden" name="user_id" value={b.user_id} />
+                          <button className="text-xs bg-red-100 hover:bg-red-200 text-red-700 font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
+                            <ShieldOff size={12} /> Bloquear
+                          </button>
+                        </ClientForm>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

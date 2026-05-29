@@ -16,9 +16,9 @@ async function assertAuth() {
 }
 
 async function assertAdmin() {
-  const { profile } = await assertAuth()
+  const { user, profile } = await assertAuth()
   if (profile.role !== "admin") throw new Error("Apenas o superadmin pode executar esta ação.")
-  return { profile }
+  return { user, profile }
 }
 
 // ─── Creator Actions ──────────────────────────────────────────────────────────
@@ -54,7 +54,7 @@ export async function cancelStoragePlan(formData) {
   return { ok: true }
 }
 
-// ─── Admin: Activate / Deactivate Individual Creator ─────────────────────────
+// ─── Admin: Activate / Deactivate / Block Individual Creator ──────────────────
 
 export async function adminActivateStorage(formData) {
   await assertAdmin()
@@ -63,6 +63,7 @@ export async function adminActivateStorage(formData) {
 
   const { error } = await svc.from("creator_storage_billing").update({
     status: "active",
+    storage_blocked: false,
     next_billing_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
   }).eq("user_id", userId)
 
@@ -78,6 +79,34 @@ export async function adminDeactivateStorage(formData) {
 
   const { error } = await svc.from("creator_storage_billing").update({
     status: "past_due"
+  }).eq("user_id", userId)
+
+  if (error) throw new Error(error.message)
+  revalidatePath("/admin/storage")
+  return { ok: true }
+}
+
+export async function adminBlockUserStorage(formData) {
+  await assertAdmin()
+  const svc = createServiceClient()
+  const userId = formData.get("user_id")
+
+  const { error } = await svc.from("creator_storage_billing").update({
+    storage_blocked: true
+  }).eq("user_id", userId)
+
+  if (error) throw new Error(error.message)
+  revalidatePath("/admin/storage")
+  return { ok: true }
+}
+
+export async function adminUnblockUserStorage(formData) {
+  await assertAdmin()
+  const svc = createServiceClient()
+  const userId = formData.get("user_id")
+
+  const { error } = await svc.from("creator_storage_billing").update({
+    storage_blocked: false
   }).eq("user_id", userId)
 
   if (error) throw new Error(error.message)

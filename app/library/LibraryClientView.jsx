@@ -12,6 +12,7 @@ export default function LibraryClientView({ items, progressMap }) {
     { id: "all", label: "Todos" },
     { id: "course", label: "Cursos" },
     { id: "book", label: "E-books" },
+    { id: "audiobook", label: "Audiobooks" },
     { id: "mentorship", label: "Mentorias" },
   ]
 
@@ -81,6 +82,7 @@ export default function LibraryClientView({ items, progressMap }) {
             const hrefByType = {
               course: `/learn/${it.product.slug}`,
               book: `/ebook/${it.product.slug}`,
+              audiobook: `/audiobook/${it.product.slug}`,
               mentorship: `/book/${it.product.slug}`
             }
             const href = hrefByType[it.product.type] || `/product/${it.product.slug}`
@@ -133,8 +135,14 @@ export default function LibraryClientView({ items, progressMap }) {
                     )}
                     {!isCourse && (
                       <div className="flex justify-end">
-                        <span className="text-[10px] font-bold text-neutral-400 uppercase bg-neutral-100 px-2 py-0.5 rounded">
-                          {it.product.type === "book" ? "E-book" : "Mentoria"}
+                        <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded ${
+                          it.product.type === "book" ? "bg-orange-50 text-orange-600" :
+                          it.product.type === "audiobook" ? "bg-purple-50 text-purple-600" :
+                          "bg-neutral-100 text-neutral-400"
+                        }`}>
+                          {it.product.type === "book" ? "E-book" :
+                           it.product.type === "audiobook" ? "🎧 Audiobook" :
+                           "Mentoria"}
                         </span>
                       </div>
                     )}
