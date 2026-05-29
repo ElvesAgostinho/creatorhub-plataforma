@@ -1,16 +1,24 @@
 import { redirect } from "next/navigation"
-import { createServiceClient } from "@/lib/supabase/server"
+import { createClient, createServiceClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { PackagePlus, LayoutGrid, Search, MoreVertical, Edit, ExternalLink, Activity, Eye, PlaySquare, TrendingUp } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
 export default async function AdminProducts({ searchParams }) {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
   const svc = createServiceClient()
-  const { data: rows } = await svc
+  const { data: rows, error: queryError } = await svc
     .from("products")
     .select("id, slug, type, title, students_count, price_cents, created_at, image_url, published")
+    .eq("created_by", user.id)
     .order("created_at", { ascending: false })
+    
+  if (queryError) {
+    console.error("Products query error:", queryError)
+  }
 
   const fmt = n => (n ?? 0).toLocaleString("pt-PT")
 
