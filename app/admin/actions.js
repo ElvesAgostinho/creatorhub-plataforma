@@ -30,11 +30,20 @@ export async function approvePurchase(formData) {
 
   const { data: purchase, error: pe } = await svc
     .from("purchases")
-    .select("*, products(title, affiliate_commission_pct, created_by), profiles(email, full_name)")
+    .select("*, products(title, affiliate_commission_pct, created_by)")
     .eq("id", id)
     .maybeSingle()
 
   if (pe || !purchase) return { ok: false, error: pe?.message || "Purchase not found" }
+
+  // Fetch buyer profile manually since foreign key might point to auth.users
+  const { data: buyerProfile } = await svc
+    .from("profiles")
+    .select("email, full_name")
+    .eq("id", purchase.user_id)
+    .maybeSingle()
+    
+  purchase.profiles = buyerProfile
 
   const { error } = await svc
     .from("purchases")
