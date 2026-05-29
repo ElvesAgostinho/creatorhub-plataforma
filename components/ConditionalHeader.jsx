@@ -5,12 +5,8 @@ import { usePathname } from "next/navigation"
 export default function ConditionalHeader({ children }) {
   const pathname = usePathname()
 
-  // Rotas onde o cabeçalho principal NÃO deve aparecer
+  // Rotas onde o cabeçalho principal NÃO deve aparecer (modos de leitura/aula)
   const hiddenRoutes = [
-    "/admin",
-    "/library",
-    "/dashboard",
-    "/affiliate-panel",
     "/ebook",
     "/audiobook",
     "/learn",

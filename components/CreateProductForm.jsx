@@ -9,7 +9,12 @@ import { categoryTree } from "@/lib/data/categories"
 import ClientForm from "@/components/ClientForm"
 import { BookOpen, DollarSign, Image as ImageIcon, Video, Layers, Users, Info } from "lucide-react"
 
-export default function CreateProductForm({ isStorageActive, platformVideoEnabled = true, platformPhotoEnabled = true }) {
+export default function CreateProductForm({ 
+  userId,
+  isStorageActive = true, 
+  platformVideoEnabled = true, 
+  platformPhotoEnabled = true 
+}) {
   const [type, setType] = useState("course")
   const [category, setCategory] = useState(Object.keys(categoryTree)[0])
   const [subcategory, setSubcategory] = useState(categoryTree[Object.keys(categoryTree)[0]][0])
@@ -154,9 +159,10 @@ export default function CreateProductForm({ isStorageActive, platformVideoEnable
               <div>
                 <Uploader 
                   bucket="images" 
-                  accept="image/jpeg,image/png,image/webp" 
-                  label="Upload (16:9 preferencial)"
-                  onSuccess={(url) => setImageUrl(url)}
+                  pathPrefix={`${userId}/`}
+                  accept="image/png,image/jpeg,image/webp" 
+                  label="Selecionar Imagem"
+                  onSuccess={(path) => setImageUrl(path)}
                   isStorageActive={isStorageActive}
                   uploadType="photo"
                   platformEnabled={platformPhotoEnabled}
@@ -215,6 +221,7 @@ export default function CreateProductForm({ isStorageActive, platformVideoEnable
                 <div className="max-w-md">
                   <Uploader 
                     bucket="books" 
+                    pathPrefix={`${userId}/`}
                     accept="application/pdf" 
                     label="Selecionar PDF"
                     onSuccess={(path) => setPdfPath(path)}
@@ -231,6 +238,7 @@ export default function CreateProductForm({ isStorageActive, platformVideoEnable
                 <div className="max-w-md">
                   <Uploader 
                     bucket="audio" 
+                    pathPrefix={`${userId}/`}
                     accept="audio/mpeg,audio/wav" 
                     label="Selecionar Áudio"
                     onSuccess={(path) => setAudioPath(path)}
@@ -247,6 +255,7 @@ export default function CreateProductForm({ isStorageActive, platformVideoEnable
                 <div className="max-w-md">
                   <Uploader 
                     bucket="templates" 
+                    pathPrefix={`${userId}/`}
                     accept=".zip,.xlsx,.pdf" 
                     label="Selecionar Template"
                     onSuccess={(path) => setTemplatePath(path)}

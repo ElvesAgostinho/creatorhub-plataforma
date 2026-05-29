@@ -68,6 +68,7 @@ export default async function NewProductPage() {
 
         {/* Formulário Principal */}
         <CreateProductForm 
+          userId={user.id}
           isStorageActive={isStorageActive} 
           platformVideoEnabled={platformVideoEnabled} 
           platformPhotoEnabled={platformPhotoEnabled} 
