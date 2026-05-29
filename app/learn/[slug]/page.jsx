@@ -1,6 +1,7 @@
 import { notFound, redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import CoursePlayer from "@/components/CoursePlayer"
+import ErrorBoundary from "@/components/ErrorBoundary"
 
 export const dynamic = "force-dynamic"
 
@@ -83,5 +84,9 @@ export default async function LearnPage({ params }) {
     }
   }
 
-  return <CoursePlayer product={product} modules={modules || []} lessons={lessons || []} academy={academy} initialProgress={initialProgress} />
+  return (
+    <ErrorBoundary>
+      <CoursePlayer product={product} modules={modules || []} lessons={lessons || []} academy={academy} initialProgress={initialProgress} />
+    </ErrorBoundary>
+  )
 }

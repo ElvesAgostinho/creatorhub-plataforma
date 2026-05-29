@@ -5,7 +5,7 @@ import Link from "next/link"
 import dynamic from "next/dynamic"
 import { Menu, X, ChevronLeft, ChevronRight, CheckCircle2, Circle, FileText, PlayCircle, Info, Download, Send, ArrowLeft } from "lucide-react"
 
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false })
+// Removed ReactPlayer
 import { saveProgress, addXP } from "@/app/learn/[slug]/actions"
 import HlsPlayer from "@/components/HlsPlayer"
 
@@ -266,17 +266,17 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
             return (
               <details key={mod.id} className="group border-b border-neutral-100" open={isOpen}>
                 <summary className="p-5 cursor-pointer hover:bg-neutral-50 transition flex items-start justify-between select-none">
-                  <div className="pr-4">
-                    <div className="font-bold text-sm text-neutral-800 group-hover:text-neutral-900 transition">
+                  <span className="pr-4 block">
+                    <span className="font-bold text-sm text-neutral-800 group-hover:text-neutral-900 transition block">
                       Módulo {mod.position}
-                    </div>
-                    <div className="text-xs text-neutral-500 mt-1 font-medium line-clamp-1">{mod.title}</div>
-                  </div>
-                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    </span>
+                    <span className="text-xs text-neutral-500 mt-1 font-medium line-clamp-1 block">{mod.title}</span>
+                  </span>
+                  <span className="flex flex-col items-end gap-1 shrink-0">
                     <span className="text-[10px] font-bold text-neutral-400 bg-neutral-100 px-2 py-0.5 rounded-md">
                       {modCompleted}/{modLessons.length}
                     </span>
-                  </div>
+                  </span>
                 </summary>
                 
                 <div className="bg-[#FAFAFA] border-t border-neutral-100">
