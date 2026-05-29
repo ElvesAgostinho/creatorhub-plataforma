@@ -103,8 +103,15 @@ export default function EbookReaderClient({ product, pdfUrl }) {
       const ctx = canvas.getContext("2d")
 
       const viewport = page.getViewport({ scale: currentScale })
-      canvas.width = viewport.width
-      canvas.height = viewport.height
+      
+      // Resolução para ecrãs Retina / High DPI + Definir largura/altura no CSS
+      const outputScale = window.devicePixelRatio || 1
+      canvas.width = Math.floor(viewport.width * outputScale)
+      canvas.height = Math.floor(viewport.height * outputScale)
+      canvas.style.width = Math.floor(viewport.width) + "px"
+      canvas.style.height = Math.floor(viewport.height) + "px"
+
+      const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null
 
       if (currentNightMode) {
         ctx.fillStyle = "#1a1a1a"
@@ -113,6 +120,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
 
       const task = page.render({
         canvasContext: ctx,
+        transform: transform,
         viewport,
         background: currentNightMode ? "#1a1a1a" : "white"
       })
@@ -288,38 +296,40 @@ export default function EbookReaderClient({ product, pdfUrl }) {
       {/* PDF Canvas area */}
       <main
         ref={containerRef}
-        className={`flex-1 overflow-auto flex justify-center py-6 px-4 ${nightMode ? "bg-[#0f0f0f]" : "bg-[#e8e8e8]"}`}
+        className={`flex-1 overflow-auto ${nightMode ? "bg-[#0f0f0f]" : "bg-[#e8e8e8]"}`}
       >
-        {isLoading && (
-          <div className="flex flex-col items-center justify-center gap-4 text-neutral-400">
-            <Loader2 size={36} className="animate-spin text-[#FF4500]" />
-            <p className="text-sm font-medium">A carregar o livro...</p>
-          </div>
-        )}
-
-        {error && (
-          <div className="flex flex-col items-center justify-center gap-4 max-w-sm text-center">
-            <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center">
-              <BookOpen size={28} className="text-red-400" />
+        <div className="min-w-max min-h-full flex items-center justify-center py-6 px-4">
+          {isLoading && (
+            <div className="flex flex-col items-center justify-center gap-4 text-neutral-400">
+              <Loader2 size={36} className="animate-spin text-[#FF4500]" />
+              <p className="text-sm font-medium">A carregar o livro...</p>
             </div>
-            <div>
-              <p className="font-bold text-neutral-700 mb-1">Não foi possível carregar o livro</p>
-              <p className="text-sm text-neutral-500">{error}</p>
-            </div>
-            <button
-              onClick={loadDocument}
-              className="bg-[#FF4500] hover:bg-[#e03e00] text-white font-bold px-6 py-2.5 rounded-lg transition"
-            >
-              Tentar novamente
-            </button>
-          </div>
-        )}
+          )}
 
-        <canvas
-          ref={canvasRef}
-          className={`shadow-2xl rounded select-none transition-opacity ${isLoading || error ? "opacity-0 pointer-events-none w-0 h-0" : "opacity-100"} ${nightMode ? "border border-white/10" : ""}`}
-          style={{ userSelect: "none" }}
-        />
+          {error && (
+            <div className="flex flex-col items-center justify-center gap-4 max-w-sm text-center">
+              <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center">
+                <BookOpen size={28} className="text-red-400" />
+              </div>
+              <div>
+                <p className="font-bold text-neutral-700 mb-1">Não foi possível carregar o livro</p>
+                <p className="text-sm text-neutral-500">{error}</p>
+              </div>
+              <button
+                onClick={loadDocument}
+                className="bg-[#FF4500] hover:bg-[#e03e00] text-white font-bold px-6 py-2.5 rounded-lg transition"
+              >
+                Tentar novamente
+              </button>
+            </div>
+          )}
+
+          <canvas
+            ref={canvasRef}
+            className={`shadow-2xl rounded select-none max-w-none transition-opacity ${isLoading || error ? "opacity-0 pointer-events-none hidden" : "opacity-100"} ${nightMode ? "border border-white/10" : ""}`}
+            style={{ userSelect: "none" }}
+          />
+        </div>
       </main>
 
       {/* Bottom navigation bar */}
