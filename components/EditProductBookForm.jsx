@@ -4,7 +4,7 @@ import { useState } from "react"
 import { uploadBookPdf } from "@/app/admin/products/actions"
 import Uploader from "@/components/Uploader"
 
-export default function EditProductBookForm({ productId, currentFilePath }) {
+export default function EditProductBookForm({ productId, userId, currentFilePath }) {
   const [pdfPath, setPdfPath] = useState("")
 
   return (
@@ -13,7 +13,7 @@ export default function EditProductBookForm({ productId, currentFilePath }) {
       
       <Uploader 
         bucket="books" 
-        pathPrefix={`${productId}/`}
+        pathPrefix={`${userId}/`}
         accept="application/pdf" 
         label="Carregar Ficheiro PDF"
         onSuccess={(path) => setPdfPath(path)}

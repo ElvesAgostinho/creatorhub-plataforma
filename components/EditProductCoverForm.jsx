@@ -4,7 +4,7 @@ import { useState } from "react"
 import { uploadProductImage } from "@/app/admin/products/actions"
 import Uploader from "@/components/Uploader"
 
-export default function EditProductCoverForm({ productId, currentImageUrl, isStorageActive = true, platformPhotoEnabled = true }) {
+export default function EditProductCoverForm({ productId, userId, currentImageUrl, isStorageActive = true, platformPhotoEnabled = true }) {
   const [imageUrl, setImageUrl] = useState("")
 
   return (
@@ -22,7 +22,7 @@ export default function EditProductCoverForm({ productId, currentImageUrl, isSto
         
         <Uploader 
           bucket="images" 
-          pathPrefix={`${productId}/`}
+          pathPrefix={`${userId}/`}
           accept="image/jpeg,image/png,image/webp" 
           label="Carregar nova capa"
           onSuccess={(url) => setImageUrl(url)}

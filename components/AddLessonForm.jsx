@@ -8,6 +8,7 @@ import { Link2, HardDrive, Youtube, Video } from "lucide-react"
 
 export default function AddLessonForm({
   productId,
+  userId,
   moduleId,
   modulePosition,
   isStorageActive,
@@ -124,7 +125,7 @@ export default function AddLessonForm({
         <div className="sm:col-span-2">
           <Uploader
             bucket="lessons"
-            pathPrefix={`${productId}/`}
+            pathPrefix={`${userId}/`}
             accept="video/mp4,video/quicktime,video/webm"
             label="Ficheiro vídeo (MP4) — Máximo 100MB"
             isResumable={true}
@@ -149,7 +150,7 @@ export default function AddLessonForm({
         <p className="text-xs text-neutral-500 mb-3">Anexa um ficheiro PDF para os alunos descarregarem.</p>
         <Uploader
           bucket="lessons"
-          pathPrefix={`${productId}/pdf/`}
+          pathPrefix={`${userId}/pdf/`}
           accept="application/pdf"
           label="Selecionar PDF"
           onSuccess={(path) => setPdfUrl(path)}

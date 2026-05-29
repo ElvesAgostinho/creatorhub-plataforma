@@ -72,6 +72,7 @@ export default async function EditProduct({ params }) {
 
         <EditProductCoverForm 
           productId={p.id} 
+          userId={user.id}
           currentImageUrl={p.image_url} 
           isStorageActive={isStorageActive} 
           platformPhotoEnabled={platformPhotoEnabled} 
@@ -252,15 +253,15 @@ export default async function EditProduct({ params }) {
       </section>
 
       {/* ---- Conteúdo conforme tipo ---- */}
-      {p.type === "course" && <LessonsSection productId={p.id} isStorageActive={isStorageActive} platformVideoEnabled={platformVideoEnabled} platformPhotoEnabled={platformPhotoEnabled} />}
-      {p.type === "book" && <BookSection product={p} />}
+      {p.type === "course" && <LessonsSection productId={p.id} userId={user.id} isStorageActive={isStorageActive} platformVideoEnabled={platformVideoEnabled} platformPhotoEnabled={platformPhotoEnabled} />}
+      {p.type === "book" && <BookSection product={p} userId={user.id} />}
       {p.type === "mentorship" && <SlotsSection productId={p.id} />}
 
     </div>
   )
 }
 
-async function LessonsSection({ productId, isStorageActive, platformVideoEnabled, platformPhotoEnabled }) {
+async function LessonsSection({ productId, userId, isStorageActive, platformVideoEnabled, platformPhotoEnabled }) {
   const svc = createServiceClient()
   
   const { data: modules } = await svc.from("modules")
@@ -311,6 +312,7 @@ async function LessonsSection({ productId, isStorageActive, platformVideoEnabled
               <div className="p-4">
                 <AddLessonForm 
                   productId={productId} 
+                  userId={userId}
                   moduleId={m.id} 
                   modulePosition={m.position} 
                   isStorageActive={isStorageActive} 
@@ -346,7 +348,7 @@ async function LessonsSection({ productId, isStorageActive, platformVideoEnabled
   )
 }
 
-function BookSection({ product }) {
+function BookSection({ product, userId }) {
   return (
     <section className="border border-neutral-200 rounded-2xl p-6 bg-white">
       <h2 className="font-bold text-lg">Ficheiro PDF</h2>
@@ -358,7 +360,7 @@ function BookSection({ product }) {
         Atual: <span className="font-mono text-xs">{product.file_path || "— sem ficheiro —"}</span>
       </div>
 
-      <EditProductBookForm productId={product.id} currentFilePath={product.file_path} />
+      <EditProductBookForm productId={product.id} userId={userId} currentFilePath={product.file_path} />
     </section>
   )
 }
