@@ -1,5 +1,3 @@
-import Footer from "@/components/Footer"
-
 export default function ResourcesPage() {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col font-sans">
@@ -32,8 +30,6 @@ export default function ResourcesPage() {
         </section>
 
       </main>
-
-      <Footer />
     </div>
   )
 }

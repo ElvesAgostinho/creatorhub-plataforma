@@ -1,12 +1,15 @@
 import PromoBanner from "@/components/PromoBanner"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+import ConditionalHeader from "@/components/ConditionalHeader"
+import ConditionalFooter from "@/components/ConditionalFooter"
 import ToastProvider from "@/components/ToastProvider"
 import { CartProvider } from "@/components/CartContext"
 import CartDrawer from "@/components/CartDrawer"
 import FloatingWhatsApp from "@/components/FloatingWhatsApp"
 import { createClient } from "@/lib/supabase/server"
 import "@/app/globals.css"
+
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
 
 export const metadata = {
   title: "ABOVE — Cursos, Livros e Mentorias Online",
@@ -33,10 +36,14 @@ export default async function Layout({ children }) {
       <body className="bg-white text-neutral-900 antialiased" style={{ fontFamily: "'Inter', sans-serif" }}>
         <ToastProvider />
         <CartProvider>
-          <Header />
+          <ConditionalHeader>
+            <Header />
+          </ConditionalHeader>
           <CartDrawer />
-          <main className="min-h-[60vh]">{children}</main>
-          <Footer user={user} />
+          <main className="min-h-[60vh] flex flex-col">{children}</main>
+          <ConditionalFooter>
+            <Footer user={user} />
+          </ConditionalFooter>
         </CartProvider>
         <FloatingWhatsApp user={user} />
       </body>
