@@ -80,11 +80,11 @@ export default function LibraryClientView({ items, progressMap }) {
           {filteredItems.map(it => {
             const hrefByType = {
               course: `/learn/${it.product.slug}`,
-              book: `/api/books/${it.product.slug}/download`,
+              book: `/ebook/${it.product.slug}`,
               mentorship: `/book/${it.product.slug}`
             }
             const href = hrefByType[it.product.type] || `/product/${it.product.slug}`
-            const target = it.product.type === "book" ? "_blank" : undefined
+            const target = undefined
             
             const progress = (progressMap || {})[it.product.id] || 0
             const isCourse = it.product.type === "course"
