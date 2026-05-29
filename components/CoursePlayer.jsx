@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import dynamic from "next/dynamic"
-import { Menu, X, ChevronLeft, ChevronRight, CheckCircle2, Circle, FileText, PlayCircle, Info, Download, Send, ArrowLeft } from "lucide-react"
+import { Menu, X, ChevronLeft, ChevronRight, CheckCircle2, Circle, FileText, PlayCircle, Info, Download, Send, ArrowLeft, MessageSquare } from "lucide-react"
 
 // Removed ReactPlayer
 import { saveProgress, addXP } from "@/app/learn/[slug]/actions"
