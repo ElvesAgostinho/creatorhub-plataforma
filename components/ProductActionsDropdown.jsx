@@ -5,6 +5,7 @@ import { MoreVertical, Link as LinkIcon, Trash2, PowerOff, Power } from "lucide-
 
 export default function ProductActionsDropdown({ product }) {
   const [open, setOpen] = useState(false)
+  const [rect, setRect] = useState(null)
   const dropdownRef = useRef(null)
 
   useEffect(() => {
@@ -14,7 +15,12 @@ export default function ProductActionsDropdown({ product }) {
       }
     }
     document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
+    // Fechar ao fazer scroll para evitar que o menu descole do botão
+    document.addEventListener("scroll", () => setOpen(false), true)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("scroll", () => setOpen(false), true)
+    }
   }, [])
 
   const copyCheckoutLink = () => {
@@ -36,17 +42,32 @@ export default function ProductActionsDropdown({ product }) {
     setOpen(false)
   }
 
+  const handleOpen = (e) => {
+    if (!open) {
+      const r = e.currentTarget.getBoundingClientRect()
+      setRect(r)
+    }
+    setOpen(!open)
+  }
+
   return (
-    <div className="relative" ref={dropdownRef}>
+    <>
       <button 
-        onClick={() => setOpen(!open)}
+        onClick={handleOpen}
         className="p-2 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors"
       >
         <MoreVertical size={18} />
       </button>
 
-      {open && (
-        <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-neutral-200 rounded-lg shadow-lg z-50 py-1 flex flex-col">
+      {open && rect && (
+        <div 
+          ref={dropdownRef}
+          className="fixed bg-white border border-neutral-200 rounded-lg shadow-xl z-[9999] py-1 flex flex-col w-48"
+          style={{
+            top: rect.bottom + 4,
+            left: rect.right - 192, // 192px = w-48
+          }}
+        >
           <button 
             onClick={copyCheckoutLink}
             className="flex items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 text-left"
@@ -72,6 +93,6 @@ export default function ProductActionsDropdown({ product }) {
           </button>
         </div>
       )}
-    </div>
+    </>
   )
 }
