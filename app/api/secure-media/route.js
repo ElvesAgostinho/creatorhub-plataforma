@@ -21,9 +21,17 @@ export async function GET(request) {
 
   const svc = createServiceClient()
 
-  // Verify access (admin or purchased)
+  // Verify access (admin or purchased or creator of the product)
   const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle()
   let hasAccess = profile?.role === "admin"
+
+  if (!hasAccess) {
+    // Check if user is the creator of this product
+    const { data: product } = await svc.from("products").select("created_by").eq("id", productId).maybeSingle()
+    if (product && product.created_by === user.id) {
+      hasAccess = true
+    }
+  }
 
   if (!hasAccess) {
     const { data: purchase } = await svc
