@@ -146,7 +146,8 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
     let youtubeId = null
 
     if (url.startsWith("storage:lessons/")) {
-      finalUrl = `/storage/lessons/${url.replace("storage:lessons/", "")}`
+      const path = encodeURIComponent(url.replace("storage:lessons/", ""))
+      finalUrl = `/api/secure-media?bucket=lessons&path=${path}&lessonId=${currentLesson.id}&productId=${product.id}`
     } else if (url.includes("youtube.com") || url.includes("youtu.be")) {
       isYoutube = true
       const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&]{11})/)
@@ -201,9 +202,11 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
 
   const getPdfUrl = () => {
     if (!currentLesson?.pdf_url) return null;
-    return currentLesson.pdf_url.startsWith("storage:lessons/") 
-      ? `/storage/lessons/${currentLesson.pdf_url.replace("storage:lessons/", "")}` 
-      : currentLesson.pdf_url;
+    if (currentLesson.pdf_url.startsWith("storage:lessons/")) {
+      const path = encodeURIComponent(currentLesson.pdf_url.replace("storage:lessons/", ""));
+      return `/api/secure-media?bucket=lessons&path=${path}&lessonId=${currentLesson.id}&productId=${product.id}`;
+    }
+    return currentLesson.pdf_url;
   }
 
   return (
@@ -342,7 +345,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
         )}
 
         {/* Video Area */}
-        <div className="w-full bg-[#1A1A1A] lg:p-8 p-0 shrink-0 border-b border-neutral-200">
+        <div className="w-full bg-[#1A1A1A] lg:p-8 p-0 shrink-0 border-b border-neutral-200 sticky md:relative top-0 z-40 shadow-[0_10px_30px_rgba(0,0,0,0.15)] md:shadow-none">
           <div className="max-w-5xl mx-auto">
             {renderVideo()}
             

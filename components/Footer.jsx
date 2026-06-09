@@ -62,6 +62,11 @@ export default function Footer({ user }) {
           <ul className="space-y-4">
             <li><a href="/marketplace" className="hover:text-neutral-900 transition">Venda mais (Marketplace)</a></li>
           </ul>
+          <ul className="space-y-4">
+            <li><a href="/legal/terms" className="hover:text-neutral-900 transition">Termos de Uso</a></li>
+            <li><a href="/legal/privacy" className="hover:text-neutral-900 transition">Política de Privacidade</a></li>
+            <li><a href="/legal/refunds" className="hover:text-neutral-900 transition">Política de Reembolso</a></li>
+          </ul>
         </div>
 
         {/* Bottom Section */}

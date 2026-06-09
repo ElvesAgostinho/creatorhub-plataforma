@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Package, Award, MessageSquare, UserCircle, Menu, X, LogOut, ChevronRight } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
+import MobileBottomNav from "@/components/MobileBottomNav"
 
 export default function LibrarySidebar({ userProfile, children }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -112,10 +113,11 @@ export default function LibrarySidebar({ userProfile, children }) {
       </aside>
 
       {/* MAIN CONTENT AREA */}
-      <main className="flex-1 w-full min-h-screen relative overflow-x-hidden">
+      <main className="flex-1 w-full min-h-screen relative overflow-x-hidden pb-16 md:pb-0">
         {children}
       </main>
 
+      <MobileBottomNav role="student" />
     </div>
   )
 }

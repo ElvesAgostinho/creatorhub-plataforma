@@ -1,6 +1,7 @@
 import AdminSidebar from "@/components/AdminSidebar"
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
+import MobileBottomNav from "@/components/MobileBottomNav"
 
 export default async function AdminLayout({ children }) {
   const supabase = createClient()
@@ -33,9 +34,11 @@ export default async function AdminLayout({ children }) {
           <a href="/admin" className="text-xs font-bold text-neutral-500">Menu</a>
         </header>
         
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto pb-16 md:pb-0">
           {children}
         </main>
+        
+        <MobileBottomNav role="creator" />
       </div>
     </div>
   )

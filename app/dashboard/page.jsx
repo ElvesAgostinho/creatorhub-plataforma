@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { getMyPurchases } from "@/lib/data/products"
 import ProductCard from "@/components/ProductCard"
+import MobileBottomNav from "@/components/MobileBottomNav"
 
 export const dynamic = "force-dynamic"
 
@@ -120,6 +121,8 @@ export default async function Dashboard() {
           </div>
         </div>
       )}
+      
+      <MobileBottomNav role={profile?.role === "creator" || profile?.role === "admin" ? "creator" : "student"} />
     </div>
   )
 }
