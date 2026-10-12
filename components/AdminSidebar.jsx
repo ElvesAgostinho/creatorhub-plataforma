@@ -15,7 +15,8 @@ import {
   Plus,
   CreditCard,
   HardDrive,
-  UserCircle
+  UserCircle,
+  UserCog
 } from "lucide-react"
 
 export default function AdminSidebar({ role = "creator" }) {
@@ -33,7 +34,8 @@ export default function AdminSidebar({ role = "creator" }) {
   ]
 
   const adminLinks = [
-    { href: "/admin/creators", label: "Candidaturas", icon: Users },
+    { href: "/admin/utilizadores", label: "Utilizadores", icon: UserCog },
+    { href: "/admin/creators", label: "Candidaturas a Criador", icon: Users },
     { href: "/admin/storage", label: "Alojamento Mestre", icon: HardDrive },
     { href: "/admin/settings", label: "Definições Mestre", icon: Settings },
   ]
