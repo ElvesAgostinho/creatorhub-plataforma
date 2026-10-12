@@ -35,7 +35,7 @@ export default function ShareButton({ title, text, url }) {
   return (
     <div 
       onClick={handleShare}
-      className="ml-auto flex items-center gap-2 font-bold text-neutral-900 cursor-pointer hover:text-[#FF4500] transition-colors"
+      className="ml-auto flex items-center gap-2 font-bold text-neutral-900 cursor-pointer hover:text-brand transition-colors"
     >
       <span>{copied ? "Copiado!" : "Share"}</span>
       {copied ? <Check className="w-5 h-5" /> : <Share2 className="w-5 h-5" />}

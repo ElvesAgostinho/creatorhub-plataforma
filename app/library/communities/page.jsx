@@ -36,7 +36,7 @@ export default async function CommunitiesPage() {
             <div key={it.purchaseId} className="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition flex flex-col items-center text-center">
               <div className="w-20 h-20 rounded-2xl bg-neutral-100 overflow-hidden mb-4 border border-neutral-100 shrink-0">
                 {it.product.image ? (
-                  <img src={it.product.image} alt={it.product.title} className="w-full h-full object-cover" />
+                  <img loading="lazy" decoding="async" src={it.product.image} alt={it.product.title} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-neutral-300">
                     <MessageSquare size={32} />
@@ -50,7 +50,7 @@ export default async function CommunitiesPage() {
                 href={it.product.community_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto w-full py-3 px-4 bg-[#FF4500] hover:bg-[#E03E00] text-white rounded-xl font-bold text-sm transition flex items-center justify-center gap-2"
+                className="mt-auto w-full py-3 px-4 bg-brand hover:bg-brand-dark text-white rounded-xl font-bold text-sm transition flex items-center justify-center gap-2"
               >
                 <ExternalLink size={16} />
                 Aceder à Comunidade

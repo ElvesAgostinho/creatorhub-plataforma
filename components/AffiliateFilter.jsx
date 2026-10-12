@@ -32,7 +32,7 @@ export default function AffiliateFilter() {
           placeholder="Pesquisar por nome..."
           defaultValue={currentSearch}
           onChange={(e) => updateFilters("q", e.target.value)}
-          className="block w-full pl-10 pr-3 py-2.5 border border-neutral-200 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500]/50 focus:border-[#FF4500] transition shadow-sm"
+          className="block w-full pl-10 pr-3 py-2.5 border border-neutral-200 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition shadow-sm"
         />
       </div>
 
@@ -43,7 +43,7 @@ export default function AffiliateFilter() {
         <select
           defaultValue={currentStatus}
           onChange={(e) => updateFilters("status", e.target.value)}
-          className="block w-full pl-10 pr-3 py-2.5 border border-neutral-200 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500]/50 focus:border-[#FF4500] transition shadow-sm appearance-none cursor-pointer"
+          className="block w-full pl-10 pr-3 py-2.5 border border-neutral-200 rounded-xl bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition shadow-sm appearance-none cursor-pointer"
         >
           <option value="all">Todos os Status</option>
           <option value="pending">Pendentes</option>

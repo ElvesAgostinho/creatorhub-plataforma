@@ -44,12 +44,12 @@ export default async function AdminPage({ searchParams }) {
   // Status styling map
   const statusStyles = {
     pending: { label: "Pendente", color: "bg-amber-100 text-amber-700 border-amber-200", icon: Clock },
-    active: { label: "Aprovado", color: "bg-[#00A859]/10 text-[#00A859] border-[#00A859]/20", icon: CheckCircle2 },
+    active: { label: "Aprovado", color: "bg-pay/10 text-pay border-pay/20", icon: CheckCircle2 },
     cancelled: { label: "Cancelado", color: "bg-red-50 text-red-700 border-red-200", icon: XCircle }
   }
 
   return (
-    <div className="bg-[#F4F5F7] min-h-screen text-neutral-900 pb-20 font-sans">
+    <div className="bg-surface-200 min-h-screen text-neutral-900 pb-20 font-sans">
       
       {/* HEADER / HERO AREA */}
       <div className="bg-white border-b border-neutral-200 pt-8 pb-12 px-4 sm:px-8">
@@ -75,7 +75,7 @@ export default async function AdminPage({ searchParams }) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {/* BIG BALANCE CARD */}
             <div className="md:col-span-2 bg-[#1A1C23] text-white rounded-2xl p-6 relative overflow-hidden shadow-lg">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#FF4500]/30 to-transparent blur-3xl rounded-full opacity-50 -translate-y-1/2 translate-x-1/2"></div>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-brand/30 to-transparent blur-3xl rounded-full opacity-50 -translate-y-1/2 translate-x-1/2"></div>
               <div className="relative z-10 flex flex-col h-full justify-between">
                 <div>
                   <div className="flex items-center gap-2 text-neutral-400 font-semibold mb-1">
@@ -84,7 +84,7 @@ export default async function AdminPage({ searchParams }) {
                   </div>
                   <h3 className="text-4xl sm:text-5xl font-black tracking-tight">Kz {fmt(Math.round(totalGMV/100))}</h3>
                 </div>
-                <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#00A859] bg-[#00A859]/10 w-fit px-3 py-1.5 rounded-lg border border-[#00A859]/20">
+                <div className="mt-8 flex items-center gap-2 text-sm font-bold text-pay bg-pay/10 w-fit px-3 py-1.5 rounded-lg border border-pay/20">
                   <TrendingUp size={16} />
                   <span>Crescimento contínuo</span>
                 </div>
@@ -126,7 +126,7 @@ export default async function AdminPage({ searchParams }) {
               <a
                 key={s}
                 href={`/admin?status=${s}`}
-                className={`relative px-8 py-5 text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${status===s ? "text-[#FF4500]" : "text-neutral-500 hover:text-neutral-800"}`}
+                className={`relative px-8 py-5 text-sm font-bold transition-colors whitespace-nowrap flex items-center gap-2 ${status===s ? "text-brand" : "text-neutral-500 hover:text-neutral-800"}`}
               >
                 {s === "pending" && <Clock size={16} />}
                 {s === "active" && <CheckCircle2 size={16} />}
@@ -134,7 +134,7 @@ export default async function AdminPage({ searchParams }) {
                 {s === "pending" ? `Pendentes (${pendingCount})` : s === "active" ? `Concluídos (${activeCount})` : `Cancelados (${cancelledCount})`}
                 
                 {status === s && (
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#FF4500]"></div>
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-brand"></div>
                 )}
               </a>
             ))}
@@ -187,7 +187,7 @@ export default async function AdminPage({ searchParams }) {
 
                       {/* PRODUCT */}
                       <td className="px-6 py-4 max-w-[200px]">
-                        <a href={`/product/${r.products?.slug}`} className="font-bold text-[#111827] hover:text-[#FF4500] hover:underline line-clamp-1 truncate" title={r.products?.title}>
+                        <a href={`/product/${r.products?.slug}`} className="font-bold text-ink-800 hover:text-brand hover:underline line-clamp-1 truncate" title={r.products?.title}>
                           {r.products?.title}
                         </a>
                         <div className="text-[11px] text-neutral-500 mt-1 bg-neutral-100 w-fit px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">
@@ -220,7 +220,7 @@ export default async function AdminPage({ searchParams }) {
                             <>
                               <form action={approvePurchase}>
                                 <input type="hidden" name="id" value={r.id} />
-                                <button className="bg-[#00A859] hover:bg-[#008f4c] text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors shadow-sm flex items-center gap-1.5">
+                                <button className="bg-pay hover:bg-[#008f4c] text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors shadow-sm flex items-center gap-1.5">
                                   <Check size={14} strokeWidth={3} />
                                   Aprovar
                                 </button>

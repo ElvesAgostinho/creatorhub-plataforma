@@ -228,13 +228,13 @@ export default async function EditProduct({ params }) {
           
           <div className="sm:col-span-2 flex flex-col gap-3 mt-4">
             <label className="flex items-center gap-3 text-sm font-bold text-neutral-800 bg-neutral-50 p-4 rounded-xl border border-neutral-200 cursor-pointer hover:bg-neutral-100 transition">
-              <input type="checkbox" name="best_seller" defaultChecked={p.best_seller} className="w-5 h-5 accent-[#FF4500]" />
+              <input type="checkbox" name="best_seller" defaultChecked={p.best_seller} className="w-5 h-5 accent-brand" />
               Destacar como Best Seller
             </label>
             
             {profile?.role === "admin" ? (
               <label className="flex items-center gap-3 text-sm font-bold text-neutral-800 bg-neutral-50 p-4 rounded-xl border border-neutral-200 cursor-pointer hover:bg-neutral-100 transition">
-                <input type="checkbox" name="published" defaultChecked={p.published} className="w-5 h-5 accent-[#FF4500]" />
+                <input type="checkbox" name="published" defaultChecked={p.published} className="w-5 h-5 accent-brand" />
                 Tornar Público (Publicado)
               </label>
             ) : (

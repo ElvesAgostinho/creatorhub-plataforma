@@ -71,7 +71,7 @@ export default async function AffiliateDashboard() {
         {/* Card 3 */}
         <div className="bg-white border border-neutral-100 rounded-3xl p-8 relative overflow-hidden group shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
           <p className="text-neutral-500 font-bold text-sm tracking-wide uppercase">Saldo Disponível</p>
-          <h3 className="text-4xl font-black mt-2 text-[#FF4500]">Kz {fmt(Math.round(total_paid/100))}</h3>
+          <h3 className="text-4xl font-black mt-2 text-brand">Kz {fmt(Math.round(total_paid/100))}</h3>
           <p className="text-xs text-neutral-400 mt-3 font-bold bg-neutral-100 w-max px-2.5 py-1 rounded-md">Pronto para saque</p>
         </div>
       </div>
@@ -81,10 +81,10 @@ export default async function AffiliateDashboard() {
         <h2 className="text-xl font-bold text-neutral-900 mb-4">Pronto para fazer mais vendas?</h2>
         <p className="text-neutral-500 mb-6 max-w-xl mx-auto">Pega nos teus links exclusivos ou descobre novos produtos no Mercado de Afiliação para promoveres para a tua audiência.</p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="/affiliate-panel/my-links" className="px-6 py-3 bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold rounded-xl transition-all shadow-md">
+          <a href="/affiliate-panel/my-links" className="px-6 py-3 bg-brand hover:bg-brand-dark text-white font-bold rounded-xl transition-all shadow-md">
             Ver Meus Links
           </a>
-          <a href="/marketplace/affiliates" className="px-6 py-3 bg-white border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-neutral-700 font-bold rounded-xl transition-all">
+          <a href="/marketplace/affiliates" className="px-6 py-3 bg-white border border-neutral-200 hover:border-brand hover:text-brand text-neutral-700 font-bold rounded-xl transition-all">
             Ir para o Mercado
           </a>
         </div>

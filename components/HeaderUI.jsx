@@ -23,12 +23,12 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
           
           <div className="flex items-center gap-6">
             <a href="/marketplace" className="flex items-center gap-1">
-              <span className="text-2xl font-black italic tracking-tighter text-[#FF4500]">ABOVE</span>
+              <span className="text-2xl font-black italic tracking-tighter text-brand">ABOVE</span>
               <span className="text-neutral-500 font-medium ml-2 border-l border-neutral-300 pl-2">Marketplace</span>
             </a>
 
             <div className="hidden md:block relative group">
-              <button className="flex items-center gap-1 text-sm font-semibold hover:text-[#FF4500] transition h-full py-4">
+              <button className="flex items-center gap-1 text-sm font-semibold hover:text-brand transition h-full py-4">
                 Categorias
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
               </button>
@@ -91,14 +91,14 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
           <div className="flex items-center gap-3">
             {user ? (
               <div className="flex items-center gap-4">
-                <a href="/library" className="hidden sm:inline-block border border-[#FF4500] text-[#FF4500] hover:bg-[#FFF0EB] font-bold text-sm px-4 py-1.5 rounded-full transition">
+                <a href="/library" className="hidden sm:inline-block border border-brand text-brand hover:bg-brand-soft font-bold text-sm px-4 py-1.5 rounded-full transition">
                   Meus Cursos
                 </a>
                 <div className="relative group">
                   <button className="flex items-center gap-2 hover:opacity-80 focus:outline-none py-2">
-                    <span className="w-9 h-9 rounded-full bg-[#FF4500] text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden border border-neutral-200">
+                    <span className="w-9 h-9 rounded-full bg-brand text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden border border-neutral-200">
                       {profile?.avatar_url ? (
-                        <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                        <img loading="lazy" decoding="async" src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
                       ) : (
                         initial
                       )}
@@ -125,8 +125,8 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                         </a>
                       )}
                       {profile?.role === "admin" && (
-                        <a href="/admin" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100 text-[#FF4500]">
-                          <Crown className="w-4 h-4 text-[#FF4500]" /> Admin (Plataforma)
+                        <a href="/admin" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100 text-brand">
+                          <Crown className="w-4 h-4 text-brand" /> Admin (Plataforma)
                         </a>
                       )}
                       <form action="/auth/logout" method="post" className="border-t border-neutral-100">
@@ -155,7 +155,7 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                   </div>
                 </div>
               </div>
-                <a href="/signup" className="bg-[#FF4500] hover:bg-[#e03d00] text-white font-bold text-sm px-5 py-2 rounded-full transition">
+                <a href="/signup" className="bg-brand hover:bg-brand-dark text-white font-bold text-sm px-5 py-2 rounded-full transition">
                   Criar um curso
                 </a>
               </>
@@ -178,13 +178,13 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
         
         <div className="flex items-center gap-8 xl:gap-10">
           <a href="/" className="flex items-center gap-2">
-            <span className="text-3xl font-black italic tracking-tighter text-[#FF4500]">ABOVE</span>
+            <span className="text-3xl font-black italic tracking-tighter text-brand">ABOVE</span>
           </a>
 
           <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-neutral-600">
-            <a href="/features" className={`transition relative py-2 ${pathname.startsWith("/features") ? "text-[#FF4500] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[#FF4500] after:rounded-t-md" : "hover:text-[#111]"}`}>Como funciona?</a>
-            <a href="/marketplace" className={`transition relative py-2 ${pathname.startsWith("/marketplace") ? "text-[#FF4500] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[#FF4500] after:rounded-t-md" : "hover:text-[#111]"}`}>Marketplace</a>
-            <a href="/support" className={`transition relative py-2 ${pathname.startsWith("/support") ? "text-[#FF4500] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[#FF4500] after:rounded-t-md" : "hover:text-[#111]"}`}>Ajuda</a>
+            <a href="/features" className={`transition relative py-2 ${pathname.startsWith("/features") ? "text-brand after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-brand after:rounded-t-md" : "hover:text-ink-800"}`}>Como funciona?</a>
+            <a href="/marketplace" className={`transition relative py-2 ${pathname.startsWith("/marketplace") ? "text-brand after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-brand after:rounded-t-md" : "hover:text-ink-800"}`}>Marketplace</a>
+            <a href="/support" className={`transition relative py-2 ${pathname.startsWith("/support") ? "text-brand after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-brand after:rounded-t-md" : "hover:text-ink-800"}`}>Ajuda</a>
           </nav>
         </div>
 
@@ -202,9 +202,9 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                
                <div className="relative group">
                   <button className="flex items-center gap-2 hover:opacity-80 focus:outline-none py-2">
-                    <span className="w-9 h-9 rounded-full bg-[#FF4500] text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden border border-neutral-200">
+                    <span className="w-9 h-9 rounded-full bg-brand text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden border border-neutral-200">
                       {profile?.avatar_url ? (
-                        <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                        <img loading="lazy" decoding="async" src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
                       ) : (
                         initial
                       )}
@@ -233,7 +233,7 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                           </a>
                         )}
                         {profile?.role === "admin" && (
-                          <a href="/admin" className="px-3 py-2.5 text-sm font-medium text-[#FF4500] hover:bg-[#FF4500]/10 rounded-xl transition flex items-center gap-3">
+                          <a href="/admin" className="px-3 py-2.5 text-sm font-medium text-brand hover:bg-brand/10 rounded-xl transition flex items-center gap-3">
                             <Crown className="w-4 h-4" /> Admin Global
                           </a>
                         )}
@@ -264,7 +264,7 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
                   </div>
                 </div>
               </div>
-              <a href="/signup" className="bg-[#FF4500] hover:bg-[#e03d00] text-white font-bold text-sm px-5 py-2 rounded-full transition shadow-sm">
+              <a href="/signup" className="bg-brand hover:bg-brand-dark text-white font-bold text-sm px-5 py-2 rounded-full transition shadow-sm">
                 Aderir grátis
               </a>
             </>

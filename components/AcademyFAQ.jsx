@@ -52,7 +52,7 @@ export default function AcademyFAQ() {
           <div key={index} className="border-b border-neutral-200">
             <button
               onClick={() => toggle(index)}
-              className="w-full text-left py-6 flex justify-between items-center hover:text-[#FF4500] transition"
+              className="w-full text-left py-6 flex justify-between items-center hover:text-brand transition"
             >
               <span className="font-semibold text-lg">{index + 1}. {faq.question}</span>
               <span className="text-2xl font-light text-neutral-400">{isOpen ? "-" : "+"}</span>

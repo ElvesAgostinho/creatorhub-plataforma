@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { getProductBySlug, typeLabels } from "@/lib/data/products"
 import { createPendingPurchase } from "./actions"
+import CoverFallback from "@/components/mockups/CoverFallback"
 
 export const dynamic = "force-dynamic"
 
@@ -30,11 +31,11 @@ export default async function CheckoutPage({ params, searchParams }) {
         <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
           
           {/* Header */}
-          <div className="px-8 py-6 border-b border-neutral-100 flex items-center justify-between bg-[#FAFAFA]">
+          <div className="px-8 py-6 border-b border-neutral-100 flex items-center justify-between bg-surface-50">
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-black italic tracking-tighter text-[#FF4500]">ABOVE</span>
+              <span className="text-2xl font-black italic tracking-tighter text-brand">ABOVE</span>
             </div>
-            <div className="flex items-center gap-2 text-[#00A859] font-bold text-xs uppercase tracking-widest bg-[#00A859]/10 px-3 py-1.5 rounded-full">
+            <div className="flex items-center gap-2 text-pay font-bold text-xs uppercase tracking-widest bg-pay/10 px-3 py-1.5 rounded-full">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
               Ambiente Seguro
             </div>
@@ -48,11 +49,11 @@ export default async function CheckoutPage({ params, searchParams }) {
               
               {/* Product Info */}
               <div className="flex gap-6">
-                <div className="w-24 h-24 bg-neutral-100 rounded-xl overflow-hidden shrink-0 border border-neutral-200">
+                <div className="relative w-24 h-24 bg-neutral-100 rounded-xl overflow-hidden shrink-0 border border-neutral-200">
                   {item.image ? (
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                    <img decoding="async" fetchPriority="high" src={item.image} alt={item.title} className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-neutral-400 font-bold text-xs">Sem capa</div>
+                    <CoverFallback title={item.title} type={item.type} />
                   )}
                 </div>
                 <div>
@@ -76,7 +77,7 @@ export default async function CheckoutPage({ params, searchParams }) {
                       defaultValue={user.email}
                       required
                       placeholder="Insere o e-mail onde vais receber o acesso"
-                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
                     />
                   </div>
                   <div>
@@ -86,7 +87,7 @@ export default async function CheckoutPage({ params, searchParams }) {
                       defaultValue={user.email}
                       required
                       placeholder="Insere novamente o teu e-mail"
-                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
                     />
                   </div>
                   <div>
@@ -96,7 +97,7 @@ export default async function CheckoutPage({ params, searchParams }) {
                       name="full_name"
                       required
                       placeholder="Insere o teu nome completo"
-                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
+                      className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
                     />
                   </div>
                 </div>
@@ -112,7 +113,7 @@ export default async function CheckoutPage({ params, searchParams }) {
                   <select
                     name="payment_method"
                     defaultValue="transfer"
-                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors font-medium"
+                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors font-medium"
                   >
                     <option value="transfer">Transferência Bancária / Multicaixa Express</option>
                     <option value="unitel_money">Unitel Money</option>
@@ -120,10 +121,10 @@ export default async function CheckoutPage({ params, searchParams }) {
                   </select>
                 </div>
 
-                <div className="bg-[#FFF0EB] border border-[#FF4500]/20 rounded-lg p-5 text-sm text-neutral-800">
+                <div className="bg-brand-soft border border-brand/20 rounded-lg p-5 text-sm text-neutral-800">
                   <p className="font-bold mb-2">Dados para pagamento:</p>
                   Faz a transferência para o IBAN:
-                  <div className="mt-2 font-mono bg-white px-4 py-3 rounded border border-[#FF4500]/10 font-bold text-lg text-center tracking-wider shadow-sm">
+                  <div className="mt-2 font-mono bg-white px-4 py-3 rounded border border-brand/10 font-bold text-lg text-center tracking-wider shadow-sm">
                     {settings?.platform_iban || "Não configurado"}
                   </div>
                   <div className="text-center mt-2 text-neutral-600 font-medium">{settings?.platform_beneficiary}</div>
@@ -136,7 +137,7 @@ export default async function CheckoutPage({ params, searchParams }) {
                     name="payment_ref"
                     required
                     placeholder="Ex: TRX-2026 ou últimos 6 dígitos"
-                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-colors"
+                    className="w-full px-4 py-3 bg-white border border-neutral-300 rounded-lg focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
                   />
                 </div>
               </div>
@@ -148,7 +149,7 @@ export default async function CheckoutPage({ params, searchParams }) {
               <div className="text-2xl font-black text-neutral-900">{fmt(item.price)} Kz</div>
               <button
                 type="submit"
-                className="bg-[#00A859] hover:bg-[#009650] text-white font-bold text-lg px-12 py-4 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,168,89,0.39)] hover:shadow-[0_6px_20px_rgba(0,168,89,0.23)] hover:-translate-y-0.5"
+                className="bg-pay hover:bg-pay-dark text-white font-bold text-lg px-12 py-4 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(0,168,89,0.39)] hover:shadow-[0_6px_20px_rgba(0,168,89,0.23)] hover:-translate-y-0.5"
               >
                 Comprar agora
               </button>

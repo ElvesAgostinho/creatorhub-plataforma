@@ -151,7 +151,7 @@ export default async function ProductPage({ params, searchParams }) {
 
             {/* Best seller badge */}
             {item.bestSeller && (
-              <div className="flex items-center gap-1.5 font-semibold text-[#FF4500]">
+              <div className="flex items-center gap-1.5 font-semibold text-brand">
                 <ThumbsUp className="w-4 h-4" /> Destaque
               </div>
             )}
@@ -199,7 +199,7 @@ export default async function ProductPage({ params, searchParams }) {
                 </a>
               )}
               {!embedUrl && item.image && (
-                <img src={item.image} alt="cover" className="w-full h-full object-cover opacity-50" />
+                <img decoding="async" fetchPriority="high" src={item.image} alt="cover" className="w-full h-full object-cover opacity-50" />
               )}
             </div>
           )}
@@ -209,7 +209,7 @@ export default async function ProductPage({ params, searchParams }) {
             {/* Product Thumbnail */}
             {item.image && (
               <div className="w-32 h-32 sm:w-40 sm:h-40 shrink-0 rounded-xl overflow-hidden border border-neutral-200 shadow-sm bg-neutral-100">
-                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                <img loading="lazy" decoding="async" src={item.image} alt={item.title} className="w-full h-full object-cover" />
               </div>
             )}
             {/* Description */}
@@ -235,7 +235,7 @@ export default async function ProductPage({ params, searchParams }) {
             <div className="flex gap-5 items-start">
               <div className="w-16 h-16 rounded-full bg-neutral-200 overflow-hidden shrink-0 flex items-center justify-center text-2xl font-bold text-neutral-500 border-2 border-neutral-100">
                 {item.avatar || creatorProfile?.avatar_url ? (
-                  <img src={item.avatar || creatorProfile?.avatar_url} alt={item.instructor} className="w-full h-full object-cover" />
+                  <img loading="lazy" decoding="async" src={item.avatar || creatorProfile?.avatar_url} alt={item.instructor} className="w-full h-full object-cover" />
                 ) : (
                   (item.instructor || creatorProfile?.full_name)?.charAt(0) || "U"
                 )}
@@ -339,9 +339,9 @@ export default async function ProductPage({ params, searchParams }) {
                 {otherProducts.map(p => (
                   <a href={`/product/${p.slug}`} key={p.id} className="group">
                     <div className="aspect-square bg-neutral-100 rounded-lg overflow-hidden border border-neutral-200 mb-2">
-                      {p.image_url && <img src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
+                      {p.image_url && <img loading="lazy" decoding="async" src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
                     </div>
-                    <p className="text-xs font-bold text-neutral-900 line-clamp-2 leading-snug group-hover:text-[#FF4500] transition-colors">{p.title}</p>
+                    <p className="text-xs font-bold text-neutral-900 line-clamp-2 leading-snug group-hover:text-brand transition-colors">{p.title}</p>
                     <p className="text-xs text-neutral-400 mt-0.5">{creatorProfile?.full_name || item.instructor}</p>
                   </a>
                 ))}
@@ -384,7 +384,7 @@ export default async function ProductPage({ params, searchParams }) {
                 {/* CTA Button */}
                 <a
                   href={`/checkout/${item.slug}${searchParams?.ref ? `?ref=${searchParams.ref}` : ''}`}
-                  className="block w-full text-center bg-[#FF4500] hover:bg-[#E03E00] transition-colors text-white font-bold py-4 rounded-xl shadow-md hover:-translate-y-0.5 transition-transform"
+                  className="block w-full text-center bg-brand hover:bg-brand-dark transition-colors text-white font-bold py-4 rounded-xl shadow-md hover:-translate-y-0.5 transition-transform"
                 >
                   Ir para o carrinho
                 </a>
@@ -399,12 +399,12 @@ export default async function ProductPage({ params, searchParams }) {
                       <span className="text-neutral-500">Novo Produto</span>
                     )}
                     {item.bestSeller && (
-                      <span className="ml-auto text-[#FF4500] flex items-center gap-1 text-xs font-bold"><ThumbsUp className="w-3.5 h-3.5" /> Destaque</span>
+                      <span className="ml-auto text-brand flex items-center gap-1 text-xs font-bold"><ThumbsUp className="w-3.5 h-3.5" /> Destaque</span>
                     )}
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#00A859] shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-pay shrink-0" />
                     <span>Garantia de 7 dias</span>
                   </div>
 

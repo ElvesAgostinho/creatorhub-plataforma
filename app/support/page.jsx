@@ -1,3 +1,4 @@
+import SupportComposition from "@/components/mockups/SupportComposition"
 export const dynamic = "force-dynamic"
 
 export const metadata = {
@@ -14,7 +15,7 @@ export default function SupportPage() {
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
           <div className="w-full lg:w-1/2 z-10 text-left">
-            <div className="inline-block border border-neutral-200 rounded-full px-4 py-2 text-sm font-bold mb-8 text-[#FF4500] bg-neutral-50 shadow-sm">
+            <div className="inline-block border border-neutral-200 rounded-full px-4 py-2 text-sm font-bold mb-8 text-brand bg-neutral-50 shadow-sm">
               Centro de Apoio
             </div>
             
@@ -27,7 +28,7 @@ export default function SupportPage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="mailto:suporte@abovedinheironanet.com" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-8 py-4 rounded-xl text-lg transition text-center shadow-lg shadow-[#FF4500]/20 flex items-center justify-center gap-2">
+              <a href="mailto:suporte@abovedinheironanet.com" className="bg-brand hover:bg-brand-dark text-white font-bold px-8 py-4 rounded-xl text-lg transition text-center shadow-brand flex items-center justify-center gap-2">
                 Falar com o Suporte
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
               </a>
@@ -38,12 +39,8 @@ export default function SupportPage() {
             </div>
           </div>
 
-          <div className="w-full lg:w-1/2 lg:absolute lg:top-0 lg:right-0 lg:h-full lg:w-[45vw] mt-8 lg:mt-0 z-0">
-            <img 
-              src="/hero_support_black.png" 
-              alt="Especialista de Suporte ABOVE" 
-              className="w-full h-full object-cover lg:rounded-none lg:rounded-bl-[4rem] rounded-3xl shadow-2xl"
-            />
+          <div className="w-full lg:w-1/2 mt-12 lg:mt-0">
+            <SupportComposition />
           </div>
         </div>
       </section>
@@ -58,21 +55,21 @@ export default function SupportPage() {
           
           <div className="space-y-6">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-200">
-              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-[#FF4500]">✦</span> Sou formando, como acedo ao meu curso?</h3>
+              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-brand">✦</span> Sou formando, como acedo ao meu curso?</h3>
               <p className="text-neutral-600 leading-relaxed">
                 Assim que a tua compra (em Kwanza ou Euros) é aprovada, recebes um email com os teus dados de acesso. Se já tens conta, basta clicares em "Entrar" no topo da página e acederes à aba "Minhas Compras".
               </p>
             </div>
             
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-200">
-              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-[#FF4500]">✦</span> Sou criador, quando recebo o dinheiro das vendas?</h3>
+              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-brand">✦</span> Sou criador, quando recebo o dinheiro das vendas?</h3>
               <p className="text-neutral-600 leading-relaxed">
                 As transferências são realizadas de forma automática de acordo com o plano contratado. A nossa integração facilita levantamentos para bancos em Angola (Kwanza) e transferências internacionais.
               </p>
             </div>
             
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-200">
-              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-[#FF4500]">✦</span> Como funciona o programa de afiliados?</h3>
+              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-brand">✦</span> Como funciona o programa de afiliados?</h3>
               <p className="text-neutral-600 leading-relaxed">
                 Basta criares uma conta gratuita, ires ao Marketplace e obteres o teu link exclusivo de promotor. O split do pagamento é feito automaticamente aquando da compra do cliente.
               </p>

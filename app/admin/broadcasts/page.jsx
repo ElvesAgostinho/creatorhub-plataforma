@@ -16,7 +16,7 @@ export default async function AdminBroadcasts() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-3xl font-extrabold text-[#111]">Admin — Avisos Globais</h1>
+        <h1 className="text-3xl font-extrabold text-ink-800">Admin — Avisos Globais</h1>
       </div>
 
       <div className="mt-8 max-w-2xl border border-neutral-200 rounded-2xl p-6 bg-white shadow-sm">
@@ -51,7 +51,7 @@ export default async function AdminBroadcasts() {
               name="subject" 
               required
               placeholder="Ex: Novo Curso Grátis Disponível!" 
-              className="mt-2 w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#FF4500]/10 focus:border-[#FF4500] transition-all shadow-sm" 
+              className="mt-2 w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand/10 focus:border-brand transition-all shadow-sm" 
             />
           </div>
 
@@ -61,12 +61,12 @@ export default async function AdminBroadcasts() {
               name="content" 
               required
               rows={5} 
-              className="mt-2 w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#FF4500]/10 focus:border-[#FF4500] transition-all shadow-sm" 
+              className="mt-2 w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand/10 focus:border-brand transition-all shadow-sm" 
               placeholder="Olá! Temos o prazer de anunciar..."
             />
           </div>
 
-          <button type="submit" className="w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-3.5 rounded-xl text-sm uppercase tracking-wider transition-colors shadow-sm shadow-[#FF4500]/20 mt-4">
+          <button type="submit" className="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3.5 rounded-xl text-sm uppercase tracking-wider transition-colors shadow-brand mt-4">
             📢 Enviar para todos
           </button>
         </form>

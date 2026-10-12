@@ -66,13 +66,13 @@ export default function IntegrationsClient({ existingIntegrations }) {
                   value={urlInput}
                   onChange={e => setUrlInput(e.target.value)}
                   placeholder="https://..."
-                  className="w-full bg-white border border-neutral-300 rounded-lg px-3 py-2 text-sm mb-3 focus:outline-none focus:border-[#FF4500]"
+                  className="w-full bg-white border border-neutral-300 rounded-lg px-3 py-2 text-sm mb-3 focus:outline-none focus:border-brand"
                 />
                 <div className="flex items-center gap-2">
                   <button 
                     onClick={() => handleSave(int.id)}
                     disabled={loading}
-                    className="bg-[#FF4500] text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-[#e03d00]"
+                    className="bg-brand text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-brand-dark"
                   >
                     Guardar
                   </button>
@@ -105,7 +105,7 @@ export default function IntegrationsClient({ existingIntegrations }) {
                   )}
                   <button 
                     onClick={() => handleEdit(int.id)}
-                    className="text-sm font-bold text-[#FF4500] hover:underline"
+                    className="text-sm font-bold text-brand hover:underline"
                   >
                     Configurar
                   </button>

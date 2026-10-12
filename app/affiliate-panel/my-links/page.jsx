@@ -3,6 +3,7 @@ import { createClient, createServiceClient } from "@/lib/supabase/server"
 import PanelSearch from "@/components/PanelSearch"
 import { Suspense } from "react"
 import { typeLabels } from "@/lib/data/products"
+import CoverFallback from "@/components/mockups/CoverFallback"
 
 export const dynamic = "force-dynamic"
 
@@ -67,7 +68,7 @@ export default async function MyLinksPage({ searchParams }) {
             const comm = Math.round((p.price_cents * commissionPct) / 10000)
             
             return (
-              <a href={`/affiliate-panel/product/${p.slug}`} key={p.id} className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-[#FF4500]/30 transition-all duration-500 flex flex-col text-neutral-900">
+              <a href={`/affiliate-panel/product/${p.slug}`} key={p.id} className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-brand/30 transition-all duration-500 flex flex-col text-neutral-900">
                 <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
                   {p.image_url ? (
                     <img
@@ -76,9 +77,7 @@ export default async function MyLinksPage({ searchParams }) {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
                   ) : (
-                    <div className="absolute inset-0 flex items-center justify-center text-neutral-400 text-xs font-bold">
-                      Sem capa
-                    </div>
+                    <CoverFallback title={p.title} type={p.type} />
                   )}
                   
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500" />
@@ -106,7 +105,7 @@ export default async function MyLinksPage({ searchParams }) {
                     </div>
                   </div>
 
-                  <div className="mt-2 text-center text-sm font-bold text-[#FF4500] group-hover:bg-[#FF4500] group-hover:text-white border border-[#FF4500]/20 py-2.5 rounded-xl transition-colors">
+                  <div className="mt-2 text-center text-sm font-bold text-brand group-hover:bg-brand group-hover:text-white border border-brand/20 py-2.5 rounded-xl transition-colors">
                     Ver e Copiar Link
                   </div>
                 </div>

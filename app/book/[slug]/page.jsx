@@ -33,7 +33,7 @@ export default async function BookPage({ params }) {
             {existing.mentorship_slots?.starts_at && new Date(existing.mentorship_slots.starts_at).toLocaleString("pt-PT")} · {existing.mentorship_slots?.duration_minutes} min
           </div>
           {existing.meeting_url && (
-            <a href={existing.meeting_url} target="_blank" className="inline-block mt-3 bg-[#0E7C86] hover:bg-[#0a626a] text-white font-bold px-5 py-2 rounded-md text-sm">
+            <a href={existing.meeting_url} target="_blank" className="inline-block mt-3 bg-teal hover:bg-teal-dark text-white font-bold px-5 py-2 rounded-md text-sm">
               Entrar na sala
             </a>
           )}
@@ -53,7 +53,7 @@ export default async function BookPage({ params }) {
                   <input type="hidden" name="slot_id" value={s.id} />
                   <div className="font-medium">{new Date(s.starts_at).toLocaleString("pt-PT", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}</div>
                   <div className="text-xs text-neutral-500">{s.duration_minutes} minutos</div>
-                  <button className="mt-2 bg-[#0E7C86] hover:bg-[#0a626a] text-white font-bold px-4 py-2 rounded-md text-sm">
+                  <button className="mt-2 bg-teal hover:bg-teal-dark text-white font-bold px-4 py-2 rounded-md text-sm">
                     Reservar
                   </button>
                 </form>

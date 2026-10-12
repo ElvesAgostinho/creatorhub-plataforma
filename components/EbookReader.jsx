@@ -180,7 +180,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
       onContextMenu={(e) => e.preventDefault()}
     >
       {/* Top bar */}
-      <header className={`h-14 flex items-center justify-between px-4 md:px-6 shrink-0 border-b z-20 transition-colors ${nightMode ? "bg-[#1a1a1a] border-white/10" : "bg-white border-neutral-200"}`}>
+      <header className={`h-14 flex items-center justify-between px-4 md:px-6 shrink-0 border-b z-20 transition-colors ${nightMode ? "bg-ink-700 border-white/10" : "bg-white border-neutral-200"}`}>
         {/* Left */}
         <div className="flex items-center gap-3">
           <Link
@@ -190,7 +190,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
             <ArrowLeft size={18} />
           </Link>
           <div className="flex items-center gap-2.5">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${nightMode ? "bg-[#FF4500]/20 text-[#FF4500]" : "bg-[#FFF0EB] text-[#FF4500]"}`}>
+            <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${nightMode ? "bg-brand/20 text-brand" : "bg-brand-soft text-brand"}`}>
               <BookOpen size={16} />
             </div>
             <div className="hidden sm:block">
@@ -283,7 +283,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
       {/* Reading progress bar */}
       <div className="h-1 shrink-0 bg-neutral-200/50 relative">
         <div
-          className="h-full bg-[#FF4500] transition-all duration-500"
+          className="h-full bg-brand transition-all duration-500"
           style={{ width: `${readProgress}%` }}
         />
       </div>
@@ -296,7 +296,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
         <div className="min-w-max min-h-full flex items-center justify-center py-6 px-4">
           {isLoading && (
             <div className="flex flex-col items-center justify-center gap-4 text-neutral-400">
-              <Loader2 size={36} className="animate-spin text-[#FF4500]" />
+              <Loader2 size={36} className="animate-spin text-brand" />
               <p className="text-sm font-medium">A carregar o livro...</p>
             </div>
           )}
@@ -312,7 +312,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
               </div>
               <button
                 onClick={loadDocument}
-                className="bg-[#FF4500] hover:bg-[#e03e00] text-white font-bold px-6 py-2.5 rounded-lg transition"
+                className="bg-brand hover:bg-[#e03e00] text-white font-bold px-6 py-2.5 rounded-lg transition"
               >
                 Tentar novamente
               </button>
@@ -332,25 +332,25 @@ export default function EbookReaderClient({ product, pdfUrl }) {
 
       {/* Bottom navigation bar */}
       {!isLoading && !error && totalPages > 1 && (
-        <div className={`h-14 shrink-0 flex items-center justify-between px-6 border-t transition-colors ${nightMode ? "bg-[#1a1a1a] border-white/10" : "bg-white border-neutral-200"}`}>
+        <div className={`h-14 shrink-0 flex items-center justify-between px-6 border-t transition-colors ${nightMode ? "bg-ink-700 border-white/10" : "bg-white border-neutral-200"}`}>
           <button
             onClick={() => goToPage(pageNum - 1)}
             disabled={pageNum <= 1}
-            className="flex items-center gap-2 text-sm font-bold text-neutral-500 hover:text-[#FF4500] disabled:opacity-30 transition"
+            className="flex items-center gap-2 text-sm font-bold text-neutral-500 hover:text-brand disabled:opacity-30 transition"
           >
             <ChevronLeft size={18} />
             <span className="hidden sm:inline">Página anterior</span>
           </button>
 
           <div className={`flex items-center gap-3 text-xs ${nightMode ? "text-white/40" : "text-neutral-400"}`}>
-            <span className="font-bold text-[#FF4500]">{readProgress}%</span>
+            <span className="font-bold text-brand">{readProgress}%</span>
             <span>lido</span>
           </div>
 
           <button
             onClick={() => goToPage(pageNum + 1)}
             disabled={pageNum >= totalPages}
-            className="flex items-center gap-2 text-sm font-bold text-neutral-500 hover:text-[#FF4500] disabled:opacity-30 transition"
+            className="flex items-center gap-2 text-sm font-bold text-neutral-500 hover:text-brand disabled:opacity-30 transition"
           >
             <span className="hidden sm:inline">Próxima página</span>
             <ChevronRight size={18} />

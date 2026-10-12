@@ -49,9 +49,9 @@ export default async function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
       {/* INTRODUCTION / HERO */}
-      <div className="bg-[#111] text-white rounded-3xl p-8 sm:p-12 mb-10 shadow-xl flex flex-col md:flex-row items-center justify-between">
+      <div className="bg-ink-800 text-white rounded-3xl p-8 sm:p-12 mb-10 shadow-xl flex flex-col md:flex-row items-center justify-between">
         <div className="flex items-center gap-6">
-          <div className="w-16 h-16 rounded-full bg-[#FF4500] text-white flex items-center justify-center text-3xl font-extrabold shadow-lg border-4 border-[#111]">
+          <div className="w-16 h-16 rounded-full bg-brand text-white flex items-center justify-center text-3xl font-extrabold shadow-lg border-4 border-[#111]">
             {(user.email || "?").slice(0, 1).toUpperCase()}
           </div>
           <div>
@@ -78,16 +78,16 @@ export default async function Dashboard() {
             {myPurchases.slice(0, 3).map(p => (
               <div key={p.id} className="border border-neutral-200 rounded-2xl p-4 bg-white flex items-center gap-4 hover:shadow-md transition group">
                 <div className="w-16 h-16 rounded-xl bg-neutral-100 flex-shrink-0 overflow-hidden border border-neutral-100">
-                  {p.product?.image_url && <img src={p.product.image_url} className="w-full h-full object-cover" alt="Cover" />}
+                  {p.product?.image_url && <img loading="lazy" decoding="async" src={p.product.image_url} className="w-full h-full object-cover" alt="Cover" />}
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-bold text-sm line-clamp-1 group-hover:text-[#FF4500] transition-colors">{p.product?.title || 'Curso'}</h4>
+                  <h4 className="font-bold text-sm line-clamp-1 group-hover:text-brand transition-colors">{p.product?.title || 'Curso'}</h4>
                   <div className="w-full bg-neutral-100 h-2 rounded-full mt-2 overflow-hidden">
-                    <div className="bg-[#FF4500] h-full" style={{ width: '0%' }}></div>
+                    <div className="bg-brand h-full" style={{ width: '0%' }}></div>
                   </div>
                   <div className="text-[10px] font-bold text-neutral-400 mt-1">0% CONCLUÍDO</div>
                 </div>
-                <a href={p.product?.type === 'course' ? `/learn/${p.product?.slug}` : `/library`} className="w-10 h-10 rounded-full bg-[#FF4500]/10 flex items-center justify-center text-[#FF4500] hover:bg-[#FF4500] hover:text-white transition">
+                <a href={p.product?.type === 'course' ? `/learn/${p.product?.slug}` : `/library`} className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand hover:bg-brand hover:text-white transition">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </a>
               </div>
@@ -102,7 +102,7 @@ export default async function Dashboard() {
             href={c.href}
             className="border border-neutral-200 rounded-2xl p-6 hover:shadow-lg transition bg-white group"
           >
-            <div className="font-bold text-lg group-hover:text-[#FF4500] transition-colors">{c.title}</div>
+            <div className="font-bold text-lg group-hover:text-brand transition-colors">{c.title}</div>
             <p className="text-sm text-neutral-600 mt-2">{c.desc}</p>
           </a>
         ))}

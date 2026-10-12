@@ -10,7 +10,7 @@ export function PremiumInput({ label, name, type = "text", helper, ...props }) {
         id={name}
         name={name}
         type={type}
-        className="w-full bg-[#F8F7F5] border border-neutral-300 rounded-xl px-4 py-3.5 text-neutral-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#FF4500] focus:ring-4 focus:ring-[#FF4500]/10 hover:border-neutral-400 font-medium"
+        className="w-full bg-surface-100 border border-neutral-300 rounded-xl px-4 py-3.5 text-neutral-900 outline-none transition-all duration-300 focus:bg-white focus:border-brand focus:ring-4 focus:ring-brand/10 hover:border-neutral-400 font-medium"
         {...props}
       />
       {helper && <p className="text-xs text-neutral-500 font-medium ml-1">{helper}</p>}
@@ -26,7 +26,7 @@ export function PremiumTextarea({ label, name, helper, rows = 4, ...props }) {
         id={name}
         name={name}
         rows={rows}
-        className="w-full bg-[#F8F7F5] border border-neutral-300 rounded-xl px-4 py-3.5 text-neutral-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#FF4500] focus:ring-4 focus:ring-[#FF4500]/10 hover:border-neutral-400 font-medium resize-y"
+        className="w-full bg-surface-100 border border-neutral-300 rounded-xl px-4 py-3.5 text-neutral-900 outline-none transition-all duration-300 focus:bg-white focus:border-brand focus:ring-4 focus:ring-brand/10 hover:border-neutral-400 font-medium resize-y"
         {...props}
       />
       {helper && <p className="text-xs text-neutral-500 font-medium ml-1">{helper}</p>}
@@ -42,7 +42,7 @@ export function PremiumSelect({ label, name, options = [], helper, ...props }) {
         <select
           id={name}
           name={name}
-          className="w-full appearance-none bg-[#F8F7F5] border border-neutral-300 rounded-xl pl-4 pr-10 py-3.5 text-neutral-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#FF4500] focus:ring-4 focus:ring-[#FF4500]/10 hover:border-neutral-400 font-medium cursor-pointer"
+          className="w-full appearance-none bg-surface-100 border border-neutral-300 rounded-xl pl-4 pr-10 py-3.5 text-neutral-900 outline-none transition-all duration-300 focus:bg-white focus:border-brand focus:ring-4 focus:ring-brand/10 hover:border-neutral-400 font-medium cursor-pointer"
           {...props}
         >
           {options.map((opt) => (
@@ -62,8 +62,8 @@ export function PremiumButton({ children, loading, variant = "primary", classNam
   const baseStyle = "relative flex items-center justify-center gap-2 font-bold px-8 py-4 rounded-xl transition-all duration-300 overflow-hidden group w-full sm:w-auto"
   
   const variants = {
-    primary: "bg-[#111] text-white hover:bg-black shadow-[0_4px_14px_0_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.23)] hover:-translate-y-0.5",
-    orange: "bg-[#FF4500] text-white hover:bg-[#E03E00] shadow-[0_4px_14px_0_rgba(255,69,0,0.2)] hover:shadow-[0_6px_20px_rgba(255,69,0,0.3)] hover:-translate-y-0.5",
+    primary: "bg-ink-800 text-white hover:bg-black shadow-[0_4px_14px_0_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.23)] hover:-translate-y-0.5",
+    orange: "bg-brand text-white hover:bg-brand-dark shadow-[0_4px_14px_0_rgba(255,69,0,0.2)] hover:shadow-[0_6px_20px_rgba(255,69,0,0.3)] hover:-translate-y-0.5",
     secondary: "bg-white text-neutral-800 border border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400"
   }
 

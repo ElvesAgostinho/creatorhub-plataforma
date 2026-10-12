@@ -26,11 +26,11 @@ export default async function IntegrationsPage() {
     .eq("creator_id", user.id)
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F7F5]">
+    <div className="min-h-screen flex flex-col bg-surface-100">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-10">
         
         <div className="flex items-center justify-between flex-wrap gap-3 mb-8">
-          <h1 className="text-3xl font-extrabold text-[#111]">Admin — Integrações</h1>
+          <h1 className="text-3xl font-extrabold text-ink-800">Admin — Integrações</h1>
 
         </div>
 

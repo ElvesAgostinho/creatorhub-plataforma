@@ -48,7 +48,7 @@ export default function AffiliateLinksPanel({ links, commission, affiliateId }) 
           <div className="flex items-center justify-between mb-2">
             <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">{link.label}</label>
             {idx === 0 && (
-              <span className="text-[10px] bg-[#FF4500]/10 text-[#FF4500] font-bold px-2 py-0.5 rounded-full uppercase">Principal</span>
+              <span className="text-[10px] bg-brand/10 text-brand font-bold px-2 py-0.5 rounded-full uppercase">Principal</span>
             )}
           </div>
           <div className="flex gap-1.5">
@@ -57,7 +57,7 @@ export default function AffiliateLinksPanel({ links, commission, affiliateId }) 
               readOnly
               value={link.url}
               onFocus={e => e.target.select()}
-              className="flex-1 min-w-0 bg-neutral-50 border border-neutral-200 rounded-lg py-2.5 px-3 text-xs font-mono text-neutral-600 focus:outline-none focus:ring-1 focus:ring-[#FF4500] truncate cursor-pointer"
+              className="flex-1 min-w-0 bg-neutral-50 border border-neutral-200 rounded-lg py-2.5 px-3 text-xs font-mono text-neutral-600 focus:outline-none focus:ring-1 focus:ring-brand truncate cursor-pointer"
             />
             <a
               href={link.url}
@@ -80,7 +80,7 @@ export default function AffiliateLinksPanel({ links, commission, affiliateId }) 
               className={`w-9 h-9 flex items-center justify-center rounded-lg transition-all duration-200 shrink-0 ${
                 copiedIdx === idx
                   ? "bg-green-500 text-white scale-95"
-                  : "bg-[#FF4500] hover:bg-[#E03E00] text-white hover:scale-105"
+                  : "bg-brand hover:bg-brand-dark text-white hover:scale-105"
               }`}
               title="Copiar link"
             >

@@ -25,7 +25,7 @@ export default async function AffiliatesLanding() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F7F5] text-neutral-900 font-sans">
+    <div className="min-h-screen bg-surface-100 text-neutral-900 font-sans">
       
       <main className="flex-1 flex flex-col items-center justify-center p-4 mt-8">
         <div className="max-w-2xl w-full bg-white border border-neutral-200 rounded-3xl p-8 sm:p-12 shadow-sm text-center">
@@ -40,7 +40,7 @@ export default async function AffiliatesLanding() {
             <div className="bg-neutral-100 p-8 rounded-2xl">
               <h2 className="text-xl font-bold mb-2">Cria conta ou faz login para começar</h2>
               <p className="text-sm text-neutral-500 mb-6">Precisas de uma conta na plataforma para te tornares afiliado.</p>
-              <a href="/login?next=/affiliates" className="bg-[#FF4500] hover:bg-[#e03d00] text-white font-bold py-3 px-8 rounded-xl transition inline-block">
+              <a href="/login?next=/affiliates" className="bg-brand hover:bg-brand-dark text-white font-bold py-3 px-8 rounded-xl transition inline-block">
                 Criar Conta Grátis
               </a>
             </div>
@@ -64,10 +64,10 @@ export default async function AffiliatesLanding() {
                   rows={4} 
                   required
                   placeholder="Conta-nos um pouco sobre a tua audiência, como planeias divulgar os produtos e quais as tuas estratégias..."
-                  className="w-full border border-neutral-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#FF4500] outline-none transition"
+                  className="w-full border border-neutral-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-brand outline-none transition"
                 ></textarea>
               </div>
-              <button type="submit" className="w-full bg-[#FF4500] hover:bg-[#e03d00] text-white font-bold py-3 px-8 rounded-xl transition">
+              <button type="submit" className="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 px-8 rounded-xl transition">
                 Enviar Candidatura
               </button>
             </form>

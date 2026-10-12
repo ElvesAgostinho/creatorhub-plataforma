@@ -2,6 +2,7 @@
 
 import { useCart } from "./CartContext"
 import { ShoppingCart, X, Trash2, ArrowRight } from "lucide-react"
+import CoverFallback from "@/components/mockups/CoverFallback"
 
 export default function CartDrawer() {
   const { cart, isCartOpen, setIsCartOpen, removeFromCart, isMounted } = useCart()
@@ -32,15 +33,15 @@ export default function CartDrawer() {
 
       {/* Drawer */}
       <div 
-        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-[#0A0A0A] border-l border-neutral-800 shadow-2xl z-[101] transform transition-transform duration-300 ease-in-out flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-ink-900 border-l border-neutral-800 shadow-2xl z-[101] transform transition-transform duration-300 ease-in-out flex flex-col ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="p-6 border-b border-neutral-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <ShoppingCart className="w-5 h-5 text-[#FF4500]" />
+            <ShoppingCart className="w-5 h-5 text-brand" />
             <h2 className="text-lg font-bold text-white">O teu Carrinho</h2>
-            <span className="bg-[#FF4500]/20 text-[#FF4500] text-xs font-bold px-2 py-0.5 rounded-full">
+            <span className="bg-brand/20 text-brand text-xs font-bold px-2 py-0.5 rounded-full">
               {cart.length}
             </span>
           </div>
@@ -75,9 +76,9 @@ export default function CartDrawer() {
                 <div key={item.id} className="flex gap-4 p-3 bg-neutral-900/50 border border-neutral-800 rounded-xl">
                   <div className="w-20 h-14 bg-neutral-800 rounded-lg overflow-hidden relative shrink-0">
                     {item.image ? (
-                      <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                      <img loading="lazy" decoding="async" src={item.image} alt={item.title} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-[10px] text-neutral-500">Sem capa</div>
+                      <CoverFallback title={item.title} type={item.type} />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -100,14 +101,14 @@ export default function CartDrawer() {
         </div>
 
         {cart.length > 0 && (
-          <div className="p-6 border-t border-neutral-800 bg-[#0A0A0A]">
+          <div className="p-6 border-t border-neutral-800 bg-ink-900">
             <div className="flex items-center justify-between mb-4">
               <span className="text-neutral-400 text-sm font-medium">Subtotal</span>
               <span className="text-white text-xl font-bold">{fmt(total)} Kz</span>
             </div>
             <button 
               onClick={handleCheckout}
-              className="w-full py-3.5 bg-gradient-to-r from-[#FF4500] to-orange-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(255,69,0,0.3)] transition-all hover:scale-[1.02]"
+              className="w-full py-3.5 bg-gradient-to-r from-brand to-orange-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(255,69,0,0.3)] transition-all hover:scale-[1.02]"
             >
               Finalizar compras <ArrowRight className="w-4 h-4" />
             </button>

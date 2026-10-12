@@ -22,7 +22,7 @@ export default async function AdminLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F7F5] flex font-sans text-neutral-900">
+    <div className="min-h-screen bg-surface-100 flex font-sans text-neutral-900">
       {/* Barra Lateral Fixa (Desktop) */}
       <AdminSidebar role={profile.role} />
       
@@ -30,7 +30,7 @@ export default async function AdminLayout({ children }) {
       <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
         {/* Mobile Header simples */}
         <header className="md:hidden h-14 bg-white border-b border-neutral-200 flex items-center justify-between px-4 shrink-0">
-          <span className="font-black text-[#FF4500]">ABOVE Admin</span>
+          <span className="font-black text-brand">ABOVE Admin</span>
           <a href="/admin" className="text-xs font-bold text-neutral-500">Menu</a>
         </header>
         

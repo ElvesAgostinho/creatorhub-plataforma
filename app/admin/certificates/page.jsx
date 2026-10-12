@@ -42,7 +42,7 @@ export default async function AdminCertificates() {
 
           <div>
             <label className="block text-sm font-semibold mb-2">Selecione o Curso</label>
-            <select name="course_title" required className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm rounded-xl focus:ring-[#FF4500] focus:border-[#FF4500] block p-3 outline-none transition">
+            <select name="course_title" required className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-sm rounded-xl focus:ring-brand focus:border-brand block p-3 outline-none transition">
               <option value="">-- Escolhe um curso --</option>
               {products?.map(p => (
                 <option key={p.id} value={p.title}>{p.title}</option>

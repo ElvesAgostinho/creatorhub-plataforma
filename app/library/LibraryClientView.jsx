@@ -40,7 +40,7 @@ export default function LibraryClientView({ items, progressMap }) {
                 onClick={() => setActiveTab(tab.id)}
                 className={`whitespace-nowrap px-4 py-3 text-sm font-bold border-b-2 transition-colors ${
                   activeTab === tab.id 
-                    ? "border-[#FF4500] text-[#FF4500]" 
+                    ? "border-brand text-brand" 
                     : "border-transparent text-neutral-500 hover:text-neutral-900"
                 }`}
               >
@@ -57,7 +57,7 @@ export default function LibraryClientView({ items, progressMap }) {
               placeholder="Pesquisar nas tuas compras..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-neutral-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] transition-shadow shadow-sm"
+              className="w-full bg-white border border-neutral-200 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-shadow shadow-sm"
             />
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function LibraryClientView({ items, progressMap }) {
           {searchQuery && (
             <button 
               onClick={() => setSearchQuery("")}
-              className="text-[#FF4500] font-bold hover:underline"
+              className="text-brand font-bold hover:underline"
             >
               Limpar pesquisa
             </button>
@@ -96,11 +96,11 @@ export default function LibraryClientView({ items, progressMap }) {
                 key={it.purchaseId}
                 href={href}
                 target={target}
-                className="group flex flex-col bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:shadow-md hover:border-[#FF4500]/40 transition-all duration-300"
+                className="group flex flex-col bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:shadow-md hover:border-brand/40 transition-all duration-300"
               >
                 {/* THUMBNAIL */}
                 <div className="relative aspect-video overflow-hidden bg-neutral-100">
-                  <img 
+                  <img loading="lazy" decoding="async" 
                     src={it.product.image} 
                     alt={it.product.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
@@ -119,7 +119,7 @@ export default function LibraryClientView({ items, progressMap }) {
 
                 {/* DETAILS */}
                 <div className="p-4 flex flex-col flex-1">
-                  <h3 className="font-bold text-neutral-900 text-[15px] leading-tight line-clamp-2 mb-1 group-hover:text-[#FF4500] transition-colors">
+                  <h3 className="font-bold text-neutral-900 text-[15px] leading-tight line-clamp-2 mb-1 group-hover:text-brand transition-colors">
                     {it.product.title}
                   </h3>
                   <p className="text-xs font-medium text-neutral-500 mb-4 line-clamp-1">

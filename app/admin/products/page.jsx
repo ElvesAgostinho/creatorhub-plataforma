@@ -41,17 +41,17 @@ export default async function AdminProducts({ searchParams }) {
   });
 
   return (
-    <div className="bg-[#F4F5F7] min-h-screen text-[#1E293B] font-sans pb-20">
+    <div className="bg-surface-200 min-h-screen text-[#1E293B] font-sans pb-20">
       
       {/* Topbar / Header */}
       <div className="bg-white border-b border-neutral-200 px-8 py-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-black text-[#111827] tracking-tight">Os meus Produtos</h1>
+            <h1 className="text-2xl font-black text-ink-800 tracking-tight">Os meus Produtos</h1>
             <p className="text-neutral-500 text-sm mt-1">Gere o teu portfólio de cursos, mentorias e conteúdos.</p>
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/admin/products/new" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF4500] hover:bg-[#E03E00] text-white text-sm font-bold rounded-lg transition-colors shadow-sm">
+            <Link href="/admin/products/new" className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand hover:bg-brand-dark text-white text-sm font-bold rounded-lg transition-colors shadow-sm">
               <PackagePlus size={18} />
               Novo Produto
             </Link>
@@ -69,7 +69,7 @@ export default async function AdminProducts({ searchParams }) {
               <LayoutGrid size={18} />
             </div>
             <div>
-              <h3 className="text-3xl font-black text-[#111827]">{totalProducts}</h3>
+              <h3 className="text-3xl font-black text-ink-800">{totalProducts}</h3>
             </div>
           </div>
 
@@ -79,7 +79,7 @@ export default async function AdminProducts({ searchParams }) {
               <Activity size={18} className="text-green-500" />
             </div>
             <div>
-              <h3 className="text-3xl font-black text-[#111827]">{activeProducts}</h3>
+              <h3 className="text-3xl font-black text-ink-800">{activeProducts}</h3>
             </div>
           </div>
 
@@ -89,17 +89,17 @@ export default async function AdminProducts({ searchParams }) {
               <Eye size={18} />
             </div>
             <div>
-              <h3 className="text-3xl font-black text-[#111827]">{rows?.reduce((acc, curr) => acc + (curr.students_count || 0), 0)}</h3>
+              <h3 className="text-3xl font-black text-ink-800">{rows?.reduce((acc, curr) => acc + (curr.students_count || 0), 0)}</h3>
             </div>
           </div>
 
           <div className="bg-white rounded-xl p-5 border border-neutral-200 shadow-sm flex flex-col justify-between">
             <div className="flex items-center justify-between text-neutral-500 mb-4">
               <span className="text-sm font-semibold">Receita Gerada</span>
-              <TrendingUp size={18} className="text-[#FF4500]" />
+              <TrendingUp size={18} className="text-brand" />
             </div>
             <div>
-              <h3 className="text-2xl font-black text-[#FF4500]">Kz {fmt(totalRevenue)}</h3>
+              <h3 className="text-2xl font-black text-brand">Kz {fmt(totalRevenue)}</h3>
             </div>
           </div>
         </div>
@@ -110,13 +110,13 @@ export default async function AdminProducts({ searchParams }) {
           {/* Tabs & Search */}
           <div className="px-6 border-b border-neutral-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-6">
-              <Link href="?tab=all" className={`py-4 text-sm font-bold border-b-2 transition-colors ${tab === 'all' ? 'border-[#FF4500] text-[#FF4500]' : 'border-transparent text-neutral-500 hover:text-neutral-800'}`}>
+              <Link href="?tab=all" className={`py-4 text-sm font-bold border-b-2 transition-colors ${tab === 'all' ? 'border-brand text-brand' : 'border-transparent text-neutral-500 hover:text-neutral-800'}`}>
                 Todos os produtos
               </Link>
-              <Link href="?tab=active" className={`py-4 text-sm font-bold border-b-2 transition-colors ${tab === 'active' ? 'border-[#FF4500] text-[#FF4500]' : 'border-transparent text-neutral-500 hover:text-neutral-800'}`}>
+              <Link href="?tab=active" className={`py-4 text-sm font-bold border-b-2 transition-colors ${tab === 'active' ? 'border-brand text-brand' : 'border-transparent text-neutral-500 hover:text-neutral-800'}`}>
                 Ativos
               </Link>
-              <Link href="?tab=drafts" className={`py-4 text-sm font-bold border-b-2 transition-colors ${tab === 'drafts' ? 'border-[#FF4500] text-[#FF4500]' : 'border-transparent text-neutral-500 hover:text-neutral-800'}`}>
+              <Link href="?tab=drafts" className={`py-4 text-sm font-bold border-b-2 transition-colors ${tab === 'drafts' ? 'border-brand text-brand' : 'border-transparent text-neutral-500 hover:text-neutral-800'}`}>
                 Rascunhos
               </Link>
             </div>
@@ -127,7 +127,7 @@ export default async function AdminProducts({ searchParams }) {
                 <input 
                   type="text" 
                   placeholder="Procurar produto..." 
-                  className="pl-9 pr-4 py-2 border border-neutral-300 rounded-lg text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition-shadow"
+                  className="pl-9 pr-4 py-2 border border-neutral-300 rounded-lg text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-shadow"
                 />
               </div>
             </div>
@@ -153,13 +153,13 @@ export default async function AdminProducts({ searchParams }) {
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-lg bg-neutral-100 flex items-center justify-center overflow-hidden shrink-0 border border-neutral-200">
                           {product.image_url ? (
-                            <img src={product.image_url} alt={product.title} className="w-full h-full object-cover" />
+                            <img loading="lazy" decoding="async" src={product.image_url} alt={product.title} className="w-full h-full object-cover" />
                           ) : (
                             <PackagePlus size={20} className="text-neutral-400" />
                           )}
                         </div>
                         <div>
-                          <div className="font-bold text-[#111827] mb-0.5 group-hover:text-[#FF4500] transition-colors">{product.title}</div>
+                          <div className="font-bold text-ink-800 mb-0.5 group-hover:text-brand transition-colors">{product.title}</div>
                           <div className="text-xs text-neutral-500">ID: {product.id.split('-')[0]}</div>
                         </div>
                       </div>
@@ -183,10 +183,10 @@ export default async function AdminProducts({ searchParams }) {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Link href={`/admin/products/${product.id}`} className="p-2 text-neutral-400 hover:text-[#FF4500] hover:bg-[#FFF0EB] rounded-lg transition-colors" title="Editar Produto">
+                        <Link href={`/admin/products/${product.id}`} className="p-2 text-neutral-400 hover:text-brand hover:bg-brand-soft rounded-lg transition-colors" title="Editar Produto">
                           <Edit size={18} />
                         </Link>
-                        <Link href={`/product/${product.slug}`} target="_blank" className="p-2 text-neutral-400 hover:text-[#FF4500] hover:bg-[#FFF0EB] rounded-lg transition-colors" title="Ver Página de Vendas">
+                        <Link href={`/product/${product.slug}`} target="_blank" className="p-2 text-neutral-400 hover:text-brand hover:bg-brand-soft rounded-lg transition-colors" title="Ver Página de Vendas">
                           <ExternalLink size={18} />
                         </Link>
                         <ProductActionsDropdown product={product} />

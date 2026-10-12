@@ -27,7 +27,7 @@ export default function ProductTabsHotmart({ moduleList, advantagesList, lessons
             onClick={() => setActiveTab(tab.id)}
             className={`px-5 py-3 text-sm font-semibold border-b-2 -mb-px transition-colors ${
               activeTab === tab.id
-                ? "border-[#FF4500] text-[#FF4500]"
+                ? "border-brand text-brand"
                 : "border-transparent text-neutral-500 hover:text-neutral-900"
             }`}
           >
@@ -97,7 +97,7 @@ export default function ProductTabsHotmart({ moduleList, advantagesList, lessons
             <ul className="space-y-3">
               {advantagesList.map((adv, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-neutral-700">
-                  <CheckCircle2 className="w-5 h-5 text-[#00A859] shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-5 h-5 text-pay shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{adv}</span>
                 </li>
               ))}

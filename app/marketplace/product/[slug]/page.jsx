@@ -114,11 +114,11 @@ export default async function MarketplaceProductPage({ params }) {
             Voltar ao Marketplace
           </a>
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-[#00A859] bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
+            <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-pay bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
               <Zap size={14} className="fill-[#00A859]" />
               Comissão: {commissionPct}% · {fmt(commValue)} Kz/venda
             </div>
-            <a href={`/product/${item.slug}`} target="_blank" className="text-sm font-semibold text-[#FF4500] hover:underline flex items-center gap-1">
+            <a href={`/product/${item.slug}`} target="_blank" className="text-sm font-semibold text-brand hover:underline flex items-center gap-1">
               Ver página pública <ExternalLink size={13} />
             </a>
           </div>
@@ -135,14 +135,14 @@ export default async function MarketplaceProductPage({ params }) {
               {/* Thumbnail */}
               <div className="w-24 h-24 rounded-xl overflow-hidden border-2 border-white/20 shrink-0 bg-neutral-700">
                 {item.image ? (
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  <img decoding="async" fetchPriority="high" src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-white/30 font-bold text-2xl">?</div>
                 )}
               </div>
               <div className="flex-1">
                 <div className="flex flex-wrap gap-2 mb-2">
-                  <span className="text-[10px] font-black uppercase tracking-wider bg-[#FF4500] text-white px-2 py-1 rounded">
+                  <span className="text-[10px] font-black uppercase tracking-wider bg-brand text-white px-2 py-1 rounded">
                     {typeLabels[item.type]}
                   </span>
                   {item.category && (
@@ -151,7 +151,7 @@ export default async function MarketplaceProductPage({ params }) {
                     </span>
                   )}
                   {isAffiliate && (
-                    <span className="text-[10px] font-black uppercase tracking-wider bg-[#00A859] text-white px-2 py-1 rounded flex items-center gap-1">
+                    <span className="text-[10px] font-black uppercase tracking-wider bg-pay text-white px-2 py-1 rounded flex items-center gap-1">
                       <BadgeCheck size={10} /> Já és afiliado
                     </span>
                   )}
@@ -178,7 +178,7 @@ export default async function MarketplaceProductPage({ params }) {
           {/* Stats bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-neutral-100 border-t border-neutral-200">
             {[
-              { icon: <TrendingUp size={16} className="text-[#FF4500]" />, label: "Comissão", value: `${commissionPct}%` },
+              { icon: <TrendingUp size={16} className="text-brand" />, label: "Comissão", value: `${commissionPct}%` },
               { icon: <Award size={16} className="text-yellow-500" />, label: "Avaliação", value: `${avgRating} ⭐` },
               { icon: <ThumbsUp size={16} className="text-green-500" />, label: "Positivas", value: `${positiveReviewPct}%` },
               { icon: <Flame size={16} className="text-orange-500" />, label: "Aulas", value: lessons.length > 0 ? `${lessons.length}` : "—" },
@@ -208,7 +208,7 @@ export default async function MarketplaceProductPage({ params }) {
                 <div className="flex gap-5 mb-5">
                   {item.image && (
                     <div className="w-28 h-28 shrink-0 rounded-xl overflow-hidden border border-neutral-200">
-                      <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                      <img loading="lazy" decoding="async" src={item.image} alt={item.title} className="w-full h-full object-cover" />
                     </div>
                   )}
                   <p className="text-sm text-neutral-700 leading-relaxed">{item.description}</p>
@@ -227,13 +227,13 @@ export default async function MarketplaceProductPage({ params }) {
             {advantagesList.length > 0 && (
               <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-neutral-100 flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-[#00A859]" />
+                  <CheckCircle2 size={16} className="text-pay" />
                   <h2 className="font-bold text-neutral-900">O que o comprador vai receber</h2>
                 </div>
                 <div className="p-6 grid sm:grid-cols-2 gap-3">
                   {advantagesList.map((adv, i) => (
                     <div key={i} className="flex items-start gap-2.5">
-                      <CheckCircle2 size={16} className="text-[#00A859] shrink-0 mt-0.5" />
+                      <CheckCircle2 size={16} className="text-pay shrink-0 mt-0.5" />
                       <span className="text-sm text-neutral-700 leading-relaxed">{adv}</span>
                     </div>
                   ))}
@@ -246,7 +246,7 @@ export default async function MarketplaceProductPage({ params }) {
               <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-neutral-100 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <PlayCircle size={16} className="text-[#FF4500]" />
+                    <PlayCircle size={16} className="text-brand" />
                     <h2 className="font-bold text-neutral-900">Conteúdo do Curso</h2>
                   </div>
                   <span className="text-xs text-neutral-400">{moduleList.length} módulos · {lessons.length} aulas</span>
@@ -293,7 +293,7 @@ export default async function MarketplaceProductPage({ params }) {
               <div className="p-6 flex gap-5 items-start">
                 <div className="w-16 h-16 rounded-full bg-neutral-200 overflow-hidden shrink-0 flex items-center justify-center text-xl font-bold text-neutral-500">
                   {item.avatar || creatorProfile?.avatar_url ? (
-                    <img src={item.avatar || creatorProfile?.avatar_url} alt={item.instructor} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={item.avatar || creatorProfile?.avatar_url} alt={item.instructor} className="w-full h-full object-cover" />
                   ) : (
                     (item.instructor || "?").charAt(0)
                   )}
@@ -407,7 +407,7 @@ export default async function MarketplaceProductPage({ params }) {
                     { step: "4", title: "Promove e ganha", desc: `${commissionPct}% de comissão por cada venda gerada` },
                   ].map((s, i) => (
                     <div key={i} className="flex gap-3 items-start">
-                      <div className="w-6 h-6 rounded-full bg-[#FF4500] text-white text-xs font-black flex items-center justify-center shrink-0 mt-0.5">{s.step}</div>
+                      <div className="w-6 h-6 rounded-full bg-brand text-white text-xs font-black flex items-center justify-center shrink-0 mt-0.5">{s.step}</div>
                       <div>
                         <p className="text-xs font-bold text-neutral-800">{s.title}</p>
                         <p className="text-xs text-neutral-500 mt-0.5">{s.desc}</p>
@@ -422,7 +422,7 @@ export default async function MarketplaceProductPage({ params }) {
                 <div className="flex items-center gap-2"><Shield size={13} className="text-green-500" /> Rastreio automático por cookie</div>
                 <div className="flex items-center gap-2"><Monitor size={13} className="text-blue-500" /> Funciona em todos os dispositivos</div>
                 <div className="flex items-center gap-2"><Users size={13} className="text-purple-500" /> Cookie válido por 30 dias</div>
-                <div className="flex items-center gap-2"><BadgeCheck size={13} className="text-[#FF4500]" /> Comissões pagas mensalmente</div>
+                <div className="flex items-center gap-2"><BadgeCheck size={13} className="text-brand" /> Comissões pagas mensalmente</div>
               </div>
 
             </div>

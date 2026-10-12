@@ -16,14 +16,14 @@ export default function ProductTabs({ advantagesList, lessons, description }) {
       <div className="border-b border-neutral-200 flex gap-8 mb-8 overflow-x-auto no-scrollbar">
         <button 
           onClick={() => setActiveTab("content")}
-          className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "content" ? "border-[#00A859] text-[#00A859]" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
+          className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "content" ? "border-pay text-pay" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
         >
           Conteúdo
         </button>
         {advantagesList && advantagesList.length > 0 && (
           <button 
             onClick={() => setActiveTab("advantages")}
-            className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "advantages" ? "border-[#00A859] text-[#00A859]" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
+            className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "advantages" ? "border-pay text-pay" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
           >
             Vantagens
           </button>
@@ -31,7 +31,7 @@ export default function ProductTabs({ advantagesList, lessons, description }) {
         {description && (
           <button 
             onClick={() => setActiveTab("details")}
-            className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "details" ? "border-[#00A859] text-[#00A859]" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
+            className={`pb-4 border-b-2 font-bold whitespace-nowrap text-[15px] transition-colors ${activeTab === "details" ? "border-pay text-pay" : "border-transparent text-neutral-500 hover:text-neutral-900"}`}
           >
             Detalhes
           </button>
@@ -43,7 +43,7 @@ export default function ProductTabs({ advantagesList, lessons, description }) {
           <ul className="space-y-4">
             {advantagesList.map((adv, i) => (
               <li key={i} className="flex gap-3 text-neutral-700 text-[15px]">
-                <span className="text-[#00A859] font-black shrink-0">✓</span>
+                <span className="text-pay font-black shrink-0">✓</span>
                 <span>{adv}</span>
               </li>
             ))}

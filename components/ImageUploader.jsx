@@ -34,9 +34,9 @@ export default function ImageUploader({
       <div className="w-full">
         {name && <input type="hidden" name={name} value={previewUrl} />}
         <label className="block text-sm font-semibold mb-2">{label}</label>
-        <div className="rounded-xl border-2 border-dashed border-[#FF4500]/30 bg-gradient-to-br from-orange-50 to-red-50 p-5 text-center">
+        <div className="rounded-xl border-2 border-dashed border-brand/30 bg-gradient-to-br from-orange-50 to-red-50 p-5 text-center">
           <div className="flex flex-col items-center gap-2">
-            <Lock className="text-[#FF4500]" size={20} />
+            <Lock className="text-brand" size={20} />
             <p className="font-bold text-neutral-800 text-sm">Upload de imagens requer subscrição</p>
             <p className="text-xs text-neutral-500 max-w-xs">
               Para usar o armazenamento interno, ativa o <strong>Plano Pro Storage</strong>. 
@@ -44,7 +44,7 @@ export default function ImageUploader({
             </p>
             <a
               href="/admin/storage"
-              className="mt-1 inline-flex items-center gap-1.5 bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold text-xs px-4 py-2 rounded-lg transition"
+              className="mt-1 inline-flex items-center gap-1.5 bg-brand hover:bg-brand-dark text-white font-bold text-xs px-4 py-2 rounded-lg transition"
             >
               Ver Plano Pro Storage
             </a>
@@ -124,11 +124,11 @@ export default function ImageUploader({
       <div className="flex items-start gap-4">
         {/* Preview Box */}
         <div
-          className="w-24 h-24 border border-neutral-300 rounded-lg bg-neutral-100 flex items-center justify-center overflow-hidden flex-shrink-0 cursor-pointer hover:border-[#FF4500] transition group relative"
+          className="w-24 h-24 border border-neutral-300 rounded-lg bg-neutral-100 flex items-center justify-center overflow-hidden flex-shrink-0 cursor-pointer hover:border-brand transition group relative"
           onClick={() => inputRef.current?.click()}
         >
           {previewUrl ? (
-            <img src={previewUrl} alt="Preview" className="w-full h-full object-cover group-hover:opacity-50 transition" />
+            <img loading="lazy" decoding="async" src={previewUrl} alt="Preview" className="w-full h-full object-cover group-hover:opacity-50 transition" />
           ) : (
             <span className="text-neutral-400 text-xs text-center px-2">Sem Imagem</span>
           )}
@@ -161,7 +161,7 @@ export default function ImageUploader({
           {errorMsg && <p className="text-red-500 text-xs mt-2 font-bold">{errorMsg}</p>}
           {isUploading && (
             <div className="w-full bg-neutral-200 rounded-full h-1 mt-3">
-              <div className="bg-[#FF4500] h-1 rounded-full animate-pulse w-full" />
+              <div className="bg-brand h-1 rounded-full animate-pulse w-full" />
             </div>
           )}
         </div>

@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useCart } from "./CartContext"
 import { ShoppingCart, Check } from "lucide-react"
+import CoverFallback from "@/components/mockups/CoverFallback"
 
 const typeLabels = {
   course: "Curso",
@@ -32,7 +33,7 @@ export default function ProductCard({ item }) {
   }
 
   return (
-    <div className="group relative bg-white border border-neutral-100 rounded-2xl overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-[#FF4500]/30 transition-all duration-500 flex flex-col text-neutral-900">
+    <div className="group relative bg-white border border-neutral-100 rounded-2xl overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-brand/30 transition-all duration-500 flex flex-col text-neutral-900">
       <a href={href} className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
         {item.image ? (
           <Image
@@ -43,16 +44,14 @@ export default function ProductCard({ item }) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-neutral-400 text-xs font-medium">
-            Sem capa
-          </div>
+          <CoverFallback title={item.title} type={item.type} />
         )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500" />
 
         <div className="absolute top-3 left-3 flex gap-2 flex-wrap z-10">
           {item.bestSeller && (
-            <span className="bg-[#FF4500] text-white text-[10px] uppercase font-black px-2.5 py-1 rounded-md tracking-wider shadow-md">
+            <span className="bg-brand text-white text-[10px] uppercase font-black px-2.5 py-1 rounded-md tracking-wider shadow-md">
               Pop
             </span>
           )}
@@ -67,7 +66,7 @@ export default function ProductCard({ item }) {
           <span>{item.instructor}</span>
         </div>
         
-        <a href={href} className="font-extrabold text-[16px] leading-snug line-clamp-2 text-neutral-900 group-hover:text-[#FF4500] transition-colors">
+        <a href={href} className="font-extrabold text-[16px] leading-snug line-clamp-2 text-neutral-900 group-hover:text-brand transition-colors">
           {item.title}
         </a>
 
@@ -81,7 +80,7 @@ export default function ProductCard({ item }) {
             {item.discount > 0 ? (
               <>
                 <span className="line-through text-neutral-400 text-[11px] font-bold">{fmt(item.originalPrice)} Kz</span>
-                <span className="text-[#FF4500] font-black text-xl tracking-tight">{fmt(item.price)} Kz</span>
+                <span className="text-brand font-black text-xl tracking-tight">{fmt(item.price)} Kz</span>
               </>
             ) : (
               <span className="text-neutral-900 font-black text-xl tracking-tight">{fmt(item.price)} Kz</span>
@@ -90,7 +89,7 @@ export default function ProductCard({ item }) {
 
           <a 
             href={href}
-            className="w-11 h-11 bg-neutral-100 text-neutral-600 hover:bg-[#FF4500] hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_20px_rgba(255,69,0,0.3)]"
+            className="w-11 h-11 bg-neutral-100 text-neutral-600 hover:bg-brand hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_20px_rgba(255,69,0,0.3)]"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>

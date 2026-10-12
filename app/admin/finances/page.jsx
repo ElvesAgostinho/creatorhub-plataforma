@@ -91,11 +91,11 @@ export default async function FinancesPage() {
   })
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F7F5]">
+    <div className="min-h-screen flex flex-col bg-surface-100">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-10">
         
         <div className="flex items-center justify-between flex-wrap gap-3 mb-8">
-          <h1 className="text-3xl font-extrabold text-[#111]">Gestão Financeira e Comissões</h1>
+          <h1 className="text-3xl font-extrabold text-ink-800">Gestão Financeira e Comissões</h1>
 
         </div>
 
@@ -107,9 +107,9 @@ export default async function FinancesPage() {
               <div className="text-3xl font-black text-neutral-900">{fmt(Math.round(totalGross/100))} <span className="text-lg text-neutral-400">Kz</span></div>
             </div>
             
-            <div className="bg-orange-50 p-6 rounded-2xl border border-[#FF4500]/20">
-              <div className="text-sm font-bold text-[#FF4500] uppercase tracking-wider mb-2">Lucro da Plataforma ({platformPct}%)</div>
-              <div className="text-3xl font-black text-[#FF4500]">{fmt(Math.round(totalPlatform/100))} <span className="text-lg opacity-50">Kz</span></div>
+            <div className="bg-orange-50 p-6 rounded-2xl border border-brand/20">
+              <div className="text-sm font-bold text-brand uppercase tracking-wider mb-2">Lucro da Plataforma ({platformPct}%)</div>
+              <div className="text-3xl font-black text-brand">{fmt(Math.round(totalPlatform/100))} <span className="text-lg opacity-50">Kz</span></div>
             </div>
 
             <div className="bg-blue-50 p-6 rounded-2xl border border-blue-200">
@@ -136,7 +136,7 @@ export default async function FinancesPage() {
                   <th className="pb-3 font-bold uppercase tracking-wider">Produto</th>
                   <th className="pb-3 font-bold uppercase tracking-wider">Comprador</th>
                   <th className="pb-3 font-bold uppercase tracking-wider">Total (Bruto)</th>
-                  <th className="pb-3 font-bold uppercase tracking-wider text-[#FF4500]">Plataforma</th>
+                  <th className="pb-3 font-bold uppercase tracking-wider text-brand">Plataforma</th>
                   <th className="pb-3 font-bold uppercase tracking-wider text-blue-600">Criador</th>
                   <th className="pb-3 font-bold uppercase tracking-wider text-green-600">Afiliado</th>
                 </tr>
@@ -161,7 +161,7 @@ export default async function FinancesPage() {
                     <td className="py-4 font-black">
                       {fmt(Math.round(p.gross/100))} <span className="text-xs text-neutral-400 font-normal">Kz</span>
                     </td>
-                    <td className="py-4 font-bold text-[#FF4500] bg-orange-50/50">
+                    <td className="py-4 font-bold text-brand bg-orange-50/50">
                       {fmt(Math.round(p.platCut/100))}
                     </td>
                     <td className="py-4 font-bold text-blue-600 bg-blue-50/50">

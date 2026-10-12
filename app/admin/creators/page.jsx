@@ -41,7 +41,7 @@ export default async function AdminCreators() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-3xl font-extrabold text-[#111]">Admin — Candidaturas de Criadores</h1>
+        <h1 className="text-3xl font-extrabold text-ink-800">Admin — Candidaturas de Criadores</h1>
       </div>
 
       <div className="mt-8 overflow-x-auto border border-neutral-200 rounded-2xl bg-white">
@@ -72,7 +72,7 @@ export default async function AdminCreators() {
                 <td className="p-4">
                   <div className="space-y-2">
                     {r.portfolio_url && (
-                      <a href={r.portfolio_url} target="_blank" className="block text-[#0E7C86] hover:underline break-all">Portefólio ↗</a>
+                      <a href={r.portfolio_url} target="_blank" className="block text-teal hover:underline break-all">Portefólio ↗</a>
                     )}
                     {r.payment_proof_url && (
                       <a href={r.payment_proof_url} target="_blank" className="block text-green-600 font-bold hover:underline break-all">Ver Comprovativo 📄</a>

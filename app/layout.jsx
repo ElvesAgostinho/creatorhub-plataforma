@@ -6,10 +6,19 @@ import { CartProvider } from "@/components/CartContext"
 import CartDrawer from "@/components/CartDrawer"
 import FloatingWhatsApp from "@/components/FloatingWhatsApp"
 import { createClient } from "@/lib/supabase/server"
+import { Inter } from "next/font/google"
 import "@/app/globals.css"
 
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+
+// Auto-alojada pelo Next: sem pedido a fonts.googleapis.com a bloquear o render
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700", "800", "900"],
+})
 
 export const metadata = {
   title: "ABOVE — Cursos, Livros e Mentorias Online",
@@ -26,14 +35,11 @@ export default async function Layout({ children }) {
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
-    <html lang="pt">
+    <html lang="pt" className={inter.variable}>
       <head>
         <link rel="icon" href="/logo_a.svg?v=1" type="image/svg+xml" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="bg-white text-neutral-900 antialiased" style={{ fontFamily: "'Inter', sans-serif" }}>
+      <body className="bg-white text-neutral-900 antialiased font-sans">
         <ToastProvider />
         <CartProvider>
           <ConditionalHeader>

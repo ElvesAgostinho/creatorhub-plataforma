@@ -38,7 +38,7 @@ export default async function StorageAdminPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8">
       <div>
         <h1 className="text-2xl font-extrabold flex items-center gap-2">
-          <HardDrive className="text-[#FF4500]" /> Alojamento de Vídeos e Imagens
+          <HardDrive className="text-brand" /> Alojamento de Vídeos e Imagens
         </h1>
         <p className="text-neutral-500 mt-2">
           Gere a subscrição de armazenamento interno para hospedares vídeos e imagens das aulas de forma segura e sem anúncios.
@@ -59,7 +59,7 @@ export default async function StorageAdminPage() {
         {/* Plan Info */}
         <div className="bg-white border border-neutral-200 rounded-2xl p-8 shadow-sm">
           <h2 className="text-xl font-bold mb-2">Plano Pro Storage</h2>
-          <div className="text-4xl font-black text-[#111] mb-6">20.000 Kz<span className="text-sm font-medium text-neutral-500"> /mês</span></div>
+          <div className="text-4xl font-black text-ink-800 mb-6">20.000 Kz<span className="text-sm font-medium text-neutral-500"> /mês</span></div>
 
           <ul className="space-y-4 mb-8">
             {[
@@ -78,7 +78,7 @@ export default async function StorageAdminPage() {
 
           {!isSubscribed ? (
             <ClientForm action={joinStoragePlan} successMessage="Pedido de subscrição enviado! Aguarda a ativação pelo admin.">
-              <button type="submit" className="w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-3 rounded-xl transition">
+              <button type="submit" className="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 rounded-xl transition">
                 Aderir ao Plano Pro Storage
               </button>
             </ClientForm>
@@ -137,7 +137,7 @@ export default async function StorageAdminPage() {
           </div>
 
           {/* Free alternatives info */}
-          <div className="bg-gradient-to-br from-[#0E7C86]/5 to-[#0E7C86]/10 border border-[#0E7C86]/20 rounded-2xl p-6">
+          <div className="bg-gradient-to-br from-[#0E7C86]/5 to-[#0E7C86]/10 border border-teal/20 rounded-2xl p-6">
             <h3 className="font-bold mb-3 flex items-center gap-2">
               🆓 Opções Gratuitas (Sem Custo)
             </h3>
@@ -199,7 +199,7 @@ async function AdminStorageManager({ svc }) {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-10">
       <div>
         <h1 className="text-2xl font-extrabold flex items-center gap-2">
-          <HardDrive className="text-[#FF4500]" /> Gestão de Storage (Superadmin)
+          <HardDrive className="text-brand" /> Gestão de Storage (Superadmin)
         </h1>
         <p className="text-neutral-500 mt-2">
           Controla o acesso ao armazenamento interno e gere as subscrições dos criadores individualmente.
@@ -285,7 +285,7 @@ async function AdminStorageManager({ svc }) {
       {/* ── Subscriptions Table ── */}
       <section>
         <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
-          <CheckCircle2 size={20} className="text-[#0E7C86]" /> Subscrições dos Criadores
+          <CheckCircle2 size={20} className="text-teal" /> Subscrições dos Criadores
         </h2>
         <div className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
           <table className="w-full text-left text-sm">

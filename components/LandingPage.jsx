@@ -1,346 +1,371 @@
-"use client"
 import TypewriterText from "@/components/TypewriterText"
-import Image from "next/image"
+import HeroComposition from "@/components/mockups/HeroComposition"
+import BrowserFrame from "@/components/mockups/BrowserFrame"
+import CheckoutMock from "@/components/mockups/CheckoutMock"
+import MembersAreaMock from "@/components/mockups/MembersAreaMock"
+import AnalyticsMock from "@/components/mockups/AnalyticsMock"
+import CertificateMock from "@/components/mockups/CertificateMock"
 
 export default function LandingPage({ user }) {
   return (
-    <div className="bg-[#111111] text-white min-h-screen font-sans">
-      
-      {/* 1. HERO SECTION (LIGHT - HOTMART STYLE) */}
-      <section className="bg-white border-b border-neutral-200 overflow-hidden relative">
-        <div className="max-w-7xl mx-auto px-6 pt-32 lg:pt-40 pb-16 lg:pb-24 flex flex-col lg:flex-row items-center justify-between min-h-[450px] lg:min-h-[550px]">
-          
-          {/* TEXT (LEFT) */}
-          <div className="w-full lg:w-1/2 z-10 lg:pr-12 text-center lg:text-left pb-8 lg:pb-0">
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-[#111] min-h-[110px] sm:min-h-[150px]">
-              <TypewriterText text="O teu conhecimento," speed={40} delay={100} hideCursorOnFinish={true} /><br className="hidden sm:block"/>
-              <span className="text-[#FF4500]">
+    <div className="min-h-screen bg-ink-800 font-sans text-white">
+
+      {/* 1. HERO */}
+      <section className="relative overflow-hidden border-b border-neutral-200 bg-white">
+        {/* Textura de grelha em vez de fotografia de fundo */}
+        <div aria-hidden="true" className="bg-grid-light mask-fade pointer-events-none absolute inset-0 opacity-70" />
+
+        <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 pb-24 pt-32 lg:grid-cols-2 lg:pb-32 lg:pt-40">
+
+          {/* Texto */}
+          <div className="text-center lg:text-left">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-bold text-neutral-600 shadow-sm">
+              <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-brand" />
+              Feito em Angola, para criadores de todo o mundo
+            </div>
+
+            <h1 className="min-h-[110px] text-4xl font-extrabold leading-tight tracking-tight text-ink-800 sm:min-h-[150px] sm:text-6xl">
+              <TypewriterText text="O teu conhecimento," speed={40} delay={100} hideCursorOnFinish={true} />
+              <br className="hidden sm:block" />
+              <span className="text-brand">
                 <TypewriterText text="transformado num negócio." speed={50} delay={1100} hideCursorOnFinish={true} />
               </span>
             </h1>
-            
-            <p className="mt-6 text-lg text-neutral-600 max-w-xl mx-auto lg:mx-0 font-medium min-h-[80px]">
-              <TypewriterText text="Cria, vende e entrega cursos online, livros digitais e mentorias. A plataforma mais completa de Angola para criadores de conteúdo que querem escalar os seus resultados." speed={20} delay={2200} />
-            </p>
-            
-            <div className="mt-10 flex flex-col items-center lg:items-start gap-6">
-              <div className="flex gap-4">
-                {user ? (
-                  <a href="/dashboard" className="bg-[#FF4500] hover:bg-[#E03E00] text-white text-lg font-bold px-10 py-4 rounded-xl transition shadow-lg shadow-[#FF4500]/20">
-                    Aceder ao Painel
-                  </a>
-                ) : (
-                  <a href="/signup" className="bg-[#FF4500] hover:bg-[#E03E00] text-white text-lg font-bold px-10 py-4 rounded-xl transition shadow-lg shadow-[#FF4500]/20">
-                    Começar a Vender Agora
-                  </a>
-                )}
-              </div>
-              
-              {/* Trust Badges */}
-              <div className="flex items-center justify-center lg:justify-start gap-4 text-[11px] sm:text-xs font-bold text-neutral-500">
-                <span className="flex items-center gap-1.5"><span className="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center">✓</span> Sem taxas ocultas</span>
-                <span className="flex items-center gap-1.5"><span className="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center">✓</span> Suporte 24/7</span>
-                <span className="flex items-center gap-1.5"><span className="w-4 h-4 bg-green-100 text-green-600 rounded-full flex items-center justify-center">✓</span> Setup em 5 min</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* CINEMATIC ANIMATED HERO (RIGHT - STUCK TO TOP) */}
-          <div className="w-full lg:w-1/2 lg:absolute lg:top-0 lg:right-0 lg:h-full flex items-start justify-end mt-8 lg:mt-0 overflow-hidden">
-            <style dangerouslySetInnerHTML={{__html: `
-              @keyframes cinematic-pan {
-                0% { transform: scale(1.05) translate(0, 0); }
-                50% { transform: scale(1.1) translate(-2%, 2%); }
-                100% { transform: scale(1.05) translate(0, 0); }
-              }
-              .animate-cinematic {
-                animation: cinematic-pan 20s ease-in-out infinite;
-              }
-            `}} />
-            <div className="relative w-full max-w-[600px] lg:max-w-none lg:w-[110%] h-[350px] lg:h-[110%] lg:translate-x-12 rounded-l-3xl lg:rounded-none shadow-2xl lg:shadow-none overflow-hidden">
-              <Image 
-                src="/hero_sales_mobile.png" 
-                alt="Plataforma Integrada" 
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center animate-cinematic"
+
+            <p className="mx-auto mt-6 min-h-[80px] max-w-xl text-lg font-medium text-neutral-600 lg:mx-0">
+              <TypewriterText
+                text="Cria, vende e entrega cursos online, livros digitais e mentorias. A plataforma mais completa de Angola para criadores de conteúdo que querem escalar os seus resultados."
+                speed={20}
+                delay={2200}
               />
+            </p>
+
+            <div className="mt-10 flex flex-col items-center gap-6 lg:items-start">
+              <a
+                href={user ? "/dashboard" : "/signup"}
+                className="rounded-xl bg-brand px-10 py-4 text-lg font-bold text-white shadow-brand transition hover:bg-brand-dark"
+              >
+                {user ? "Aceder ao Painel" : "Começar a Vender Agora"}
+              </a>
+
+              <div className="flex items-center justify-center gap-4 text-[11px] font-bold text-neutral-500 sm:text-xs lg:justify-start">
+                {["Sem taxas ocultas", "Suporte 24/7", "Setup em 5 min"].map((t) => (
+                  <span key={t} className="flex items-center gap-1.5">
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-pay/10 text-pay">✓</span>
+                    {t}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
+          {/* O produto como herói */}
+          <HeroComposition className="mt-6 lg:mt-0" />
         </div>
       </section>
 
-      {/* 1.5 COMO FUNCIONA */}
-      <section className="bg-[#FAFAFA] border-b border-neutral-200 py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#111] mb-4">Como funciona a ABOVE?</h2>
-            <p className="text-neutral-500 text-lg max-w-2xl mx-auto">Tudo o que precisas para transformar o teu conhecimento num negócio altamente rentável em apenas 3 passos.</p>
+      {/* 2. COMO FUNCIONA */}
+      <section className="border-b border-neutral-200 bg-surface-50 px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-extrabold text-ink-800 sm:text-4xl">Como funciona a ABOVE?</h2>
+            <p className="mx-auto max-w-2xl text-lg text-neutral-500">
+              Tudo o que precisas para transformar o teu conhecimento num negócio altamente rentável em apenas 3 passos.
+            </p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-10">
-            <div className="bg-white p-8 rounded-3xl border border-neutral-200 shadow-sm text-center relative hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-16 h-16 bg-[#FF4500]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-black text-[#FF4500]">1</span>
+
+          <div className="grid gap-10 md:grid-cols-3">
+            {[
+              {
+                n: 1,
+                title: "Cria o teu produto",
+                desc: "Faz o upload das tuas aulas em vídeo, e-book em PDF ou define a tua mentoria em poucos minutos.",
+              },
+              {
+                n: 2,
+                title: "Vende com facilidade",
+                desc: "Usa o nosso checkout de alta conversão. Aceitamos pagamentos locais e internacionais automaticamente.",
+              },
+              {
+                n: 3,
+                title: "Entrega premium",
+                desc: "Os teus alunos acedem a uma área de membros de classe mundial com gamificação e certificados profissionais.",
+              },
+            ].map((s) => (
+              <div
+                key={s.n}
+                className="relative rounded-3xl border border-neutral-200 bg-white p-8 text-center shadow-card transition-transform duration-300 hover:-translate-y-2"
+              >
+                <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-soft">
+                  <span className="text-2xl font-black text-brand">{s.n}</span>
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-ink-800">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-neutral-500">{s.desc}</p>
               </div>
-              <h3 className="text-xl font-bold text-[#111] mb-3">Cria o teu produto</h3>
-              <p className="text-neutral-500 text-sm leading-relaxed">Faz o upload das tuas aulas em vídeo, e-book em PDF ou define a tua mentoria em poucos minutos.</p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-3xl border border-neutral-200 shadow-sm text-center relative hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-16 h-16 bg-[#FF4500]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-black text-[#FF4500]">2</span>
-              </div>
-              <h3 className="text-xl font-bold text-[#111] mb-3">Vende com facilidade</h3>
-              <p className="text-neutral-500 text-sm leading-relaxed">Usa o nosso checkout de alta conversão. Aceitamos pagamentos locais e internacionais automaticamente.</p>
-            </div>
-            
-            <div className="bg-white p-8 rounded-3xl border border-neutral-200 shadow-sm text-center relative hover:-translate-y-2 transition-transform duration-300">
-              <div className="w-16 h-16 bg-[#FF4500]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl font-black text-[#FF4500]">3</span>
-              </div>
-              <h3 className="text-xl font-bold text-[#111] mb-3">Entrega premium</h3>
-              <p className="text-neutral-500 text-sm leading-relaxed">Os teus alunos acedem a uma área de membros de classe mundial com gamificação e certificados profissionais.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 2. FEATURES GRID (DARK) */}
-      <section className="px-6 py-24 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-6">
-          
-          {/* Foca-te no conteúdo */}
-          <div className="bg-[#1A1A1A] border border-neutral-800 rounded-3xl p-10 flex flex-col justify-end min-h-[400px]">
-            <h2 className="text-4xl font-extrabold mb-4">
-              Tu focas-te no conteúdo.<br/>Nós aumentamos as tuas conversões.
-            </h2>
-            <div className="mt-6">
-              {user ? (
-                <a href="/become-creator" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-6 py-3 rounded-xl inline-block transition">Tornar-se Criador</a>
-              ) : (
-                <a href="/signup" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-6 py-3 rounded-xl inline-block transition">Começar a vender mais</a>
-              )}
+      {/* 3. CHECKOUT (ESCURO) */}
+      <section className="mx-auto max-w-7xl px-6 py-24">
+        <div className="grid gap-6 md:grid-cols-2">
+
+          <div className="relative flex min-h-[400px] flex-col justify-end overflow-hidden rounded-3xl border border-neutral-800 bg-ink-700 p-10">
+            <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0 opacity-60" />
+            <div className="relative">
+              <h2 className="mb-4 text-4xl font-extrabold">
+                Tu focas-te no conteúdo.
+                <br />
+                Nós aumentamos as tuas conversões.
+              </h2>
+              <a
+                href={user ? "/become-creator" : "/signup"}
+                className="inline-block rounded-xl bg-brand px-6 py-3 font-bold text-white transition hover:bg-brand-dark"
+              >
+                {user ? "Tornar-se Criador" : "Começar a vender mais"}
+              </a>
             </div>
           </div>
 
-          {/* Checkout */}
-          <div className="bg-[#1A1A1A] border border-neutral-800 rounded-3xl p-10 flex flex-col overflow-hidden relative">
-            <h3 className="text-3xl font-extrabold mb-4 relative z-10">
-              Aumenta vendas em 7% com<br/>preenchimento inteligente
+          <div className="relative overflow-hidden rounded-3xl border border-neutral-800 bg-ink-700 p-10 pb-0">
+            <h3 className="relative z-10 mb-4 text-3xl font-extrabold">
+              Aumenta vendas com
+              <br />
+              preenchimento inteligente
             </h3>
-            <p className="text-neutral-400 relative z-10 max-w-sm">
-              Permite aos teus clientes comprar em segundos com o nosso checkout otimizado. Vendes mais sem esforço extra. Fácil para eles, rentável para ti.
+            <p className="relative z-10 max-w-sm text-neutral-400">
+              Os teus clientes compram em segundos com um checkout pensado para Angola: Multicaixa Express, Unitel Money
+              e Africell Money, sem sair da página.
             </p>
-             {/* Floating mockups */}
-             <div className="absolute -bottom-10 -right-20 lg:-right-10 flex gap-4 pointer-events-none">
-               <Image src="/modern_checkout.png" alt="Checkout otimizado" width={300} height={400} className="w-[300px] h-auto object-cover rounded-tl-3xl shadow-2xl rotate-3 translate-x-4 border border-neutral-800" />
-             </div>
+
+            {/* O checkout verdadeiro, em CSS */}
+            <div className="relative z-10 mx-auto mt-8 w-[78%] max-w-[300px] translate-y-6">
+              <BrowserFrame url="above.ao/checkout/marketing-digital">
+                <CheckoutMock />
+              </BrowserFrame>
+            </div>
           </div>
 
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mt-6">
-          {/* Recomendamos */}
-          <div className="bg-[#1A1A1A] border border-neutral-800 rounded-3xl p-8 flex flex-col">
-            <h3 className="text-2xl font-extrabold mb-4">Nós recomendamos.<br/>Tu vendes mais.</h3>
-            <p className="text-neutral-400 text-sm">
-              Recomendações automáticas: quando um cliente compra, sugerimos logo o próximo produto. Aumenta o valor médio de encomenda em até 48%, em piloto automático.
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          <div className="flex flex-col rounded-3xl border border-neutral-800 bg-ink-700 p-8">
+            <h3 className="mb-4 text-2xl font-extrabold">
+              Nós recomendamos.
+              <br />
+              Tu vendes mais.
+            </h3>
+            <p className="text-sm text-neutral-400">
+              Recomendações automáticas: quando um cliente compra, sugerimos logo o próximo produto. Aumenta o valor
+              médio de encomenda, em piloto automático.
             </p>
           </div>
 
-          {/* Checkout que retém */}
-          <div className="bg-[#1A1A1A] border border-neutral-800 rounded-3xl p-8 flex flex-col">
-            <h3 className="text-2xl font-extrabold mb-4">Checkout que<br/>retém clientes.</h3>
-            <p className="text-neutral-400 text-sm">
-              Tu vendes mais, sem parar. O nosso checkout gere milhões de transações simultâneas e carrega num segundo, evitando que os clientes desistam.
+          <div className="flex flex-col rounded-3xl border border-neutral-800 bg-ink-700 p-8">
+            <h3 className="mb-4 text-2xl font-extrabold">
+              Checkout que
+              <br />
+              retém clientes.
+            </h3>
+            <p className="text-sm text-neutral-400">
+              Páginas que carregam num instante e um fluxo de compra curto, para que ninguém desista a meio.
             </p>
           </div>
         </div>
       </section>
 
+      {/* 4. ÁREA DE MEMBROS (CLARO) */}
+      <section className="rounded-t-[3rem] bg-surface-100 px-6 py-24 text-ink-800">
+        <div className="mx-auto grid max-w-7xl items-center gap-16 md:grid-cols-2">
 
-
-      {/* 4. MEMBERS AREA (LIGHT) */}
-      <section className="bg-[#F8F7F5] text-[#111111] py-24 px-6 rounded-t-[3rem]">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          
           <div>
-            <div className="inline-block border border-neutral-300 rounded-full px-4 py-2 text-sm font-bold mb-6">
+            <div className="mb-6 inline-block rounded-full border border-neutral-300 px-4 py-2 text-sm font-bold">
               Clientes felizes voltam sempre
             </div>
-            <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-8">
-              Encanta os teus clientes com a nossa área de membros e aumenta as compras repetidas em até 14%.
+            <h2 className="mb-8 text-4xl font-extrabold leading-tight sm:text-5xl">
+              Encanta os teus clientes com a nossa área de membros e aumenta as compras repetidas.
             </h2>
-            
+
             <div className="space-y-6">
               <div>
-                <h4 className="text-xl font-bold text-[#FF4500] border-t-2 border-[#FF4500] pt-4 mb-2">Gamificação e personalização: torna o conteúdo irresistível.</h4>
-                <p className="text-neutral-600">Escolhe entre mais de 20 estilos visuais e utiliza gamificação e tracking de progresso integrados para manteres os teus clientes motivados.</p>
+                <h4 className="mb-2 border-t-2 border-brand pt-4 text-xl font-bold text-brand">
+                  Progresso, gamificação e certificados: torna o conteúdo irresistível.
+                </h4>
+                <p className="text-neutral-600">
+                  Cada aluno vê o seu progresso em tempo real, ganha XP ao avançar e recebe o certificado assim que
+                  conclui o curso.
+                </p>
               </div>
               <div>
-                <h4 className="text-xl font-bold text-neutral-300 border-t-2 border-neutral-200 pt-4 mb-2">Suporte por IA que aprende contigo e nunca dorme.</h4>
+                <h4 className="mb-2 border-t-2 border-neutral-200 pt-4 text-xl font-bold text-neutral-400">
+                  Suporte por IA que aprende contigo e nunca dorme.
+                </h4>
               </div>
             </div>
           </div>
 
           <div className="relative">
-             <div className="absolute -left-10 top-10 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-4">
-                <div className="bg-[#FF4500] text-white p-2 rounded-lg">💬</div>
-                <div>
-                  <div className="text-xs text-neutral-500 font-bold">Taxa de Reembolso</div>
-                  <div className="font-extrabold text-lg">-40% Pedidos</div>
-                </div>
-             </div>
-             
-             <div className="mt-8 rounded-2xl border border-neutral-200 overflow-hidden shadow-sm relative h-[300px] sm:h-[400px]">
-               <Image src="/modern_members_area.png" alt="Área de Membros Premium" fill className="object-cover object-left-top" />
-             </div>
+            <div className="absolute -left-4 top-6 z-20 flex items-center gap-3 rounded-xl border border-neutral-200 bg-white p-3 shadow-float sm:-left-10">
+              <div className="rounded-lg bg-brand p-2 text-white">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              </div>
+              <div>
+                <div className="text-xs font-bold text-neutral-500">Taxa de reembolso</div>
+                <div className="text-lg font-extrabold">1,4%</div>
+              </div>
+            </div>
+
+            <BrowserFrame url="above.ao/learn/marketing-digital" className="mt-8">
+              <MembersAreaMock />
+            </BrowserFrame>
           </div>
         </div>
 
-        {/* 4. INTEGRATIONS & ANALYTICS */}
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-6 mt-32">
-          
-          <div className="bg-white rounded-3xl p-10 flex flex-col shadow-sm border border-neutral-200">
-            <h3 className="text-3xl font-extrabold mb-4">Apoio especializado, exatamente quando precisas..</h3>
-            <p className="text-neutral-600 mb-8">
-              Os nossos especialistas conhecem o teu negócio e sabem como impulsioná-lo. Com o parceiro certo, vais mais longe.
+        {/* INTEGRAÇÕES E ANÁLISES */}
+        <div className="mx-auto mt-32 grid max-w-7xl gap-6 md:grid-cols-3">
+
+          <div className="flex flex-col rounded-3xl border border-neutral-200 bg-white p-10 shadow-card">
+            <h3 className="mb-4 text-3xl font-extrabold">Apoio especializado, exatamente quando precisas.</h3>
+            <p className="mb-8 text-neutral-600">
+              Os nossos especialistas conhecem o teu negócio e sabem como impulsioná-lo. Com o parceiro certo, vais mais
+              longe.
             </p>
-            <a href="/signup" className="text-[#FF4500] font-bold mt-auto inline-flex items-center gap-2 hover:underline">
+            <a href="/signup" className="mt-auto inline-flex items-center gap-2 font-bold text-brand hover:underline">
               Regista-te agora →
             </a>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 flex flex-col shadow-sm border border-neutral-200">
-            <div className="mb-6 rounded-2xl border border-neutral-200 relative overflow-hidden h-40 flex flex-col justify-center">
-               <Image src="/modern_dashboard.png" alt="Analytics Dashboard" fill className="object-cover object-left-top" />
+          <div className="flex flex-col rounded-3xl border border-neutral-200 bg-white p-8 shadow-card">
+            <div className="mb-6 overflow-hidden rounded-2xl border border-neutral-200">
+              <AnalyticsMock compact />
             </div>
-            <h3 className="text-xl font-bold mb-2">Análises detalhadas</h3>
-            <p className="text-neutral-600 text-sm">
-              Relatórios personalizados para o teu negócio, sempre disponíveis para te focares no que importa.
+            <h3 className="mb-2 text-xl font-bold">Análises detalhadas</h3>
+            <p className="text-sm text-neutral-600">
+              Receita, vendas e reembolsos em kwanzas, mês a mês, sempre à mão.
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 flex flex-col shadow-sm border border-neutral-200 justify-center gap-4">
-             <div className="bg-neutral-50 border border-neutral-100 p-4 rounded-xl flex items-center gap-4 font-bold text-sm">
-               <span className="text-[#FF4500] text-xl">✦</span> + Integra com Hubspot
-             </div>
-             <div className="bg-neutral-50 border border-neutral-100 p-4 rounded-xl flex items-center gap-4 font-bold text-sm">
-               <span className="text-[#FF4500] text-xl">✦</span> + Integra com Mailchimp
-             </div>
-             <div className="bg-neutral-50 border border-neutral-100 p-4 rounded-xl flex items-center gap-4 font-bold text-sm">
-               <span className="text-[#FF4500] text-xl">✦</span> + Integra com Zapier
-             </div>
-             <div className="bg-neutral-50 border border-neutral-100 p-4 rounded-xl flex items-center gap-4 font-bold text-sm">
-               <span className="text-[#FF4500] text-xl">✦</span> + Integra com n8n
-             </div>
+          <div className="flex flex-col justify-center gap-4 rounded-3xl border border-neutral-200 bg-white p-8 shadow-card">
+            {["Hubspot", "Mailchimp", "Zapier", "n8n"].map((i) => (
+              <div
+                key={i}
+                className="flex items-center gap-4 rounded-xl border border-neutral-100 bg-neutral-50 p-4 text-sm font-bold"
+              >
+                <span className="text-xl text-brand">✦</span> + Integra com {i}
+              </div>
+            ))}
           </div>
 
         </div>
 
-        {/* SECÇÃO CERTIFICADO */}
-        <div className="max-w-7xl mx-auto mt-32 bg-[#050505] rounded-[3rem] p-8 sm:p-16 flex flex-col lg:flex-row items-center gap-12 lg:gap-20 border border-neutral-800 shadow-2xl relative overflow-hidden">
-          {/* Background Glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF4500]/20 blur-[120px] rounded-full pointer-events-none"></div>
-          
-          <div className="w-full lg:w-1/2 relative z-10">
-            <div className="inline-block border border-[#FF4500]/30 bg-[#FF4500]/10 rounded-full px-4 py-2 text-sm font-bold mb-6 text-[#FF4500]">
+        {/* CERTIFICADO */}
+        <div className="relative mx-auto mt-32 flex max-w-7xl flex-col items-center gap-12 overflow-hidden rounded-[3rem] border border-neutral-800 bg-ink-900 p-8 shadow-float sm:p-16 lg:flex-row lg:gap-20">
+          <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-brand/20 blur-[120px]" />
+
+          <div className="relative z-10 w-full lg:w-1/2">
+            <div className="mb-6 inline-block rounded-full border border-brand/30 bg-brand/10 px-4 py-2 text-sm font-bold text-brand">
               VALOR NO MERCADO
             </div>
-            <h2 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-6 text-white">
-              Certificação Profissional.<br/>
+            <h2 className="mb-6 text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+              Certificação Profissional.
+              <br />
               <span className="text-neutral-400">Reconhecimento instantâneo.</span>
             </h2>
-            <p className="text-neutral-400 text-lg mb-8 leading-relaxed">
-              Todos os cursos concluídos geram automaticamente um certificado de altíssimo padrão, com estilo manual de assinatura. Os teus alunos poderão partilhá-lo no LinkedIn e validar o seu conhecimento perante o mercado com uma página de autenticação exclusiva da ABOVE.
+            <p className="mb-8 text-lg leading-relaxed text-neutral-400">
+              Todos os cursos concluídos geram automaticamente um certificado de altíssimo padrão, com estilo manual de
+              assinatura. Os teus alunos poderão partilhá-lo e validar o seu conhecimento perante o mercado com uma
+              página de autenticação exclusiva da ABOVE.
             </p>
-            <ul className="space-y-4 mb-10">
-              <li className="flex items-center gap-3 font-medium text-neutral-300">
-                <span className="text-[#FF4500]">✓</span> Gerado em PDF automaticamente no fim do curso
-              </li>
-              <li className="flex items-center gap-3 font-medium text-neutral-300">
-                <span className="text-[#FF4500]">✓</span> Código QR de verificação de autenticidade
-              </li>
-              <li className="flex items-center gap-3 font-medium text-neutral-300">
-                <span className="text-[#FF4500]">✓</span> Identidade Premium com estilo de assinatura à mão
-              </li>
+            <ul className="mb-10 space-y-4">
+              {[
+                "Gerado em PDF automaticamente no fim do curso",
+                "Código QR de verificação de autenticidade",
+                "Identidade premium com estilo de assinatura à mão",
+              ].map((t) => (
+                <li key={t} className="flex items-center gap-3 font-medium text-neutral-300">
+                  <span className="text-brand">✓</span> {t}
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="w-full lg:w-1/2 relative z-10 h-[300px] sm:h-[450px]">
-            <Image 
-              src="/certificate_filled_example.png" 
-              alt="Certificado ABOVE Preenchido" 
-              fill
-              className="object-contain rounded-xl shadow-[0_0_50px_rgba(255,69,0,0.15)] border border-neutral-800 transition-transform duration-700 hover:scale-105" 
-            />
+          <div className="relative z-10 w-full lg:w-1/2">
+            <CertificateMock />
           </div>
         </div>
 
       </section>
 
-      {/* 5. TESTIMONAIS */}
-      <section className="bg-white py-24 px-6 rounded-b-[3rem]">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#111] mb-4">O que dizem os nossos criadores</h2>
-            <p className="text-neutral-500 text-lg max-w-2xl mx-auto">Junta-te a centenas de criadores que já transformaram o seu conhecimento em lucro com a ABOVE.</p>
+      {/* 5. TESTEMUNHOS */}
+      <section className="rounded-b-[3rem] bg-white px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-extrabold text-ink-800 sm:text-4xl">O que dizem os nossos criadores</h2>
+            <p className="mx-auto max-w-2xl text-lg text-neutral-500">
+              Junta-te aos criadores que já transformaram o seu conhecimento em lucro com a ABOVE.
+            </p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-[#FAFAFA] border border-neutral-200 p-8 rounded-3xl">
-              <div className="flex text-yellow-400 mb-4 text-sm tracking-widest">★★★★★</div>
-              <p className="text-neutral-700 italic mb-8 font-medium">"A facilidade de uso é incrível. Em 10 minutos tinha o meu e-book à venda. O checkout converte muito melhor do que a plataforma que usava antes e não tenho dores de cabeça."</p>
-              <div className="flex items-center gap-4 mt-auto">
-                <div className="w-12 h-12 bg-neutral-200 rounded-full flex items-center justify-center font-bold text-neutral-400">J</div>
-                <div>
-                  <div className="font-bold text-[#111] text-sm">João M.</div>
-                  <div className="text-neutral-500 text-xs">Criador de Conteúdo</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-[#FAFAFA] border border-neutral-200 p-8 rounded-3xl">
-              <div className="flex text-yellow-400 mb-4 text-sm tracking-widest">★★★★★</div>
-              <p className="text-neutral-700 italic mb-8 font-medium">"O facto de ter pagamentos via multicaixa express e Unitel Money mudou o jogo para mim em Angola. As minhas vendas simplesmente duplicaram no primeiro mês de uso da plataforma."</p>
-              <div className="flex items-center gap-4 mt-auto">
-                <div className="w-12 h-12 bg-neutral-200 rounded-full flex items-center justify-center font-bold text-neutral-400">A</div>
-                <div>
-                  <div className="font-bold text-[#111] text-sm">Ana C.</div>
-                  <div className="text-neutral-500 text-xs">Mentora de Finanças</div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-[#FAFAFA] border border-neutral-200 p-8 rounded-3xl">
-              <div className="flex text-yellow-400 mb-4 text-sm tracking-widest">★★★★★</div>
-              <p className="text-neutral-700 italic mb-8 font-medium">"A área de membros é visualmente linda e os meus alunos adoram o sistema de XP e os certificados automáticos gerados. Poupou-me imenso trabalho manual de suporte."</p>
-              <div className="flex items-center gap-4 mt-auto">
-                <div className="w-12 h-12 bg-neutral-200 rounded-full flex items-center justify-center font-bold text-neutral-400">P</div>
-                <div>
-                  <div className="font-bold text-[#111] text-sm">Paulo S.</div>
-                  <div className="text-neutral-500 text-xs">Especialista em Marketing</div>
-                </div>
-              </div>
-            </div>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              {
+                quote:
+                  "A facilidade de uso é incrível. Em 10 minutos tinha o meu e-book à venda. O checkout converte muito melhor do que a plataforma que usava antes e não tenho dores de cabeça.",
+                name: "João M.",
+                role: "Criador de Conteúdo",
+              },
+              {
+                quote:
+                  "O facto de ter pagamentos via Multicaixa Express e Unitel Money mudou o jogo para mim em Angola. As minhas vendas simplesmente duplicaram no primeiro mês de uso da plataforma.",
+                name: "Ana C.",
+                role: "Mentora de Finanças",
+              },
+              {
+                quote:
+                  "A área de membros é visualmente linda e os meus alunos adoram o sistema de XP e os certificados automáticos gerados. Poupou-me imenso trabalho manual de suporte.",
+                name: "Paulo S.",
+                role: "Especialista em Marketing",
+              },
+            ].map((t) => (
+              <figure key={t.name} className="flex flex-col rounded-3xl border border-neutral-200 bg-surface-50 p-8">
+                <div className="mb-4 text-sm tracking-widest text-yellow-400">★★★★★</div>
+                <blockquote className="mb-8 font-medium italic text-neutral-700">“{t.quote}”</blockquote>
+                <figcaption className="mt-auto flex items-center gap-4">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-soft font-bold text-brand">
+                    {t.name.charAt(0)}
+                  </span>
+                  <span>
+                    <span className="block text-sm font-bold text-ink-800">{t.name}</span>
+                    <span className="block text-xs text-neutral-500">{t.role}</span>
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="w-full max-w-7xl mx-auto py-12 px-6 flex flex-col items-center border-t border-neutral-900 mt-20">
-        <div className="flex items-center gap-2 text-neutral-500 font-medium text-sm hover:text-neutral-300 transition-colors cursor-default">
-          <span>Protected by</span>
-          <img 
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg" 
-            alt="Cloudflare" 
-            className="h-5 opacity-100" 
-          />
+      {/* 6. CHAMADA FINAL */}
+      <section className="px-6 py-24">
+        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[3rem] border border-neutral-800 bg-ink-700 px-8 py-16 text-center sm:px-16">
+          <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0 opacity-60" />
+          <div className="relative">
+            <h2 className="text-3xl font-extrabold sm:text-5xl">Pronto para publicar o teu primeiro produto?</h2>
+            <p className="mx-auto mt-4 max-w-xl text-neutral-400">
+              Cria a tua conta, carrega o conteúdo e começa a vender hoje. Sem mensalidade para começar.
+            </p>
+            <a
+              href={user ? "/become-creator" : "/signup"}
+              className="mt-8 inline-block rounded-xl bg-brand px-10 py-4 text-lg font-bold text-white shadow-brand transition hover:bg-brand-dark"
+            >
+              {user ? "Tornar-se Criador" : "Criar conta grátis"}
+            </a>
+          </div>
         </div>
-      </footer>
+      </section>
 
     </div>
   )

@@ -167,7 +167,7 @@ export default function AddLessonForm({
 
       <button
         type="submit"
-        className="sm:col-span-2 bg-[#0E7C86] hover:bg-[#0a626a] text-white font-bold py-2.5 rounded-md mt-2"
+        className="sm:col-span-2 bg-teal hover:bg-teal-dark text-white font-bold py-2.5 rounded-md mt-2"
       >
         Guardar Aula {modulePosition ? `(Módulo ${modulePosition})` : ""}
       </button>

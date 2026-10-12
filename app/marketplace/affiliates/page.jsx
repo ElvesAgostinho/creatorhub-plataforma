@@ -71,8 +71,8 @@ export default async function AffiliateMarketplace({ searchParams }) {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <BadgeCheck size={18} className="text-[#00A859]" />
-              <span className="text-xs font-bold text-[#00A859] uppercase tracking-wider">Marketplace de Afiliados</span>
+              <BadgeCheck size={18} className="text-pay" />
+              <span className="text-xs font-bold text-pay uppercase tracking-wider">Marketplace de Afiliados</span>
             </div>
             <h1 className="text-4xl font-black text-neutral-900 tracking-tight">
               O que queres promover hoje?
@@ -82,7 +82,7 @@ export default async function AffiliateMarketplace({ searchParams }) {
             </p>
           </div>
           <div className="flex gap-3 flex-wrap">
-            <a href="/affiliate-panel" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-sm font-bold transition-all shadow-sm text-neutral-700">
+            <a href="/affiliate-panel" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white border border-neutral-200 hover:border-brand hover:text-brand text-sm font-bold transition-all shadow-sm text-neutral-700">
               ← Painel de Afiliado
             </a>
           </div>
@@ -91,8 +91,8 @@ export default async function AffiliateMarketplace({ searchParams }) {
         {/* KPI QUICK STATS */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
           <div className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-sm flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-[#FF4500]/10 flex items-center justify-center">
-              <TrendingUp size={22} className="text-[#FF4500]" />
+            <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center">
+              <TrendingUp size={22} className="text-brand" />
             </div>
             <div>
               <p className="text-xs text-neutral-500 font-bold uppercase tracking-wide">Produtos disponíveis</p>
@@ -101,11 +101,11 @@ export default async function AffiliateMarketplace({ searchParams }) {
           </div>
           <div className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-sm flex items-center gap-4">
             <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
-              <Zap size={22} className="text-[#00A859]" />
+              <Zap size={22} className="text-pay" />
             </div>
             <div>
               <p className="text-xs text-neutral-500 font-bold uppercase tracking-wide">Comissão média</p>
-              <p className="text-2xl font-black text-[#00A859]">{avgCommission}%</p>
+              <p className="text-2xl font-black text-pay">{avgCommission}%</p>
             </div>
           </div>
           <div className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-sm flex items-center gap-4">
@@ -124,7 +124,7 @@ export default async function AffiliateMarketplace({ searchParams }) {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-3">
               <h2 className="text-2xl font-black text-neutral-900">Produtos para Promover</h2>
-              <span className="text-sm font-black bg-[#FF4500]/10 text-[#FF4500] px-3 py-1.5 rounded-xl">{products.length}</span>
+              <span className="text-sm font-black bg-brand/10 text-brand px-3 py-1.5 rounded-xl">{products.length}</span>
             </div>
             <Suspense fallback={<div className="h-10 bg-neutral-100 rounded-xl w-full max-w-md animate-pulse" />}>
               <PanelSearch placeholder="Pesquisar produtos..." />

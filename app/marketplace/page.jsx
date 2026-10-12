@@ -1,3 +1,4 @@
+import CatalogMock from "@/components/mockups/CatalogMock"
 import ProductGrid from "@/components/ProductGrid"
 import { getProducts, getFeaturedProducts } from "@/lib/data/products"
 import { Search, Flame, Star, Clock } from "lucide-react"
@@ -44,9 +45,9 @@ export default async function MarketplaceHome({ searchParams }) {
           <div className="max-w-7xl mx-auto px-6 py-16 sm:py-24 flex flex-col lg:flex-row items-center justify-between gap-12">
             
             <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#111827] mb-6 leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-ink-800 mb-6 leading-tight">
                 O que queres <br className="hidden lg:block"/>
-                <span className="text-[#FF4500]">aprender hoje?</span>
+                <span className="text-brand">aprender hoje?</span>
               </h1>
               <p className="text-lg text-neutral-500 mb-8 max-w-xl">
                 Aprende com os melhores criadores. Cursos, e-books e mentorias que te levam ao próximo nível na tua carreira.
@@ -58,10 +59,10 @@ export default async function MarketplaceHome({ searchParams }) {
                   type="text" 
                   name="q"
                   placeholder="Pesquisar por cursos, habilidades..." 
-                  className="w-full pl-6 pr-14 py-4 sm:py-5 rounded-full border border-neutral-200 text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-shadow"
+                  className="w-full pl-6 pr-14 py-4 sm:py-5 rounded-full border border-neutral-200 text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-shadow"
                   defaultValue={searchQuery || ""}
                 />
-                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#FF4500] hover:bg-[#E03E00] text-white rounded-full flex items-center justify-center transition-colors">
+                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-brand hover:bg-brand-dark text-white rounded-full flex items-center justify-center transition-colors">
                   <Search size={24} strokeWidth={2.5} />
                 </button>
               </form>
@@ -73,7 +74,7 @@ export default async function MarketplaceHome({ searchParams }) {
                   <a 
                     key={chip.label} 
                     href={`/marketplace?category=${chip.value}`}
-                    className="bg-neutral-50 border border-neutral-200 hover:border-[#FF4500] hover:text-[#FF4500] text-neutral-700 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5"
+                    className="bg-neutral-50 border border-neutral-200 hover:border-brand hover:text-brand text-neutral-700 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5"
                   >
                     <span>{chip.icon}</span>
                     {chip.label}
@@ -82,17 +83,10 @@ export default async function MarketplaceHome({ searchParams }) {
               </div>
             </div>
 
-            {/* Image (Right) */}
-            <div className="w-full lg:w-1/2 relative flex justify-center lg:justify-end mt-10 lg:mt-0">
-              <div className="relative w-full max-w-[500px] aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white/50 bg-neutral-100">
-                <img 
-                  src="/marketplace_hero_clean.png" 
-                  alt="Aprender online na plataforma" 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-                {/* Subtle overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#FF4500]/10 to-transparent mix-blend-overlay pointer-events-none"></div>
-              </div>
+            {/* Catálogo (direita) */}
+            <div className="w-full lg:w-1/2 relative flex justify-center lg:justify-end mt-10 lg:mt-0 lg:pb-8">
+              <div aria-hidden="true" className="pointer-events-none absolute -inset-6 -z-10 rounded-full bg-brand/10 blur-3xl"></div>
+              <CatalogMock className="w-full max-w-[460px]" />
             </div>
 
           </div>
@@ -104,7 +98,7 @@ export default async function MarketplaceHome({ searchParams }) {
         <div className="bg-white border-b border-neutral-200 px-4 sm:px-6 py-8 mb-8">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-black text-[#111827]">
+              <h1 className="text-2xl font-black text-ink-800">
                 {searchQuery ? `Resultados para "${searchQuery}"` : 
                  categoryFilter ? `Categoria: ${categoryFilter}` :
                  typeFilter ? typeLabels[typeFilter]?.title : 'Filtro Ativo'}
@@ -117,7 +111,7 @@ export default async function MarketplaceHome({ searchParams }) {
                 type="text" 
                 name="q"
                 placeholder="Nova pesquisa..." 
-                className="w-full pl-4 pr-10 py-2.5 rounded-lg border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent"
+                className="w-full pl-4 pr-10 py-2.5 rounded-lg border border-neutral-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent"
                 defaultValue={searchQuery || ""}
               />
               {typeFilter && <input type="hidden" name="type" value={typeFilter} />}
@@ -157,7 +151,7 @@ export default async function MarketplaceHome({ searchParams }) {
               <Section 
                 title="Mais Quentes" 
                 subtitle="Os produtos mais vendidos na plataforma" 
-                icon={<Flame className="text-[#FF4500]" size={28} />}
+                icon={<Flame className="text-brand" size={28} />}
               >
                 <ProductGrid items={maisQuentes} />
               </Section>
@@ -167,7 +161,7 @@ export default async function MarketplaceHome({ searchParams }) {
               <Section 
                 title="Adicionados Recentemente" 
                 subtitle="As novidades fresquinhas do mercado" 
-                icon={<Clock className="text-[#0E7C86]" size={28} />}
+                icon={<Clock className="text-teal" size={28} />}
               >
                 <ProductGrid items={recentes} />
               </Section>
@@ -219,7 +213,7 @@ function Section({ title, subtitle, icon, children }) {
           {icon}
         </div>}
         <div>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#111827] tracking-tight">{title}</h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-ink-800 tracking-tight">{title}</h2>
           {subtitle && <p className="text-neutral-500 mt-1 font-medium">{subtitle}</p>}
         </div>
       </div>

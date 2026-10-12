@@ -26,14 +26,14 @@ export default async function CreatorPage({ params }) {
   const fmt = n => (n ?? 0).toLocaleString("pt-PT")
 
   return (
-    <div className="bg-[#F8F7F5] min-h-screen">
+    <div className="bg-surface-100 min-h-screen">
       {/* Header / Banner do Criador */}
       <div className="bg-white border-b border-neutral-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-white shadow-xl shrink-0 bg-neutral-100 flex items-center justify-center text-5xl font-bold text-neutral-300">
               {creator.avatar_url ? (
-                <img src={creator.avatar_url} alt={creator.full_name} className="w-full h-full object-cover" />
+                <img decoding="async" fetchPriority="high" src={creator.avatar_url} alt={creator.full_name} className="w-full h-full object-cover" />
               ) : (
                 creator.full_name?.charAt(0) || "U"
               )}
@@ -72,10 +72,10 @@ export default async function CreatorPage({ params }) {
         {products && products.length > 0 ? (
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
             {products.map(p => (
-              <a href={`/product/${p.slug}`} key={p.id} className="group bg-white rounded-3xl overflow-hidden shadow-sm border border-neutral-200 hover:shadow-xl hover:border-[#FF4500]/30 transition-all flex flex-col">
+              <a href={`/product/${p.slug}`} key={p.id} className="group bg-white rounded-3xl overflow-hidden shadow-sm border border-neutral-200 hover:shadow-xl hover:border-brand/30 transition-all flex flex-col">
                 <div className="w-full aspect-[4/3] bg-neutral-100 relative overflow-hidden">
                   {p.image_url ? (
-                    <img src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img loading="lazy" decoding="async" src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-neutral-300 font-bold">Sem Capa</div>
                   )}
@@ -86,9 +86,9 @@ export default async function CreatorPage({ params }) {
                   </div>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="font-bold text-lg text-neutral-900 line-clamp-2 leading-snug group-hover:text-[#FF4500] transition-colors">{p.title}</h3>
+                  <h3 className="font-bold text-lg text-neutral-900 line-clamp-2 leading-snug group-hover:text-brand transition-colors">{p.title}</h3>
                   <div className="mt-auto pt-4 flex items-center justify-between">
-                    <span className="font-black text-xl text-[#FF4500]">{fmt(Math.round(p.price_cents / 100))} Kz</span>
+                    <span className="font-black text-xl text-brand">{fmt(Math.round(p.price_cents / 100))} Kz</span>
                     <span className="text-sm font-bold text-neutral-400 group-hover:text-neutral-900 transition-colors">Ver detalhes →</span>
                   </div>
                 </div>

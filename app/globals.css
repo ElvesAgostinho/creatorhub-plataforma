@@ -1,3 +1,98 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --brand: #ff4500;
+    --brand-dark: #e03e00;
+    --ink: #111111;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: #fff;
+  }
+
+  /* Imagens nunca estouram o contentor nem distorcem */
+  img,
+  svg,
+  video {
+    max-width: 100%;
+  }
+
+  /* Foco visível e consistente em toda a plataforma (acessibilidade) */
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* Usada em 4 sítios (CoursePlayer, AdminSidebar, admin, biblioteca) mas nunca definida */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #d4d4d4 transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #d4d4d4;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #a3a3a3;
+    background-clip: content-box;
+  }
+
+  /* Textura de grelha dos fundos escuros — substitui as imagens de fundo pesadas */
+  .bg-grid {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bg-grid-light {
+    background-image: linear-gradient(rgba(17, 17, 17, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(17, 17, 17, 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Esbatimento das margens de uma textura, para não cortar a direito */
+  .mask-fade {
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, #000 35%, transparent 75%);
+  }
+  .mask-fade-r {
+    -webkit-mask-image: linear-gradient(to right, #000 60%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 60%, transparent 100%);
+  }
+}
+
+/* Respeita quem desligou animações no sistema operativo */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

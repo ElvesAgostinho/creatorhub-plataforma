@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { createClient, createServiceClient } from "@/lib/supabase/server"
 import Link from "next/link"
+import CoverFallback from "@/components/mockups/CoverFallback"
 
 export const dynamic = "force-dynamic"
 
@@ -22,7 +23,7 @@ export default async function ClubPage({ params }) {
 
   if (!academy) {
     return (
-      <div className="min-h-screen bg-[#111] flex items-center justify-center text-white">
+      <div className="min-h-screen bg-ink-800 flex items-center justify-center text-white">
         Academia não encontrada.
       </div>
     )
@@ -67,28 +68,20 @@ export default async function ClubPage({ params }) {
   const primaryColor = academy.primary_color || "#FF4500"
   const logoUrl = academy.logo_url || ""
   
-  // Mock fallback para ver o design espetacular se estiver vazio
-  const courses = dbCourses?.length > 0 ? dbCourses : [
-    { slug: "curso-mock-1", title: "O Caminho do Mestre", image_url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop" },
-    { slug: "curso-mock-2", title: "Dominar o Setup", image_url: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=800&auto=format&fit=crop" },
-    { slug: "curso-mock-3", title: "Escalar Vendas", image_url: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop" }
-  ]
-
-  const posts = dbPosts?.length > 0 ? dbPosts : [
-    { id: 1, title: "Atualização da Semana: Novo Algoritmo", description: "O que mudou e como nos adaptar.", thumbnail_url: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop", is_exclusive: true },
-    { id: 2, title: "Entrevista VIP com Marcos", description: "Bate-papo de 1h sobre vendas.", thumbnail_url: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=800&auto=format&fit=crop", is_exclusive: true },
-    { id: 3, title: "Bastidores do Lançamento", description: "Como montamos a campanha.", thumbnail_url: "https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=800&auto=format&fit=crop", is_exclusive: true }
-  ]
+  // Sem conteúdo publicado mostramos um estado vazio honesto,
+  // em vez de cursos inventados com fotografias de bancos de imagens.
+  const courses = dbCourses || []
+  const posts = dbPosts || []
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-ink-900 text-white font-sans overflow-x-hidden">
       
       {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 bg-gradient-to-b from-black/80 to-transparent flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-8">
           <Link href="/library" className="flex items-center gap-3 hover:opacity-80 transition">
             {logoUrl ? (
-              <img src={logoUrl} alt={academy.name} className="h-8 object-contain" />
+              <img loading="lazy" decoding="async" src={logoUrl} alt={academy.name} className="h-8 object-contain" />
             ) : (
               <span className="font-extrabold text-xl tracking-tight" style={{ color: primaryColor }}>{academy.name}</span>
             )}
@@ -113,18 +106,26 @@ export default async function ClubPage({ params }) {
       {/* HERO SECTION (Destaque Principal) */}
       <div className="relative h-[85vh] w-full bg-black">
          <div className="absolute inset-0">
-           <img 
-             src={academy.hero_image_url || "/academy_carousel_3.png"} 
-             alt="Hero" 
-             className="w-full h-full object-cover opacity-60"
-           />
+           {academy.hero_image_url ? (
+             <img
+               src={academy.hero_image_url}
+               alt=""
+               className="w-full h-full object-cover opacity-60"
+             />
+           ) : (
+             <div
+               aria-hidden="true"
+               className="bg-grid w-full h-full"
+               style={{ backgroundColor: "#0A0A0A", backgroundImage: `radial-gradient(70% 90% at 75% 10%, ${primaryColor}55, transparent 70%), radial-gradient(50% 60% at 10% 90%, ${primaryColor}22, transparent 70%)` }}
+             />
+           )}
            {/* Gradiente para fundir com a página (estilo Netflix) */}
            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent"></div>
            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/60 to-transparent"></div>
          </div>
          
          <div className="absolute bottom-[20%] left-6 md:left-16 max-w-2xl">
-           {logoUrl && <img src={logoUrl} alt="Logo" className="max-w-[200px] mb-6 drop-shadow-2xl" />}
+           {logoUrl && <img loading="lazy" decoding="async" src={logoUrl} alt="Logo" className="max-w-[200px] mb-6 drop-shadow-2xl" />}
            {!logoUrl && <h1 className="text-5xl md:text-7xl font-extrabold mb-4 drop-shadow-2xl">{academy.name}</h1>}
            
            <p className="text-lg md:text-xl text-neutral-300 mb-8 drop-shadow-md font-medium max-w-xl line-clamp-3">
@@ -151,11 +152,22 @@ export default async function ClubPage({ params }) {
           <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">Novidades</span>
         </h2>
         
+        {posts.length === 0 && (
+          <div className="rounded-xl border border-dashed border-neutral-800 bg-neutral-900/40 px-6 py-10 text-center">
+            <p className="font-bold text-neutral-300">Ainda não há atualizações publicadas</p>
+            <p className="mt-1 text-sm text-neutral-500">As novidades exclusivas do clube aparecem aqui assim que forem publicadas.</p>
+          </div>
+        )}
+
         <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide snap-x">
           {posts.map((post, idx) => (
             <div key={idx} className="shrink-0 w-[300px] md:w-[400px] snap-start group cursor-pointer">
                <div className="aspect-video relative rounded-md overflow-hidden bg-neutral-900 border border-neutral-800 mb-3">
-                 <img src={post.thumbnail_url} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100" />
+                 {post.thumbnail_url ? (
+                   <img loading="lazy" decoding="async" src={post.thumbnail_url} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100" />
+                 ) : (
+                   <div aria-hidden="true" className="w-full h-full" style={{ backgroundImage: `linear-gradient(135deg, ${primaryColor}40, #111)` }} />
+                 )}
                  {post.is_exclusive && (
                    <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded">
                      Membro VIP
@@ -178,11 +190,22 @@ export default async function ClubPage({ params }) {
       <div id="courses" className="px-6 md:px-16 pb-24">
         <h2 className="text-xl font-bold mb-4">Cursos Incluídos na Assinatura</h2>
         
+        {courses.length === 0 && (
+          <div className="rounded-xl border border-dashed border-neutral-800 bg-neutral-900/40 px-6 py-10 text-center">
+            <p className="font-bold text-neutral-300">Nenhum curso incluído até agora</p>
+            <p className="mt-1 text-sm text-neutral-500">Os cursos adicionados a este clube ficam disponíveis aqui para todos os membros.</p>
+          </div>
+        )}
+
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {courses.map((course, idx) => (
             <Link key={idx} href={`/learn/${course.slug}`} className="group cursor-pointer">
               <div className="aspect-[2/3] relative rounded-md overflow-hidden bg-neutral-900 border border-neutral-800 mb-2 shadow-lg">
-                <img src={course.image_url} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100" />
+                {course.image_url ? (
+                  <img loading="lazy" decoding="async" src={course.image_url} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100" />
+                ) : (
+                  <CoverFallback title={course.title} type="course" />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
                 <div className="absolute bottom-4 left-0 w-full flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-2xl">

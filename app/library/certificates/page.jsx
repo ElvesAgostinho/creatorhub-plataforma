@@ -42,7 +42,7 @@ export default async function CertificatesPage() {
             <div key={it.purchaseId} className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition group flex flex-col">
               <div className="aspect-video bg-neutral-100 relative overflow-hidden">
                 {it.product.image ? (
-                  <img src={it.product.image} alt={it.product.title} className="w-full h-full object-cover" />
+                  <img loading="lazy" decoding="async" src={it.product.image} alt={it.product.title} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-neutral-300">
                     <Award size={48} />
@@ -50,7 +50,7 @@ export default async function CertificatesPage() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
                   <span className="text-white font-bold text-sm tracking-wide flex items-center gap-2">
-                    <Award size={16} className="text-[#FF4500]" />
+                    <Award size={16} className="text-brand" />
                     CONCLUÍDO
                   </span>
                 </div>
@@ -60,7 +60,7 @@ export default async function CertificatesPage() {
                 <a 
                   href={`/api/certificate?productId=${it.product.id}`}
                   download
-                  className="w-full py-3 px-4 bg-[#FFF0EB] text-[#FF4500] hover:bg-[#FF4500] hover:text-white rounded-xl font-bold text-sm transition flex items-center justify-center gap-2"
+                  className="w-full py-3 px-4 bg-brand-soft text-brand hover:bg-brand hover:text-white rounded-xl font-bold text-sm transition flex items-center justify-center gap-2"
                 >
                   <Download size={16} />
                   Baixar Certificado

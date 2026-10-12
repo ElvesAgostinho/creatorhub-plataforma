@@ -106,9 +106,9 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
   ).sort((a, b) => a.position - b.position)
 
   return (
-    <div className="flex flex-col lg:flex-row h-full min-h-[800px] w-full text-white bg-[#0A0A0A]">
+    <div className="flex flex-col lg:flex-row h-full min-h-[800px] w-full text-white bg-ink-900">
       {/* SIDEBAR */}
-      <aside className="w-full lg:w-[360px] bg-[#111111] border-r border-neutral-800 flex flex-col shrink-0">
+      <aside className="w-full lg:w-[360px] bg-ink-800 border-r border-neutral-800 flex flex-col shrink-0">
         
         {/* Header da Sidebar */}
         <div className="p-6 border-b border-neutral-800 flex items-center justify-between">
@@ -128,7 +128,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
               />
               <path
-                className="text-[#FF4500] transition-all duration-500"
+                className="text-brand transition-all duration-500"
                 strokeWidth="3"
                 strokeDasharray={`${pct}, 100`}
                 stroke="currentColor"
@@ -149,7 +149,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
             const moduleDoneCount = m.lessons.reduce((acc, l) => acc + (progressMap[l.id]?.completed ? 1 : 0), 0)
             
             return (
-              <div key={m.id} className="bg-[#1A1A1A] rounded-2xl overflow-hidden border border-neutral-800">
+              <div key={m.id} className="bg-ink-700 rounded-2xl overflow-hidden border border-neutral-800">
                 <button 
                   onClick={() => setExpandedModules(prev => ({...prev, [m.id]: !isExpanded}))}
                   className="w-full px-5 py-4 flex items-center justify-between text-left hover:bg-neutral-800/50 transition"
@@ -176,11 +176,11 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                           <button
                             onClick={() => setCurrentIdx(idx)}
                             className={`w-full text-left px-5 py-3 flex gap-3 items-center transition
-                              ${isCurrent ? "bg-[#222] border-l-2 border-[#FF4500]" : "hover:bg-neutral-800/30 border-l-2 border-transparent"}
+                              ${isCurrent ? "bg-[#222] border-l-2 border-brand" : "hover:bg-neutral-800/30 border-l-2 border-transparent"}
                             `}
                           >
                             <div className={`w-5 h-5 rounded-full shrink-0 flex items-center justify-center border text-[10px]
-                              ${done ? "bg-[#FF4500] border-[#FF4500] text-white" : "border-neutral-600 text-transparent"}
+                              ${done ? "bg-brand border-brand text-white" : "border-neutral-600 text-transparent"}
                             `}>
                               ✓
                             </div>
@@ -202,7 +202,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
       </aside>
 
       {/* ÁREA PRINCIPAL DO VÍDEO */}
-      <div className="flex-1 flex flex-col overflow-y-auto bg-[#0A0A0A]">
+      <div className="flex-1 flex flex-col overflow-y-auto bg-ink-900">
         
         {/* Cabeçalho do Vídeo */}
         <div className="px-8 pt-8 pb-4">
@@ -213,7 +213,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
              <h1 className="text-3xl font-extrabold flex-1 leading-tight">{current.position}. {current.title}</h1>
              <button 
                onClick={handleCompleteAndNext}
-               className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-6 py-2.5 rounded-xl text-sm transition flex items-center gap-2 shrink-0 shadow-lg shadow-[#FF4500]/20"
+               className="bg-brand hover:bg-brand-dark text-white font-bold px-6 py-2.5 rounded-xl text-sm transition flex items-center gap-2 shrink-0 shadow-brand"
              >
                Completar & Seguinte <span className="text-lg leading-none">›</span>
              </button>
@@ -232,7 +232,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                type="video"
              />
              {/* Glow effect */}
-             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-[#FF4500]/20 blur-3xl pointer-events-none rounded-full" />
+             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-brand/20 blur-3xl pointer-events-none rounded-full" />
            </div>
         </div>
         
@@ -244,7 +244,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                  key={tab}
                  onClick={() => setActiveTab(tab)}
                  className={`pb-3 text-sm font-bold capitalize transition-colors border-b-2 
-                  ${activeTab === tab ? "border-[#FF4500] text-white" : "border-transparent text-neutral-500 hover:text-neutral-300"}
+                  ${activeTab === tab ? "border-brand text-white" : "border-transparent text-neutral-500 hover:text-neutral-300"}
                  `}
                >
                  {tab === 'qa' ? 'Q&A' : tab}
@@ -277,7 +277,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                      href={current.pdf_url.startsWith('http') ? current.pdf_url : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${current.pdf_url.replace('storage:', '')}`} 
                      target="_blank" 
                      rel="noopener noreferrer" 
-                     className="inline-flex items-center gap-3 bg-[#1A1A1A] border border-neutral-800 hover:border-[#FF4500] hover:text-[#FF4500] transition-colors p-4 rounded-xl text-white font-bold"
+                     className="inline-flex items-center gap-3 bg-ink-700 border border-neutral-800 hover:border-brand hover:text-brand transition-colors p-4 rounded-xl text-white font-bold"
                    >
                      <span className="text-2xl">📄</span>
                      Descarregar Material de Apoio (PDF)
@@ -289,7 +289,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
              )}
 
              {activeTab === 'qa' && (
-               <div className="max-w-2xl bg-[#111] border border-neutral-800 p-6 rounded-2xl">
+               <div className="max-w-2xl bg-ink-800 border border-neutral-800 p-6 rounded-2xl">
                  <h3 className="font-bold text-lg mb-2">Dúvidas sobre a aula?</h3>
                  <p className="text-sm text-neutral-500 mb-6">A tua mensagem será enviada diretamente para a caixa de entrada do professor e respondida o mais breve possível.</p>
                  <form 
@@ -325,7 +325,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                      name="content"
                      required 
                      rows={4} 
-                     className="w-full bg-[#1A1A1A] border border-neutral-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#FF4500] placeholder-neutral-600 resize-none"
+                     className="w-full bg-ink-700 border border-neutral-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brand placeholder-neutral-600 resize-none"
                      placeholder="Escreve aqui a tua dúvida de forma clara..."
                    />
                    <div className="flex justify-end">

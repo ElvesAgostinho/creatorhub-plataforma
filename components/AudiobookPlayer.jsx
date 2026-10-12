@@ -135,7 +135,7 @@ export default function AudiobookPlayer({ product, streamUrl }) {
           <ArrowLeft size={20} />
         </Link>
         <div className="flex items-center gap-2">
-          <Headphones size={18} className="text-[#FF4500]" />
+          <Headphones size={18} className="text-brand" />
           <span className="text-white/50 text-sm font-medium">A Ouvir Audiobook</span>
         </div>
       </header>
@@ -146,7 +146,7 @@ export default function AudiobookPlayer({ product, streamUrl }) {
 
           {/* Cover Art */}
           <div className="relative mx-auto w-64 h-64 mb-10">
-            <div className="absolute inset-0 rounded-3xl bg-[#FF4500]/20 blur-3xl scale-110" />
+            <div className="absolute inset-0 rounded-3xl bg-brand/20 blur-3xl scale-110" />
             {product.image ? (
               <img
                 src={product.image}
@@ -154,13 +154,13 @@ export default function AudiobookPlayer({ product, streamUrl }) {
                 className={`relative w-full h-full object-cover rounded-3xl shadow-2xl border border-white/10 transition-all duration-500 ${isPlaying ? "scale-105" : "scale-100"}`}
               />
             ) : (
-              <div className="relative w-full h-full rounded-3xl bg-gradient-to-br from-[#FF4500] to-[#ff6b35] flex items-center justify-center shadow-2xl">
+              <div className="relative w-full h-full rounded-3xl bg-gradient-to-br from-brand to-[#ff6b35] flex items-center justify-center shadow-2xl">
                 <Headphones size={64} className="text-white/80" />
               </div>
             )}
             {/* Pulse animation when playing */}
             {isPlaying && (
-              <div className="absolute inset-0 rounded-3xl border-2 border-[#FF4500]/50 animate-ping" />
+              <div className="absolute inset-0 rounded-3xl border-2 border-brand/50 animate-ping" />
             )}
           </div>
 
@@ -183,7 +183,7 @@ export default function AudiobookPlayer({ product, streamUrl }) {
               />
               {/* Played */}
               <div
-                className="absolute top-0 left-0 h-full bg-[#FF4500] rounded-full transition-all"
+                className="absolute top-0 left-0 h-full bg-brand rounded-full transition-all"
                 style={{ width: `${progress}%` }}
               />
               {/* Thumb */}
@@ -221,7 +221,7 @@ export default function AudiobookPlayer({ product, streamUrl }) {
             <button
               onClick={togglePlay}
               disabled={isLoading}
-              className="w-16 h-16 rounded-full bg-[#FF4500] hover:bg-[#e03e00] flex items-center justify-center text-white shadow-lg shadow-[#FF4500]/30 hover:shadow-[#FF4500]/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-16 h-16 rounded-full bg-brand hover:bg-[#e03e00] flex items-center justify-center text-white shadow-lg shadow-[#FF4500]/30 hover:shadow-[#FF4500]/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -260,7 +260,7 @@ export default function AudiobookPlayer({ product, streamUrl }) {
               step="0.05"
               value={isMuted ? 0 : volume}
               onChange={changeVolume}
-              className="flex-1 h-1 accent-[#FF4500] cursor-pointer"
+              className="flex-1 h-1 accent-brand cursor-pointer"
             />
             <Volume2 size={14} className="text-white/30 shrink-0" />
           </div>

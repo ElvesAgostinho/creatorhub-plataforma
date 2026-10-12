@@ -37,9 +37,9 @@ export default function MobileBottomNav({ role = "student" }) {
             <Link 
               key={link.name} 
               href={link.href}
-              className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${isActive ? 'text-[#FF4500]' : 'text-neutral-400 hover:text-neutral-600'}`}
+              className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${isActive ? 'text-brand' : 'text-neutral-400 hover:text-neutral-600'}`}
             >
-              <Icon size={22} className={isActive ? 'fill-[#FF4500]/10' : ''} />
+              <Icon size={22} className={isActive ? 'fill-brand/10' : ''} />
               <span className="text-[10px] font-bold">{link.name}</span>
             </Link>
           )

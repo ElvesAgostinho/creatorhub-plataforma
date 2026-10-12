@@ -106,7 +106,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
 
     if (!currentLesson) {
       return (
-        <div className="w-full aspect-video bg-[#1A1A1A] flex items-center justify-center rounded-lg">
+        <div className="w-full aspect-video bg-ink-700 flex items-center justify-center rounded-lg">
           <p className="text-neutral-500 font-medium">Nenhuma aula disponível.</p>
         </div>
       )
@@ -117,7 +117,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
 
     if (!url) {
       return (
-        <div className="w-full aspect-video bg-[#1A1A1A] flex items-center justify-center rounded-lg">
+        <div className="w-full aspect-video bg-ink-700 flex items-center justify-center rounded-lg">
           <p className="text-neutral-500 font-medium">Esta aula não contém vídeo.</p>
         </div>
       )
@@ -210,7 +210,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
   }
 
   return (
-    <div className="h-screen bg-[#F4F5F7] text-neutral-900 font-sans flex flex-col md:flex-row overflow-hidden">
+    <div className="h-screen bg-surface-200 text-neutral-900 font-sans flex flex-col md:flex-row overflow-hidden">
       
       {/* MOBILE HEADER */}
       <div className="md:hidden h-14 bg-white border-b border-neutral-200 flex items-center justify-between px-4 shrink-0 z-50">
@@ -237,7 +237,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
         </div>
 
         {/* Course Progress Area */}
-        <div className="px-6 py-6 border-b border-neutral-100 bg-[#FAFAFA]">
+        <div className="px-6 py-6 border-b border-neutral-100 bg-surface-50">
           <h2 className="font-black text-lg text-neutral-900 leading-tight mb-4">{product.title}</h2>
           <div className="flex items-center justify-between text-xs font-bold text-neutral-500 mb-2">
             <span>O teu progresso</span>
@@ -282,7 +282,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
                   </span>
                 </summary>
                 
-                <div className="bg-[#FAFAFA] border-t border-neutral-100">
+                <div className="bg-surface-50 border-t border-neutral-100">
                   {modLessons.map(lesson => {
                     const isActive = lesson.id === currentLessonId
                     const isCompleted = progressMap[lesson.id]?.completed
@@ -335,17 +335,17 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
       )}
 
       {/* RIGHT COLUMN - VIDEO & CONTENT */}
-      <main className="flex-1 flex flex-col h-full overflow-y-auto bg-[#F4F5F7] relative">
+      <main className="flex-1 flex flex-col h-full overflow-y-auto bg-surface-200 relative">
         
         {/* Toast */}
         {toast && (
-          <div className="absolute top-6 right-6 z-50 bg-[#FF4500] text-white text-sm font-bold px-6 py-3 rounded-full animate-bounce shadow-xl border border-white/20">
+          <div className="absolute top-6 right-6 z-50 bg-brand text-white text-sm font-bold px-6 py-3 rounded-full animate-bounce shadow-xl border border-white/20">
             {toast}
           </div>
         )}
 
         {/* Video Area */}
-        <div className="w-full bg-[#1A1A1A] lg:p-8 p-0 shrink-0 border-b border-neutral-200 sticky md:relative top-0 z-40 shadow-[0_10px_30px_rgba(0,0,0,0.15)] md:shadow-none">
+        <div className="w-full bg-ink-700 lg:p-8 p-0 shrink-0 border-b border-neutral-200 sticky md:relative top-0 z-40 shadow-[0_10px_30px_rgba(0,0,0,0.15)] md:shadow-none">
           <div className="max-w-5xl mx-auto">
             {renderVideo()}
             
@@ -410,7 +410,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
               </div>
 
               {/* Tabs Navigation */}
-              <div className="flex items-center px-6 md:px-8 border-b border-neutral-200 bg-[#FAFAFA]">
+              <div className="flex items-center px-6 md:px-8 border-b border-neutral-200 bg-surface-50">
                 <button 
                   onClick={() => setActiveTab('overview')}
                   className={`flex items-center gap-2 py-4 px-2 text-sm font-bold border-b-2 transition-colors mr-6 ${activeTab === 'overview' ? 'text-neutral-900' : 'text-neutral-500 hover:text-neutral-700 border-transparent'}`}
@@ -476,18 +476,18 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
                           href={getPdfUrl()} 
                           target="_blank" 
                           download
-                          className="group flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-white hover:border-[#FF4500] hover:shadow-md transition-all cursor-pointer"
+                          className="group flex items-center justify-between p-4 rounded-xl border border-neutral-200 bg-white hover:border-brand hover:shadow-md transition-all cursor-pointer"
                         >
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-lg bg-red-50 text-red-500 flex items-center justify-center shrink-0">
                               <FileText size={24} />
                             </div>
                             <div>
-                              <h4 className="font-bold text-neutral-900 group-hover:text-[#FF4500] transition-colors">Material de Apoio (PDF)</h4>
+                              <h4 className="font-bold text-neutral-900 group-hover:text-brand transition-colors">Material de Apoio (PDF)</h4>
                               <p className="text-xs text-neutral-500 mt-0.5">Clique para baixar ou visualizar</p>
                             </div>
                           </div>
-                          <div className="w-10 h-10 rounded-full bg-neutral-50 text-neutral-400 flex items-center justify-center group-hover:bg-[#FFF0EB] group-hover:text-[#FF4500] transition-colors">
+                          <div className="w-10 h-10 rounded-full bg-neutral-50 text-neutral-400 flex items-center justify-center group-hover:bg-brand-soft group-hover:text-brand transition-colors">
                             <Download size={18} />
                           </div>
                         </a>
@@ -546,7 +546,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
                         name="content"
                         required 
                         rows={4} 
-                        className="w-full bg-[#FAFAFA] border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-[#FF4500] focus:ring-1 focus:ring-[#FF4500] placeholder-neutral-400 resize-none transition-all"
+                        className="w-full bg-surface-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand placeholder-neutral-400 resize-none transition-all"
                         placeholder="Escreve aqui a tua dúvida de forma detalhada..."
                       />
                       <div className="flex justify-end">

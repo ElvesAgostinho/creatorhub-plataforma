@@ -25,7 +25,7 @@ export default function LibrarySidebar({ userProfile, children }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F5F7] flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen bg-surface-200 flex flex-col md:flex-row font-sans">
       
       {/* MOBILE HEADER */}
       <div className="md:hidden h-14 bg-white border-b border-neutral-200 flex items-center justify-between px-4 sticky top-0 z-50">
@@ -33,7 +33,7 @@ export default function LibrarySidebar({ userProfile, children }) {
           <button onClick={() => setIsOpen(true)} className="p-2 -ml-2 text-neutral-600">
             <Menu size={24} />
           </button>
-          <span className="font-black text-[#FF4500] text-xl tracking-tighter">ABOVE</span>
+          <span className="font-black text-brand text-xl tracking-tighter">ABOVE</span>
         </div>
         <div className="w-8 h-8 rounded-full bg-neutral-200 overflow-hidden flex items-center justify-center text-xs font-bold text-neutral-500">
           {userProfile?.full_name?.charAt(0) || "U"}
@@ -54,7 +54,7 @@ export default function LibrarySidebar({ userProfile, children }) {
         {/* LOGO */}
         <div className="h-20 border-b border-neutral-100 flex items-center justify-between px-6 shrink-0">
           <Link href="/library" className="flex items-center gap-2">
-            <span className="font-black text-[#FF4500] text-2xl tracking-tighter">ABOVE</span>
+            <span className="font-black text-brand text-2xl tracking-tighter">ABOVE</span>
           </Link>
           <button className="md:hidden text-neutral-500" onClick={() => setIsOpen(false)}>
             <X size={20} />
@@ -64,7 +64,7 @@ export default function LibrarySidebar({ userProfile, children }) {
         {/* USER PROFILE SNIPPET */}
         <div className="p-6 border-b border-neutral-100">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-[#FFF0EB] border border-[#FF4500]/20 flex items-center justify-center text-lg font-bold text-[#FF4500] shrink-0">
+            <div className="w-12 h-12 rounded-full bg-brand-soft border border-brand/20 flex items-center justify-center text-lg font-bold text-brand shrink-0">
               {userProfile?.full_name?.charAt(0) || "U"}
             </div>
             <div className="min-w-0">
@@ -89,11 +89,11 @@ export default function LibrarySidebar({ userProfile, children }) {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium text-sm ${
                   isActive 
-                    ? "bg-[#FFF0EB] text-[#FF4500]" 
+                    ? "bg-brand-soft text-brand" 
                     : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
                 }`}
               >
-                <Icon size={18} className={isActive ? "text-[#FF4500]" : "text-neutral-400"} />
+                <Icon size={18} className={isActive ? "text-brand" : "text-neutral-400"} />
                 {link.label}
               </Link>
             )

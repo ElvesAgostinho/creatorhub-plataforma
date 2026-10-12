@@ -37,7 +37,7 @@ export default function CreateProductForm({
       <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden">
         <div className="bg-neutral-50 px-6 py-4 border-b border-neutral-200 flex items-center gap-3">
           <Info size={20} className="text-neutral-500" />
-          <h3 className="font-bold text-[#111827]">Informações Básicas</h3>
+          <h3 className="font-bold text-ink-800">Informações Básicas</h3>
         </div>
         
         <div className="p-6 sm:p-8 grid sm:grid-cols-2 gap-6">
@@ -107,7 +107,7 @@ export default function CreateProductForm({
       <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden">
         <div className="bg-neutral-50 px-6 py-4 border-b border-neutral-200 flex items-center gap-3">
           <DollarSign size={20} className="text-neutral-500" />
-          <h3 className="font-bold text-[#111827]">Preço e Oferta</h3>
+          <h3 className="font-bold text-ink-800">Preço e Oferta</h3>
         </div>
         
         <div className="p-6 sm:p-8 grid sm:grid-cols-2 gap-6">
@@ -145,13 +145,13 @@ export default function CreateProductForm({
       <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden">
         <div className="bg-neutral-50 px-6 py-4 border-b border-neutral-200 flex items-center gap-3">
           <ImageIcon size={20} className="text-neutral-500" />
-          <h3 className="font-bold text-[#111827]">Media e Apresentação</h3>
+          <h3 className="font-bold text-ink-800">Media e Apresentação</h3>
         </div>
         
         <div className="p-6 sm:p-8 grid sm:grid-cols-2 gap-8">
           
           <div className="sm:col-span-2 p-6 border border-neutral-200 bg-[#F8F9FA] rounded-xl relative">
-            <label className="text-sm font-bold text-[#111827] mb-4 flex items-center gap-2">
+            <label className="text-sm font-bold text-ink-800 mb-4 flex items-center gap-2">
               <ImageIcon size={16} className="text-neutral-500" />
               Capa do Produto (Imagem Principal)
             </label>
@@ -208,16 +208,16 @@ export default function CreateProductForm({
 
       {/* SECÇÃO 4: Dinâmico por Tipo */}
       {(type === "book" || type === "audiobook" || type === "template" || type === "mentorship" || type === "event" || type === "community") && (
-        <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden border-l-4 border-l-[#FF4500]">
+        <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden border-l-4 border-l-brand">
           <div className="bg-neutral-50 px-6 py-4 border-b border-neutral-200 flex items-center gap-3">
             <Layers size={20} className="text-neutral-500" />
-            <h3 className="font-bold text-[#111827]">Conteúdo Específico</h3>
+            <h3 className="font-bold text-ink-800">Conteúdo Específico</h3>
           </div>
           <div className="p-6 sm:p-8">
             
             {type === "book" && (
               <div>
-                <label className="text-sm font-bold text-[#111827] mb-3 block">Ficheiro PDF do E-book</label>
+                <label className="text-sm font-bold text-ink-800 mb-3 block">Ficheiro PDF do E-book</label>
                 <div className="max-w-md">
                   <Uploader 
                     bucket="books" 
@@ -234,7 +234,7 @@ export default function CreateProductForm({
 
             {type === "audiobook" && (
               <div>
-                <label className="text-sm font-bold text-[#111827] mb-3 block">Ficheiro MP3 / Áudio</label>
+                <label className="text-sm font-bold text-ink-800 mb-3 block">Ficheiro MP3 / Áudio</label>
                 <div className="max-w-md">
                   <Uploader 
                     bucket="audio" 
@@ -251,7 +251,7 @@ export default function CreateProductForm({
 
             {type === "template" && (
               <div>
-                <label className="text-sm font-bold text-[#111827] mb-3 block">Ficheiro do Template (ZIP, XLSX...)</label>
+                <label className="text-sm font-bold text-ink-800 mb-3 block">Ficheiro do Template (ZIP, XLSX...)</label>
                 <div className="max-w-md">
                   <Uploader 
                     bucket="templates" 
@@ -292,7 +292,7 @@ export default function CreateProductForm({
       <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden">
         <div className="bg-neutral-50 px-6 py-4 border-b border-neutral-200 flex items-center gap-3">
           <Users size={20} className="text-neutral-500" />
-          <h3 className="font-bold text-[#111827]">Checkout & Vendas (Opcional)</h3>
+          <h3 className="font-bold text-ink-800">Checkout & Vendas (Opcional)</h3>
         </div>
         
         <div className="p-6 sm:p-8 grid sm:grid-cols-2 gap-6">
@@ -325,7 +325,7 @@ export default function CreateProductForm({
       <div className="flex justify-end pt-4 mb-10">
         <button 
           type="submit" 
-          className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-4 px-10 rounded-xl shadow-md transition-colors text-lg flex items-center gap-2"
+          className="bg-brand hover:bg-brand-dark text-white font-bold py-4 px-10 rounded-xl shadow-md transition-colors text-lg flex items-center gap-2"
         >
           Criar Produto e Continuar
         </button>

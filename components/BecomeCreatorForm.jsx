@@ -54,7 +54,7 @@ export default function BecomeCreatorForm({ userEmail, fee }) {
         </div>
       )}
 
-      <button type="submit" className="w-full bg-[#0E7C86] hover:bg-[#0a626a] text-white font-bold py-3 rounded-md text-lg mt-4">
+      <button type="submit" className="w-full bg-teal hover:bg-teal-dark text-white font-bold py-3 rounded-md text-lg mt-4">
         Enviar Candidatura
       </button>
     </form>

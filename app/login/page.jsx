@@ -1,4 +1,5 @@
 "use client"
+import AuthShowcase from "@/components/mockups/AuthShowcase"
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -40,7 +41,7 @@ export default function LoginPage() {
           </a>
 
           <div className="mb-8">
-            <h1 className="text-3xl font-extrabold text-[#111] tracking-tight">Bem-vindo de volta</h1>
+            <h1 className="text-3xl font-extrabold text-ink-800 tracking-tight">Bem-vindo de volta</h1>
             <p className="text-neutral-500 mt-2 text-base">Entra na tua conta para continuar a aprender.</p>
           </div>
 
@@ -52,7 +53,7 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition-all"
+                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all"
                 placeholder="o.teu.email@exemplo.com"
               />
             </div>
@@ -60,7 +61,7 @@ export default function LoginPage() {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-sm font-semibold text-neutral-700">Palavra-passe</label>
-                <a href="/support" className="text-xs text-[#FF4500] hover:underline font-medium">Esqueceste?</a>
+                <a href="/support" className="text-xs text-brand hover:underline font-medium">Esqueceste?</a>
               </div>
               <div className="relative">
                 <input
@@ -69,7 +70,7 @@ export default function LoginPage() {
                   minLength={6}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 pr-12 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition-all"
+                  className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 pr-12 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all"
                   placeholder="••••••••"
                 />
                 <button
@@ -92,7 +93,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#FF4500] hover:bg-[#E03E00] disabled:opacity-60 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-[#FF4500]/20 flex items-center justify-center gap-2 text-sm mt-2"
+              className="w-full bg-brand hover:bg-brand-dark disabled:opacity-60 text-white font-bold py-4 rounded-xl transition-all shadow-brand flex items-center justify-center gap-2 text-sm mt-2"
             >
               {loading ? (
                 <><Loader2 size={18} className="animate-spin" /> A entrar…</>
@@ -109,34 +110,18 @@ export default function LoginPage() {
 
           <p className="text-center text-sm text-neutral-600">
             Ainda não tens conta?{" "}
-            <a href="/signup" className="font-bold text-[#FF4500] hover:underline">Criar conta grátis</a>
+            <a href="/signup" className="font-bold text-brand hover:underline">Criar conta grátis</a>
           </p>
         </div>
       </div>
 
-      {/* RIGHT SIDE: VISUAL */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#111] relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20 z-10" />
-        <img
-          src="/auth_side_image.png"
-          alt="Inspiração"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 z-20 flex flex-col justify-end p-16 pb-20 text-white bg-gradient-to-t from-[#111]/95 via-[#111]/40 to-transparent">
-          {/* Trust badges */}
-          <div className="flex gap-3 mb-8 flex-wrap">
-            {["✅ +10.000 alunos", "🎓 Certificado digital", "🔒 Pagamento seguro"].map(b => (
-              <span key={b} className="bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-                {b}
-              </span>
-            ))}
-          </div>
-          <h2 className="text-4xl font-extrabold mb-4 leading-tight">Aprende, Ensina, Evolui.</h2>
-          <p className="text-base text-neutral-300 max-w-md leading-relaxed">
-            Junta-te a milhares de criadores e alunos que transformam conhecimento em resultados reais todos os dias.
-          </p>
-        </div>
-      </div>
+      {/* LADO DIREITO: A PLATAFORMA */}
+      <AuthShowcase
+        title="Aprende, Ensina, Evolui."
+        subtitle="Junta-te aos criadores e alunos que transformam conhecimento em resultados reais todos os dias."
+        badges={["Certificado digital", "Pagamento seguro", "Acesso vitalício"]}
+      />
+
     </div>
   )
 }

@@ -101,11 +101,11 @@ export default async function AnalyticsPage() {
   const chartHeights = chartData.map(v => (v / maxRevenue) * 100)
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F7F5]">
+    <div className="min-h-screen flex flex-col bg-surface-100">
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-10">
         
         <div className="flex items-center justify-between flex-wrap gap-3 mb-8">
-          <h1 className="text-3xl font-extrabold text-[#111]">{isAdmin ? "Admin — Análises (Global)" : "Análises de Vendas"}</h1>
+          <h1 className="text-3xl font-extrabold text-ink-800">{isAdmin ? "Admin — Análises (Global)" : "Análises de Vendas"}</h1>
 
         </div>
 
@@ -132,7 +132,7 @@ export default async function AnalyticsPage() {
             <h3 className="font-extrabold text-lg mb-6">Receita gerada</h3>
             <div className="h-64 flex items-end gap-2">
               {chartHeights.map((h, i) => (
-                <div key={i} className="flex-1 bg-[#FF4500]/20 rounded-t-md hover:bg-[#FF4500] transition-colors relative group" style={{ height: `${Math.max(h, 2)}%` }}>
+                <div key={i} className="flex-1 bg-brand/20 rounded-t-md hover:bg-brand transition-colors relative group" style={{ height: `${Math.max(h, 2)}%` }}>
                   <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
                     {(chartData[i] || 0).toLocaleString('pt-PT', { style: 'currency', currency: 'AOA' })}
                   </div>
@@ -158,7 +158,7 @@ export default async function AnalyticsPage() {
                       </div>
                       <div className="font-bold text-sm truncate" title={p.title}>{p.title}</div>
                     </div>
-                    <div className="font-bold text-[#FF4500] shrink-0">{p.sales}</div>
+                    <div className="font-bold text-brand shrink-0">{p.sales}</div>
                   </div>
                 ))
               )}

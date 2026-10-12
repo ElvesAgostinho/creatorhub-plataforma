@@ -47,20 +47,20 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
       <div className="flex items-center gap-4 border-b border-neutral-200 mb-8">
         <button 
           onClick={() => setActiveTab("hero")}
-          className={`pb-4 px-2 font-bold text-lg border-b-2 transition-colors ${activeTab === "hero" ? "border-[#FF4500] text-[#FF4500]" : "border-transparent text-neutral-400 hover:text-neutral-700"}`}
+          className={`pb-4 px-2 font-bold text-lg border-b-2 transition-colors ${activeTab === "hero" ? "border-brand text-brand" : "border-transparent text-neutral-400 hover:text-neutral-700"}`}
         >
           <div className="flex items-center gap-2"><Star size={20} /> Destaques no Hero</div>
         </button>
         <button 
           onClick={() => setActiveTab("email")}
-          className={`pb-4 px-2 font-bold text-lg border-b-2 transition-colors ${activeTab === "email" ? "border-[#FF4500] text-[#FF4500]" : "border-transparent text-neutral-400 hover:text-neutral-700"}`}
+          className={`pb-4 px-2 font-bold text-lg border-b-2 transition-colors ${activeTab === "email" ? "border-brand text-brand" : "border-transparent text-neutral-400 hover:text-neutral-700"}`}
         >
           <div className="flex items-center gap-2"><Megaphone size={20} /> Disparos de E-mail</div>
         </button>
       </div>
 
       {msg && (
-        <div className="mb-8 p-4 rounded-xl bg-[#FFF0EB] text-[#FF4500] font-bold text-center border border-[#FF4500]/20">
+        <div className="mb-8 p-4 rounded-xl bg-brand-soft text-brand font-bold text-center border border-brand/20">
           {msg}
         </div>
       )}
@@ -76,7 +76,7 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
               <form onSubmit={handleAddHighlight} className="space-y-4">
                 <div>
                   <label className="block text-sm font-bold text-neutral-700 mb-2">Produto</label>
-                  <select name="product_id" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition">
+                  <select name="product_id" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-brand transition">
                     <option value="">Selecione um produto...</option>
                     {products.map(p => (
                       <option key={p.id} value={p.id}>{p.title}</option>
@@ -85,15 +85,15 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-neutral-700 mb-2">Peso de Prioridade (1 a 10)</label>
-                  <input type="number" name="weight" min="1" max="10" defaultValue="1" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition" />
+                  <input type="number" name="weight" min="1" max="10" defaultValue="1" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-brand transition" />
                   <p className="text-xs text-neutral-500 mt-2">Maior peso aparece primeiro no carrosel.</p>
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-neutral-700 mb-2">Limite de Visualizações (Opcional)</label>
-                  <input type="number" name="limit" min="1" placeholder="Ex: 5000" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition" />
+                  <input type="number" name="limit" min="1" placeholder="Ex: 5000" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-brand transition" />
                   <p className="text-xs text-neutral-500 mt-2">Deixa em branco para mostrar sempre.</p>
                 </div>
-                <button disabled={loading} className="w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-3.5 rounded-xl transition flex justify-center items-center gap-2">
+                <button disabled={loading} className="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3.5 rounded-xl transition flex justify-center items-center gap-2">
                   {loading ? <Loader2 className="animate-spin" size={20} /> : <><Plus size={20} /> Adicionar ao Hero</>}
                 </button>
               </form>
@@ -115,12 +115,12 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
                     <div key={h.id} className="p-4 sm:p-6 flex items-center justify-between hover:bg-neutral-50 transition">
                       <div className="flex items-center gap-4">
                         <div className="w-16 h-12 bg-neutral-200 rounded-lg overflow-hidden relative shrink-0">
-                          {h.products?.image_url && <img src={h.products.image_url} alt="" className="absolute inset-0 w-full h-full object-cover" />}
+                          {h.products?.image_url && <img loading="lazy" decoding="async" src={h.products.image_url} alt="" className="absolute inset-0 w-full h-full object-cover" />}
                         </div>
                         <div>
                           <h4 className="font-bold text-neutral-900">{h.products?.title}</h4>
                           <div className="text-xs font-bold text-neutral-500 mt-1 flex gap-3">
-                            <span>Peso: <span className="text-[#FF4500]">{h.priority_weight}</span></span>
+                            <span>Peso: <span className="text-brand">{h.priority_weight}</span></span>
                             {h.impressions_limit && <span>Vistas: {h.impressions_count} / {h.impressions_limit}</span>}
                           </div>
                         </div>
@@ -158,7 +158,7 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
             <form onSubmit={handleSendEmail} className="space-y-4">
               <div>
                 <label className="block text-sm font-bold text-neutral-700 mb-2">Público-Alvo</label>
-                <select name="audience" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition">
+                <select name="audience" required className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-brand transition">
                   <option value="todos">Todos os utilizadores (Inscritos)</option>
                   <option value="compradores">Apenas alunos (Já compraram algo)</option>
                   <option value="sem_compras">Apenas contas (Ainda não compraram)</option>
@@ -167,15 +167,15 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
               </div>
               <div>
                 <label className="block text-sm font-bold text-neutral-700 mb-2">Título Interno (apenas para ti)</label>
-                <input type="text" name="title" required placeholder="Ex: Lançamento Curso Python" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition" />
+                <input type="text" name="title" required placeholder="Ex: Lançamento Curso Python" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-brand transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-neutral-700 mb-2">Assunto do E-mail</label>
-                <input type="text" name="subject" required placeholder="Ex: 🎉 O nosso novo curso já está disponível!" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition" />
+                <input type="text" name="subject" required placeholder="Ex: 🎉 O nosso novo curso já está disponível!" className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-brand transition" />
               </div>
               <div>
                 <label className="block text-sm font-bold text-neutral-700 mb-2">Corpo do E-mail (suporta HTML)</label>
-                <textarea name="html_body" required rows="8" placeholder="Escreve a tua mensagem aqui. Podes usar <b>negrito</b> ou <a href='...'>links</a>." className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-[#FF4500] transition font-mono text-sm"></textarea>
+                <textarea name="html_body" required rows="8" placeholder="Escreve a tua mensagem aqui. Podes usar <b>negrito</b> ou <a href='...'>links</a>." className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 font-medium outline-none focus:border-brand transition font-mono text-sm"></textarea>
               </div>
               <button disabled={loading} className="w-full bg-black hover:bg-neutral-800 text-white font-bold py-4 rounded-xl transition flex justify-center items-center gap-2 shadow-lg">
                 {loading ? <Loader2 className="animate-spin" size={20} /> : <><Send size={20} /> Disparar para Todos</>}
@@ -200,7 +200,7 @@ export default function CampaignsClient({ highlights, campaigns, products }) {
                       </span>
                     </div>
                     <p className="text-sm text-neutral-500 mb-2 line-clamp-1">{c.subject}</p>
-                    <p className="text-xs font-bold text-[#FF4500]">Enviado para {c.sent_count} pessoa(s) em {new Date(c.created_at).toLocaleString('pt-PT')}</p>
+                    <p className="text-xs font-bold text-brand">Enviado para {c.sent_count} pessoa(s) em {new Date(c.created_at).toLocaleString('pt-PT')}</p>
                   </div>
                 ))}
               </div>

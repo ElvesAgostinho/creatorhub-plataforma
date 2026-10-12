@@ -1,4 +1,5 @@
 "use client"
+import AuthShowcase from "@/components/mockups/AuthShowcase"
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -47,7 +48,7 @@ export default function SignupPage() {
           </div>
           <h2 className="text-2xl font-extrabold text-neutral-900 mb-3">Conta criada com sucesso!</h2>
           <p className="text-neutral-500 mb-6">Enviámos um link de confirmação para <strong>{email}</strong>. Verifica a tua caixa de entrada e clica no link para activares a conta.</p>
-          <a href="/login" className="inline-block bg-[#FF4500] text-white font-bold px-8 py-3.5 rounded-xl hover:bg-[#E03E00] transition">
+          <a href="/login" className="inline-block bg-brand text-white font-bold px-8 py-3.5 rounded-xl hover:bg-brand-dark transition">
             Ir para o Login
           </a>
         </div>
@@ -66,7 +67,7 @@ export default function SignupPage() {
           </a>
 
           <div className="mb-8">
-            <h1 className="text-3xl font-extrabold text-[#111] tracking-tight">Cria a tua conta</h1>
+            <h1 className="text-3xl font-extrabold text-ink-800 tracking-tight">Cria a tua conta</h1>
             <p className="text-neutral-500 mt-2 text-base">Junta-te a milhares de alunos e começa a aprender hoje.</p>
           </div>
 
@@ -78,7 +79,7 @@ export default function SignupPage() {
                 required
                 value={fullName}
                 onChange={e => setFullName(e.target.value)}
-                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition-all"
+                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all"
                 placeholder="O teu nome completo"
               />
             </div>
@@ -90,7 +91,7 @@ export default function SignupPage() {
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition-all"
+                className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all"
                 placeholder="o.teu.email@exemplo.com"
               />
             </div>
@@ -104,7 +105,7 @@ export default function SignupPage() {
                   minLength={6}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 pr-12 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF4500]/20 focus:border-[#FF4500] transition-all"
+                  className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3.5 pr-12 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all"
                   placeholder="Mínimo 6 caracteres"
                 />
                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 transition">
@@ -132,7 +133,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#FF4500] hover:bg-[#E03E00] disabled:opacity-60 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-[#FF4500]/20 flex items-center justify-center gap-2 text-sm mt-2"
+              className="w-full bg-brand hover:bg-brand-dark disabled:opacity-60 text-white font-bold py-4 rounded-xl transition-all shadow-brand flex items-center justify-center gap-2 text-sm mt-2"
             >
               {loading ? <><Loader2 size={18} className="animate-spin" /> A criar conta…</> : "Criar conta grátis"}
             </button>
@@ -146,7 +147,7 @@ export default function SignupPage() {
 
           <p className="text-center text-sm text-neutral-600">
             Já tens conta?{" "}
-            <a href="/login" className="font-bold text-[#FF4500] hover:underline">Entrar</a>
+            <a href="/login" className="font-bold text-brand hover:underline">Entrar</a>
           </p>
 
           <p className="text-center text-xs text-neutral-400 mt-6">
@@ -158,22 +159,13 @@ export default function SignupPage() {
         </div>
       </div>
 
-      {/* RIGHT SIDE: VISUAL */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#111] relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20 z-10" />
-        <img src="/auth_side_image.png" alt="Inspiração" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 z-20 flex flex-col justify-end p-16 pb-20 text-white bg-gradient-to-t from-[#111]/95 via-[#111]/40 to-transparent">
-          <div className="flex gap-3 mb-8 flex-wrap">
-            {["✅ +10.000 alunos", "🎓 Certificado digital", "🔒 Pagamento seguro"].map(b => (
-              <span key={b} className="bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full">{b}</span>
-            ))}
-          </div>
-          <h2 className="text-4xl font-extrabold mb-4 leading-tight">Constrói o teu futuro digital.</h2>
-          <p className="text-base text-neutral-300 max-w-md leading-relaxed">
-            Mais de 10.000 profissionais já criaram os seus negócios online com a nossa plataforma. O próximo és tu.
-          </p>
-        </div>
-      </div>
+      {/* LADO DIREITO: A PLATAFORMA */}
+      <AuthShowcase
+        title="Constrói o teu futuro digital."
+        subtitle="Cria a tua conta, publica o teu primeiro produto e começa a vender — tudo no mesmo sítio."
+        badges={["Setup em 5 min", "Sem mensalidade para começar", "Suporte 24/7"]}
+      />
+
     </div>
   )
 }

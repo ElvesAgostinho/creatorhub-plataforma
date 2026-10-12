@@ -17,12 +17,12 @@ export default async function ProfilePage() {
     .eq("id", user.id)
     .maybeSingle()
 
-  const cls = "mt-2 w-full bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500] focus:border-transparent transition-all shadow-sm"
+  const cls = "mt-2 w-full bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all shadow-sm"
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-[#111]">O Meu Perfil</h1>
+        <h1 className="text-3xl font-extrabold text-ink-800">O Meu Perfil</h1>
         <p className="text-neutral-500 mt-2">Esta informação ficará visível publicamente na página de checkout dos teus produtos.</p>
       </div>
 
@@ -80,7 +80,7 @@ export default async function ProfilePage() {
             </div>
           </div>
 
-          <button type="submit" className="bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold py-3.5 px-8 rounded-xl transition-colors shadow-sm shadow-[#FF4500]/20 mt-4">
+          <button type="submit" className="bg-brand hover:bg-brand-dark text-white font-bold py-3.5 px-8 rounded-xl transition-colors shadow-brand mt-4">
             Guardar Perfil
           </button>
         </ClientForm>

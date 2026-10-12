@@ -42,7 +42,7 @@ export default function MarketplaceAffiliateActions({
               className={`w-9 h-9 flex items-center justify-center rounded-lg transition-all shrink-0 ${
                 copied
                   ? "bg-green-500 text-white"
-                  : "bg-[#FF4500] hover:bg-[#E03E00] text-white"
+                  : "bg-brand hover:bg-brand-dark text-white"
               }`}
               title="Copiar link"
             >
@@ -102,14 +102,14 @@ export default function MarketplaceAffiliateActions({
   if (isLoggedIn) {
     return (
       <div className="p-4 space-y-3">
-        <div className="bg-[#FFF8F6] border border-[#FF4500]/20 rounded-xl p-3 text-center">
+        <div className="bg-[#FFF8F6] border border-brand/20 rounded-xl p-3 text-center">
           <p className="text-xs text-neutral-600 leading-relaxed">
             Candidata-te ao programa de afiliados para começares a promover este produto e ganhar comissões.
           </p>
         </div>
         <a
           href="/affiliates"
-          className="group flex items-center justify-center gap-2 w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-black py-3.5 rounded-xl transition-all text-sm shadow-lg shadow-[#FF4500]/20 hover:shadow-[#FF4500]/30 hover:-translate-y-0.5"
+          className="group flex items-center justify-center gap-2 w-full bg-brand hover:bg-brand-dark text-white font-black py-3.5 rounded-xl transition-all text-sm shadow-brand hover:shadow-[#FF4500]/30 hover:-translate-y-0.5"
         >
           Promover este produto
           <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
@@ -128,21 +128,21 @@ export default function MarketplaceAffiliateActions({
   // ── NOT LOGGED IN ──
   return (
     <div className="p-4 space-y-3">
-      <div className="bg-[#FFF8F6] border border-[#FF4500]/20 rounded-xl p-3 text-center">
+      <div className="bg-[#FFF8F6] border border-brand/20 rounded-xl p-3 text-center">
         <p className="text-xs text-neutral-600 leading-relaxed">
           Inicia sessão para te candidatares ao programa de afiliados e começares a ganhar comissões.
         </p>
       </div>
       <a
         href={`/login?next=/marketplace/product/${productSlug}`}
-        className="group flex items-center justify-center gap-2 w-full bg-[#FF4500] hover:bg-[#E03E00] text-white font-black py-3.5 rounded-xl transition-all text-sm shadow-lg shadow-[#FF4500]/20 hover:shadow-[#FF4500]/30 hover:-translate-y-0.5"
+        className="group flex items-center justify-center gap-2 w-full bg-brand hover:bg-brand-dark text-white font-black py-3.5 rounded-xl transition-all text-sm shadow-brand hover:shadow-[#FF4500]/30 hover:-translate-y-0.5"
       >
         Iniciar Sessão para Promover
         <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
       </a>
       <a
         href="/signup"
-        className="flex items-center justify-center gap-2 w-full border border-neutral-200 hover:border-[#FF4500]/30 text-neutral-700 hover:text-[#FF4500] font-semibold py-2.5 rounded-xl transition-all text-sm"
+        className="flex items-center justify-center gap-2 w-full border border-neutral-200 hover:border-brand/30 text-neutral-700 hover:text-brand font-semibold py-2.5 rounded-xl transition-all text-sm"
       >
         Criar conta gratuita
       </a>

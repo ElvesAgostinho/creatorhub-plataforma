@@ -24,7 +24,7 @@ export default async function ThankYouPage({ params }) {
       </div>
 
       <div className="mt-8 flex gap-3 justify-center">
-        <a href="/library" className="bg-[#0E7C86] hover:bg-[#0a626a] text-white font-bold px-5 py-2.5 rounded-md">
+        <a href="/library" className="bg-teal hover:bg-teal-dark text-white font-bold px-5 py-2.5 rounded-md">
           Ver biblioteca
         </a>
         <a href="/" className="border border-neutral-300 hover:bg-neutral-50 font-semibold px-5 py-2.5 rounded-md">

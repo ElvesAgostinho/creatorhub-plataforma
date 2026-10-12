@@ -174,7 +174,7 @@ export default function Uploader({
             <button
               type="button"
               onClick={handleUpload}
-              className="bg-[#0E7C86] hover:bg-[#0a626a] text-white font-bold py-1.5 px-4 text-sm rounded-md"
+              className="bg-teal hover:bg-teal-dark text-white font-bold py-1.5 px-4 text-sm rounded-md"
             >
               Iniciar Upload
             </button>
@@ -185,7 +185,7 @@ export default function Uploader({
               <div className="text-xs text-neutral-500 font-bold mb-1">A carregar... {progress}%</div>
               <div className="w-full bg-neutral-200 rounded-full h-2.5">
                 <div
-                  className="bg-[#0E7C86] h-2.5 rounded-full transition-all"
+                  className="bg-teal h-2.5 rounded-full transition-all"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -211,10 +211,10 @@ function StoragePaywall({ uploadType }) {
   const Icon = isVideo ? VideoOff : ImageOff
 
   return (
-    <div className="rounded-xl border-2 border-dashed border-[#FF4500]/30 bg-gradient-to-br from-orange-50 to-red-50 p-6 text-center">
+    <div className="rounded-xl border-2 border-dashed border-brand/30 bg-gradient-to-br from-orange-50 to-red-50 p-6 text-center">
       <div className="flex flex-col items-center gap-3">
-        <div className="w-12 h-12 rounded-full bg-[#FF4500]/10 flex items-center justify-center">
-          <Lock className="text-[#FF4500]" size={22} />
+        <div className="w-12 h-12 rounded-full bg-brand/10 flex items-center justify-center">
+          <Lock className="text-brand" size={22} />
         </div>
         <div>
           <p className="font-bold text-neutral-800 text-sm">
@@ -228,7 +228,7 @@ function StoragePaywall({ uploadType }) {
         <div className="flex gap-2 flex-wrap justify-center mt-1">
           <a
             href="/admin/storage"
-            className="inline-flex items-center gap-1.5 bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold text-xs px-4 py-2 rounded-lg transition"
+            className="inline-flex items-center gap-1.5 bg-brand hover:bg-brand-dark text-white font-bold text-xs px-4 py-2 rounded-lg transition"
           >
             <HardDrive size={14} />
             Ver Plano Pro Storage

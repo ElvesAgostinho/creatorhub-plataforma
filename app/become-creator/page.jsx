@@ -22,7 +22,7 @@ export default async function BecomeCreatorPage({ searchParams }) {
         <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-4 text-3xl">✓</div>
         <h1 className="text-2xl font-extrabold">Já és um Criador!</h1>
         <p className="text-neutral-600 mt-2">A tua conta já tem permissões para criar e gerir produtos.</p>
-        <a href="/admin/products" className="inline-block mt-6 bg-[#0E7C86] hover:bg-[#0a626a] text-white font-bold px-6 py-2.5 rounded-md">
+        <a href="/admin/products" className="inline-block mt-6 bg-teal hover:bg-teal-dark text-white font-bold px-6 py-2.5 rounded-md">
           Aceder à Área do Criador
         </a>
       </div>
@@ -84,8 +84,8 @@ export default async function BecomeCreatorPage({ searchParams }) {
       )}
 
       {fee > 0 && !searchParams?.success && (
-        <div className="bg-[#0E7C86]/10 border border-[#0E7C86]/20 p-5 rounded-xl mb-6">
-          <h2 className="font-bold text-[#0E7C86] mb-2">Condições para Criadores</h2>
+        <div className="bg-teal/10 border border-teal/20 p-5 rounded-xl mb-6">
+          <h2 className="font-bold text-teal mb-2">Condições para Criadores</h2>
           <ul className="text-sm text-neutral-700 space-y-2 list-disc list-inside">
             <li>Taxa única de adesão: <strong>{(fee/100).toLocaleString("pt-PT")} Kz</strong>.</li>
             <li>Receberás <strong>{comm}%</strong> do valor de cada venda dos teus produtos.</li>

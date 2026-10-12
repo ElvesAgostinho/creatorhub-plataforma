@@ -13,7 +13,7 @@ export default function AvatarField({ userId, defaultUrl, defaultInitial }) {
     <div className="flex flex-col sm:flex-row gap-8 items-start mb-8">
       <div className="shrink-0 w-32 h-32 rounded-full overflow-hidden bg-neutral-100 border-4 border-white shadow-lg">
         {displayUrl ? (
-          <img src={displayUrl} alt="Avatar" className="w-full h-full object-cover" />
+          <img loading="lazy" decoding="async" src={displayUrl} alt="Avatar" className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-neutral-300">
             {defaultInitial}

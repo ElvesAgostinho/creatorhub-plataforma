@@ -9,7 +9,7 @@ export default function CreateResourceForm({ initialData = null }) {
   const [category, setCategory] = useState(initialData?.category || Object.keys(categoryTree)[0])
   const [subcategory, setSubcategory] = useState(initialData?.subcategory || categoryTree[initialData?.category || Object.keys(categoryTree)[0]][0])
   
-  const cls = "mt-1 w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500]"
+  const cls = "mt-1 w-full border border-neutral-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
   
   const handleCategoryChange = (e) => {
     const newCat = e.target.value
@@ -72,7 +72,7 @@ export default function CreateResourceForm({ initialData = null }) {
         <label className="block text-sm font-semibold mb-1">Resumo (SEO e Listagem)</label>
         <textarea name="content" rows="3" defaultValue={initialData?.content || ""} className={cls} placeholder="Breve descrição do conteúdo..."></textarea>
       </div>
-      <button type="submit" className="bg-[#FF4500] hover:bg-[#e03d00] text-white font-bold py-3 px-8 rounded-xl transition w-full sm:w-auto shadow-md">
+      <button type="submit" className="bg-brand hover:bg-brand-dark text-white font-bold py-3 px-8 rounded-xl transition w-full sm:w-auto shadow-md">
         {isEdit ? "Guardar Alterações" : "Publicar Recurso 🚀"}
       </button>
     </form>

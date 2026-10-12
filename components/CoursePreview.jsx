@@ -2,8 +2,9 @@
 
 import { useState } from "react"
 import Image from "next/image"
+import CoverFallback from "@/components/mockups/CoverFallback"
 
-export default function CoursePreview({ image, title, previewUrl }) {
+export default function CoursePreview({ image, title, previewUrl, type = "course" }) {
   const [isPlaying, setIsPlaying] = useState(false)
 
   if (!previewUrl) {
@@ -12,7 +13,7 @@ export default function CoursePreview({ image, title, previewUrl }) {
         {image ? (
           <Image src={image} alt={title} fill className="object-cover" priority />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center text-neutral-400">Sem capa</div>
+          <CoverFallback title={title} type={type} />
         )}
       </div>
     )
@@ -24,7 +25,7 @@ export default function CoursePreview({ image, title, previewUrl }) {
         {image ? (
           <Image src={image} alt={title} fill className={`object-cover transition-opacity duration-300 ${isPlaying ? 'opacity-0' : 'opacity-100 group-hover:opacity-75'}`} priority />
         ) : (
-          <div className={`absolute inset-0 flex items-center justify-center text-neutral-400 transition-opacity duration-300 ${isPlaying ? 'opacity-0' : 'opacity-100 group-hover:opacity-75'}`}>Sem capa</div>
+          <CoverFallback title={title} type={type} className={`transition-opacity duration-300 ${isPlaying ? 'opacity-0' : 'opacity-100 group-hover:opacity-75'}`} />
         )}
         
         {!isPlaying && (
@@ -65,7 +66,7 @@ export default function CoursePreview({ image, title, previewUrl }) {
       {!isPlaying && (
         <button 
           onClick={() => setIsPlaying(true)}
-          className="mt-2 w-full text-center text-sm font-bold text-[#0E7C86] hover:underline"
+          className="mt-2 w-full text-center text-sm font-bold text-teal hover:underline"
         >
           Pré-visualização
         </button>

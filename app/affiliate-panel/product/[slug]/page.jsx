@@ -128,11 +128,11 @@ export default async function AffiliateProductDetails({ params }) {
             ← Voltar ao painel
           </a>
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-[#00A859] bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
+            <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-pay bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
               <Zap size={14} className="fill-[#00A859]" />
               Comissão: {commissionPct}% · {fmt(commValue)} Kz/venda
             </div>
-            <a href={`/product/${item.slug}`} target="_blank" className="text-sm font-semibold text-[#FF4500] hover:underline">
+            <a href={`/product/${item.slug}`} target="_blank" className="text-sm font-semibold text-brand hover:underline">
               Ver página pública ↗
             </a>
           </div>
@@ -148,14 +148,14 @@ export default async function AffiliateProductDetails({ params }) {
               {/* Product thumbnail */}
               <div className="w-24 h-24 rounded-xl overflow-hidden border-2 border-white/20 shrink-0 bg-neutral-700">
                 {item.image ? (
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  <img loading="lazy" decoding="async" src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-white/30 font-bold text-2xl">?</div>
                 )}
               </div>
               <div className="flex-1">
                 <div className="flex flex-wrap gap-2 mb-2">
-                  <span className="text-[10px] font-black uppercase tracking-wider bg-[#FF4500] text-white px-2 py-1 rounded">
+                  <span className="text-[10px] font-black uppercase tracking-wider bg-brand text-white px-2 py-1 rounded">
                     {typeLabels[item.type]}
                   </span>
                   {item.category && (
@@ -181,7 +181,7 @@ export default async function AffiliateProductDetails({ params }) {
           {/* Stats bar */}
           <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-neutral-100 border-t border-neutral-200">
             {[
-              { icon: <TrendingUp size={16} className="text-[#FF4500]" />, label: "Comissão", value: `${commissionPct}%` },
+              { icon: <TrendingUp size={16} className="text-brand" />, label: "Comissão", value: `${commissionPct}%` },
               { icon: <Award size={16} className="text-yellow-500" />, label: "Avaliação", value: `${avgRating} ⭐` },
               { icon: <ThumbsUp size={16} className="text-green-500" />, label: "Positivas", value: `${positiveReviewPct}%` },
               { icon: <Flame size={16} className="text-orange-500" />, label: "Links disponíveis", value: `${allLinks.length}` },
@@ -205,7 +205,7 @@ export default async function AffiliateProductDetails({ params }) {
             {affiliateTrainingVideo && (
               <div className="bg-white rounded-2xl border border-neutral-200 shadow-sm overflow-hidden">
                 <div className="px-6 py-4 border-b border-neutral-100 flex items-center gap-2">
-                  <PlayCircle size={18} className="text-[#FF4500]" />
+                  <PlayCircle size={18} className="text-brand" />
                   <h2 className="font-bold text-neutral-900">Palavra do Produtor</h2>
                   <span className="ml-auto text-xs text-neutral-400">Como vender este produto</span>
                 </div>
@@ -222,7 +222,7 @@ export default async function AffiliateProductDetails({ params }) {
                     ) : (
                       <a href={affiliateTrainingVideo} target="_blank" className="absolute inset-0 flex items-center justify-center">
                         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl">
-                          <PlayCircle size={32} className="text-[#FF4500] ml-1" />
+                          <PlayCircle size={32} className="text-brand ml-1" />
                         </div>
                       </a>
                     )}
@@ -238,7 +238,7 @@ export default async function AffiliateProductDetails({ params }) {
             {affiliateMaterialsLink && (
               <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl border border-orange-200 p-5 flex flex-col sm:flex-row items-center gap-4 justify-between">
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#FF4500] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-brand flex items-center justify-center shrink-0">
                     <FolderDown size={20} className="text-white" />
                   </div>
                   <div>
@@ -249,7 +249,7 @@ export default async function AffiliateProductDetails({ params }) {
                 <a
                   href={affiliateMaterialsLink}
                   target="_blank"
-                  className="shrink-0 bg-[#FF4500] hover:bg-[#E03E00] text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md hover:-translate-y-0.5 text-sm whitespace-nowrap"
+                  className="shrink-0 bg-brand hover:bg-brand-dark text-white font-bold px-6 py-3 rounded-xl transition-all shadow-md hover:-translate-y-0.5 text-sm whitespace-nowrap"
                 >
                   Aceder ao Material
                 </a>
@@ -266,7 +266,7 @@ export default async function AffiliateProductDetails({ params }) {
                 <div className="flex gap-5 mb-6">
                   {item.image && (
                     <div className="w-28 h-28 shrink-0 rounded-xl overflow-hidden border border-neutral-200">
-                      <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                      <img loading="lazy" decoding="async" src={item.image} alt={item.title} className="w-full h-full object-cover" />
                     </div>
                   )}
                   <p className="text-sm text-neutral-700 leading-relaxed">{item.description}</p>
@@ -332,7 +332,7 @@ export default async function AffiliateProductDetails({ params }) {
                 <div className="p-6 grid sm:grid-cols-2 gap-3">
                   {advantagesList.map((adv, i) => (
                     <div key={i} className="flex items-start gap-2.5">
-                      <CheckCircle2 size={16} className="text-[#00A859] shrink-0 mt-0.5" />
+                      <CheckCircle2 size={16} className="text-pay shrink-0 mt-0.5" />
                       <span className="text-sm text-neutral-700 leading-relaxed">{adv}</span>
                     </div>
                   ))}
@@ -348,7 +348,7 @@ export default async function AffiliateProductDetails({ params }) {
               <div className="p-6 flex gap-5 items-start">
                 <div className="w-16 h-16 rounded-full bg-neutral-200 overflow-hidden shrink-0 flex items-center justify-center text-xl font-bold text-neutral-500">
                   {item.avatar || creatorProfile?.avatar_url ? (
-                    <img src={item.avatar || creatorProfile?.avatar_url} alt={item.instructor} className="w-full h-full object-cover" />
+                    <img loading="lazy" decoding="async" src={item.avatar || creatorProfile?.avatar_url} alt={item.instructor} className="w-full h-full object-cover" />
                   ) : (
                     (item.instructor || "?").charAt(0)
                   )}
@@ -383,12 +383,12 @@ export default async function AffiliateProductDetails({ params }) {
                 <div className="p-4 grid sm:grid-cols-2 gap-3">
                   {otherProducts.map(p => (
                     <a key={p.id} href={`/affiliate-panel/product/${p.slug}`}
-                      className="flex items-center gap-3 p-3 rounded-xl border border-neutral-100 hover:border-[#FF4500]/30 hover:bg-neutral-50 transition-all group">
+                      className="flex items-center gap-3 p-3 rounded-xl border border-neutral-100 hover:border-brand/30 hover:bg-neutral-50 transition-all group">
                       <div className="w-14 h-14 rounded-lg overflow-hidden bg-neutral-100 shrink-0 border border-neutral-200">
-                        {p.image_url && <img src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
+                        {p.image_url && <img loading="lazy" decoding="async" src={p.image_url} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-neutral-800 line-clamp-2 leading-snug group-hover:text-[#FF4500] transition-colors">{p.title}</p>
+                        <p className="text-sm font-bold text-neutral-800 line-clamp-2 leading-snug group-hover:text-brand transition-colors">{p.title}</p>
                         <div className="flex items-center gap-2 mt-1">
                           <span className="text-xs text-neutral-500 font-medium">{fmt(Math.round(p.price_cents / 100))} Kz</span>
                           <span className="text-[10px] bg-green-50 text-green-700 font-bold px-1.5 py-0.5 rounded">{p.affiliate_commission_pct || 20}% com.</span>

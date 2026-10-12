@@ -19,11 +19,11 @@ export default function ResourcesPage() {
               { title: "Mentorias 1:1", desc: "Como vender o teu tempo e conhecimento ao preço mais alto do mercado.", icon: "💬" },
               { title: "Comunidade VIP", desc: "Acesso exclusivo aos grupos onde partilhamos os segredos de faturação.", icon: "🤝" }
             ].map(r => (
-              <div key={r.title} className="bg-[#111] border border-neutral-800 rounded-3xl p-8 hover:border-[#FF4500] transition-colors">
+              <div key={r.title} className="bg-ink-800 border border-neutral-800 rounded-3xl p-8 hover:border-brand transition-colors">
                 <div className="text-4xl mb-6">{r.icon}</div>
                 <h3 className="text-xl font-bold mb-3">{r.title}</h3>
                 <p className="text-neutral-400 text-sm leading-relaxed mb-6">{r.desc}</p>
-                <button className="text-[#0E7C86] font-bold text-sm hover:underline">Ler artigo →</button>
+                <button className="text-teal font-bold text-sm hover:underline">Ler artigo →</button>
               </div>
             ))}
           </div>
