@@ -2,294 +2,308 @@
 
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { Book, Settings, Crown, LogOut, ShoppingCart, DollarSign, Mic } from "lucide-react"
+import {
+  Book, Settings, Crown, LogOut, ShoppingCart, DollarSign, Mic,
+  Search, ChevronDown, ChevronRight, Menu, X, Mail
+} from "lucide-react"
 import { categoryTree } from "@/lib/data/categories"
 import { useCart } from "./CartContext"
+import Logo from "@/components/brand/Logo"
 
+/**
+ * Header único da plataforma.
+ *
+ * Antes havia duas versões muito diferentes — uma pílula flutuante com sombra
+ * pesada na página inicial e outra fixa no marketplace — e o logótipo era a
+ * palavra em itálico encorpado a laranja. Agora é uma só barra de 64px, branca,
+ * encostada ao topo, com uma linha de 1px em baixo em vez de sombra: a diferença
+ * entre o marketplace e o resto é apenas a pesquisa e o menu de categorias.
+ */
 export default function HeaderUI({ user, profile, unreadCount = 0 }) {
   const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   const isMarketplace = pathname === "/marketplace" || pathname.startsWith("/marketplace/")
   const isLearn = pathname.startsWith("/learn") || pathname.startsWith("/checkout")
-  const initial = user ? (user.email || "?").slice(0, 1).toUpperCase() : ""
-  
+
   const { cart, setIsCartOpen, isMounted } = useCart()
 
-  if (isLearn) return null;
+  // A área de aulas e o checkout têm o seu próprio cabeçalho
+  if (isLearn) return null
 
-  if (isMarketplace) {
-    return (
-      <header className="bg-white text-neutral-900 border-b border-neutral-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3">
-          
-          <div className="flex items-center gap-6">
-            <a href="/marketplace" className="flex items-center gap-1">
-              <span className="text-2xl font-black italic tracking-tighter text-brand">ABOVE</span>
-              <span className="text-neutral-500 font-medium ml-2 border-l border-neutral-300 pl-2">Marketplace</span>
-            </a>
-
-            <div className="hidden md:block relative group">
-              <button className="flex items-center gap-1 text-sm font-semibold hover:text-brand transition h-full py-4">
-                Categorias
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
-              </button>
-              
-              <div className="absolute left-0 top-full opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="bg-white border border-neutral-200 rounded-xl shadow-xl py-2 min-w-[260px] flex flex-col">
-                  {Object.keys(categoryTree).map(cat => (
-                    <div key={cat} className="group/sub relative">
-                      <a href={`/marketplace?category=${encodeURIComponent(cat)}`} className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium flex justify-between items-center w-full text-left">
-                        {cat}
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>
-                      </a>
-                      {categoryTree[cat]?.length > 0 && (
-                        <div className="absolute left-full top-0 opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200">
-                          <div className="bg-white border border-neutral-200 rounded-xl shadow-xl py-2 min-w-[220px] ml-1 flex flex-col">
-                            {categoryTree[cat].map(sub => (
-                              <a key={sub} href={`/marketplace?category=${encodeURIComponent(sub)}`} className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium">
-                                {sub}
-                              </a>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  
-                  {/* FORMATOS (Cursos, Eventos, Mentorias) */}
-                  <div className="group/sub relative border-t border-neutral-100">
-                    <div className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium flex justify-between items-center w-full text-left cursor-default">
-                      Formações
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>
-                    </div>
-                    <div className="absolute left-full bottom-0 opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200">
-                      <div className="bg-white border border-neutral-200 rounded-xl shadow-xl py-2 min-w-[220px] ml-1 flex flex-col">
-                        <a href="/marketplace?type=course" className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium">Cursos</a>
-                        <a href="/marketplace?type=mentorship" className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium">Mentorias</a>
-                        <a href="/marketplace?type=book" className="px-4 py-2 hover:bg-neutral-50 text-sm font-medium">E-books / PDF</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex-1 max-w-xl mx-6 hidden md:block">
-            <form method="GET" action="/marketplace" className="relative flex items-center">
-              <input
-                type="search"
-                name="q"
-                placeholder="Pesquisar por cursos ou mentorias"
-                className="w-full bg-neutral-100 border border-transparent focus:border-neutral-300 focus:bg-white rounded-full pl-5 pr-12 py-2.5 text-sm outline-none transition"
-              />
-              <button type="submit" className="absolute right-1 w-8 h-8 flex items-center justify-center bg-[#2A2A2A] hover:bg-black text-white rounded-full transition">
-                <SearchIcon />
-              </button>
-            </form>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {user ? (
-              <div className="flex items-center gap-4">
-                <a href="/library" className="hidden sm:inline-block border border-brand text-brand hover:bg-brand-soft font-bold text-sm px-4 py-1.5 rounded-full transition">
-                  Meus Cursos
-                </a>
-                <div className="relative group">
-                  <button className="flex items-center gap-2 hover:opacity-80 focus:outline-none py-2">
-                    <span className="w-9 h-9 rounded-full bg-brand text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden border border-neutral-200">
-                      {profile?.avatar_url ? (
-                        <img loading="lazy" decoding="async" src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
-                      ) : (
-                        initial
-                      )}
-                    </span>
-                  </button>
-                  <div className="absolute right-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div className="bg-white border border-neutral-200 rounded-xl shadow-xl w-60 flex flex-col overflow-hidden">
-                      <div className="px-4 py-3 bg-neutral-50 border-b border-neutral-100">
-                        <p className="text-sm font-bold text-neutral-900 truncate">{user.email}</p>
-                      </div>
-                      <a href="/library" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3">
-                        <Book className="w-4 h-4 text-neutral-500" /> Biblioteca (Meus Cursos)
-                      </a>
-                      <a href="/affiliates" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100">
-                        <DollarSign className="w-4 h-4 text-neutral-500" /> Afiliados
-                      </a>
-                      {(profile?.role === "admin" || profile?.role === "creator") ? (
-                        <a href="/admin/products" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100">
-                          <Settings className="w-4 h-4 text-neutral-500" /> Painel de Criador
-                        </a>
-                      ) : (
-                        <a href="/become-creator" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100">
-                          <Mic className="w-4 h-4 text-neutral-500" /> Tornar-se Criador
-                        </a>
-                      )}
-                      {profile?.role === "admin" && (
-                        <a href="/admin" className="px-4 py-3 text-sm font-medium hover:bg-neutral-50 flex items-center gap-3 border-t border-neutral-100 text-brand">
-                          <Crown className="w-4 h-4 text-brand" /> Admin (Plataforma)
-                        </a>
-                      )}
-                      <form action="/auth/logout" method="post" className="border-t border-neutral-100">
-                        <button type="submit" className="w-full text-left px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 flex items-center gap-3">
-                          <LogOut className="w-4 h-4 text-red-500" /> Terminar Sessão
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <>
-              <div className="relative group hidden sm:block">
-                <a href="/login" className="border border-neutral-300 text-neutral-700 hover:border-neutral-400 font-bold text-sm px-5 py-2 rounded-full transition flex items-center gap-1">
-                  Entrar <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
-                </a>
-                <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <div className="bg-white border border-neutral-200 rounded-xl shadow-xl w-56 flex flex-col overflow-hidden text-left py-2">
-                    <a href="/login?next=/library" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2">
-                      <Book className="w-4 h-4 text-neutral-400" /> Aceder às minhas compras
-                    </a>
-                    <a href="/login?next=/become-creator" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 border-t border-neutral-100 flex items-center gap-2">
-                      <Mic className="w-4 h-4 text-neutral-400" /> Tornar-se Criador / Vendedor
-                    </a>
-                  </div>
-                </div>
-              </div>
-                <a href="/signup" className="bg-brand hover:bg-brand-dark text-white font-bold text-sm px-5 py-2 rounded-full transition">
-                  Criar um curso
-                </a>
-              </>
-            )}
-          </div>
-
-        </div>
-      </header>
-    )
-  }
-
-  const isHome = pathname === "/"
+  const navItems = [
+    { href: "/features", label: "Como funciona" },
+    { href: "/marketplace", label: "Marketplace" },
+    { href: "/affiliates", label: "Afiliados" },
+    { href: "/support", label: "Ajuda" },
+  ]
 
   return (
-    <header className={isHome 
-      ? "fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[1400px] bg-white text-neutral-900 rounded-full shadow-2xl z-50 border border-neutral-100"
-      : "bg-white text-neutral-900 border-b border-neutral-200 sticky top-0 z-50"
-    }>
-      <div className={`flex items-center justify-between px-4 sm:px-8 py-3.5 mx-auto ${isHome ? "w-full" : "max-w-7xl"}`}>
-        
-        <div className="flex items-center gap-8 xl:gap-10">
-          <a href="/" className="flex items-center gap-2">
-            <span className="text-3xl font-black italic tracking-tighter text-brand">ABOVE</span>
-          </a>
+    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6">
 
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold text-neutral-600">
-            <a href="/features" className={`transition relative py-2 ${pathname.startsWith("/features") ? "text-brand after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-brand after:rounded-t-md" : "hover:text-ink-800"}`}>Como funciona?</a>
-            <a href="/marketplace" className={`transition relative py-2 ${pathname.startsWith("/marketplace") ? "text-brand after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-brand after:rounded-t-md" : "hover:text-ink-800"}`}>Marketplace</a>
-            <a href="/support" className={`transition relative py-2 ${pathname.startsWith("/support") ? "text-brand after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-brand after:rounded-t-md" : "hover:text-ink-800"}`}>Ajuda</a>
+        {/* Logótipo */}
+        <a href={isMarketplace ? "/marketplace" : "/"} className="flex shrink-0 items-center" aria-label="ABOVE, página inicial">
+          <Logo size="md" />
+          {isMarketplace && (
+            <span className="ml-2.5 hidden border-l border-neutral-200 pl-2.5 text-sm font-medium text-neutral-500 sm:inline">
+              Marketplace
+            </span>
+          )}
+        </a>
+
+        {/* Navegação / categorias */}
+        {isMarketplace ? (
+          <CategoriesMenu />
+        ) : (
+          <nav className="ml-4 hidden items-center gap-1 lg:flex">
+            {navItems.map((item) => {
+              const active = pathname.startsWith(item.href)
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                    active
+                      ? "bg-brand-soft text-brand"
+                      : "text-neutral-600 hover:bg-neutral-100 hover:text-ink-800"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              )
+            })}
           </nav>
-        </div>
+        )}
 
-        <div className="flex items-center gap-3">
+        {/* Pesquisa (só no marketplace) */}
+        {isMarketplace && (
+          <form method="GET" action="/marketplace" className="relative mx-2 hidden min-w-0 flex-1 items-center md:flex">
+            <Search size={15} className="pointer-events-none absolute left-3.5 text-neutral-400" />
+            <input
+              type="search"
+              name="q"
+              placeholder="Pesquisar cursos, livros ou mentorias"
+              className="w-full rounded-lg border border-neutral-200 bg-neutral-100 py-2 pl-9 pr-3 text-sm text-ink-800 outline-none transition placeholder:text-neutral-400 focus:border-brand focus:bg-white focus:ring-4 focus:ring-brand/10"
+            />
+          </form>
+        )}
+
+        {/* Ações */}
+        <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
+
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="relative hidden h-9 w-9 items-center justify-center rounded-lg text-neutral-600 transition hover:bg-neutral-100 hover:text-ink-800 sm:flex"
+            aria-label="Abrir carrinho"
+          >
+            <ShoppingCart size={18} />
+            {isMounted && cart.length > 0 && (
+              <span className="absolute right-1 top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-brand px-1 text-[10px] font-bold text-white">
+                {cart.length}
+              </span>
+            )}
+          </button>
+
           {user ? (
-             <div className="flex items-center gap-4">
-               <a href="/inbox" className="relative text-neutral-600 hover:text-neutral-900 transition">
-                 <InboxIcon />
-                 {unreadCount > 0 && (
-                   <span className="absolute -top-1.5 -right-2 bg-red-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                     {unreadCount > 9 ? "9+" : unreadCount}
-                   </span>
-                 )}
-               </a>
-               
-               <div className="relative group">
-                  <button className="flex items-center gap-2 hover:opacity-80 focus:outline-none py-2">
-                    <span className="w-9 h-9 rounded-full bg-brand text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden border border-neutral-200">
-                      {profile?.avatar_url ? (
-                        <img loading="lazy" decoding="async" src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
-                      ) : (
-                        initial
-                      )}
-                    </span>
-                  </button>
-                  <div className="absolute right-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div className="bg-white/80 backdrop-blur-xl border border-white/40 rounded-2xl shadow-2xl w-64 flex flex-col overflow-hidden text-left ring-1 ring-black/5">
-                      <div className="px-5 py-4 bg-gradient-to-br from-neutral-50/80 to-neutral-100/80 border-b border-black/5">
-                        <p className="text-sm font-extrabold text-neutral-900 truncate">{user.email}</p>
-                        <p className="text-xs text-neutral-500 mt-0.5">Membro ABOVE</p>
-                      </div>
-                      <div className="p-2 space-y-1">
-                        <a href="/library" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
-                          <Book className="w-4 h-4 text-neutral-400" /> Biblioteca (Cursos)
-                        </a>
-                        <a href="/affiliates" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
-                          <DollarSign className="w-4 h-4 text-neutral-400" /> Painel de Afiliado
-                        </a>
-                        {(profile?.role === "admin" || profile?.role === "creator") ? (
-                          <a href="/admin/products" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
-                            <Settings className="w-4 h-4 text-neutral-400" /> Painel de Criador
-                          </a>
-                        ) : (
-                          <a href="/become-creator" className="px-3 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-100/50 hover:text-black rounded-xl transition flex items-center gap-3">
-                            <Mic className="w-4 h-4 text-neutral-400" /> Tornar-se Criador
-                          </a>
-                        )}
-                        {profile?.role === "admin" && (
-                          <a href="/admin" className="px-3 py-2.5 text-sm font-medium text-brand hover:bg-brand/10 rounded-xl transition flex items-center gap-3">
-                            <Crown className="w-4 h-4" /> Admin Global
-                          </a>
-                        )}
-                      </div>
-                      <form action="/auth/logout" method="post" className="p-2 border-t border-black/5">
-                        <button type="submit" className="w-full text-left px-3 py-2.5 text-sm font-medium text-neutral-500 hover:bg-red-50 hover:text-red-600 rounded-xl transition flex items-center gap-3">
-                          <LogOut className="w-4 h-4" /> Terminar Sessão
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-             </div>
+            <>
+              <a
+                href="/inbox"
+                className="relative hidden h-9 w-9 items-center justify-center rounded-lg text-neutral-600 transition hover:bg-neutral-100 hover:text-ink-800 sm:flex"
+                aria-label="Mensagens"
+              >
+                <Mail size={18} />
+                {unreadCount > 0 && (
+                  <span className="absolute right-1 top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-white">
+                    {unreadCount > 9 ? "9+" : unreadCount}
+                  </span>
+                )}
+              </a>
+              <UserMenu user={user} profile={profile} />
+            </>
           ) : (
             <>
-              <div className="relative group hidden sm:block">
-                <a href="/login" className="border border-neutral-300 text-neutral-700 hover:border-neutral-400 font-bold text-sm px-5 py-2 rounded-full transition flex items-center gap-1">
-                  Entrar <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
-                </a>
-                <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <div className="bg-white border border-neutral-200 rounded-xl shadow-xl w-56 flex flex-col overflow-hidden text-left py-2">
-                    <a href="/login?next=/library" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 flex items-center gap-2">
-                      <Book className="w-4 h-4 text-neutral-400" /> Aceder às minhas compras
-                    </a>
-                    <a href="/login?next=/become-creator" className="px-4 py-2.5 text-sm font-medium hover:bg-neutral-50 border-t border-neutral-100 flex items-center gap-2">
-                      <Mic className="w-4 h-4 text-neutral-400" /> Tornar-se Criador / Vendedor
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <a href="/signup" className="bg-brand hover:bg-brand-dark text-white font-bold text-sm px-5 py-2 rounded-full transition shadow-sm">
-                Aderir grátis
+              <a
+                href="/login"
+                className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-neutral-700 transition hover:bg-neutral-100 hover:text-ink-800 sm:inline-block"
+              >
+                Entrar
+              </a>
+              <a
+                href="/signup"
+                className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark"
+              >
+                Criar conta
               </a>
             </>
           )}
-        </div>
 
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-600 transition hover:bg-neutral-100 lg:hidden"
+            aria-label="Menu"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X size={19} /> : <Menu size={19} />}
+          </button>
+        </div>
       </div>
+
+      {/* Menu em ecrã pequeno */}
+      {mobileOpen && (
+        <div className="border-t border-neutral-200 bg-white lg:hidden">
+          <nav className="mx-auto flex max-w-7xl flex-col px-4 py-2 sm:px-6">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100"
+              >
+                {item.label}
+              </a>
+            ))}
+            {!user && (
+              <a
+                href="/login"
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100"
+              >
+                Entrar
+              </a>
+            )}
+          </nav>
+        </div>
+      )}
     </header>
   )
 }
 
-function InboxIcon() {
+/* ---------------------------------------------------------------- */
+
+function CategoriesMenu() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-      <polyline points="22,6 12,13 2,6"/>
-    </svg>
+    <div className="group relative ml-2 hidden h-16 items-center md:flex">
+      <button className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100 hover:text-ink-800">
+        Categorias
+        <ChevronDown size={14} className="text-neutral-400" />
+      </button>
+
+      <div className="invisible absolute left-0 top-full opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100">
+        <div className="flex min-w-[260px] flex-col rounded-xl border border-neutral-200 bg-white p-1.5 shadow-float">
+          {Object.keys(categoryTree).map((cat) => (
+            <div key={cat} className="group/sub relative">
+              <a
+                href={`/marketplace?category=${encodeURIComponent(cat)}`}
+                className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100 hover:text-ink-800"
+              >
+                {cat}
+                {categoryTree[cat]?.length > 0 && <ChevronRight size={13} className="text-neutral-400" />}
+              </a>
+              {categoryTree[cat]?.length > 0 && (
+                <div className="invisible absolute left-full top-0 opacity-0 transition-all duration-150 group-hover/sub:visible group-hover/sub:opacity-100">
+                  <div className="ml-1 flex min-w-[220px] flex-col rounded-xl border border-neutral-200 bg-white p-1.5 shadow-float">
+                    {categoryTree[cat].map((sub) => (
+                      <a
+                        key={sub}
+                        href={`/marketplace?category=${encodeURIComponent(sub)}`}
+                        className="rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100 hover:text-ink-800"
+                      >
+                        {sub}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+
+          <div className="my-1 h-px bg-neutral-100" />
+
+          <div className="px-3 pb-1 pt-1.5 text-[11px] font-bold uppercase tracking-wider text-neutral-400">
+            Formatos
+          </div>
+          {[
+            { href: "/marketplace?type=course", label: "Cursos" },
+            { href: "/marketplace?type=mentorship", label: "Mentorias" },
+            { href: "/marketplace?type=book", label: "E-books / PDF" },
+          ].map((f) => (
+            <a
+              key={f.href}
+              href={f.href}
+              className="rounded-lg px-3 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-100 hover:text-ink-800"
+            >
+              {f.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
 
-function SearchIcon() {
+function UserMenu({ user, profile }) {
+  const initial = (profile?.full_name || user.email || "?").slice(0, 1).toUpperCase()
+  const isStaff = profile?.role === "admin" || profile?.role === "creator"
+
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="11" cy="11" r="7" />
-      <path d="m21 21-3.5-3.5" />
-    </svg>
+    <div className="group relative">
+      <button className="flex items-center gap-1.5 rounded-lg p-1 transition hover:bg-neutral-100" aria-label="Conta">
+        <span className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-brand text-sm font-bold text-white">
+          {profile?.avatar_url ? (
+            <img loading="lazy" decoding="async" src={profile.avatar_url} alt="" className="h-full w-full object-cover" />
+          ) : (
+            initial
+          )}
+        </span>
+        <ChevronDown size={14} className="hidden text-neutral-400 sm:block" />
+      </button>
+
+      <div className="invisible absolute right-0 top-full pt-2 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100">
+        <div className="w-64 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-float">
+          <div className="border-b border-neutral-100 px-4 py-3">
+            <p className="truncate text-sm font-semibold text-ink-800">{profile?.full_name || user.email}</p>
+            <p className="mt-0.5 text-xs text-neutral-500">
+              {profile?.role === "admin" ? "Administrador" : profile?.role === "creator" ? "Criador" : "Membro"}
+            </p>
+          </div>
+
+          <div className="p-1.5">
+            <MenuLink href="/library" icon={Book}>Biblioteca</MenuLink>
+            <MenuLink href="/affiliates" icon={DollarSign}>Painel de afiliado</MenuLink>
+            {isStaff ? (
+              <MenuLink href="/admin/products" icon={Settings}>Painel de criador</MenuLink>
+            ) : (
+              <MenuLink href="/become-creator" icon={Mic}>Tornar-se criador</MenuLink>
+            )}
+            {profile?.role === "admin" && (
+              <MenuLink href="/admin" icon={Crown} tone="brand">Administração</MenuLink>
+            )}
+          </div>
+
+          <form action="/auth/logout" method="post" className="border-t border-neutral-100 p-1.5">
+            <button
+              type="submit"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-600 transition hover:bg-red-50 hover:text-red-600"
+            >
+              <LogOut className="h-4 w-4" /> Terminar sessão
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MenuLink({ href, icon: Icon, children, tone }) {
+  const brand = tone === "brand"
+  return (
+    <a
+      href={href}
+      className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+        brand ? "text-brand hover:bg-brand-soft" : "text-neutral-700 hover:bg-neutral-100 hover:text-ink-800"
+      }`}
+    >
+      <Icon className={`h-4 w-4 ${brand ? "" : "text-neutral-400"}`} />
+      {children}
+    </a>
   )
 }

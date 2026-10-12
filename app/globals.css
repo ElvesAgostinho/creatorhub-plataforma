@@ -14,6 +14,11 @@
     scroll-behavior: smooth;
   }
 
+  /* Nenhuma página deve rolar na horizontal em telemóvel */
+  body {
+    overflow-x: clip;
+  }
+
   body {
     text-rendering: optimizeLegibility;
   }

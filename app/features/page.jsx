@@ -20,7 +20,7 @@ export default function FeaturesPage() {
               A plataforma definitiva
             </div>
             
-            <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-[1.1] mb-8">
+            <h1 className="text-display-xl mb-6 max-w-measure">
               Tudo o que precisas para <span className="text-brand">escalar</span> o teu negócio.
             </h1>
             
@@ -50,7 +50,7 @@ export default function FeaturesPage() {
       {/* CREATORS SECTION - DYNAMIC CAROUSEL FOR SMALL SQUARES */}
       <section id="creators" className="py-24 px-6 max-w-7xl mx-auto overflow-hidden">
         <div className="mb-16">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Para Criadores de Conteúdo</h2>
+          <h2 className="text-display-lg mb-5">Para Criadores de Conteúdo</h2>
           <p className="text-neutral-400 text-lg max-w-3xl">Seja um curso, uma mentoria ou um e-book, tens a liberdade total para vender como quiseres, protegido pela melhor tecnologia.</p>
         </div>
 
@@ -78,7 +78,7 @@ export default function FeaturesPage() {
       <section id="affiliates" className="py-24 px-6 max-w-7xl mx-auto mt-12 border-t border-neutral-800">
         <div className="flex flex-col md:flex-row gap-16 items-center">
           <div className="w-full md:w-1/2">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-6">Para Afiliados</h2>
+            <h2 className="text-display-lg mb-5">Para Afiliados</h2>
             <p className="text-neutral-400 text-lg mb-8 leading-relaxed">
               Queres faturar sem teres de gravar um único vídeo? A ABOVE tem os melhores produtos do mercado à tua espera. Pega no teu link, divulga e recebe a comissão automaticamente. Nós tratamos do resto.
             </p>
@@ -150,7 +150,7 @@ export default function FeaturesPage() {
 
       {/* FINAL CTA */}
       <section className="py-24 px-6 max-w-4xl mx-auto text-center mt-12">
-         <h2 className="text-4xl font-extrabold mb-6">Pronto para dominar o mercado?</h2>
+         <h2 className="text-display-lg mb-5">Pronto para dominar o mercado?</h2>
          <p className="text-xl text-neutral-400 mb-10">Junta-te a milhares de infoprodutores e afiliados que já confiam na ABOVE.</p>
          <a href="/signup" className="inline-block bg-white text-black hover:bg-neutral-200 font-bold px-10 py-5 rounded-full text-xl transition shadow-xl">
             Criar a minha conta grátis

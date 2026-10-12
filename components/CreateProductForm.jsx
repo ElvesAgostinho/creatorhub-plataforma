@@ -150,7 +150,7 @@ export default function CreateProductForm({
         
         <div className="p-6 sm:p-8 grid sm:grid-cols-2 gap-8">
           
-          <div className="sm:col-span-2 p-6 border border-neutral-200 bg-[#F8F9FA] rounded-xl relative">
+          <div className="sm:col-span-2 p-6 border border-neutral-200 bg-[#F8FAFC] rounded-xl relative">
             <label className="text-sm font-bold text-ink-800 mb-4 flex items-center gap-2">
               <ImageIcon size={16} className="text-neutral-500" />
               Capa do Produto (Imagem Principal)

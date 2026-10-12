@@ -54,9 +54,9 @@ export default async function AffiliateDashboard() {
       {/* KPI CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         {/* Card 1 */}
-        <div className="bg-white border border-neutral-100 rounded-3xl p-8 relative overflow-hidden group shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(255,69,0,0.1)] transition-all">
+        <div className="bg-white border border-neutral-100 rounded-3xl p-8 relative overflow-hidden group shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(79,70,229,0.1)] transition-all">
           <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#FF4500" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" strokeWidth="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
           <p className="text-neutral-500 font-bold text-sm tracking-wide uppercase">Total Ganho</p>
           <h3 className="text-4xl font-black mt-2 text-neutral-900">Kz {fmt(Math.round(total_earned/100))}</h3>

@@ -23,7 +23,7 @@ export default function ResourcesPage() {
                 <div className="text-4xl mb-6">{r.icon}</div>
                 <h3 className="text-xl font-bold mb-3">{r.title}</h3>
                 <p className="text-neutral-400 text-sm leading-relaxed mb-6">{r.desc}</p>
-                <button className="text-teal font-bold text-sm hover:underline">Ler artigo →</button>
+                <button className="text-brand font-bold text-sm hover:underline">Ler artigo →</button>
               </div>
             ))}
           </div>

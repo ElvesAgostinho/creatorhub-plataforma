@@ -7,7 +7,7 @@ import CoverFallback from "./CoverFallback"
  */
 
 const ITEMS = [
-  { title: "Marketing Digital na Prática", type: "course", instructor: "Hélder Nascimento", price: "24 900", rating: 98, best: true },
+  { title: "Marketing Digital na Prática", type: "course", instructor: "Hélder Nascimento", price: "24 900", rating: 98 },
   { title: "Finanças Pessoais em Angola", type: "book", instructor: "Ana Cardoso", price: "7 500", rating: 96 },
   { title: "Mentoria de Vendas 1:1", type: "mentorship", instructor: "Paulo Satula", price: "45 000", rating: 99 },
   { title: "Workshop de Oratória", type: "event", instructor: "Lídia Moniz", price: "12 000", rating: 97 },
@@ -16,10 +16,10 @@ const ITEMS = [
 const TYPE_LABEL = { course: "CURSO", book: "LIVRO", mentorship: "MENTORIA", event: "EVENTO" }
 
 const TYPE_BADGE = {
-  course: "bg-[#FFF8E7] text-yellow-700 border-yellow-200",
-  book: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  mentorship: "bg-fuchsia-50 text-fuchsia-700 border-fuchsia-200",
-  event: "bg-sky-50 text-sky-700 border-sky-200",
+  course: "bg-white/90 text-brand-deep border-white/60",
+  book: "bg-white/90 text-brand-700 border-white/60",
+  mentorship: "bg-white/90 text-violet-700 border-white/60",
+  event: "bg-white/90 text-sky-700 border-white/60",
 }
 
 export default function CatalogMock({ className = "" }) {
@@ -28,12 +28,10 @@ export default function CatalogMock({ className = "" }) {
       {ITEMS.map((item, i) => (
         <div
           key={item.title}
-          className={`flex flex-col overflow-hidden rounded-2xl border border-neutral-100 bg-white text-ink-800 shadow-card ${
-            i % 2 === 1 ? "sm:translate-y-6" : ""
-          }`}
+          className="flex flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white text-ink-800 shadow-card"
         >
           <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100">
-            <CoverFallback title={item.title} type={item.type} />
+            <CoverFallback title={item.title} type={item.type} showLabel={false} />
             <div className="absolute left-2.5 top-2.5 z-10 flex flex-wrap gap-1.5">
               {item.best && (
                 <span className="rounded-md bg-brand px-2 py-0.5 text-[8px] font-black uppercase tracking-wider text-white shadow-md">

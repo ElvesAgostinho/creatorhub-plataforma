@@ -3,7 +3,7 @@ import { ArrowLeft, CheckCircle2, PlayCircle, Circle, Play } from "lucide-react"
 /**
  * Réplica fiel da área de membros real (components/CoursePlayer):
  * barra lateral branca de 320px com os módulos, barra de progresso na cor da
- * academia, área de vídeo sobre #F4F5F7 e separadores Visão geral / Materiais / Dúvidas.
+ * academia, área de vídeo sobre #EEF2F6 e separadores Visão geral / Materiais / Dúvidas.
  */
 
 const MODULES = [

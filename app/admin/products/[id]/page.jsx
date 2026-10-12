@@ -33,7 +33,7 @@ export default async function EditProduct({ params }) {
     redirect("/admin/products")
   }
 
-  const cls = "mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
+  const cls = "mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
 
   const { data: billing } = await svc.from("creator_storage_billing").select("status").eq("user_id", user.id).maybeSingle()
   const isStorageActive = profile.role === "admin" || billing?.status === "active"
@@ -286,7 +286,7 @@ async function LessonsSection({ productId, userId, isStorageActive, platformVide
         
         <form action={addModule} className="mt-3 flex gap-3">
           <input type="hidden" name="product_id" value={productId} />
-          <input type="text" name="title" required placeholder="Nome do módulo" className="flex-1 border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]" />
+          <input type="text" name="title" required placeholder="Nome do módulo" className="flex-1 border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]" />
           <button className="bg-neutral-800 hover:bg-black text-white font-bold px-4 py-2 rounded-md text-sm">Adicionar Módulo</button>
         </form>
       </div>

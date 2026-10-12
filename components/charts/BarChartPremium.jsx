@@ -28,13 +28,13 @@ export default function BarChartPremium({ data, dataKey = "value", name = "Venda
           />
           <Tooltip 
             cursor={{ fill: '#222222' }}
-            contentStyle={{ backgroundColor: '#111111', border: '1px solid #333', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)', color: '#fff' }}
-            itemStyle={{ color: '#0E7C86', fontWeight: 'bold' }}
+            contentStyle={{ backgroundColor: '#0F172A', border: '1px solid #333', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)', color: '#fff' }}
+            itemStyle={{ color: '#4F46E5', fontWeight: 'bold' }}
             formatter={(value) => [`${value}`, name]}
           />
           <Bar dataKey={dataKey} radius={[6, 6, 0, 0]}>
             {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill="#0E7C86" />
+              <Cell key={`cell-${index}`} fill="#4F46E5" />
             ))}
           </Bar>
         </BarChart>

@@ -63,7 +63,7 @@ export function PremiumButton({ children, loading, variant = "primary", classNam
   
   const variants = {
     primary: "bg-ink-800 text-white hover:bg-black shadow-[0_4px_14px_0_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.23)] hover:-translate-y-0.5",
-    orange: "bg-brand text-white hover:bg-brand-dark shadow-[0_4px_14px_0_rgba(255,69,0,0.2)] hover:shadow-[0_6px_20px_rgba(255,69,0,0.3)] hover:-translate-y-0.5",
+    orange: "bg-brand text-white hover:bg-brand-dark shadow-[0_4px_14px_0_rgba(79,70,229,0.2)] hover:shadow-[0_6px_20px_rgba(79,70,229,0.3)] hover:-translate-y-0.5",
     secondary: "bg-white text-neutral-800 border border-neutral-300 hover:bg-neutral-50 hover:border-neutral-400"
   }
 

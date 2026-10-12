@@ -65,7 +65,7 @@ export default async function ClubPage({ params }) {
     .eq("academy_id", academy.id)
     .order("created_at", { ascending: false })
 
-  const primaryColor = academy.primary_color || "#FF4500"
+  const primaryColor = academy.primary_color || "#4F46E5"
   const logoUrl = academy.logo_url || ""
   
   // Sem conteúdo publicado mostramos um estado vazio honesto,
@@ -116,12 +116,12 @@ export default async function ClubPage({ params }) {
              <div
                aria-hidden="true"
                className="bg-grid w-full h-full"
-               style={{ backgroundColor: "#0A0A0A", backgroundImage: `radial-gradient(70% 90% at 75% 10%, ${primaryColor}55, transparent 70%), radial-gradient(50% 60% at 10% 90%, ${primaryColor}22, transparent 70%)` }}
+               style={{ backgroundColor: "#020617", backgroundImage: `radial-gradient(70% 90% at 75% 10%, ${primaryColor}55, transparent 70%), radial-gradient(50% 60% at 10% 90%, ${primaryColor}22, transparent 70%)` }}
              />
            )}
            {/* Gradiente para fundir com a página (estilo Netflix) */}
-           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent"></div>
-           <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/60 to-transparent"></div>
+           <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/40 to-transparent"></div>
+           <div className="absolute inset-0 bg-gradient-to-r from-[#020617] via-[#020617]/60 to-transparent"></div>
          </div>
          
          <div className="absolute bottom-[20%] left-6 md:left-16 max-w-2xl">

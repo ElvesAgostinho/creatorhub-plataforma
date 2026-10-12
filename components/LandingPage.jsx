@@ -15,24 +15,24 @@ export default function LandingPage({ user }) {
         {/* Textura de grelha em vez de fotografia de fundo */}
         <div aria-hidden="true" className="bg-grid-light mask-fade pointer-events-none absolute inset-0 opacity-70" />
 
-        <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 pb-24 pt-32 lg:grid-cols-2 lg:pb-32 lg:pt-40">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 pb-20 pt-14 lg:grid-cols-2 lg:gap-16 lg:pb-28 lg:pt-24">
 
           {/* Texto */}
-          <div className="text-center lg:text-left">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-xs font-bold text-neutral-600 shadow-sm">
+          <div className="min-w-0 text-center lg:text-left">
+            <div className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-left text-xs font-bold text-neutral-600 shadow-sm">
               <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-brand" />
               Feito em Angola, para criadores de todo o mundo
             </div>
 
-            <h1 className="min-h-[110px] text-4xl font-extrabold leading-tight tracking-tight text-ink-800 sm:min-h-[150px] sm:text-6xl">
+            <h1 className="min-h-[96px] max-w-measure text-display-xl text-ink-800 sm:min-h-[128px]">
               <TypewriterText text="O teu conhecimento," speed={40} delay={100} hideCursorOnFinish={true} />
-              <br className="hidden sm:block" />
+              <br />
               <span className="text-brand">
                 <TypewriterText text="transformado num negócio." speed={50} delay={1100} hideCursorOnFinish={true} />
               </span>
             </h1>
 
-            <p className="mx-auto mt-6 min-h-[80px] max-w-xl text-lg font-medium text-neutral-600 lg:mx-0">
+            <p className="mx-auto mt-5 min-h-[72px] max-w-prose text-lead text-neutral-600 lg:mx-0">
               <TypewriterText
                 text="Cria, vende e entrega cursos online, livros digitais e mentorias. A plataforma mais completa de Angola para criadores de conteúdo que querem escalar os seus resultados."
                 speed={20}
@@ -43,12 +43,12 @@ export default function LandingPage({ user }) {
             <div className="mt-10 flex flex-col items-center gap-6 lg:items-start">
               <a
                 href={user ? "/dashboard" : "/signup"}
-                className="rounded-xl bg-brand px-10 py-4 text-lg font-bold text-white shadow-brand transition hover:bg-brand-dark"
+                className="rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-white shadow-brand transition hover:bg-brand-dark"
               >
                 {user ? "Aceder ao Painel" : "Começar a Vender Agora"}
               </a>
 
-              <div className="flex items-center justify-center gap-4 text-[11px] font-bold text-neutral-500 sm:text-xs lg:justify-start">
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-bold text-neutral-500 sm:text-xs lg:justify-start">
                 {["Sem taxas ocultas", "Suporte 24/7", "Setup em 5 min"].map((t) => (
                   <span key={t} className="flex items-center gap-1.5">
                     <span className="flex h-4 w-4 items-center justify-center rounded-full bg-pay/10 text-pay">✓</span>
@@ -68,7 +68,7 @@ export default function LandingPage({ user }) {
       <section className="border-b border-neutral-200 bg-surface-50 px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-extrabold text-ink-800 sm:text-4xl">Como funciona a ABOVE?</h2>
+            <h2 className="mb-4 text-display-lg text-ink-800">Como funciona a ABOVE?</h2>
             <p className="mx-auto max-w-2xl text-lg text-neutral-500">
               Tudo o que precisas para transformar o teu conhecimento num negócio altamente rentável em apenas 3 passos.
             </p>
@@ -114,14 +114,14 @@ export default function LandingPage({ user }) {
           <div className="relative flex min-h-[400px] flex-col justify-end overflow-hidden rounded-3xl border border-neutral-800 bg-ink-700 p-10">
             <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0 opacity-60" />
             <div className="relative">
-              <h2 className="mb-4 text-4xl font-extrabold">
+              <h2 className="mb-4 text-display-md">
                 Tu focas-te no conteúdo.
                 <br />
                 Nós aumentamos as tuas conversões.
               </h2>
               <a
                 href={user ? "/become-creator" : "/signup"}
-                className="inline-block rounded-xl bg-brand px-6 py-3 font-bold text-white transition hover:bg-brand-dark"
+                className="inline-block rounded-lg bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark"
               >
                 {user ? "Tornar-se Criador" : "Começar a vender mais"}
               </a>
@@ -129,7 +129,7 @@ export default function LandingPage({ user }) {
           </div>
 
           <div className="relative overflow-hidden rounded-3xl border border-neutral-800 bg-ink-700 p-10 pb-0">
-            <h3 className="relative z-10 mb-4 text-3xl font-extrabold">
+            <h3 className="relative z-10 mb-4 text-display-md">
               Aumenta vendas com
               <br />
               preenchimento inteligente
@@ -151,7 +151,7 @@ export default function LandingPage({ user }) {
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="flex flex-col rounded-3xl border border-neutral-800 bg-ink-700 p-8">
-            <h3 className="mb-4 text-2xl font-extrabold">
+            <h3 className="mb-4 text-display-sm">
               Nós recomendamos.
               <br />
               Tu vendes mais.
@@ -163,7 +163,7 @@ export default function LandingPage({ user }) {
           </div>
 
           <div className="flex flex-col rounded-3xl border border-neutral-800 bg-ink-700 p-8">
-            <h3 className="mb-4 text-2xl font-extrabold">
+            <h3 className="mb-4 text-display-sm">
               Checkout que
               <br />
               retém clientes.
@@ -183,7 +183,7 @@ export default function LandingPage({ user }) {
             <div className="mb-6 inline-block rounded-full border border-neutral-300 px-4 py-2 text-sm font-bold">
               Clientes felizes voltam sempre
             </div>
-            <h2 className="mb-8 text-4xl font-extrabold leading-tight sm:text-5xl">
+            <h2 className="mb-8 text-display-lg">
               Encanta os teus clientes com a nossa área de membros e aumenta as compras repetidas.
             </h2>
 
@@ -228,7 +228,7 @@ export default function LandingPage({ user }) {
         <div className="mx-auto mt-32 grid max-w-7xl gap-6 md:grid-cols-3">
 
           <div className="flex flex-col rounded-3xl border border-neutral-200 bg-white p-10 shadow-card">
-            <h3 className="mb-4 text-3xl font-extrabold">Apoio especializado, exatamente quando precisas.</h3>
+            <h3 className="mb-4 text-display-md">Apoio especializado, exatamente quando precisas.</h3>
             <p className="mb-8 text-neutral-600">
               Os nossos especialistas conhecem o teu negócio e sabem como impulsioná-lo. Com o parceiro certo, vais mais
               longe.
@@ -269,7 +269,7 @@ export default function LandingPage({ user }) {
             <div className="mb-6 inline-block rounded-full border border-brand/30 bg-brand/10 px-4 py-2 text-sm font-bold text-brand">
               VALOR NO MERCADO
             </div>
-            <h2 className="mb-6 text-4xl font-extrabold leading-tight text-white sm:text-5xl">
+            <h2 className="mb-6 text-display-lg text-white">
               Certificação Profissional.
               <br />
               <span className="text-neutral-400">Reconhecimento instantâneo.</span>
@@ -303,7 +303,7 @@ export default function LandingPage({ user }) {
       <section className="rounded-b-[3rem] bg-white px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-extrabold text-ink-800 sm:text-4xl">O que dizem os nossos criadores</h2>
+            <h2 className="mb-4 text-display-lg text-ink-800">O que dizem os nossos criadores</h2>
             <p className="mx-auto max-w-2xl text-lg text-neutral-500">
               Junta-te aos criadores que já transformaram o seu conhecimento em lucro com a ABOVE.
             </p>
@@ -353,13 +353,13 @@ export default function LandingPage({ user }) {
         <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[3rem] border border-neutral-800 bg-ink-700 px-8 py-16 text-center sm:px-16">
           <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0 opacity-60" />
           <div className="relative">
-            <h2 className="text-3xl font-extrabold sm:text-5xl">Pronto para publicar o teu primeiro produto?</h2>
+            <h2 className="text-display-lg">Pronto para publicar o teu primeiro produto?</h2>
             <p className="mx-auto mt-4 max-w-xl text-neutral-400">
               Cria a tua conta, carrega o conteúdo e começa a vender hoje. Sem mensalidade para começar.
             </p>
             <a
               href={user ? "/become-creator" : "/signup"}
-              className="mt-8 inline-block rounded-xl bg-brand px-10 py-4 text-lg font-bold text-white shadow-brand transition hover:bg-brand-dark"
+              className="mt-8 inline-block rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-white shadow-brand transition hover:bg-brand-dark"
             >
               {user ? "Tornar-se Criador" : "Criar conta grátis"}
             </a>

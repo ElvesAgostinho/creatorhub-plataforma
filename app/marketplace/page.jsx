@@ -29,23 +29,23 @@ export default async function MarketplaceHome({ searchParams }) {
   }
 
   const categoryChips = [
-    { label: "Negócios", icon: "💼", value: "Negócios" },
-    { label: "Marketing", icon: "🚀", value: "Marketing e Vendas" },
-    { label: "Programação", icon: "💻", value: "Tecnologia" },
-    { label: "Saúde", icon: "🧘‍♀️", value: "Saúde e Desporto" },
-    { label: "Design", icon: "🎨", value: "Design e Arte" },
+    { label: "Negócios", value: "Negócios" },
+    { label: "Marketing", value: "Marketing e Vendas" },
+    { label: "Programação", value: "Tecnologia" },
+    { label: "Saúde", value: "Saúde e Desporto" },
+    { label: "Design", value: "Design e Arte" },
   ]
 
   return (
-    <div className="bg-[#F8F9FA] text-neutral-900 min-h-screen relative font-sans pb-20">
+    <div className="bg-surface-50 text-neutral-900 min-h-screen relative font-sans pb-20">
       
       {/* SEARCH HERO */}
       {!isFiltered && (
         <div className="bg-white border-b border-neutral-200 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-6 py-16 sm:py-24 flex flex-col lg:flex-row items-center justify-between gap-12">
+          <div className="max-w-7xl mx-auto px-6 py-14 sm:py-20 flex flex-col lg:flex-row items-center justify-between gap-12">
             
             <div className="w-full lg:w-1/2 flex flex-col items-start text-left z-10">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-ink-800 mb-6 leading-tight">
+              <h1 className="text-display-xl text-ink-800 mb-5 max-w-measure">
                 O que queres <br className="hidden lg:block"/>
                 <span className="text-brand">aprender hoje?</span>
               </h1>
@@ -74,9 +74,8 @@ export default async function MarketplaceHome({ searchParams }) {
                   <a 
                     key={chip.label} 
                     href={`/marketplace?category=${chip.value}`}
-                    className="bg-neutral-50 border border-neutral-200 hover:border-brand hover:text-brand text-neutral-700 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5"
+                    className="rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-xs font-semibold text-neutral-600 transition hover:border-brand hover:bg-brand-soft hover:text-brand"
                   >
-                    <span>{chip.icon}</span>
                     {chip.label}
                   </a>
                 ))}
@@ -161,7 +160,7 @@ export default async function MarketplaceHome({ searchParams }) {
               <Section 
                 title="Adicionados Recentemente" 
                 subtitle="As novidades fresquinhas do mercado" 
-                icon={<Clock className="text-teal" size={28} />}
+                icon={<Clock className="text-brand" size={28} />}
               >
                 <ProductGrid items={recentes} />
               </Section>

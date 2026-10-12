@@ -22,7 +22,7 @@ export default function EditProductBookForm({ productId, userId, currentFilePath
       
       <button 
         disabled={!pdfPath}
-        className="bg-teal hover:bg-teal-dark text-white font-bold px-4 py-2.5 rounded-md text-sm w-fit disabled:opacity-50 mt-2"
+        className="bg-brand hover:bg-brand-dark text-white font-bold px-4 py-2.5 rounded-md text-sm w-fit disabled:opacity-50 mt-2"
       >
         {currentFilePath ? "Guardar Substituição do PDF" : "Guardar Novo PDF"}
       </button>

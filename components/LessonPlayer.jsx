@@ -222,7 +222,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
         
         {/* Vídeo */}
         <div className="px-8 py-4">
-           <div className="aspect-video bg-black rounded-3xl relative shadow-[0_0_50px_rgba(255,69,0,0.1)] border border-neutral-800/50 overflow-hidden ring-1 ring-white/5">
+           <div className="aspect-video bg-black rounded-3xl relative shadow-[0_0_50px_rgba(79,70,229,0.1)] border border-neutral-800/50 overflow-hidden ring-1 ring-white/5">
              <MediaEmbed
                src={current.video_url || current.external_media_url || ""}
                mediaSource={current.media_source}

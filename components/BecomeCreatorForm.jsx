@@ -23,7 +23,7 @@ export default function BecomeCreatorForm({ userEmail, fee }) {
           name="bio"
           required
           rows={4}
-          className="w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
+          className="w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
           placeholder="Tenho 5 anos de experiência em X..."
         />
       </div>
@@ -33,7 +33,7 @@ export default function BecomeCreatorForm({ userEmail, fee }) {
         <input
           type="url"
           name="portfolio_url"
-          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
+          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
           placeholder="https://linkedin.com/in/..."
         />
       </div>
@@ -54,7 +54,7 @@ export default function BecomeCreatorForm({ userEmail, fee }) {
         </div>
       )}
 
-      <button type="submit" className="w-full bg-teal hover:bg-teal-dark text-white font-bold py-3 rounded-md text-lg mt-4">
+      <button type="submit" className="w-full bg-brand hover:bg-brand-dark text-white font-bold py-3 rounded-md text-lg mt-4">
         Enviar Candidatura
       </button>
     </form>

@@ -17,7 +17,7 @@ export default function SalesMobileMock() {
         <div className="text-[8px] font-bold uppercase tracking-widest text-neutral-400">
           Receita este mês
         </div>
-        <div className="mt-1 text-[20px] font-black leading-none">1 284 500 Kz</div>
+        <div className="mt-1 whitespace-nowrap text-[17px] font-black leading-none">1 284 500 Kz</div>
         <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-pay/15 px-2 py-0.5 text-[8px] font-bold text-pay">
           <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4">
             <path d="m6 15 6-6 6 6" />

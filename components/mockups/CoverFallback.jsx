@@ -8,20 +8,20 @@ import { GraduationCap, BookOpen, Users, CalendarDays } from "lucide-react"
  */
 
 const TONES = {
-  course: { from: "#FF6A2B", to: "#C62F00", label: "Curso", Icon: GraduationCap },
-  book: { from: "#12B981", to: "#047857", label: "Livro", Icon: BookOpen },
-  mentorship: { from: "#8B5CF6", to: "#5B21B6", label: "Mentoria", Icon: Users },
+  course: { from: "#6366F1", to: "#3730A3", label: "Curso", Icon: GraduationCap },
+  book: { from: "#14B8A6", to: "#0F766E", label: "Livro", Icon: BookOpen },
+  mentorship: { from: "#A78BFA", to: "#6D28D9", label: "Mentoria", Icon: Users },
   event: { from: "#38BDF8", to: "#0369A1", label: "Evento", Icon: CalendarDays },
 }
 
-export default function CoverFallback({ title = "", type = "course", className = "" }) {
+export default function CoverFallback({ title = "", type = "course", className = "", showLabel = true }) {
   const tone = TONES[type] || TONES.course
   const { Icon } = tone
 
   // Pequena variação de ângulo por título, para duas capas seguidas não serem iguais
   const seed = [...String(title)].reduce((a, c) => a + c.charCodeAt(0), 0)
   const angle = 115 + (seed % 7) * 10
-  const initial = (String(title).trim().charAt(0) || "A").toUpperCase()
+  const initial = (String(title ?? "").trim().charAt(0) || "A").toUpperCase()
 
   return (
     <div
@@ -44,14 +44,16 @@ export default function CoverFallback({ title = "", type = "course", className =
         className="absolute -right-8 -top-10 h-32 w-32 rounded-full bg-white/25 blur-2xl"
       />
 
-      <span className="relative select-none text-5xl font-black leading-none text-white/90 drop-shadow-sm sm:text-6xl">
+      <span className="relative select-none text-4xl font-bold leading-none text-white/80">
         {initial}
       </span>
 
-      <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-md bg-black/25 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
-        <Icon size={11} />
-        {tone.label}
-      </span>
+      {showLabel && (
+        <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-md bg-black/25 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+          <Icon size={11} />
+          {tone.label}
+        </span>
+      )}
     </div>
   )
 }

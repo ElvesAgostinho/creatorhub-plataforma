@@ -63,7 +63,7 @@ export default function MediaLinkInput({
 
   const inputCls = `w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 transition-all ${
     !hasValue
-      ? "border-neutral-300 focus:ring-[#0E7C86]/50"
+      ? "border-neutral-300 focus:ring-[#4F46E5]/50"
       : isValid
       ? "border-green-400 focus:ring-green-400/50 bg-green-50/30"
       : "border-orange-300 focus:ring-orange-300/50"

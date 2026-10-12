@@ -137,7 +137,7 @@ export default async function StorageAdminPage() {
           </div>
 
           {/* Free alternatives info */}
-          <div className="bg-gradient-to-br from-[#0E7C86]/5 to-[#0E7C86]/10 border border-teal/20 rounded-2xl p-6">
+          <div className="bg-gradient-to-br from-[#4F46E5]/5 to-[#4F46E5]/10 border border-brand/20 rounded-2xl p-6">
             <h3 className="font-bold mb-3 flex items-center gap-2">
               🆓 Opções Gratuitas (Sem Custo)
             </h3>
@@ -285,7 +285,7 @@ async function AdminStorageManager({ svc }) {
       {/* ── Subscriptions Table ── */}
       <section>
         <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
-          <CheckCircle2 size={20} className="text-teal" /> Subscrições dos Criadores
+          <CheckCircle2 size={20} className="text-brand" /> Subscrições dos Criadores
         </h2>
         <div className="bg-white border border-neutral-200 rounded-2xl overflow-hidden shadow-sm">
           <table className="w-full text-left text-sm">

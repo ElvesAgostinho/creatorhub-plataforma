@@ -31,7 +31,7 @@ export default function CoursePreview({ image, title, previewUrl, type = "course
         {!isPlaying && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-16 h-16 bg-white shadow-xl rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="#0E7C86" stroke="none" className="ml-1">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#4F46E5" stroke="none" className="ml-1">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </div>
@@ -66,7 +66,7 @@ export default function CoursePreview({ image, title, previewUrl, type = "course
       {!isPlaying && (
         <button 
           onClick={() => setIsPlaying(true)}
-          className="mt-2 w-full text-center text-sm font-bold text-teal hover:underline"
+          className="mt-2 w-full text-center text-sm font-bold text-brand hover:underline"
         >
           Pré-visualização
         </button>

@@ -1,8 +1,9 @@
 "use client"
+import Logo from "@/components/brand/Logo"
 
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
-import { X } from "lucide-react"
+import { X, Sparkles } from "lucide-react"
 
 export default function Footer({ user }) {
   const pathname = usePathname()
@@ -73,7 +74,7 @@ export default function Footer({ user }) {
         <div className="flex flex-col lg:flex-row justify-between items-end gap-8 border-t border-neutral-100 pt-8">
           <div className="md:col-span-1">
             <a href="/" className="inline-block">
-              <span className="text-2xl font-black italic tracking-tighter text-neutral-900 opacity-80 hover:opacity-100 transition-all">ABOVE</span>
+              <Logo size="md" />
             </a>
             {/* Social Icons */}
             <div className="flex gap-3 mt-4">
@@ -137,18 +138,23 @@ export default function Footer({ user }) {
 
       {/* Floating Orange Banner */}
       {showBanner && (
-        <div className="fixed bottom-0 left-0 right-0 bg-brand text-white py-3 px-4 z-40 flex items-center justify-center font-bold text-sm sm:text-base animate-in slide-in-from-bottom-10">
-          <div className="flex items-center justify-center gap-2 max-w-4xl w-full relative">
-            <p>
-              Criar um produto digital na internet não precisa ser um bicho de sete cabeças... 
-              <a href="/signup" className="underline decoration-2 underline-offset-2 hover:text-neutral-200 transition ml-1">Clique aqui</a>
-            </p>
-            <button 
+        <div className="fixed bottom-4 left-4 right-4 z-40 mx-auto hidden max-w-md sm:block md:left-6 md:right-auto">
+          <div className="flex items-start gap-3 rounded-xl border border-neutral-200 bg-white p-4 shadow-float">
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand">
+              <Sparkles size={16} />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-semibold text-ink-800">Publicar o teu primeiro produto é simples.</p>
+              <a href="/signup" className="mt-1 inline-block text-sm font-semibold text-brand hover:underline">
+                Começar agora →
+              </a>
+            </div>
+            <button
               onClick={closeBanner}
-              className="absolute right-0 p-1 hover:bg-white/20 rounded-full transition"
-              aria-label="Fechar banner"
+              className="-mr-1 -mt-1 rounded-lg p-1.5 text-neutral-400 transition hover:bg-neutral-100 hover:text-ink-800"
+              aria-label="Fechar"
             >
-              <X size={18} />
+              <X size={15} />
             </button>
           </div>
         </div>

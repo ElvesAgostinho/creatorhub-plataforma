@@ -27,7 +27,7 @@ export default function PieChartPremium({ data }) {
             ))}
           </Pie>
           <Tooltip 
-            contentStyle={{ backgroundColor: '#111111', border: '1px solid #333', borderRadius: '12px', color: '#fff' }}
+            contentStyle={{ backgroundColor: '#0F172A', border: '1px solid #333', borderRadius: '12px', color: '#fff' }}
             itemStyle={{ fontWeight: 'bold' }}
             formatter={(value) => [`${value} Vendas`]}
           />

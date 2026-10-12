@@ -33,7 +33,7 @@ export default function AddLessonForm({
           type="text"
           name="title"
           required
-          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
+          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
         />
       </div>
       <div>
@@ -42,7 +42,7 @@ export default function AddLessonForm({
           type="number"
           name="duration_seconds"
           defaultValue="0"
-          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
+          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
         />
       </div>
 
@@ -51,7 +51,7 @@ export default function AddLessonForm({
         <textarea
           name="description"
           rows={2}
-          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0E7C86]"
+          className="mt-1 w-full border border-neutral-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
         />
       </div>
 
@@ -167,7 +167,7 @@ export default function AddLessonForm({
 
       <button
         type="submit"
-        className="sm:col-span-2 bg-teal hover:bg-teal-dark text-white font-bold py-2.5 rounded-md mt-2"
+        className="sm:col-span-2 bg-brand hover:bg-brand-dark text-white font-bold py-2.5 rounded-md mt-2"
       >
         Guardar Aula {modulePosition ? `(Módulo ${modulePosition})` : ""}
       </button>

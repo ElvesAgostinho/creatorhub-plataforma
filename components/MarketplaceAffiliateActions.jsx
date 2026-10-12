@@ -102,14 +102,14 @@ export default function MarketplaceAffiliateActions({
   if (isLoggedIn) {
     return (
       <div className="p-4 space-y-3">
-        <div className="bg-[#FFF8F6] border border-brand/20 rounded-xl p-3 text-center">
+        <div className="bg-[#EEF2FF] border border-brand/20 rounded-xl p-3 text-center">
           <p className="text-xs text-neutral-600 leading-relaxed">
             Candidata-te ao programa de afiliados para começares a promover este produto e ganhar comissões.
           </p>
         </div>
         <a
           href="/affiliates"
-          className="group flex items-center justify-center gap-2 w-full bg-brand hover:bg-brand-dark text-white font-black py-3.5 rounded-xl transition-all text-sm shadow-brand hover:shadow-[#FF4500]/30 hover:-translate-y-0.5"
+          className="group flex items-center justify-center gap-2 w-full bg-brand hover:bg-brand-dark text-white font-black py-3.5 rounded-xl transition-all text-sm shadow-brand hover:shadow-[#4F46E5]/30 hover:-translate-y-0.5"
         >
           Promover este produto
           <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
@@ -128,14 +128,14 @@ export default function MarketplaceAffiliateActions({
   // ── NOT LOGGED IN ──
   return (
     <div className="p-4 space-y-3">
-      <div className="bg-[#FFF8F6] border border-brand/20 rounded-xl p-3 text-center">
+      <div className="bg-[#EEF2FF] border border-brand/20 rounded-xl p-3 text-center">
         <p className="text-xs text-neutral-600 leading-relaxed">
           Inicia sessão para te candidatares ao programa de afiliados e começares a ganhar comissões.
         </p>
       </div>
       <a
         href={`/login?next=/marketplace/product/${productSlug}`}
-        className="group flex items-center justify-center gap-2 w-full bg-brand hover:bg-brand-dark text-white font-black py-3.5 rounded-xl transition-all text-sm shadow-brand hover:shadow-[#FF4500]/30 hover:-translate-y-0.5"
+        className="group flex items-center justify-center gap-2 w-full bg-brand hover:bg-brand-dark text-white font-black py-3.5 rounded-xl transition-all text-sm shadow-brand hover:shadow-[#4F46E5]/30 hover:-translate-y-0.5"
       >
         Iniciar Sessão para Promover
         <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />

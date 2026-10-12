@@ -2,7 +2,7 @@ import { Lock } from "lucide-react"
 
 /**
  * Réplica fiel do checkout real (/checkout/[slug]): cartão branco, preço em Kz,
- * métodos de pagamento angolanos e o botão verde #00A859 "Comprar agora".
+ * métodos de pagamento angolanos e o botão verde #059669 "Comprar agora".
  * É esta a prova visual de que a plataforma fala o mercado local.
  */
 export default function CheckoutMock({ className = "" }) {

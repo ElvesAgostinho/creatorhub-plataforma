@@ -19,7 +19,7 @@ export default function SupportPage() {
               Centro de Apoio
             </div>
             
-            <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+            <h1 className="text-display-xl mb-5 max-w-measure">
               Nunca caminhas sozinho.
             </h1>
             
@@ -49,7 +49,7 @@ export default function SupportPage() {
       <section className="py-24 bg-neutral-50 border-t border-neutral-200 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Dúvidas Frequentes</h2>
+            <h2 className="text-display-lg mb-4">Dúvidas Frequentes</h2>
             <p className="text-neutral-500 text-lg">Encontra respostas rápidas para os problemas mais comuns.</p>
           </div>
           

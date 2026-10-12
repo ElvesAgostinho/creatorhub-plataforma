@@ -115,7 +115,7 @@ export default async function MarketplaceProductPage({ params }) {
           </a>
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2 text-sm font-bold text-pay bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
-              <Zap size={14} className="fill-[#00A859]" />
+              <Zap size={14} className="fill-[#059669]" />
               Comissão: {commissionPct}% · {fmt(commValue)} Kz/venda
             </div>
             <a href={`/product/${item.slug}`} target="_blank" className="text-sm font-semibold text-brand hover:underline flex items-center gap-1">

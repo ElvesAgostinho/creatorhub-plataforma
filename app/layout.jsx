@@ -1,4 +1,3 @@
-import PromoBanner from "@/components/PromoBanner"
 import ConditionalHeader from "@/components/ConditionalHeader"
 import ConditionalFooter from "@/components/ConditionalFooter"
 import ToastProvider from "@/components/ToastProvider"

@@ -17,7 +17,7 @@ export default function CoursePlayer({ product, modules, lessons, academy, initi
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [activeTab, setActiveTab] = useState('overview') // 'overview', 'materials', 'qa'
   
-  const primaryColor = academy?.primary_color || "#FF4500"
+  const primaryColor = academy?.primary_color || "#4F46E5"
   
   const lastSavedRef = useRef(0)
   const xpTriggeredRef = useRef({})

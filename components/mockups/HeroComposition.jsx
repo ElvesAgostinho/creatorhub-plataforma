@@ -10,7 +10,7 @@ import SalesMobileMock from "./SalesMobileMock"
  */
 export default function HeroComposition({ className = "" }) {
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative w-full min-w-0 ${className}`}>
       {/* Halo da marca por trás das molduras */}
       <div
         aria-hidden="true"

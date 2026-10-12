@@ -71,16 +71,15 @@ export default function AnalyticsMock({ compact = false }) {
 
           <div className="flex h-24 items-end gap-1.5">
             {HEIGHTS.map((h, i) => (
-              <div key={i} className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="flex w-full flex-1 items-end">
-                  <div
-                    className={`w-full origin-bottom animate-grow-bar rounded-t-[3px] ${
-                      i === HEIGHTS.length - 1 ? "bg-brand" : "bg-brand/25"
-                    }`}
-                    style={{ height: `${h}%`, animationDelay: `${i * 55}ms` }}
-                  />
-                </div>
-                <span className="text-[7px] font-bold text-neutral-400">{MONTHS[i]}</span>
+              <div key={i} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
+                {/* h-full explicito no contentor: sem isso a altura em % resolvia para zero */}
+                <div
+                  className={`w-full origin-bottom animate-grow-bar rounded-t-[3px] ${
+                    i === HEIGHTS.length - 1 ? "bg-brand" : "bg-brand/30"
+                  }`}
+                  style={{ height: `${h}%`, animationDelay: `${i * 55}ms` }}
+                />
+                <span className="shrink-0 text-[7px] font-bold text-neutral-400">{MONTHS[i]}</span>
               </div>
             ))}
           </div>

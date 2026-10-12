@@ -1,4 +1,5 @@
 "use client"
+import Logo from "@/components/brand/Logo"
 import AuthShowcase from "@/components/mockups/AuthShowcase"
 
 import { useState } from "react"
@@ -37,7 +38,7 @@ export default function LoginPage() {
 
           {/* Logo */}
           <a href="/" className="inline-block mb-10">
-            <span className="text-2xl font-black italic tracking-tighter text-neutral-900">ABOVE</span>
+            <Logo size="lg" />
           </a>
 
           <div className="mb-8">

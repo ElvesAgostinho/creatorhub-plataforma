@@ -91,7 +91,7 @@ export default function InboxItem({ message, sender, isBroadcast, currentUserId 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-teal hover:bg-teal-dark text-white text-xs font-bold px-4 py-2 rounded disabled:opacity-50"
+                  className="bg-brand hover:bg-brand-dark text-white text-xs font-bold px-4 py-2 rounded disabled:opacity-50"
                 >
                   {loading ? "A enviar..." : "Responder"}
                 </button>

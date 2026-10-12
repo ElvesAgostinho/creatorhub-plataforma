@@ -178,7 +178,7 @@ export async function GET(req) {
     try {
       const QRCode = require('qrcode')
       const verifyUrl = `https://above.exchange/verify?id=${Date.now()}`
-      const qrDataUrl = await QRCode.toDataURL(verifyUrl, { width: 200, margin: 1, color: { dark: '#111111', light: '#FFFFFF' } })
+      const qrDataUrl = await QRCode.toDataURL(verifyUrl, { width: 200, margin: 1, color: { dark: '#0F172A', light: '#FFFFFF' } })
       const qrImageBytes = Buffer.from(qrDataUrl.split(',')[1], 'base64')
       const qrImage = await pdfDoc.embedPng(qrImageBytes)
       

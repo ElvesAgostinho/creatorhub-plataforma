@@ -142,7 +142,7 @@ export default async function AdminPage({ searchParams }) {
 
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="text-neutral-400 text-xs uppercase bg-[#F8F9FA] border-b border-neutral-200 tracking-wider font-semibold">
+              <thead className="text-neutral-400 text-xs uppercase bg-[#F8FAFC] border-b border-neutral-200 tracking-wider font-semibold">
                 <tr>
                   <th className="px-6 py-4">Status</th>
                   <th className="px-6 py-4">Data e Comprador</th>
@@ -252,7 +252,7 @@ export default async function AdminPage({ searchParams }) {
           </div>
           
           {filteredRows.length > 0 && (
-            <div className="border-t border-neutral-200 px-6 py-4 flex items-center justify-between text-xs text-neutral-500 font-medium bg-[#F8F9FA]">
+            <div className="border-t border-neutral-200 px-6 py-4 flex items-center justify-between text-xs text-neutral-500 font-medium bg-[#F8FAFC]">
               Mostrando {filteredRows.length} resultados para "{statusStyles[status]?.label || status}"
             </div>
           )}

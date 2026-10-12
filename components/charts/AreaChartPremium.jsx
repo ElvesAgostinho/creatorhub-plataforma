@@ -1,7 +1,7 @@
 "use client"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-export default function AreaChartPremium({ data, dataKey = "value", color = "#FF4500", name = "Ganhos" }) {
+export default function AreaChartPremium({ data, dataKey = "value", color = "#4F46E5", name = "Ganhos" }) {
   // If no data or not enough data, use simulated data to ensure it always looks premium
   const chartData = (data && data.length > 3) ? data : [
     { name: 'Jan', value: 4000 },
@@ -38,7 +38,7 @@ export default function AreaChartPremium({ data, dataKey = "value", color = "#FF
             tickFormatter={(val) => `Kz ${val.toLocaleString('pt-PT')}`}
           />
           <Tooltip 
-            contentStyle={{ backgroundColor: '#111111', border: '1px solid #333', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)', color: '#fff' }}
+            contentStyle={{ backgroundColor: '#0F172A', border: '1px solid #333', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)', color: '#fff' }}
             itemStyle={{ color: color, fontWeight: 'bold' }}
             formatter={(value) => [`Kz ${value.toLocaleString('pt-PT')}`, name]}
           />

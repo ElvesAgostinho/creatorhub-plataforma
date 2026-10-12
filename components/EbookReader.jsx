@@ -176,7 +176,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
 
   return (
     <div
-      className={`h-screen flex flex-col overflow-hidden transition-colors duration-300 ${nightMode ? "bg-[#0f0f0f]" : "bg-[#f0f0f0]"}`}
+      className={`h-screen flex flex-col overflow-hidden transition-colors duration-300 ${nightMode ? "bg-[#0F172A]" : "bg-[#f0f0f0]"}`}
       onContextMenu={(e) => e.preventDefault()}
     >
       {/* Top bar */}
@@ -291,7 +291,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
       {/* PDF Canvas area */}
       <main
         ref={containerRef}
-        className={`flex-1 overflow-auto ${nightMode ? "bg-[#0f0f0f]" : "bg-[#e8e8e8]"}`}
+        className={`flex-1 overflow-auto ${nightMode ? "bg-[#0F172A]" : "bg-[#e8e8e8]"}`}
       >
         <div className="min-w-max min-h-full flex items-center justify-center py-6 px-4">
           {isLoading && (
@@ -312,7 +312,7 @@ export default function EbookReaderClient({ product, pdfUrl }) {
               </div>
               <button
                 onClick={loadDocument}
-                className="bg-brand hover:bg-[#e03e00] text-white font-bold px-6 py-2.5 rounded-lg transition"
+                className="bg-brand hover:bg-[#4338CA] text-white font-bold px-6 py-2.5 rounded-lg transition"
               >
                 Tentar novamente
               </button>

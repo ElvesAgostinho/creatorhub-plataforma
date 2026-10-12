@@ -72,7 +72,7 @@ export default async function AdminCreators() {
                 <td className="p-4">
                   <div className="space-y-2">
                     {r.portfolio_url && (
-                      <a href={r.portfolio_url} target="_blank" className="block text-teal hover:underline break-all">Portefólio ↗</a>
+                      <a href={r.portfolio_url} target="_blank" className="block text-brand hover:underline break-all">Portefólio ↗</a>
                     )}
                     {r.payment_proof_url && (
                       <a href={r.payment_proof_url} target="_blank" className="block text-green-600 font-bold hover:underline break-all">Ver Comprovativo 📄</a>

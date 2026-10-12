@@ -16,7 +16,7 @@ export default function AuthShowcase({ title, subtitle, badges = [] }) {
       />
 
       {/* A plataforma, inclinada ao fundo */}
-      <div className="absolute -right-16 top-24 w-[85%] rotate-[-6deg] opacity-95">
+      <div className="absolute left-1/2 top-20 w-[78%] max-w-[540px] -translate-x-1/2 rotate-[-3deg] opacity-95">
         <BrowserFrame url="above.ao/learn/marketing-digital">
           <MembersAreaMock />
         </BrowserFrame>
@@ -36,7 +36,7 @@ export default function AuthShowcase({ title, subtitle, badges = [] }) {
           </div>
         )}
 
-        <h2 className="mb-4 text-4xl font-extrabold leading-tight">{title}</h2>
+        <h2 className="mb-4 text-display-lg">{title}</h2>
         <p className="max-w-md text-base leading-relaxed text-neutral-300">{subtitle}</p>
       </div>
     </div>

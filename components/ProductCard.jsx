@@ -13,7 +13,7 @@ const typeLabels = {
 }
 
 const typeBadge = {
-  course: "bg-[#FFF8E7] text-yellow-700 border border-yellow-200",
+  course: "bg-[#EEF2FF] text-yellow-700 border border-yellow-200",
   book: "bg-emerald-50 text-emerald-700 border border-emerald-200",
   mentorship: "bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-200",
   event: "bg-sky-50 text-sky-700 border border-sky-200"
@@ -33,7 +33,7 @@ export default function ProductCard({ item }) {
   }
 
   return (
-    <div className="group relative bg-white border border-neutral-100 rounded-2xl overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-brand/30 transition-all duration-500 flex flex-col text-neutral-900">
+    <div className="group relative bg-white border border-neutral-100 rounded-2xl overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.2)] hover:border-brand/30 transition-all duration-500 flex flex-col text-neutral-900">
       <a href={href} className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
         {item.image ? (
           <Image
@@ -89,7 +89,7 @@ export default function ProductCard({ item }) {
 
           <a 
             href={href}
-            className="w-11 h-11 bg-neutral-100 text-neutral-600 hover:bg-brand hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_20px_rgba(255,69,0,0.3)]"
+            className="w-11 h-11 bg-neutral-100 text-neutral-600 hover:bg-brand hover:text-white rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_20px_rgba(79,70,229,0.3)]"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>

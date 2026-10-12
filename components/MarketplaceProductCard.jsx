@@ -14,7 +14,7 @@ const typeLabels = {
 }
 
 const typeBadge = {
-  course: "bg-[#FFF8E7] text-yellow-700 border border-yellow-200",
+  course: "bg-[#EEF2FF] text-yellow-700 border border-yellow-200",
   book: "bg-emerald-50 text-emerald-700 border border-emerald-200",
   mentorship: "bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-200",
   event: "bg-sky-50 text-sky-700 border border-sky-200"
@@ -28,7 +28,7 @@ export default function MarketplaceProductCard({ item, commissionPct = 20 }) {
   return (
     <a
       href={href}
-      className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-brand/30 transition-all duration-500 flex flex-col text-neutral-900"
+      className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.2)] hover:border-brand/30 transition-all duration-500 flex flex-col text-neutral-900"
     >
       {/* Image */}
       <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">

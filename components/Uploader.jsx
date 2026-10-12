@@ -174,7 +174,7 @@ export default function Uploader({
             <button
               type="button"
               onClick={handleUpload}
-              className="bg-teal hover:bg-teal-dark text-white font-bold py-1.5 px-4 text-sm rounded-md"
+              className="bg-brand hover:bg-brand-dark text-white font-bold py-1.5 px-4 text-sm rounded-md"
             >
               Iniciar Upload
             </button>
@@ -185,7 +185,7 @@ export default function Uploader({
               <div className="text-xs text-neutral-500 font-bold mb-1">A carregar... {progress}%</div>
               <div className="w-full bg-neutral-200 rounded-full h-2.5">
                 <div
-                  className="bg-teal h-2.5 rounded-full transition-all"
+                  className="bg-brand h-2.5 rounded-full transition-all"
                   style={{ width: `${progress}%` }}
                 />
               </div>

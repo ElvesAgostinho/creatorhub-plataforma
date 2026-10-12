@@ -25,7 +25,7 @@ export default async function CertificateMock({
     qr = await QRCode.toDataURL(verifyUrl, {
       width: 200,
       margin: 0,
-      color: { dark: "#111111", light: "#FFFFFF" },
+      color: { dark: "#0F172A", light: "#FFFFFF" },
     })
   } catch {
     qr = null

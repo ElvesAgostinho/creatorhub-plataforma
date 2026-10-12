@@ -34,7 +34,7 @@ export default function EditProductCoverForm({ productId, userId, currentImageUr
         
         <button 
           disabled={!imageUrl}
-          className="bg-teal hover:bg-teal-dark text-white font-bold px-4 py-2 rounded-md text-sm w-fit disabled:opacity-50"
+          className="bg-brand hover:bg-brand-dark text-white font-bold px-4 py-2 rounded-md text-sm w-fit disabled:opacity-50"
         >
           {currentImageUrl ? "Substituir capa" : "Guardar capa"}
         </button>

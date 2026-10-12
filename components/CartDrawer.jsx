@@ -108,7 +108,7 @@ export default function CartDrawer() {
             </div>
             <button 
               onClick={handleCheckout}
-              className="w-full py-3.5 bg-gradient-to-r from-brand to-orange-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(255,69,0,0.3)] transition-all hover:scale-[1.02]"
+              className="w-full py-3.5 bg-gradient-to-r from-brand to-orange-600 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(79,70,229,0.3)] transition-all hover:scale-[1.02]"
             >
               Finalizar compras <ArrowRight className="w-4 h-4" />
             </button>

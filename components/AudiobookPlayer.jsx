@@ -125,7 +125,7 @@ export default function AudiobookPlayer({ product, streamUrl }) {
   }, [togglePlay, skip])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0f0f] via-[#1a1a1a] to-[#111] flex flex-col font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-[#0F172A] via-[#1a1a1a] to-[#111] flex flex-col font-sans">
       {/* Hidden audio element */}
       <audio ref={audioRef} src={streamUrl} preload="metadata" />
 
@@ -221,7 +221,7 @@ export default function AudiobookPlayer({ product, streamUrl }) {
             <button
               onClick={togglePlay}
               disabled={isLoading}
-              className="w-16 h-16 rounded-full bg-brand hover:bg-[#e03e00] flex items-center justify-center text-white shadow-lg shadow-[#FF4500]/30 hover:shadow-[#FF4500]/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-16 h-16 rounded-full bg-brand hover:bg-[#4338CA] flex items-center justify-center text-white shadow-lg shadow-[#4F46E5]/30 hover:shadow-[#4F46E5]/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

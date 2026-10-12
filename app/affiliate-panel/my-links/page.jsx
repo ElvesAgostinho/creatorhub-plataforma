@@ -38,7 +38,7 @@ export default async function MyLinksPage({ searchParams }) {
   const { data: products } = await productsQuery
 
   const typeBadge = {
-    course: "bg-[#FFF8E7] text-yellow-700 border border-yellow-200",
+    course: "bg-[#EEF2FF] text-yellow-700 border border-yellow-200",
     book: "bg-emerald-50 text-emerald-700 border border-emerald-200",
     mentorship: "bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-200"
   }
@@ -68,7 +68,7 @@ export default async function MyLinksPage({ searchParams }) {
             const comm = Math.round((p.price_cents * commissionPct) / 10000)
             
             return (
-              <a href={`/affiliate-panel/product/${p.slug}`} key={p.id} className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.2)] hover:border-brand/30 transition-all duration-500 flex flex-col text-neutral-900">
+              <a href={`/affiliate-panel/product/${p.slug}`} key={p.id} className="group relative bg-white border border-neutral-100 rounded-[2rem] overflow-hidden hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.2)] hover:border-brand/30 transition-all duration-500 flex flex-col text-neutral-900">
                 <div className="relative block aspect-[16/9] overflow-hidden bg-neutral-100">
                   {p.image_url ? (
                     <img
