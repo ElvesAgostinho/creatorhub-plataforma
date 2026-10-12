@@ -1,3 +1,8 @@
+// Endereço público dos ficheiros (MinIO). Lido uma vez e reutilizado abaixo.
+const baseFicheiros = (process.env.S3_PUBLIC_URL || process.env.NEXT_PUBLIC_S3_URL || "").replace(/\/+$/, "")
+const anfitriaoFicheiros = baseFicheiros ? baseFicheiros.replace(/^https?:\/\//, "").split("/")[0].split(":")[0] : null
+const protocoloFicheiros = baseFicheiros.startsWith("http://") ? "http" : "https"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -12,9 +17,16 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     // Cache de imagens otimizadas por 30 dias no servidor
     minimumCacheTTL: 2592000,
+    // O anfitrião dos ficheiros vem do ambiente: muda com o servidor,
+    // e deixar o antigo aqui escrito foi o que partiu a compilação.
     remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "pjzfqqxkeivrxfnwqswl.supabase.co" }
+      ...(anfitriaoFicheiros
+        ? [{ protocol: protocoloFicheiros, hostname: anfitriaoFicheiros }]
+        : []),
+      // Durante a migração ainda podem existir capas guardadas no servidor antigo
+      ...(process.env.IMAGENS_ANFITRIAO_EXTRA
+        ? [{ protocol: "https", hostname: process.env.IMAGENS_ANFITRIAO_EXTRA }]
+        : [])
     ]
   },
   // Headers de cache HTTP para assets estáticos
@@ -38,10 +50,13 @@ const nextConfig = {
     ]
   },
   async rewrites() {
+    // Sem anfitrião de ficheiros configurado não há reescrita nenhuma:
+    // uma reescrita com destino "undefined/..." faz o build falhar.
+    if (!baseFicheiros) return []
     return [
       {
-        source: '/storage/:path*',
-        destination: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/:path*`,
+        source: "/storage/:path*",
+        destination: `${baseFicheiros}/:path*`,
       },
     ]
   },

@@ -274,7 +274,7 @@ export default function LessonPlayer({ lessons, initialProgress = {}, productId,
                <div className="max-w-3xl text-neutral-400">
                  {current.pdf_url ? (
                    <a 
-                     href={current.pdf_url.startsWith('http') ? current.pdf_url : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${current.pdf_url.replace('storage:', '')}`} 
+                     href={current.pdf_url.startsWith('http') ? current.pdf_url : `${(process.env.NEXT_PUBLIC_S3_URL || '').replace(/\/+$/, '')}/${current.pdf_url.replace('storage:', '')}`} 
                      target="_blank" 
                      rel="noopener noreferrer" 
                      className="inline-flex items-center gap-3 bg-ink-700 border border-neutral-800 hover:border-brand hover:text-brand transition-colors p-4 rounded-xl text-white font-bold"

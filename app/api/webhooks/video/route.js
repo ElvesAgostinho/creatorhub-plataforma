@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createServiceClient } from "@/lib/supabase/server";
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import fs from 'fs';
@@ -7,13 +7,10 @@ import path from 'path';
 
 const execAsync = promisify(exec);
 
-// Inicializa o Supabase (usa Service Role se existir para contornar RLS, senão a anon key normal)
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Executa em plano de fundo (Background Worker)
 async function processVideo(lessonId, videoUrl) {
+  const supabase = createServiceClient();
   let tmpDir = null;
   try {
     console.log(`[HLS-Worker] A iniciar conversão para a aula ${lessonId}`);

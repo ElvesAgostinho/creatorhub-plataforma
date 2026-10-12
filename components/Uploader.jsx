@@ -1,8 +1,6 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { createClient } from "@/lib/supabase/client"
-import * as tus from "tus-js-client"
 import { HardDrive, Lock, VideoOff, ImageOff } from "lucide-react"
 
 /**
@@ -74,80 +72,49 @@ export default function Uploader({
     const finalContentType = file.type || (ext === "mp4" ? "video/mp4" : "application/octet-stream")
 
     try {
-      const supabase = createClient()
-      const { data: sessionData } = await supabase.auth.getSession()
-      const token = sessionData?.session?.access_token
+      // 1. Pedir ao servidor um endereço assinado. É aí que se verifica a
+      //    sessão, o contentor e se a pasta é mesmo deste utilizador.
+      const resposta = await fetch("/api/storage/presign", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contentor: bucket, caminho: filename, contentType: finalContentType }),
+      })
 
-      if (!token) throw new Error("Não autenticado")
+      const corpo = await resposta.json()
+      if (!resposta.ok) throw new Error(corpo.error || "Não foi possível preparar o envio.")
 
-      if (isResumable) {
-        // TUS resumable upload for large videos
-        const upload = new tus.Upload(file, {
-          endpoint: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/upload/resumable`,
-          retryDelays: [0, 3000, 5000, 10000, 20000],
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "x-upsert": "true",
-          },
-          uploadDataDuringCreation: true,
-          removeFingerprintOnSuccess: true,
-          metadata: {
-            bucketName: bucket,
-            objectName: filename,
-            contentType: finalContentType,
-            cacheControl: "3600",
-          },
-          chunkSize: 6 * 1024 * 1024, // 6MB chunks
-          onError: (error) => {
-            setIsUploading(false)
-            setErrorMsg("Falha no upload: " + error.message)
-            if (onError) onError(error)
-          },
-          onProgress: (bytesUploaded, bytesTotal) => {
-            const pct = Math.floor((bytesUploaded / bytesTotal) * 100)
-            setProgress(pct)
-          },
-          onSuccess: () => {
-            setIsUploading(false)
-            setProgress(100)
-            setUploadUrl(`storage:${bucket}/${filename}`)
-            if (onSuccess) onSuccess(`storage:${bucket}/${filename}`, file)
-          },
-        })
+      const { url, referencia, publico } = corpo.data
 
-        upload.findPreviousUploads().then((previousUploads) => {
-          if (previousUploads.length) {
-            upload.resumeFromPreviousUpload(previousUploads[0])
+      // 2. Enviar o ficheiro diretamente para o armazenamento.
+      //    XHR em vez de fetch porque é o único que dá progresso de envio.
+      await new Promise((resolver, rejeitar) => {
+        const pedido = new XMLHttpRequest()
+        pedido.open("PUT", url, true)
+        pedido.setRequestHeader("Content-Type", finalContentType)
+
+        pedido.upload.onprogress = (evento) => {
+          if (evento.lengthComputable) {
+            setProgress(Math.floor((evento.loaded / evento.total) * 100))
           }
-          upload.start()
-        }).catch(() => {
-          upload.start()
-        })
-      } else {
-        // Standard upload for images/PDFs
-        const { error: uploadError } = await supabase.storage
-          .from(bucket)
-          .upload(filename, file, {
-            cacheControl: "3600",
-            upsert: false,
-          })
-
-        if (uploadError) throw uploadError
-
-        setIsUploading(false)
-        setProgress(100)
-
-        let finalPath = filename
-        if (bucket === "images" || bucket === "avatars") {
-          const { data } = supabase.storage.from(bucket).getPublicUrl(filename)
-          finalPath = data.publicUrl
-        } else {
-          finalPath = `storage:${bucket}/${filename}`
         }
+        pedido.onload = () => {
+          if (pedido.status >= 200 && pedido.status < 300) resolver()
+          else rejeitar(new Error(`O armazenamento respondeu ${pedido.status}.`))
+        }
+        pedido.onerror = () => rejeitar(new Error("Falha de rede durante o envio."))
+        pedido.onabort = () => rejeitar(new Error("Envio cancelado."))
+        pedido.send(file)
+      })
 
-        setUploadUrl(finalPath)
-        if (onSuccess) onSuccess(finalPath, file)
-      }
+      setIsUploading(false)
+      setProgress(100)
+
+      const caminhoFinal = publico
+        ? `${(process.env.NEXT_PUBLIC_S3_URL || "").replace(/\/+$/, "")}/${bucket}/${filename}`
+        : referencia
+
+      setUploadUrl(caminhoFinal)
+      if (onSuccess) onSuccess(caminhoFinal, file)
     } catch (err) {
       setIsUploading(false)
       setErrorMsg("Erro: " + err.message)

@@ -6,7 +6,7 @@ export default function AvatarField({ userId, defaultUrl, defaultInitial }) {
   const [url, setUrl] = useState(defaultUrl)
 
   const displayUrl = url?.startsWith("storage:")
-    ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${url.split(":")[1]}`
+    ? `${(process.env.NEXT_PUBLIC_S3_URL || "").replace(/\/+$/, "")}/${url.split(":")[1]}`
     : url;
 
   return (

@@ -1,16 +1,9 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@/lib/supabase/server"
 import { NextResponse } from 'next/server'
 
-// We use a service role client here if RLS blocks anonymous reads of affiliate links,
-// but our migration says "Anyone can read affiliate links", so standard client is fine.
-// Actually, standard client requires cookies, so let's just do a direct fetch or use supabase-js without auth.
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export async function GET(request, { params }) {
+  const supabase = createClient()
   const code = params.code
 
   if (!code) {
