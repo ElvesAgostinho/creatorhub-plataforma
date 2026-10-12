@@ -18,20 +18,24 @@ module.exports = {
           DEFAULT: "#4F46E5",
           dark: "#4338CA",
           deep: "#312E81",
+          light: "#A5B4FC",
           soft: "#EEF2FF",
           ring: "rgba(79,70,229,0.20)"
         },
-        // Verde: exclusivo de pagamento e confirmação
+        // Pagamento: deixou de ser verde. Uma só cor de ação em toda a
+        // plataforma, para o checkout não parecer de outra marca.
         pay: {
-          DEFAULT: "#059669",
-          dark: "#047857",
-          soft: "#ECFDF5"
+          DEFAULT: "#4F46E5",
+          dark: "#4338CA",
+          soft: "#EEF2FF"
         },
-        // Âmbar: exclusivo de aviso e destaque pontual
+        // Dourado contido: valores positivos, receita e marcas de distinção.
+        // Substitui o verde-menta; em fundo escuro lê-se como prémio, não como app.
         accent: {
-          DEFAULT: "#F59E0B",
-          dark: "#D97706",
-          soft: "#FFFBEB"
+          DEFAULT: "#D4A53A",
+          dark: "#A8801F",
+          light: "#E8C97A",
+          soft: "#FBF5E6"
         },
         // Mantido para compatibilidade: aponta para a mesma família da marca
         teal: {
@@ -73,7 +77,7 @@ module.exports = {
         float: "0 24px 60px -20px rgba(15,23,42,0.28)",
         frame: "0 40px 90px -30px rgba(15,23,42,0.45)",
         brand: "0 10px 30px -10px rgba(79,70,229,0.45)",
-        pay: "0 10px 30px -10px rgba(5,150,105,0.45)",
+        pay: "0 10px 30px -10px rgba(79,70,229,0.45)",
         header: "0 1px 0 0 rgba(15,23,42,0.06)"
       },
       borderRadius: {

@@ -4,38 +4,41 @@ import AnalyticsMock from "./AnalyticsMock"
 import SalesMobileMock from "./SalesMobileMock"
 
 /**
- * Composição do herói: o painel do criador em desktop com o ecrã de vendas em
- * mobile à frente. Substitui a fotografia de banco de imagens — aqui o herói
- * da página é o próprio produto.
+ * Composição do herói: o painel do criador em desktop com o iPhone à frente.
+ * Sobre fundo escuro, as duas peças claras ficam a flutuar — é o momento em que
+ * se percebe, sem ler uma linha, o que a plataforma faz.
  */
 export default function HeroComposition({ className = "" }) {
   return (
     <div className={`relative w-full min-w-0 ${className}`}>
-      {/* Halo da marca por trás das molduras */}
+      {/* Halo */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -inset-x-10 -inset-y-12 -z-10 rounded-full bg-brand/10 blur-3xl"
+        className="pointer-events-none absolute -inset-x-16 -inset-y-16 -z-10 rounded-full bg-brand/25 blur-[90px]"
       />
 
-      <BrowserFrame url="above.ao/admin/analytics" className="animate-fade-up">
-        <AnalyticsMock />
-      </BrowserFrame>
+      {/* Painel desktop, ligeiramente recuado */}
+      <div className="ml-auto w-[88%] sm:w-[92%]">
+        <BrowserFrame url="above.ao/admin/analytics" className="animate-fade-up ring-1 ring-white/10">
+          <AnalyticsMock />
+        </BrowserFrame>
+      </div>
 
-      {/* Telemóvel sobreposto */}
-      <PhoneFrame className="absolute -bottom-10 -left-6 w-[34%] max-w-[190px] animate-float-slow sm:-left-10 sm:-bottom-12">
+      {/* iPhone à frente, em baixo à esquerda */}
+      <PhoneFrame className="absolute -bottom-4 left-0 w-[31%] min-w-[104px] max-w-[168px] animate-float-slow">
         <SalesMobileMock />
       </PhoneFrame>
 
-      {/* Etiqueta flutuante de venda aprovada */}
-      <div className="absolute -right-3 top-8 hidden items-center gap-2 rounded-xl border border-neutral-200 bg-white px-3 py-2 shadow-float sm:flex lg:-right-6">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pay/10 text-pay">
+      {/* Etiqueta de venda */}
+      <div className="absolute bottom-28 left-[40%] hidden items-center gap-2.5 rounded-xl border border-white/10 bg-ink-800/95 px-3.5 py-2.5 shadow-float backdrop-blur sm:flex">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/15 text-accent-light">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5">
             <path d="M20 6 9 17l-5-5" />
           </svg>
         </span>
         <span className="leading-tight">
-          <span className="block text-[10px] font-bold text-neutral-500">Venda aprovada</span>
-          <span className="block text-[13px] font-black text-ink-800">+24 900 Kz</span>
+          <span className="block text-[10px] font-medium text-white/50">Venda aprovada</span>
+          <span className="block whitespace-nowrap text-[13px] font-bold text-white">+24 900 Kz</span>
         </span>
       </div>
     </div>

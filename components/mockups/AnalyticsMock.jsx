@@ -7,7 +7,7 @@
 const STATS = [
   { label: "Receita Total", value: "1 284 500 Kz", trend: "+18,2%" },
   { label: "Vendas Totais", value: "312", trend: "+9,5%" },
-  { label: "Taxa de Reembolso", value: "1,4%", trend: "-0,6%", down: true },
+  { label: "Reembolsos", value: "1,4%", trend: "-0,6%", down: true },
   { label: "Compras Ativas", value: "298", trend: "+24,1%" },
 ]
 
@@ -44,9 +44,9 @@ export default function AnalyticsMock({ compact = false }) {
       {/* Cartões de métricas */}
       <div className={`grid gap-2.5 ${compact ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-4"}`}>
         {STATS.map((s) => (
-          <div key={s.label} className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
-            <div className="text-[9px] font-bold uppercase tracking-wide text-neutral-500">{s.label}</div>
-            <div className="mt-1.5 truncate text-[15px] font-extrabold leading-none text-ink-800">{s.value}</div>
+          <div key={s.label} className="min-w-0 rounded-xl border border-neutral-200 bg-white px-2.5 py-3 shadow-sm">
+            <div className="truncate text-[8.5px] font-bold uppercase tracking-wide text-neutral-500">{s.label}</div>
+            <div className="mt-1.5 whitespace-nowrap text-[12.5px] font-extrabold leading-none text-ink-800">{s.value}</div>
             <div
               className={`mt-1.5 inline-flex items-center gap-0.5 text-[9px] font-bold ${
                 s.down ? "text-pay" : "text-pay"

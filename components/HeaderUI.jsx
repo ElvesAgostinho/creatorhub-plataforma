@@ -43,14 +43,19 @@ export default function HeaderUI({ user, profile, unreadCount = 0 }) {
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6">
 
         {/* Logótipo */}
-        <a href={isMarketplace ? "/marketplace" : "/"} className="flex shrink-0 items-center" aria-label="ABOVE, página inicial">
-          <Logo size="md" />
+        <div className="flex shrink-0 items-center">
+          <a href="/" className="flex items-center rounded-lg transition hover:opacity-80" aria-label="ABOVE — ir para a página inicial">
+            <Logo size="md" />
+          </a>
           {isMarketplace && (
-            <span className="ml-2.5 hidden border-l border-neutral-200 pl-2.5 text-sm font-medium text-neutral-500 sm:inline">
+            <a
+              href="/marketplace"
+              className="ml-2.5 hidden border-l border-neutral-200 pl-2.5 text-sm font-medium text-neutral-500 transition hover:text-ink-800 sm:inline"
+            >
               Marketplace
-            </span>
+            </a>
           )}
-        </a>
+        </div>
 
         {/* Navegação / categorias */}
         {isMarketplace ? (

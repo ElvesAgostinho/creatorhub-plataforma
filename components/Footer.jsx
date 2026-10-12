@@ -15,10 +15,11 @@ export default function Footer({ user }) {
   useEffect(() => {
     // Only show banner to users who are NOT logged in
     const hideBanner = localStorage.getItem("hidePromoBanner")
-    if (!hideBanner && !user) {
+    // Fora da página inicial: lá o herói já tem os dois botões de ação
+    if (!hideBanner && !user && pathname !== "/") {
       setShowBanner(true)
     }
-  }, [user])
+  }, [user, pathname])
 
   const closeBanner = () => {
     setShowBanner(false)

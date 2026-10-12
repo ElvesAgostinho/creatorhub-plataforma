@@ -1,4 +1,5 @@
 "use client"
+import Logo from "@/components/brand/Logo"
 
 import { useState } from "react"
 import Link from "next/link"
@@ -31,7 +32,7 @@ export default function AffiliateSidebar({ userProfile, children }) {
           <button onClick={() => setIsOpen(true)} className="p-2 -ml-2 text-neutral-600">
             <Menu size={24} />
           </button>
-          <span className="font-black text-brand text-xl tracking-tighter">ABOVE <span className="text-sm font-medium text-neutral-400 ml-1">Afiliado</span></span>
+          <a href="/" className="flex items-center gap-2" aria-label="ABOVE — ir para a página inicial"><Logo size="sm" /><span className="text-sm font-medium text-neutral-400">Afiliado</span></a>
         </div>
         <div className="w-8 h-8 rounded-full bg-brand-soft border border-brand/20 flex items-center justify-center text-brand text-xs font-bold shrink-0">
           {userProfile?.full_name?.charAt(0) || "A"}
@@ -51,10 +52,14 @@ export default function AffiliateSidebar({ userProfile, children }) {
         
         {/* LOGO */}
         <div className="h-20 border-b border-neutral-100 flex items-center justify-between px-6 shrink-0">
-          <Link href="/affiliate-panel" className="flex items-center gap-2">
-            <span className="font-black text-brand text-2xl tracking-tighter">ABOVE</span>
-            <span className="text-[10px] uppercase font-bold tracking-widest text-neutral-400 bg-neutral-100 px-2 py-1 rounded-md mt-1">Afiliado</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <a href="/" className="flex items-center rounded-lg transition hover:opacity-80" aria-label="ABOVE — ir para a página inicial">
+              <Logo size="md" />
+            </a>
+            <Link href="/affiliate-panel" className="mt-1 rounded-md bg-neutral-100 px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-neutral-400 transition hover:text-ink-800">
+              Afiliado
+            </Link>
+          </div>
           <button className="md:hidden text-neutral-500" onClick={() => setIsOpen(false)}>
             <X size={20} />
           </button>

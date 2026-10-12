@@ -1,4 +1,3 @@
-import TypewriterText from "@/components/TypewriterText"
 import HeroComposition from "@/components/mockups/HeroComposition"
 import BrowserFrame from "@/components/mockups/BrowserFrame"
 import CheckoutMock from "@/components/mockups/CheckoutMock"
@@ -11,56 +10,84 @@ export default function LandingPage({ user }) {
     <div className="min-h-screen bg-ink-800 font-sans text-white">
 
       {/* 1. HERO */}
-      <section className="relative overflow-hidden border-b border-neutral-200 bg-white">
-        {/* Textura de grelha em vez de fotografia de fundo */}
-        <div aria-hidden="true" className="bg-grid-light mask-fade pointer-events-none absolute inset-0 opacity-70" />
+      <section className="relative overflow-hidden bg-ink-900">
+        {/* Luz de marca por trás da composição */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(60% 70% at 72% 18%, rgba(79,70,229,0.38), transparent 62%), radial-gradient(45% 55% at 8% 88%, rgba(79,70,229,0.16), transparent 70%)",
+          }}
+        />
+        <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0 opacity-50" />
+        {/* Esbatimento para a secção seguinte */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-ink-900" />
 
-        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 pb-20 pt-14 lg:grid-cols-2 lg:gap-16 lg:pb-28 lg:pt-24">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 pb-24 pt-16 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:pb-28 lg:pt-20">
 
           {/* Texto */}
-          <div className="min-w-0 text-center lg:text-left">
-            <div className="mb-6 inline-flex max-w-full items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-left text-xs font-bold text-neutral-600 shadow-sm">
-              <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-brand" />
-              Feito em Angola, para criadores de todo o mundo
-            </div>
-
-            <h1 className="min-h-[96px] max-w-measure text-display-xl text-ink-800 sm:min-h-[128px]">
-              <TypewriterText text="O teu conhecimento," speed={40} delay={100} hideCursorOnFinish={true} />
-              <br />
-              <span className="text-brand">
-                <TypewriterText text="transformado num negócio." speed={50} delay={1100} hideCursorOnFinish={true} />
-              </span>
-            </h1>
-
-            <p className="mx-auto mt-5 min-h-[72px] max-w-prose text-lead text-neutral-600 lg:mx-0">
-              <TypewriterText
-                text="Cria, vende e entrega cursos online, livros digitais e mentorias. A plataforma mais completa de Angola para criadores de conteúdo que querem escalar os seus resultados."
-                speed={20}
-                delay={2200}
-              />
+          <div className="min-w-0">
+            <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
+              Infoprodutos · Pagamentos · Área de membros
             </p>
 
-            <div className="mt-10 flex flex-col items-center gap-6 lg:items-start">
+            <h1 className="max-w-measure text-display-xl text-white">
+              O teu conhecimento,
+              <br />
+              <span className="text-brand-light">transformado num negócio.</span>
+            </h1>
+
+            <p className="mt-6 max-w-prose text-lead text-neutral-300">
+              Cria, vende e entrega cursos, livros digitais e mentorias num só lugar. Checkout com os
+              métodos de pagamento que o teu público já usa, área de membros premium e certificados
+              automáticos.
+            </p>
+
+            <div className="mt-9 flex flex-wrap items-center gap-3">
               <a
                 href={user ? "/dashboard" : "/signup"}
                 className="rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-white shadow-brand transition hover:bg-brand-dark"
               >
-                {user ? "Aceder ao Painel" : "Começar a Vender Agora"}
+                {user ? "Aceder ao painel" : "Começar a vender"}
               </a>
+              <a
+                href="/marketplace"
+                className="rounded-lg border border-white/15 px-7 py-3.5 text-[15px] font-semibold text-white transition hover:border-white/30 hover:bg-white/5"
+              >
+                Ver o marketplace
+              </a>
+            </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-bold text-neutral-500 sm:text-xs lg:justify-start">
-                {["Sem taxas ocultas", "Suporte 24/7", "Setup em 5 min"].map((t) => (
-                  <span key={t} className="flex items-center gap-1.5">
-                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-pay/10 text-pay">✓</span>
-                    {t}
-                  </span>
-                ))}
-              </div>
+            {/* Compromissos, sem ícones decorativos */}
+            <dl className="mt-12 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10">
+              {[
+                { k: "Comissão", v: "Sem taxas ocultas" },
+                { k: "Entrega", v: "Imediata e segura" },
+                { k: "Arranque", v: "Em minutos" },
+              ].map((item) => (
+                <div key={item.k} className="bg-ink-900/80 px-4 py-3.5">
+                  <dt className="text-[10px] font-semibold uppercase tracking-wider text-white/40">{item.k}</dt>
+                  <dd className="mt-1 text-[13px] font-semibold text-white">{item.v}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="text-[11px] font-medium text-white/35">Pagamentos aceites</span>
+              {["Multicaixa Express", "Unitel Money", "Africell Money", "Transferência"].map((m) => (
+                <span
+                  key={m}
+                  className="rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-white/70"
+                >
+                  {m}
+                </span>
+              ))}
             </div>
           </div>
 
           {/* O produto como herói */}
-          <HeroComposition className="mt-6 lg:mt-0" />
+          <HeroComposition className="mt-4 lg:mt-0" />
         </div>
       </section>
 

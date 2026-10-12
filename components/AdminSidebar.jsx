@@ -1,4 +1,5 @@
 "use client"
+import Logo from "@/components/brand/Logo"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -65,10 +66,14 @@ export default function AdminSidebar({ role = "creator" }) {
   return (
     <aside className="w-[260px] bg-white border-r border-neutral-200 hidden md:flex flex-col min-h-screen sticky top-0 h-screen font-sans">
       <div className="p-6 pb-2">
-        <a href="/admin" className="flex items-center gap-2">
-          <span className="text-2xl font-black tracking-tight text-brand">ABOVE</span>
-          <span className="text-xs font-bold bg-brand-soft text-brand px-2 py-0.5 rounded-md tracking-wider">CREATOR</span>
-        </a>
+        <div className="flex items-center gap-2">
+          <a href="/" className="flex items-center rounded-lg transition hover:opacity-80" aria-label="ABOVE — ir para a página inicial">
+            <Logo size="md" />
+          </a>
+          <a href="/admin" className="rounded-md bg-brand-soft px-2 py-0.5 text-xs font-bold tracking-wider text-brand transition hover:bg-brand/15">
+            CRIADOR
+          </a>
+        </div>
       </div>
       
       <div className="px-5 pt-6 pb-4">

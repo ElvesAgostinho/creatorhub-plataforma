@@ -1,4 +1,5 @@
 "use client"
+import Logo from "@/components/brand/Logo"
 
 import { useState } from "react"
 import Link from "next/link"
@@ -33,7 +34,7 @@ export default function LibrarySidebar({ userProfile, children }) {
           <button onClick={() => setIsOpen(true)} className="p-2 -ml-2 text-neutral-600">
             <Menu size={24} />
           </button>
-          <span className="font-black text-brand text-xl tracking-tighter">ABOVE</span>
+          <a href="/" aria-label="ABOVE — ir para a página inicial"><Logo size="sm" /></a>
         </div>
         <div className="w-8 h-8 rounded-full bg-neutral-200 overflow-hidden flex items-center justify-center text-xs font-bold text-neutral-500">
           {userProfile?.full_name?.charAt(0) || "U"}
@@ -53,9 +54,9 @@ export default function LibrarySidebar({ userProfile, children }) {
         
         {/* LOGO */}
         <div className="h-20 border-b border-neutral-100 flex items-center justify-between px-6 shrink-0">
-          <Link href="/library" className="flex items-center gap-2">
-            <span className="font-black text-brand text-2xl tracking-tighter">ABOVE</span>
-          </Link>
+          <a href="/" className="flex items-center gap-2 rounded-lg transition hover:opacity-80" aria-label="ABOVE — ir para a página inicial">
+            <Logo size="md" />
+          </a>
           <button className="md:hidden text-neutral-500" onClick={() => setIsOpen(false)}>
             <X size={20} />
           </button>
