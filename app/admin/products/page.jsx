@@ -9,6 +9,7 @@ export const dynamic = "force-dynamic"
 export default async function AdminProducts({ searchParams }) {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect("/login?next=/admin/products")
 
   const svc = createServiceClient()
   const { data: rows, error: queryError } = await svc

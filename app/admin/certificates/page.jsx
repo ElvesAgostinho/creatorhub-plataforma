@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { PremiumInput, PremiumButton } from "@/components/PremiumForms"
 import { GraduationCap } from "lucide-react"
@@ -7,6 +8,7 @@ export const dynamic = "force-dynamic"
 export default async function AdminCertificates() {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect("/login?next=/admin/certificates")
 
   // Buscar produtos do criador para o dropdown
   const { data: products } = await supabase
