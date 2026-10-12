@@ -1,3 +1,4 @@
+import { HelpCircle } from "lucide-react"
 import SupportComposition from "@/components/mockups/SupportComposition"
 export const dynamic = "force-dynamic"
 
@@ -55,21 +56,21 @@ export default function SupportPage() {
           
           <div className="space-y-6">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-200">
-              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-brand">✦</span> Sou formando, como acedo ao meu curso?</h3>
+              <h3 className="mb-3 flex items-start gap-3 text-xl font-bold"><HelpCircle size={20} strokeWidth={1.75} className="mt-0.5 shrink-0 text-brand" /> Sou formando, como acedo ao meu curso?</h3>
               <p className="text-neutral-600 leading-relaxed">
                 Assim que a tua compra (em Kwanza ou Euros) é aprovada, recebes um email com os teus dados de acesso. Se já tens conta, basta clicares em "Entrar" no topo da página e acederes à aba "Minhas Compras".
               </p>
             </div>
             
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-200">
-              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-brand">✦</span> Sou criador, quando recebo o dinheiro das vendas?</h3>
+              <h3 className="mb-3 flex items-start gap-3 text-xl font-bold"><HelpCircle size={20} strokeWidth={1.75} className="mt-0.5 shrink-0 text-brand" /> Sou criador, quando recebo o dinheiro das vendas?</h3>
               <p className="text-neutral-600 leading-relaxed">
                 As transferências são realizadas de forma automática de acordo com o plano contratado. A nossa integração facilita levantamentos para bancos em Angola (Kwanza) e transferências internacionais.
               </p>
             </div>
             
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-neutral-200">
-              <h3 className="font-bold text-xl mb-3 flex items-center gap-3"><span className="text-brand">✦</span> Como funciona o programa de afiliados?</h3>
+              <h3 className="mb-3 flex items-start gap-3 text-xl font-bold"><HelpCircle size={20} strokeWidth={1.75} className="mt-0.5 shrink-0 text-brand" /> Como funciona o programa de afiliados?</h3>
               <p className="text-neutral-600 leading-relaxed">
                 Basta criares uma conta gratuita, ires ao Marketplace e obteres o teu link exclusivo de promotor. O split do pagamento é feito automaticamente aquando da compra do cliente.
               </p>

@@ -1,3 +1,4 @@
+import { CheckCircle2 } from "lucide-react"
 import { notFound } from "next/navigation"
 import { getProductBySlug } from "@/lib/data/products"
 
@@ -7,7 +8,7 @@ export default async function ThankYouPage({ params }) {
 
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16 text-center">
-      <div className="text-5xl">✅</div>
+      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-soft text-brand"><CheckCircle2 size={30} strokeWidth={1.75} /></div>
       <h1 className="text-3xl font-extrabold mt-4">Pedido recebido</h1>
       <p className="text-neutral-600 mt-3">
         Recebemos o teu pedido para <strong>{item.title}</strong>.

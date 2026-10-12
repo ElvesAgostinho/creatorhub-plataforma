@@ -1,4 +1,5 @@
 "use client"
+import { AlertCircle } from "lucide-react"
 import Logo from "@/components/brand/Logo"
 import AuthShowcase from "@/components/mockups/AuthShowcase"
 
@@ -127,7 +128,7 @@ export default function SignupPage() {
 
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 text-sm font-medium px-4 py-3 rounded-xl flex items-start gap-2">
-                <span className="mt-0.5">⚠</span> {error}
+                <AlertCircle size={15} strokeWidth={2} className="mt-0.5 shrink-0" /> {error}
               </div>
             )}
 

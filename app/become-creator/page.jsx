@@ -1,3 +1,4 @@
+import { CheckCircle2, XCircle } from "lucide-react"
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { submitApplication } from "./actions"
@@ -57,7 +58,7 @@ export default async function BecomeCreatorPage({ searchParams }) {
   if (application && application.status === "rejected") {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-4 text-3xl">✖</div>
+        <div className="w-16 h-16 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-4"><XCircle size={28} strokeWidth={1.75} /></div>
         <h1 className="text-2xl font-extrabold">Candidatura não aceite</h1>
         <p className="text-neutral-600 mt-2">
           Infelizmente não pudemos aceitar a tua candidatura de momento. Podes tentar novamente no futuro.

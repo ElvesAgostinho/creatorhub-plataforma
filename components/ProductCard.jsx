@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useCart } from "./CartContext"
-import { ShoppingCart, Check } from "lucide-react"
+import { ShoppingCart, Check, Star } from "lucide-react"
 import CoverFallback from "@/components/mockups/CoverFallback"
 
 const typeLabels = {
@@ -71,7 +71,7 @@ export default function ProductCard({ item }) {
         </a>
 
         <div className="flex items-center gap-2 text-[12px] text-neutral-600 mt-1 font-medium">
-          <span className="flex items-center gap-1 text-yellow-500 font-bold">★ {item.reviewsPositive}%</span>
+          <span className="flex items-center gap-1 font-bold text-accent-dark"><Star size={12} className="fill-accent text-accent" strokeWidth={0} /> {item.reviewsPositive}%</span>
           <span>({fmt(item.reviewsCount)} avaliações)</span>
         </div>
 

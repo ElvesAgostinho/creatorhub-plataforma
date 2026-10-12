@@ -1,3 +1,4 @@
+import { Banknote, Link2, ArrowDownToLine } from "lucide-react"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { applyForAffiliate } from "./actions"
@@ -47,7 +48,7 @@ export default async function AffiliatesLanding() {
           ) : application ? (
             <div className={`p-8 rounded-2xl ${application.status === 'pending' ? 'bg-orange-50 border border-orange-200' : 'bg-red-50 border border-red-200'}`}>
               <h2 className={`text-xl font-bold mb-2 ${application.status === 'pending' ? 'text-orange-800' : 'text-red-800'}`}>
-                {application.status === 'pending' ? '⏳ Candidatura em Análise' : '❌ Candidatura Rejeitada'}
+                {application.status === 'pending' ? 'Candidatura em análise' : 'Candidatura rejeitada'}
               </h2>
               <p className={`text-sm ${application.status === 'pending' ? 'text-orange-600' : 'text-red-600'}`}>
                 {application.status === 'pending' 
@@ -75,17 +76,23 @@ export default async function AffiliatesLanding() {
 
           <div className="mt-12 grid grid-cols-3 gap-6 text-left">
             <div>
-              <div className="text-2xl mb-2">💰</div>
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white text-brand">
+                <Banknote size={18} strokeWidth={1.75} />
+              </div>
               <h3 className="font-bold text-neutral-900">Altas Comissões</h3>
               <p className="text-xs text-neutral-500 mt-1">Ganha até 80% do valor de cada venda gerada pelo teu link.</p>
             </div>
             <div>
-              <div className="text-2xl mb-2">🔗</div>
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white text-brand">
+                <Link2 size={18} strokeWidth={1.75} />
+              </div>
               <h3 className="font-bold text-neutral-900">Links Únicos</h3>
               <p className="text-xs text-neutral-500 mt-1">Tracking perfeito para garantir que recebes sempre as tuas comissões.</p>
             </div>
             <div>
-              <div className="text-2xl mb-2">⚡️</div>
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-neutral-200 bg-white text-brand">
+                <ArrowDownToLine size={18} strokeWidth={1.75} />
+              </div>
               <h3 className="font-bold text-neutral-900">Saques Rápidos</h3>
               <p className="text-xs text-neutral-500 mt-1">Transfere as tuas comissões diretamente para a tua conta bancária.</p>
             </div>

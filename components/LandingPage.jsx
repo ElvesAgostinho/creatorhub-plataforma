@@ -1,3 +1,4 @@
+import { Plug, Check, Star } from "lucide-react"
 import HeroComposition from "@/components/mockups/HeroComposition"
 import BrowserFrame from "@/components/mockups/BrowserFrame"
 import CheckoutMock from "@/components/mockups/CheckoutMock"
@@ -281,7 +282,7 @@ export default function LandingPage({ user }) {
                 key={i}
                 className="flex items-center gap-4 rounded-xl border border-neutral-100 bg-neutral-50 p-4 text-sm font-bold"
               >
-                <span className="text-xl text-brand">✦</span> + Integra com {i}
+                <Plug size={16} strokeWidth={1.75} className="shrink-0 text-brand" /> {i}
               </div>
             ))}
           </div>
@@ -358,7 +359,11 @@ export default function LandingPage({ user }) {
               },
             ].map((t) => (
               <figure key={t.name} className="flex flex-col rounded-3xl border border-neutral-200 bg-surface-50 p-8">
-                <div className="mb-4 text-sm tracking-widest text-yellow-400">★★★★★</div>
+                <div className="mb-4 flex gap-0.5 text-accent">
+                  {[0, 1, 2, 3, 4].map((n) => (
+                    <Star key={n} size={14} className="fill-accent" strokeWidth={0} />
+                  ))}
+                </div>
                 <blockquote className="mb-8 font-medium italic text-neutral-700">“{t.quote}”</blockquote>
                 <figcaption className="mt-auto flex items-center gap-4">
                   <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-soft font-bold text-brand">

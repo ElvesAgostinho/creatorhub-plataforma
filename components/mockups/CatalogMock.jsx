@@ -1,3 +1,4 @@
+import { Star } from "lucide-react"
 import CoverFallback from "./CoverFallback"
 
 /**
@@ -52,7 +53,7 @@ export default function CatalogMock({ className = "" }) {
             </div>
             <div className="line-clamp-2 text-[11px] font-extrabold leading-snug">{item.title}</div>
             <div className="flex items-center gap-1 text-[8px] font-medium text-neutral-500">
-              <span className="font-bold text-yellow-500">★ {item.rating}%</span>
+              <span className="flex items-center gap-0.5 font-bold text-accent-dark"><Star size={8} className="fill-accent text-accent" strokeWidth={0} /> {item.rating}%</span>
             </div>
             <div className="mt-auto flex items-center justify-between gap-2 border-t border-neutral-100 pt-2.5">
               <span className="text-[13px] font-black tracking-tight">{item.price} Kz</span>
