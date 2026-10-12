@@ -8,8 +8,15 @@ export async function POST(request) {
     return NextResponse.json({ error: "Indica o email e a palavra-passe." }, { status: 400 })
   }
 
-  const { data, error } = await signInWithPassword({ email, password })
-  if (error) return NextResponse.json({ error: error.message }, { status: 401 })
-
-  return NextResponse.json({ data: { user: data.user } })
+  try {
+    const { data, error } = await signInWithPassword({ email, password })
+    if (error) return NextResponse.json({ error: error.message }, { status: 401 })
+    return NextResponse.json({ data: { user: data.user } })
+  } catch (e) {
+    console.error("[login]", e.message)
+    return NextResponse.json(
+      { error: "O serviço de contas está indisponível. Tenta daqui a pouco." },
+      { status: 503 }
+    )
+  }
 }

@@ -11,8 +11,15 @@ export async function POST(request) {
     return NextResponse.json({ error: "A palavra-passe tem de ter pelo menos 8 caracteres." }, { status: 400 })
   }
 
-  const { data, error } = await signUp({ email, password, options })
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 })
-
-  return NextResponse.json({ data: { user: data.user } })
+  try {
+    const { data, error } = await signUp({ email, password, options })
+    if (error) return NextResponse.json({ error: error.message }, { status: 400 })
+    return NextResponse.json({ data: { user: data.user } })
+  } catch (e) {
+    console.error("[registo]", e.message)
+    return NextResponse.json(
+      { error: "O serviço de contas está indisponível. Tenta daqui a pouco." },
+      { status: 503 }
+    )
+  }
 }
